@@ -1,6 +1,6 @@
-import { x } from '../../utils/css';
+import { style } from '@vanilla-extract/css';
 
-export const wallets = x({
+export const wallets = style({
   marginTop: 40,
   overflowY: 'auto',
   display: 'flex',
@@ -8,13 +8,13 @@ export const wallets = x({
   gap: 16,
 });
 
-export const footer = x({
+export const footer = style({
   marginTop: 40,
   display: 'flex',
   justifyContent: 'center',
 });
 
-export const downloadLink = x({
+export const downloadLink = style({
   display: 'flex',
   alignItems: 'center',
   gap: 10,

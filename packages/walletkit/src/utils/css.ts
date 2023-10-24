@@ -1,20 +1,6 @@
-import { CSSProps } from '../components/base/Box';
-
 export function cx(...classNames: Array<string | undefined>) {
   if (!classNames.length) return;
   return classNames.filter(Boolean).join(' ');
-}
-
-export function x(css1?: CSSProps, css2?: CSSProps) {
-  if (!css1 && !css2) return;
-
-  if (css1 && !css2) return css1;
-  if (!css1 && css2) return css2;
-
-  return {
-    ...css1,
-    ...css2,
-  } as CSSProps;
 }
 
 export function cssVar(name: string, type = 'colors') {

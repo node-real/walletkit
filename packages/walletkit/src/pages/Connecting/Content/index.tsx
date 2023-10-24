@@ -1,8 +1,8 @@
-import { Flex, FlexProps } from '../../../components/base/Flex';
-import { x } from '../../../utils/css';
-import { styles } from './styles';
+import { Box, BoxProps } from '../../../components/base/Box';
+import { cx } from '../../../utils/css';
+import { content } from './styles.css';
 
-export function Content(props: FlexProps) {
-  const { css, ...restProps } = props;
-  return <Flex css={x(styles.content, css)} {...restProps} />;
+export function Content(props: BoxProps) {
+  const { className, ...restProps } = props;
+  return <Box className={cx('wk-content', content, className)} {...restProps} />;
 }

@@ -4,7 +4,7 @@ import { ToastManager } from './ToastManager';
 import { ToastOptions } from '.';
 import { ToastComponent } from './ToastComponent';
 import { Box } from '../base/Box';
-import { styles } from './styles';
+import { toastRoot } from './styles.css';
 
 export const ToastProvider = () => {
   const [toastList, setToastList] = useState<ToastOptions[]>([]);
@@ -24,7 +24,7 @@ export const ToastProvider = () => {
     <>
       {toastList.length > 0 && (
         <Portal>
-          <Box css={styles.root}>
+          <Box className={toastRoot}>
             {toastList.map((item) => (
               <ToastComponent key={item.toastId} {...item} />
             ))}

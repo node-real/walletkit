@@ -1,15 +1,15 @@
-import { Flex, FlexProps } from '../../../../components/base/Flex';
+import { Box, BoxProps } from '../../../../components/base/Box';
 import { AlertIcon } from '../../../../components/icons/AlertIcon';
-import { x } from '../../../../utils/css';
-import { styles } from './styles';
+import { cx } from '../../../../utils/css';
+import { errorTitle } from './styles.css';
 
-export function ErrorTitle(props: FlexProps) {
-  const { children, css, ...restProps } = props;
+export function ErrorTitle(props: BoxProps) {
+  const { className, children, ...restProps } = props;
 
   return (
-    <Flex className="wk-error-title" css={x(styles.errorTitle, css)} {...restProps}>
+    <Box className={cx('wk-error-title', errorTitle, className)} {...restProps}>
       <AlertIcon />
       {children}
-    </Flex>
+    </Box>
   );
 }

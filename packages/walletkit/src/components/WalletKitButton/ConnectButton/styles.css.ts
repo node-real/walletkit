@@ -1,6 +1,7 @@
-import { cssVar, x } from '../../../utils/css';
+import { style } from '@vanilla-extract/css';
+import { cssVar } from '../../../utils/css';
 
-export const walletkitButton = x({
+export const walletkitButton = style({
   padding: '0 12px',
   borderRadius: cssVar('connectButton', 'radii'),
   height: 48,
@@ -8,7 +9,7 @@ export const walletkitButton = x({
   fontWeight: 500,
   background: cssVar('connectButtonBackground'),
   color: cssVar('connectButtonText'),
-  '&:hover': {
+  ':hover': {
     background: cssVar('connectButtonBackgroundHover'),
     color: cssVar('connectButtonTextHover'),
   },

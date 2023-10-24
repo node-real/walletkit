@@ -5,8 +5,9 @@ import { Link } from '../../components/base/Link';
 import { ModalHeader } from '../../components/base/Modal/ModalHeader';
 import { WalletIcon } from '../../components/icons/WalletIcon';
 import { useConnectors } from '../../hooks/useConnectors';
+import { cx } from '../../utils/css';
 import { WalletItem } from './WalletItem';
-import * as styles from './styles';
+import { downloadLink, footer, wallets } from './styles.css';
 
 export function ConnectorsPage() {
   const connectors = useConnectors();
@@ -17,17 +18,13 @@ export function ConnectorsPage() {
       <Navbar />
       <ModalHeader>Connect Wallet</ModalHeader>
 
-      <Box className="wk-modal-body wk-wallets" css={styles.wallets}>
+      <Box className={cx('wk-modal-body wk-wallets', wallets)}>
         {connectors?.map((c) => <WalletItem key={c.id} connector={c} />)}
       </Box>
 
       {!options.hideNoWalletCTA && (
-        <Box className="wk-modal-footer" css={styles.footer}>
-          <Link
-            className="wk-download-link"
-            href={options.walletDownloadUrl}
-            css={styles.downloadLink}
-          >
+        <Box className={cx('wk-modal-footer', footer)}>
+          <Link className={cx('wk-download-link', downloadLink)} href={options.walletDownloadUrl}>
             <WalletIcon />I don’t have a wallet
           </Link>
         </Box>

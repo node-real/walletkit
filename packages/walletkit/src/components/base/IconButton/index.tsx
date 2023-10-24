@@ -1,22 +1,20 @@
 import React from 'react';
-import { x } from '../../../utils/css';
+import { cx } from '../../../utils/css';
 import { Button, ButtonProps } from '../Button';
-import { iconButton } from './styles';
+import { iconButton } from './styles.css';
 
 export interface IconButtonProps extends ButtonProps {
   icon: React.ReactElement;
 }
 
-export const IconButton = React.forwardRef<HTMLElement, IconButtonProps>(
-  (props: IconButtonProps, ref: any) => {
-    const { icon, css, ...restProps } = props;
+export const IconButton = (props: IconButtonProps) => {
+  const { className, icon, ...restProps } = props;
 
-    return (
-      <Button ref={ref} css={x(iconButton, css)} {...restProps}>
-        {icon}
-      </Button>
-    );
-  },
-);
+  return (
+    <Button className={cx(iconButton, className)} {...restProps}>
+      {icon}
+    </Button>
+  );
+};
 
 IconButton.displayName = 'IconButton';

@@ -1,12 +1,13 @@
-import { cssVar, x } from '../../../utils/css';
+import { style } from '@vanilla-extract/css';
+import { cssVar } from '../../../utils/css';
 
-export const iconButton = x({
+export const iconButton = style({
   width: 24,
   height: 24,
   borderRadius: 4,
   background: 'transparent',
   color: cssVar('closeButtonText'),
-  '&:hover': {
+  ':hover': {
     background: cssVar('closeButtonBackgroundHover'),
   },
 });

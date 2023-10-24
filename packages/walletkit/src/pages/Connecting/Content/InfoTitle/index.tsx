@@ -1,13 +1,13 @@
-import { Flex, FlexProps } from '../../../../components/base/Flex';
-import { x } from '../../../../utils/css';
-import { styles } from './styles';
+import { Box, BoxProps } from '../../../../components/base/Box';
+import { cx } from '../../../../utils/css';
+import { infoTitle } from './styles.css';
 
-export function InfoTitle(props: FlexProps) {
-  const { children, css, ...restProps } = props;
+export function InfoTitle(props: BoxProps) {
+  const { className, children, ...restProps } = props;
 
   return (
-    <Flex className="wk-info-title" css={x(styles.infoTitle, css)} {...restProps}>
+    <Box className={cx('wk-info-title', infoTitle, className)} {...restProps}>
       {children}
-    </Flex>
+    </Box>
   );
 }

@@ -1,9 +1,9 @@
-import { Flex, FlexProps } from '../../../../components/base/Flex';
-import { x } from '../../../../utils/css';
-import { styles } from './styles';
+import { Box, BoxProps } from '../../../../components/base/Box';
+import { cx } from '../../../../utils/css';
+import { description } from './styles.css';
 
-export function Description(props: FlexProps) {
-  const { css, ...restProps } = props;
+export function Description(props: BoxProps) {
+  const { className, ...restProps } = props;
 
-  return <Flex className="wk-description" css={x(styles.description, css)} {...restProps} />;
+  return <Box className={cx('wk-description', description, className)} {...restProps} />;
 }

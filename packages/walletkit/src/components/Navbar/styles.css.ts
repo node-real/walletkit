@@ -1,6 +1,6 @@
-import { x } from '../../utils/css';
+import { style } from '@vanilla-extract/css';
 
-export const navbar = x({
+export const navbar = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',

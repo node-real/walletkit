@@ -1,26 +1,21 @@
-import React, { CSSProperties } from 'react';
-import styled from '@emotion/styled';
-import { x } from '../../../utils/css';
-import { box } from './styles';
+import React from 'react';
+import { box } from './styles.css';
+import { cx } from '../../../utils/css';
 
 type HTMLProperties<T = HTMLElement> = Omit<React.AllHTMLAttributes<T>, 'as'>;
 
-export type CSSProps = CSSProperties & {
-  [x: string]: CSSProps | number | string | null | undefined;
-};
-
 export interface BoxProps extends HTMLProperties {
   as?: React.ElementType;
-  css?: CSSProps;
 }
 
 export const Box = React.forwardRef<HTMLElement, BoxProps>((props: BoxProps, ref: any) => {
-  const { as = 'div', css: cssProps, ...restProps } = props;
+  const { as = 'div', className, ...restProps } = props;
 
-  const baseStyle = x(box, cssProps);
-  const Component = styled('div')(baseStyle);
-
-  return <Component as={as} ref={ref} {...restProps} />;
+  return React.createElement(as, {
+    ref,
+    className: cx(box, className),
+    ...restProps,
+  });
 });
 
 Box.displayName = 'Box';

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { ToastOptions } from '.';
 import { ToastManager } from './ToastManager';
 import { Box } from '../base/Box';
-import { styles } from './styles';
 import { InfoIcon } from '../icons/InfoIcon';
 import { ErrorIcon } from '../icons/ErrorIcon';
+import { container, descWrapper, iconWrapper } from './styles.css';
 
 const iconMap: Record<string, React.ReactNode> = {
   info: <InfoIcon />,
@@ -25,9 +25,9 @@ export function ToastComponent(props: ToastOptions) {
   }, [duration, toastId]);
 
   return (
-    <Box css={styles.container}>
-      <Box css={styles.icon}>{iconMap[variant]}</Box>
-      <Box css={styles.description}>{description}</Box>
+    <Box className={container}>
+      <Box className={iconWrapper}>{iconMap[variant]}</Box>
+      <Box className={descWrapper}>{description}</Box>
     </Box>
   );
 }

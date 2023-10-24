@@ -1,19 +1,19 @@
+// import { useEffect, useState } from 'react';
 import { useEffect, useState } from 'react';
-import { cx, x } from '../../../utils/css';
-import { Box, BoxProps, CSSProps } from '../Box';
+import { cx } from '../../../utils/css';
+import { Box, BoxProps } from '../Box';
 import { Portal } from '../Portal';
-import { modal, modalContent, modalOverlay } from './styles';
-import { keyframes } from '@emotion/react';
+import { fadeIn, fadeOut, modal, modalContent, modalOverlay } from './styles.css';
 
 export interface ModalProps extends BoxProps {
   isOpen: boolean;
   onClose?: () => void;
   children?: React.ReactNode;
-  contentCss?: CSSProps;
+  contentClassName?: string;
 }
 
 export function Modal(props: ModalProps) {
-  const { className, isOpen, onClose, children, css, contentCss, ...restProps } = props;
+  const { className, isOpen, onClose, children, contentClassName, ...restProps } = props;
 
   const [isMounted, setIsMounted] = useState(isOpen);
 
@@ -33,39 +33,16 @@ export function Modal(props: ModalProps) {
     return null;
   }
 
-  const finalStyle = x({ ...modal, animation: `${isOpen ? fadeIn : fadeOut} 300ms forwards` }, css);
-
   return (
     <Portal>
       <Box
-        className={cx('wk-modal', className)}
-        css={finalStyle}
+        className={cx('wk-modal', modal, isOpen ? fadeIn : fadeOut, className)}
         onAnimationEnd={onAnimationEnd}
         {...restProps}
       >
-        <Box className="wk-modal-overlay" css={modalOverlay} onClick={onClose} />
-        <Box className="wk-modal-content" css={x(modalContent, contentCss)}>
-          {children}
-        </Box>
+        <Box className={cx('wk-modal-overlay', modalOverlay)} onClick={onClose} />
+        <Box className={cx('wk-modal-content', modalContent, contentClassName)}>{children}</Box>
       </Box>
     </Portal>
   );
 }
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const fadeOut = keyframes`
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-`;

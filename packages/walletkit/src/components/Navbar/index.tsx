@@ -1,11 +1,11 @@
+import { cx } from '../../utils/css';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 import { Box, BoxProps } from '../base/Box';
-import { Flex } from '../base/Flex';
 import { IconButton } from '../base/IconButton';
 import { BackIcon } from '../icons/BackIcon';
 import { CloseIcon } from '../icons/CloseIcon';
-import { navbar } from './styles';
+import { navbar } from './styles.css';
 
 export interface NavbarProps extends BoxProps {
   showBack?: boolean;
@@ -14,7 +14,7 @@ export interface NavbarProps extends BoxProps {
 }
 
 export function Navbar(props: NavbarProps) {
-  const { showBack = false, onBack, onClose, ...restProps } = props;
+  const { className, showBack = false, onBack, onClose, ...restProps } = props;
 
   const { onClose: onCloseModal } = useWalletKitContext();
   const router = useRouter();
@@ -30,11 +30,11 @@ export function Navbar(props: NavbarProps) {
   };
 
   return (
-    <Box className="wk-navbar" css={navbar} {...restProps}>
+    <Box className={cx('wk-navbar', navbar, className)} {...restProps}>
       {showBack && (
         <IconButton className="wk-back-button" icon={<BackIcon />} onClick={onBeforeBack} />
       )}
-      <Flex css={{ flex: 1 }} />
+      <Box style={{ flex: 1 }} />
       <IconButton className="wk-close-button" icon={<CloseIcon />} onClick={onBeforeClose} />
     </Box>
   );

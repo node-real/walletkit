@@ -12,7 +12,8 @@ import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
 import { CircleSpinner } from '../../components/CircleSpinner';
 import { RefreshIcon } from '../../components/icons/RefreshIcon';
-import { styles } from './styles';
+import { cx } from '../../utils/css';
+import { center, content, logoWrapper, refreshIconWrapper } from './styles.css';
 
 export const states = {
   CONNECTED: 'connected',
@@ -105,17 +106,17 @@ export function ConnectingPage() {
       <Navbar showBack={true} />
       <ModalHeader>{wallet?.name}</ModalHeader>
 
-      <Box className="wk-modal-body" css={styles.content}>
-        <Box css={styles.center}>
+      <Box className={cx('wk-modal-body', content)}>
+        <Box className={center}>
           <CircleSpinner
             isLoading={status === states.CONNECTING}
             isError={status !== states.CONNECTING && status !== states.CONNECTED}
           >
-            <Box css={styles.logoWrapper} onClick={runConnect}>
+            <Box className={logoWrapper} onClick={runConnect}>
               {wallet.logos.default}
             </Box>
             {(status === states.FAILED || status === states.REJECTED) && (
-              <Box css={styles.refreshIconWrapper} onClick={runConnect}>
+              <Box className={refreshIconWrapper} onClick={runConnect}>
                 <RefreshIcon
                   style={{
                     position: 'absolute',

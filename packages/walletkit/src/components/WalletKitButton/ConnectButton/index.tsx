@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { ConnectMode, useWalletKitContext } from '../../WalletKitProvider/context';
-import { cx, x } from '../../../utils/css';
+import { cx } from '../../../utils/css';
 import { Button, ButtonProps } from '../../base/Button';
-import { walletkitButton } from './styles';
+import { walletkitButton } from './styles.css';
 
 export interface ConnectButtonProps extends ButtonProps {
   connectMode?: ConnectMode;
 }
 
 export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: any) => {
-  const { className, children, connectMode = 'default', onClick, css, ...restProps } = props;
+  const { className, children, connectMode = 'default', onClick, ...restProps } = props;
 
   const { setConnectMode } = useWalletKitContext();
   const { onOpenModal } = useOpenModal();
@@ -28,9 +28,8 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
   return (
     <Button
       ref={ref}
-      className={cx('wk-walletkit-button', className)}
+      className={cx('wk-walletkit-button', walletkitButton, className)}
       onClick={onClickButton}
-      css={x(walletkitButton, css)}
       {...restProps}
     >
       {children ?? 'Connect Wallet'}

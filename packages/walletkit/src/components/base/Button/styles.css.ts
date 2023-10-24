@@ -1,6 +1,6 @@
-import { x } from '../../../utils/css';
+import { style } from '@vanilla-extract/css';
 
-export const button = x({
+export const button = style({
   fontWeight: 400,
   display: 'inline-flex',
   alignItems: 'center',
