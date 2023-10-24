@@ -5,6 +5,7 @@ export * from './defaultConfig/getDefaultConfig';
 export * from './components/WalletKitButton';
 export * from './components/WalletKitProvider';
 export * from './components/WalletKitProvider/context';
+export * from './components/base/toast';
 
 // utils
 export * from './utils/mobile';

@@ -23,12 +23,15 @@ export const theme = {
     closeButtonText: '#76808f',
     closeButtonBackgroundHover: '#e6e8ea',
   },
-  shadows: {},
+  shadows: {
+    toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
+  },
   radii: {
     modal: '12px',
     connectButton: '4px',
     walletItem: '8px',
     walletItemIcon: '8px',
+    toast: '8px',
   },
   fonts: {},
 };

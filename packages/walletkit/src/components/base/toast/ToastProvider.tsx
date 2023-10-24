@@ -5,6 +5,7 @@ import { ToastOptions } from '.';
 import { ToastComponent } from './ToastComponent';
 import { Box } from '../Box';
 import { toastRoot } from './styles.css';
+import { cx } from '../../../utils/css';
 
 export const ToastProvider = () => {
   const [toastList, setToastList] = useState<ToastOptions[]>([]);
@@ -24,7 +25,7 @@ export const ToastProvider = () => {
     <>
       {toastList.length > 0 && (
         <Portal>
-          <Box className={toastRoot}>
+          <Box className={cx('wk-toast-container', toastRoot)}>
             {toastList.map((item) => (
               <ToastComponent key={item.toastId} {...item} />
             ))}

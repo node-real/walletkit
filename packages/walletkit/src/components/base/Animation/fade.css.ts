@@ -1,6 +1,6 @@
 import { keyframes, style } from '@vanilla-extract/css';
 
-export const fadeInAnim = keyframes({
+const fadeInFrames = keyframes({
   '0%': {
     opacity: 0,
   },
@@ -9,7 +9,7 @@ export const fadeInAnim = keyframes({
   },
 });
 
-export const fadeOutAnim = keyframes({
+const fadeOutFrames = keyframes({
   '0%': {
     opacity: 1,
   },
@@ -19,9 +19,9 @@ export const fadeOutAnim = keyframes({
 });
 
 export const fadeIn = style({
-  animation: `${fadeInAnim} 0.2s forwards`,
+  animation: `${fadeInFrames} 0.2s forwards`,
 });
 
 export const fadeOut = style({
-  animation: `${fadeOutAnim} 0.2s forwards`,
+  animation: `${fadeOutFrames} 0.2s forwards`,
 });

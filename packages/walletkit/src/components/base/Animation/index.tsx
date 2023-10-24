@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { cx } from '../../../utils/css';
-import { fadeIn, fadeOut } from './styles.css';
+import { fadeIn, fadeOut } from './fade.css';
+import { toastSlideIn, toastSlideOut } from './toastSlide.css';
 
 const animationMap = {
   fade: [fadeOut, fadeIn],
+  'toast-slide': [toastSlideOut, toastSlideIn],
 };
 
 export interface AnimationProps {
   in: boolean;
   children: React.ReactElement;
-  type?: 'fade';
+  variant?: 'fade' | 'toast-slide';
+  onExit?: () => void;
 }
 
 export const Animation = (props: AnimationProps) => {
-  const { in: show, children, type = 'fade' } = props;
+  const { in: show, children, variant = 'fade', onExit } = props;
 
   const { className, onAnimationEnd, ...restProps } = children.props;
 
@@ -25,9 +28,10 @@ export const Animation = (props: AnimationProps) => {
     }
   }, [show]);
 
-  const onEnd = (e: AnimationEvent) => {
+  const onPlayEnd = (e: AnimationEvent) => {
     onAnimationEnd?.(e);
     if (!show) {
+      onExit?.();
       setIsMounted(false);
     }
   };
@@ -37,8 +41,8 @@ export const Animation = (props: AnimationProps) => {
   }
 
   return React.cloneElement(children, {
-    className: cx(animationMap[type][Number(show)], className),
-    onAnimationEnd: onEnd,
+    className: cx(animationMap[variant][Number(show)], className),
+    onAnimationEnd: onPlayEnd,
     ...restProps,
   });
 };

@@ -16,7 +16,7 @@ export function Modal(props: ModalProps) {
 
   return (
     <Portal>
-      <Animation in={isOpen} type="fade">
+      <Animation in={isOpen} variant="fade">
         <Box className={cx('wk-modal', modal, className)} {...restProps}>
           <Box className={cx('wk-modal-overlay', modalOverlay)} onClick={onClose} />
           <Box className={cx('wk-modal-content', modalContent, contentClassName)}>{children}</Box>

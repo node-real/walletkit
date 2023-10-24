@@ -6,6 +6,7 @@ import {
   WalletKitProvider,
   getDefaultConfig,
   WalletKitOptions,
+  toast,
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 
@@ -23,9 +24,9 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 5600,
-  onError(_, description) {
-    console.log(description);
-  },
+  // onError(_, description) {
+  //   console.log(description);
+  // },
 };
 
 export default function App() {
@@ -42,6 +43,7 @@ function Example() {
   return (
     <>
       <WalletKitButton />
+      <button onClick={() => toast.error({ description: 'test' })}>test</button>
     </>
   );
 }

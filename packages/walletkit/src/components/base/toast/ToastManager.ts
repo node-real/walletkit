@@ -4,14 +4,13 @@ type SubscribeFuncType = (toastList: ToastOptions[]) => void;
 
 export const ToastManager = {
   listeners: [] as SubscribeFuncType[],
-
   toastList: [] as ToastOptions[],
   autoIncreaseId: 0,
 
   add(options: ToastOptions) {
     const toastId = this.autoIncreaseId++;
 
-    this.toastList.push({
+    this.toastList.unshift({
       toastId,
       ...options,
     });
