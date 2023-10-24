@@ -10,7 +10,7 @@ import { WalletKitModal } from '../WalletKitModal';
 import { ThemeProvider } from '../ThemeProvider';
 import { getDefaultTheme } from '../../defaultConfig/getDefaultTheme';
 import { Theme } from '../../themes';
-import { ToastProvider } from '../toast/ToastProvider';
+import { ToastProvider } from '../base/toast/ToastProvider';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;

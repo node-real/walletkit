@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { ToastOptions } from '.';
 import { ToastManager } from './ToastManager';
-import { Box } from '../base/Box';
-import { InfoIcon } from '../icons/InfoIcon';
-import { ErrorIcon } from '../icons/ErrorIcon';
+import { Box } from '../Box';
+import { InfoIcon } from '../../icons/InfoIcon';
+import { ErrorIcon } from '../../icons/ErrorIcon';
 import { container, descWrapper, iconWrapper } from './styles.css';
 
 const iconMap: Record<string, React.ReactNode> = {

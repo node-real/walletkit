@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Portal } from '../base/Portal';
+import { Portal } from '../Portal';
 import { ToastManager } from './ToastManager';
 import { ToastOptions } from '.';
 import { ToastComponent } from './ToastComponent';
-import { Box } from '../base/Box';
+import { Box } from '../Box';
 import { toastRoot } from './styles.css';
 
 export const ToastProvider = () => {

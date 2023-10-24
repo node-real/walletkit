@@ -1,6 +1,6 @@
 import { Chain } from 'wagmi';
 import { WalletKitOptions } from '../components/WalletKitProvider/context';
-import { toast } from '../components/toast';
+import { toast } from '../components/base/toast';
 
 export function getDefaultProviderOptions(options: WalletKitOptions, chains: Chain[]) {
   const { ...restOptions } = options;

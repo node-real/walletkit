@@ -1,4 +1,4 @@
-import { ToastOptions } from './';
+import { ToastOptions } from '.';
 
 type SubscribeFuncType = (toastList: ToastOptions[]) => void;
 
