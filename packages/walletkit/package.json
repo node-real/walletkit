@@ -1,0 +1,40 @@
+{
+  "name": "@totejs/walletkit",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "wallets"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "rollup --config rollup.config.js -w",
+    "build": "rollup --config rollup.config.js"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+    "viem": "^1.0.0",
+    "wagmi": "^1.0.0"
+  },
+  "devDependencies": {
+    "@emotion/babel-preset-css-prop": "^11.11.0",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vanilla-extract/rollup-plugin": "^1.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.0.2",
+    "viem": "^1.16.6",
+    "wagmi": "^1.4.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0"
+  }
+}

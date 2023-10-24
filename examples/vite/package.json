@@ -1,0 +1,26 @@
+{
+  "name": "example-vite",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@totejs/walletkit": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "viem": "^1.16.6",
+    "wagmi": "^1.4.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "typescript": "^5.0.2",
+    "vconsole": "^3.15.1",
+    "vite": "^4.4.5"
+  }
+}
