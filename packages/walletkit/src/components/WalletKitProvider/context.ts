@@ -7,6 +7,11 @@ export type ConnectMode = 'add-network' | 'default';
 
 export type ColorMode = 'auto' | 'light' | 'dark';
 
+export type WalletErrorProps = {
+  description?: string;
+  error?: any;
+};
+
 export interface WalletKitOptions {
   initialChainId?: number;
   hideNoWalletCTA?: boolean;
@@ -14,6 +19,7 @@ export interface WalletKitOptions {
   chainsConfig?: ChainProps[];
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
   onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
+  onError?: (error: any, description: string) => void;
 }
 
 export interface WalletKitContextProps {

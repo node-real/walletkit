@@ -21,7 +21,9 @@ export function mergeList(list1: any[] = [], list2: any[] = []) {
   return result;
 }
 
-export function commonErrorHandler(log: any, error: any) {
+export function commonErrorHandler(props: any) {
+  const { log, handler, error } = props;
+
   let text = '';
 
   if (error) {
@@ -40,12 +42,14 @@ export function commonErrorHandler(log: any, error: any) {
     //     log(error.message, error);
     //   }
     // }
-    log('[common error]', error);
-  }
 
-  const description = text || error.cause?.message || error.message;
-  if (description && !description.includes('Connection request reset')) {
-    // TODO
+    const description = text || error.cause?.message || error.message;
+    if (description && !description.includes('Connection request reset')) {
+      // TODO
+    }
+
+    log('[wallet error]', error);
+    handler?.(error, description);
   }
 }
 

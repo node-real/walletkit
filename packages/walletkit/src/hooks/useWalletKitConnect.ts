@@ -13,7 +13,11 @@ export function useWalletKitConnect({ ...props }: any = {}): ReturnType<typeof u
   const { connect, connectAsync, connectors, ...rest } = useConnect({
     ...props,
     onError(error: any) {
-      commonErrorHandler(log, error);
+      commonErrorHandler({
+        log,
+        handler: options.onError,
+        error,
+      });
       props?.onError?.(error);
     },
   });

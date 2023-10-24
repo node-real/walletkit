@@ -5,12 +5,16 @@ import { commonErrorHandler } from '../utils/common';
 export function useWalletKitSwitchNetwork({ ...props }: any = {}): ReturnType<
   typeof useSwitchNetwork
 > {
-  const { log } = useWalletKitContext();
+  const { log, options } = useWalletKitContext();
 
   const result = useSwitchNetwork({
     ...props,
     onError(error: any) {
-      commonErrorHandler(log, error);
+      commonErrorHandler({
+        log,
+        handler: options.onError,
+        error,
+      });
       props?.onError?.(error);
     },
   });

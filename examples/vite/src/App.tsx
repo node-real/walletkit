@@ -1,9 +1,13 @@
 import { WagmiConfig, createConfig } from 'wagmi';
 import VConsole from 'vconsole';
 import { chains } from './chains';
-import { WalletKitButton, WalletKitProvider, getDefaultConfig } from '@totejs/walletkit';
+import {
+  WalletKitButton,
+  WalletKitProvider,
+  getDefaultConfig,
+  WalletKitOptions,
+} from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
-import { WalletKitOptions } from '@totejs/walletkit/dist/components/WalletKitProvider/context';
 
 new VConsole();
 
@@ -19,6 +23,9 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 5600,
+  onError(_, description) {
+    console.log(description);
+  },
 };
 
 export default function App() {

@@ -5,8 +5,8 @@ import { useOpenModal } from '../../../hooks/useOpenModal';
 
 export interface ConnectButtonRendererProps {
   children?: (renderProps: {
-    show?: () => void;
-    hide?: () => void;
+    show: () => void;
+    hide: () => void;
     chain?: Chain & {
       unsupported?: boolean;
     };
