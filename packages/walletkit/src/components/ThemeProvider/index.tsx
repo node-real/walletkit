@@ -1,5 +1,4 @@
-import { Global } from '@emotion/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 
 export interface ThemeProviderProps {
@@ -33,14 +32,22 @@ export function ThemeProvider(props: ThemeProviderProps) {
     return cssVars;
   }, [customTheme]);
 
-  return (
-    <>
-      <Global
-        styles={{
-          body: styles,
-        }}
-      />
-      {children}
-    </>
-  );
+  useEffect(() => {
+    const id = 'wk-cssvars';
+    let styleElement = document.getElementById(id);
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+
+      styleElement.id = id;
+      document.documentElement.appendChild(styleElement);
+    }
+
+    const str = Object.entries(styles).map(([key, value]) => {
+      return `${key}: ${value}`;
+    });
+
+    styleElement.textContent = `body {${str.join(';')}}`;
+  }, [styles]);
+
+  return <>{children}</>;
 }

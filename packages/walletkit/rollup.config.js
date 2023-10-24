@@ -1,6 +1,7 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import typescript from 'rollup-plugin-typescript2';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
   input: {
@@ -14,9 +15,10 @@ export default {
   plugins: [
     vanillaExtractPlugin(),
     peerDepsExternal(),
+    nodeResolve(),
     typescript({
       useTsconfigDeclarationDir: true,
-      exclude: 'node_modules/**',
+      // exclude: 'node_modules/**',
     }),
   ],
 };
