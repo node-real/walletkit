@@ -6,7 +6,7 @@ import { ModalHeader } from '../../components/base/Modal/ModalHeader';
 import { WalletIcon } from '../../components/icons/WalletIcon';
 import { useConnectors } from '../../hooks/useConnectors';
 import { cx } from '../../utils/css';
-import { WalletItem } from './WalletItem';
+import { WalletOption } from './WalletOption';
 import { downloadLink, footer, wallets } from './styles.css';
 
 export function ConnectorsPage() {
@@ -19,7 +19,7 @@ export function ConnectorsPage() {
       <ModalHeader>Connect Wallet</ModalHeader>
 
       <Box className={cx('wk-modal-body wk-wallets', wallets)}>
-        {connectors?.map((c) => <WalletItem key={c.id} connector={c} />)}
+        {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}
       </Box>
 
       {!options.hideNoWalletCTA && (

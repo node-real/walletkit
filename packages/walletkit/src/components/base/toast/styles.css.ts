@@ -14,6 +14,7 @@ export const toastRoot = style({
   pointerEvents: 'none',
   width: '100%',
   color: cssVar('text'),
+  maxWidth: 500,
 });
 
 export const container = style({
@@ -21,7 +22,7 @@ export const container = style({
   alignItems: 'center',
   padding: '16px',
   margin: 8,
-  background: cssVar('modalBackground'),
+  background: cssVar('toastBackground'),
   position: 'relative',
   boxShadow: cssVar('toast', 'shadows'),
   borderRadius: cssVar('toast', 'radii'),

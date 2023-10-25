@@ -37,16 +37,8 @@ export function commonErrorHandler(props: any) {
           break;
       }
     }
-    // else if (error.message) {
-    //   if (error.message !== 'User rejected request') {
-    //     log(error.message, error);
-    //   }
-    // }
 
     const description = text || error.cause?.message || error.message;
-    if (description && !description.includes('Connection request reset')) {
-      // TODO
-    }
 
     log('[wallet error]', error);
     handler?.(error, description);
@@ -68,5 +60,6 @@ export function deepMerge(target: any, source: any) {
       }
     }
   }
+
   return target;
 }

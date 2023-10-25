@@ -18,7 +18,7 @@ export default {
     nodeResolve(),
     typescript({
       useTsconfigDeclarationDir: true,
-      // exclude: 'node_modules/**',
+      exclude: 'node_modules/**',
     }),
   ],
 };

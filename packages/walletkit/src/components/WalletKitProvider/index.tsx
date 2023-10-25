@@ -7,22 +7,28 @@ import { getDefaultProviderOptions } from '../../defaultConfig/getDefaultProvide
 import { getDefaultSupportedChains } from '../../defaultConfig/getDefaultSupportedChains';
 import { RouteProvider } from '../RouteProvider';
 import { WalletKitModal } from '../WalletKitModal';
-import { ThemeProvider } from '../ThemeProvider';
-import { getDefaultTheme } from '../../defaultConfig/getDefaultTheme';
-import { Theme } from '../../themes';
+import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
 import { ToastProvider } from '../base/toast/ToastProvider';
+import { CustomTheme } from '../../themes/base';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
   children: any;
   debugMode?: boolean;
-  // theme?: 'auto';
-  // mode?: 'auto';
-  customTheme?: Theme;
+  theme?: ThemeVariant;
+  mode?: ThemeMode;
+  customTheme?: CustomTheme;
 }
 
 export const WalletKitProvider = (props: WalletKitProviderProps) => {
-  const { children, options, debugMode = false, customTheme } = props;
+  const {
+    children,
+    options,
+    debugMode = false,
+    theme = 'base',
+    mode = 'light',
+    customTheme,
+  } = props;
 
   const [connectMode, setConnectMode] = useState<ConnectMode>('default');
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
@@ -33,7 +39,6 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const value = useMemo(() => {
     const finalOptions = getDefaultProviderOptions(options, chains);
     const finalChains = getDefaultSupportedChains(options, chains);
-    const finalTheme = getDefaultTheme(customTheme);
 
     const finalValue: WalletKitContextProps = {
       options: finalOptions,
@@ -47,30 +52,19 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
       setSelectedConnector,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       log: debugMode ? console.log : () => {},
-      customTheme: finalTheme,
     };
     return finalValue;
-  }, [
-    options,
-    chains,
-    customTheme,
-    isOpen,
-    onOpen,
-    onClose,
-    connectMode,
-    selectedConnector,
-    debugMode,
-  ]);
+  }, [options, chains, isOpen, onOpen, onClose, connectMode, selectedConnector, debugMode]);
 
   return (
     <WalletKitContext.Provider value={value}>
-      <RouteProvider>
-        <ThemeProvider>
+      <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
+        <RouteProvider>
           {children}
           <WalletKitModal />
           <ToastProvider />
-        </ThemeProvider>
-      </RouteProvider>
+        </RouteProvider>
+      </ThemeProvider>
     </WalletKitContext.Provider>
   );
 };

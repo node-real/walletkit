@@ -1,0 +1,363 @@
+# Getting Started
+
+## Install
+
+```bash
+npm i @totejs/walletkit wagmi viem
+```
+
+- wagmi > 1.0.0
+- viem > 1.0.0
+
+## Playground
+
+<WalletKitExample />
+
+## How to use
+
+### 1. Add chain configurations
+
+```tsx live=false
+import { Chain } from 'wagmi';
+
+export const chains: Chain[] = [
+  {
+    id: 204,
+    name: 'opBNB Mainnet',
+    network: 'opBNB Mainnet',
+    nativeCurrency: {
+      name: 'tcBNB',
+      symbol: 'tcBNB',
+      decimals: 18,
+    },
+    rpcUrls: {
+      default: {
+        http: ['https://opbnb-mainnet-rpc.bnbchain.org'],
+      },
+      public: {
+        http: ['https://opbnb-mainnet-rpc.bnbchain.org'],
+      },
+    },
+    blockExplorers: {
+      etherscan: { name: 'opBNBScan', url: `https://mainnet.opbnbscan.com` },
+      default: { name: 'opBNBScan', url: `https://mainnet.opbnbscan.com` },
+    },
+  },
+  // ...
+];
+```
+
+### 2. Add `WagmiConfig` and `WalletKitProvider` to your project
+
+```tsx live=false
+import {
+  WagmiConfig,
+  createConfig,
+  useAccount,
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork,
+} from 'wagmi';
+
+import {
+  WalletKitButton,
+  WalletKitProvider,
+  getDefaultConfig,
+  WalletKitOptions,
+  SwitchNetworkModal,
+} from '@totejs/walletkit';
+import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+
+import { chains } from './chains';
+import { Box, Button, HStack, useColorMode } from '@totejs/uikit';
+
+const config = createConfig(
+  getDefaultConfig({
+    autoConnect: false,
+    appName: 'WalletKit',
+
+    // WalletConnect 2.0 requires a rojectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
+
+    chains,
+    connectors: [trustWallet(), metaMask(), walletConnect()],
+  }),
+);
+
+const options: WalletKitOptions = {
+  initialChainId: 56, // Once connected to the wallet, which chainId you want to switch
+};
+
+export default function App() {
+  const { colorMode } = useColorMode();
+
+  return (
+    <WagmiConfig config={config}>
+      <WalletKitProvider options={options} mode={colorMode}>
+        <Example />
+      </WalletKitProvider>
+    </WagmiConfig>
+  );
+}
+
+function Example() {
+  const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
+  const { disconnect } = useDisconnect();
+  const { switchNetwork } = useSwitchNetwork();
+
+  return (
+    <Box borderRadius={8} border="1px solid readable.border" p={16}>
+      <Box>address: {address}</Box>
+      <Box>chainId: {chain?.id}</Box>
+      {isConnected ? (
+        <HStack>
+          <Button colorScheme="danger" onClick={() => disconnect()}>
+            disconnect
+          </Button>
+          <Button onClick={() => switchNetwork?.(56)}>chainId 56</Button>
+          <Button onClick={() => switchNetwork?.(97)}>chainId 97</Button>
+          <Button onClick={() => switchNetwork?.(204)}>chainId 204</Button>
+          <Button onClick={() => switchNetwork?.(5600)}>chainId 5600</Button>
+        </HStack>
+      ) : (
+        <WalletKitButton.Custom>
+          {({ show }) => {
+            return <Button onClick={show}>connect</Button>;
+          }}
+        </WalletKitButton.Custom>
+      )}
+
+      {/*
+        👇 Here's the SwitchNetworkModal
+        If the user switches to a network that is not supported by our dapp,
+        this modal will be displayed to remind the user to switch to our supported networks.
+      */}
+      <SwitchNetworkModal />
+    </Box>
+  );
+}
+```
+
+## Customizing wallets
+
+```tsx live=false
+import {
+  metaMask,
+  tokenPocket,
+  trustWallet,
+  walletConnect,
+} from '@totejs/walletkit';
+
+const config = createConfig(
+  getDefaultConfig({
+    appName: 'Test Connect Wallet',
+    chains,
+    walletConnectProjectId: 'xxx',
+    autoConnect: true,
+    connectors: [
+      metaMask({
+        name: 'MetaMask',
+        logo: <MetaMaskLogo />
+        connectorOptions: {
+          shimDisconnect: false,
+        },
+      }),
+      trustWallet({
+        name: 'Trust Wallet',
+        logo: <TrustWalletLogo />
+        connectorOptions: {
+          shimDisconnect: true,
+        },
+      }),
+    ],
+  }),
+);
+```
+
+## Customizing ConnectButton
+
+```tsx live=false
+<WalletKitButton.Custom>
+  {({ show, hide, isConnecting, isConnected, address }) => {
+    if (isConnected) {
+      return <div>{address}</div>;
+    } else if (isConnecting) {
+      return <div>{connecting}</div>;
+    } else {
+      return <button onClick={show}>connect</button>;
+    }
+  }}
+</WalletKitButton.Custom>
+```
+
+## Handle wallet errors by yourself
+
+```tsx live=false
+<WalletKitProvider
+  options={{
+    initialChainId: 56,
+    onError(error, description) {
+      if (description) {
+        toast.error({
+          description,
+        });
+      } else {
+        // TODO
+      }
+    },
+  }}
+>
+  <Example />
+</WalletKitProvider>
+```
+
+## Customizing theme
+
+```tsx live=false
+type ThemeMode = 'auto' | 'dark' | 'light';
+type ThemeVariant = 'base';
+
+<WalletKitProvider options={options} theme="base" mode="light" customTheme={customTheme}>
+  <Example />
+</WalletKitProvider>;
+```
+
+light mode configuration for the base theme.
+
+```tsx live=false
+const customTheme = {
+  colors: {
+    text: '#1e2026',
+    textSecondary: '#76808F',
+    primary: '#9B00FB',
+    primaryActive: '#B845FF',
+    warning: '#F5B631',
+    error: '#FC6E75',
+    border: '#E6E8EA',
+
+    modalBackground: '#FFFFFF',
+    modalOverlay: 'rgba(0, 0, 0, 0.5)',
+
+    optionText: '#1e2026',
+    optionTextHover: '#1e2026',
+    optionBackground: '#f5f5f5',
+    optionBackgroundHover: rgba('#B845FF', 0.1),
+
+    connectButtonText: '#fff',
+    connectButtonTextHover: '#fff',
+    connectButtonBackground: 'var(--wk-colors-primary)',
+    connectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
+
+    walletOptionText: 'var(--wk-colors-optionText)',
+    walletOptionTextHover: 'var(--wk-colors-optionTextHover)',
+    walletOptionBackground: 'var(--wk-colors-optionBackground)',
+    walletOptionBackgroundHover: 'var(--wk-colors-optionBackgroundHover)',
+
+    chainOptionText: 'var(--wk-colors-optionText)',
+    chainOptionTextHover: 'var(--wk-colors-optionTextHover)',
+    chainOptionBackground: 'var(--wk-colors-optionBackground)',
+    chainOptionBackgroundHover: 'var(--wk-colors-optionBackgroundHover)',
+
+    closeButtonText: 'var(--wk-colors-textSecondary)',
+    closeButtonBackgroundHover: 'var(--wk-colors-border)',
+
+    disconnectButtonBackgroundText: '#fff',
+    disconnectButtonBackgroundTextHover: '#fff',
+    disconnectButtonBackground: 'var(--wk-colors-primary)',
+    disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
+
+    toastBackground: 'var(--wk-colors-modalBackground)',
+  },
+  shadows: {
+    toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
+  },
+  radii: {
+    common: '8px',
+    modal: '12px',
+
+    connectButton: 'var(--wk-radii-common)',
+    disconnectButton: 'var(--wk-radii-common)',
+    walletOption: 'var(--wk-radii-common)',
+    walletOptionIcon: 'var(--wk-radii-common)',
+    chainOption: 'var(--wk-radii-common)',
+    toast: 'var(--wk-radii-common)',
+  },
+};
+```
+
+## Type definitions
+
+### 1. WalletKitProviderProps
+
+```tsx live=false
+export interface WalletKitProviderProps {
+  options: WalletKitOptions;
+  children: any;
+  debugMode?: boolean;
+  theme?: ThemeVariant;
+  mode?: ThemeMode;
+  customTheme?: CustomTheme;
+}
+```
+
+### 2. WalletKitOptions
+
+```tsx live=false
+interface WalletKitOptions {
+  // Once connected to the wallet, which chainId you want to switch
+  initialChainId?: number;
+
+  hideNoWalletCTA?: boolean;
+  walletDownloadUrl?: string;
+
+  chainsConfig?: ChainProps[];
+
+  onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
+
+  // !!! Notice
+  // This callback takes effect only if ConnectButton's connectMode='add-network'
+  // will be called if network has already added to the wallet
+  onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
+
+  // handle wallet errors by yourself
+  onError?: (error: any, description: string) => void;
+}
+
+// example
+const options = {
+  initialChainId: 5600,
+  walletDownloadUrl: 'https://metamask.io/download',
+  onClickWallet(connector) {},
+  onChainAlreadyAdded() {},
+  onError(error, description) {
+    console.log(error);
+  },
+};
+```
+
+### 3. DefaultConfigProps
+
+```tsx live=false
+export interface DefaultConfigProps {
+  appName: string;
+  appIcon?: string;
+  appDescription?: string;
+  appUrl?: string;
+
+  /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
+  walletConnectProjectId?: string;
+  alchemyId?: string;
+  infuraId?: string;
+
+  chains?: Chain[];
+  connectors?: Array<WalletProps | Connector>;
+
+  autoConnect?: boolean;
+  publicClient?: any;
+  webSocketPublicClient?: any;
+  enableWebSocketPublicClient?: boolean;
+  stallTimeout?: number;
+}
+```

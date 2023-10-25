@@ -51,7 +51,7 @@ export const modalOverlay = style({
 
 export const modalContent = style({
   position: 'absolute',
-  background: '#fff',
+  background: cssVar('modalBackground'),
   padding: '40px 24px',
   width: 'calc(100% - 32px)',
   maxWidth: 484,
@@ -64,4 +64,5 @@ export const modalHeader = style({
   fontSize: 24,
   lineHeight: 1.5,
   justifyContent: 'center',
+  textAlign: 'center',
 });

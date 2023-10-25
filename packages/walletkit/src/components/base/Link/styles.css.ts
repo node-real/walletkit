@@ -7,6 +7,6 @@ export const link = style({
     color: 'unset',
   },
   ':hover': {
-    color: cssVar('primary'),
+    color: cssVar('primaryActive'),
   },
 });

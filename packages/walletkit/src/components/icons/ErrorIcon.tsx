@@ -1,9 +1,13 @@
+import { cssVar } from '../../utils/css';
+
 export const ErrorIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  const errorColor = cssVar('error');
+
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
       <path
         d="M18.3333 10.0001C18.3333 14.6025 14.6024 18.3334 9.99999 18.3334C5.39762 18.3334 1.66666 14.6025 1.66666 10.0001C1.66666 5.39771 5.39762 1.66675 9.99999 1.66675C14.6024 1.66675 18.3333 5.39771 18.3333 10.0001Z"
-        fill="#D9304E"
+        fill={errorColor}
       />
       <path
         fillRule="evenodd"

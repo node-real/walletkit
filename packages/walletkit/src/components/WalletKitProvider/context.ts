@@ -1,11 +1,8 @@
 import { createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
 import { ChainProps } from '../../chains/types';
-import { Theme } from '../../themes';
 
 export type ConnectMode = 'add-network' | 'default';
-
-export type ColorMode = 'auto' | 'light' | 'dark';
 
 export type WalletErrorProps = {
   description?: string;
@@ -37,8 +34,6 @@ export interface WalletKitContextProps {
   setSelectedConnector: (connector: Connector) => void;
 
   log: (...param: any) => void;
-
-  customTheme: Theme;
 }
 
 export const WalletKitContext = createContext({} as WalletKitContextProps);
