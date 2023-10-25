@@ -9,6 +9,10 @@ npm i @totejs/walletkit wagmi viem
 - wagmi > 1.0.0
 - viem > 1.0.0
 
+## Examples
+
+- [vite demo](https://github.com/node-real/walletkit/blob/main/examples/vite/src/App.tsx)
+
 ## Playground
 
 <WalletKitExample />
@@ -58,25 +62,24 @@ import {
   useNetwork,
   useSwitchNetwork,
 } from 'wagmi';
-
+import { chains } from './chains';
 import {
   WalletKitButton,
   WalletKitProvider,
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
+  ThemeMode,
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
-
-import { chains } from './chains';
-import { Box, Button, HStack, useColorMode } from '@totejs/uikit';
+import { useState } from 'react';
 
 const config = createConfig(
   getDefaultConfig({
-    autoConnect: false,
+    autoConnect: true,
     appName: 'WalletKit',
 
-    // WalletConnect 2.0 requires a rojectId which you can create quickly
+    // WalletConnect 2.0 requires a projectId which you can create quickly
     // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
     walletConnectProjectId: 'xxx',
 
@@ -86,56 +89,70 @@ const config = createConfig(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56, // Once connected to the wallet, which chainId you want to switch
+  initialChainId: 5600,
 };
 
 export default function App() {
-  const { colorMode } = useColorMode();
+  const [mode, setMode] = useState<ThemeMode>('light');
+  const nextMode = mode === 'light' ? 'dark' : 'light';
 
   return (
     <WagmiConfig config={config}>
-      <WalletKitProvider options={options} mode={colorMode}>
-        <Example />
+      <div>mode: {mode} </div>
+      <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
+      <div style={{ height: 20 }} />
+
+      <WalletKitProvider options={options} mode={mode}>
+        <ConnectInfo />
+        <ConnectButton />
+
+        {/*
+          👇 Here's the SwitchNetworkModal
+          If the user switches to a network that is not supported by our dapp,
+          this modal will be displayed to remind the user to switch to our supported networks.
+        */}
+        <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>
   );
 }
 
-function Example() {
-  const { address, isConnected } = useAccount();
+function ConnectInfo() {
+  const { address } = useAccount();
   const { chain } = useNetwork();
+
+  return (
+    <div>
+      <div>address: {address || '-'}</div>
+      <div>chainId: {chain?.id || '-'}</div>
+    </div>
+  );
+}
+
+function ConnectButton() {
+  const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { switchNetwork } = useSwitchNetwork();
 
   return (
-    <Box borderRadius={8} border="1px solid readable.border" p={16}>
-      <Box>address: {address}</Box>
-      <Box>chainId: {chain?.id}</Box>
+    <>
       {isConnected ? (
-        <HStack>
-          <Button colorScheme="danger" onClick={() => disconnect()}>
-            disconnect
-          </Button>
-          <Button onClick={() => switchNetwork?.(56)}>chainId 56</Button>
-          <Button onClick={() => switchNetwork?.(97)}>chainId 97</Button>
-          <Button onClick={() => switchNetwork?.(204)}>chainId 204</Button>
-          <Button onClick={() => switchNetwork?.(5600)}>chainId 5600</Button>
-        </HStack>
+        <>
+          <button onClick={() => disconnect()}>disconnect</button>
+
+          <button onClick={() => switchNetwork?.(56)}>chainId 56</button>
+          <button onClick={() => switchNetwork?.(97)}>chainId 97</button>
+          <button onClick={() => switchNetwork?.(204)}>chainId 204</button>
+          <button onClick={() => switchNetwork?.(5600)}>chainId 5600</button>
+        </>
       ) : (
         <WalletKitButton.Custom>
           {({ show }) => {
-            return <Button onClick={show}>connect</Button>;
+            return <button onClick={show}>connect</button>;
           }}
         </WalletKitButton.Custom>
       )}
-
-      {/*
-        👇 Here's the SwitchNetworkModal
-        If the user switches to a network that is not supported by our dapp,
-        this modal will be displayed to remind the user to switch to our supported networks.
-      */}
-      <SwitchNetworkModal />
-    </Box>
+    </>
   );
 }
 ```
