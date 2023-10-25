@@ -25,7 +25,7 @@ export const states = {
 };
 
 export function ConnectingPage() {
-  const { selectedConnector, options, connectMode, log } = useWalletKitContext();
+  const { selectedConnector, options, connectVariant, log } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
 
@@ -71,7 +71,7 @@ export function ConnectingPage() {
         if (
           options.initialChainId &&
           data.chain.id === options.initialChainId &&
-          connectMode === 'add-network'
+          connectVariant === 'add-network'
         ) {
           options.onChainAlreadyAdded?.(selectedConnector, options.initialChainId);
         }
