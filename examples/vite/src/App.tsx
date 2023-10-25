@@ -21,7 +21,7 @@ const config = createConfig(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', //
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
     autoConnect: true,
     connectors: [trustWallet(), metaMask(), walletConnect()],
   }),
