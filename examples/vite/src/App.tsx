@@ -6,7 +6,6 @@ import {
   useNetwork,
   useSwitchNetwork,
 } from 'wagmi';
-import VConsole from 'vconsole';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -17,8 +16,6 @@ import {
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
-
-new VConsole();
 
 const config = createConfig(
   getDefaultConfig({
