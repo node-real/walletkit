@@ -38,7 +38,10 @@ export function commonErrorHandler(props: any) {
       }
     }
 
-    const description = text || error.cause?.message || error.message;
+    let description = text || error.cause?.message || error.message;
+    if (description?.includes('Connection request reset')) {
+      description = undefined;
+    }
 
     log('[wallet error]', error);
     handler?.(error, description);
