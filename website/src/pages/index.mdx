@@ -1,6 +1,6 @@
-# Getting Started
+# Quick start
 
-## Install
+## Installation
 
 ```bash
 npm i @totejs/walletkit wagmi viem
@@ -165,7 +165,7 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '@totejs/walletkit';
+} from '@totejs/walletkit/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -241,7 +241,7 @@ type ThemeVariant = 'base';
 </WalletKitProvider>;
 ```
 
-light mode configuration for the base theme.
+An exmaple for customTheme
 
 ```tsx live=false
 const customTheme = {
