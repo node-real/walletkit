@@ -34,6 +34,8 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 5600,
+  // hideOfficialWalletConnectCTA: true,
+  // hideNoWalletCTA: true,
 };
 
 export default function App() {

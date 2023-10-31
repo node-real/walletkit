@@ -2,8 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 export const wallets = style({
   overflowY: 'auto',
-  display: 'flex',
-  flexDirection: 'column',
   gap: 16,
 });
 

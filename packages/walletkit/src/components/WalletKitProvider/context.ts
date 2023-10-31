@@ -12,6 +12,7 @@ export type WalletErrorProps = {
 export interface WalletKitOptions {
   initialChainId?: number;
   hideNoWalletCTA?: boolean;
+  hideOfficialWalletConnectCTA?: boolean;
   walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;

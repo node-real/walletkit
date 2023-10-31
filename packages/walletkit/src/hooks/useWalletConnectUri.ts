@@ -9,7 +9,7 @@ import { WALLET_CONNECT_ID } from '../wallets';
 export function useWalletConnectUri() {
   const { log } = useWalletKitContext();
 
-  const [wcUri, setWcUri] = useState<string>('');
+  const [wcUri, setWcUri] = useState<string | undefined>(undefined);
 
   const connector = useConnector(WALLET_CONNECT_ID);
   const { connectAsync } = useWalletKitConnect();

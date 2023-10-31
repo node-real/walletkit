@@ -1,8 +1,5 @@
 import QRCodeUtil from 'qrcode';
 import { ReactElement, useMemo } from 'react';
-import { Box } from '../base/Box';
-import { cx } from '../../utils/css';
-import { qrCodeLogo, qrCodeWrapper } from './styles.css';
 
 function generateMatrix(
   value: string,
@@ -22,19 +19,19 @@ function generateMatrix(
 
 export interface QRCodeProps {
   ecl?: QRCodeUtil.QRCodeErrorCorrectionLevel;
-  logo?: ReactElement;
-  logoSize?: number;
+  clearSize?: number;
   size?: number;
   uri: string;
 }
 
 export function QRCode(props: QRCodeProps) {
-  const { ecl = 'M', logo, logoSize = 52, size = 200, uri } = props;
+  const { ecl = 'M', clearSize = 52, size = 212, uri } = props;
 
   const dots = useMemo(() => {
     const dots: ReactElement[] = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
+
     const qrList = [
       { x: 0, y: 0 },
       { x: 1, y: 0 },
@@ -45,14 +42,17 @@ export function QRCode(props: QRCodeProps) {
       const x1 = (matrix.length - 7) * cellSize * x;
       const y1 = (matrix.length - 7) * cellSize * y;
       for (let i = 0; i < 3; i++) {
+        const width = cellSize * (7 - i * 2);
+        const r = [8, 4, 0][i];
+
         dots.push(
           <rect
-            fill={i % 2 !== 0 ? 'var(--wk-colors-modalBackground)' : 'var(--wk-colors-qrCodeDot)'}
-            height={cellSize * (7 - i * 2)}
             key={`${i}-${x}-${y}`}
-            rx={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
-            ry={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
-            width={cellSize * (7 - i * 2)}
+            fill={i % 2 === 0 ? 'var(--wk-colors-qrCodeDot)' : 'var(--wk-colors-modalBackground)'}
+            height={width}
+            width={width}
+            rx={r}
+            ry={r}
             x={x1 + cellSize * i}
             y={y1 + cellSize * i}
           />,
@@ -60,7 +60,7 @@ export function QRCode(props: QRCodeProps) {
       }
     });
 
-    const clearArenaSize = Math.floor((logoSize + 25) / cellSize);
+    const clearArenaSize = Math.ceil(clearSize / cellSize) + 4;
     const matrixMiddleStart = matrix.length / 2 - clearArenaSize / 2;
     const matrixMiddleEnd = matrix.length / 2 + clearArenaSize / 2 - 1;
 
@@ -98,20 +98,11 @@ export function QRCode(props: QRCodeProps) {
     });
 
     return dots;
-  }, [ecl, logoSize, size, uri]);
+  }, [ecl, clearSize, size, uri]);
 
   return (
-    <Box
-      className={cx('wk-qrcode', qrCodeWrapper)}
-      style={{
-        width: size,
-        height: size,
-      }}
-    >
-      <svg height="100%" width="100%">
-        {dots}
-      </svg>
-      <Box className={cx('wk-qrcode-logo', qrCodeLogo)}>{logo}</Box>
-    </Box>
+    <svg height="100%" width="100%" viewBox={`0 0 ${size} ${size}`}>
+      {dots}
+    </svg>
   );
 }

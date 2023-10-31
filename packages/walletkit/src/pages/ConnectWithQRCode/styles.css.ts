@@ -1,21 +1,7 @@
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../..';
 
-export const qrCodeContainer = style({
-  display: 'flex',
+export const container = style({
   alignItems: 'center',
-  justifyContent: 'center',
-  marginTop: 32,
-  flexDirection: 'column',
-});
-
-export const qrCodeWrapper = style({
-  width: 240,
-  height: 240,
-  padding: 14,
-  border: '1px solid',
-  borderColor: cssVar('qrCodeBorder'),
-  borderRadius: cssVar('qrCode', 'radii'),
 });
 
 export const officialButton = style({

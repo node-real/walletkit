@@ -40,6 +40,8 @@ export const modal = style({
   color: cssVar('text'),
   margin: 0,
   padding: 0,
+  transition: 'all 0.3s',
+  boxSizing: 'border-box',
 });
 
 export const modalOverlay = style({
