@@ -5,13 +5,13 @@ import { Link } from '../../components/base/Link';
 import { ModalHeader } from '../../components/base/Modal/ModalHeader';
 import { useWalletConfig } from '../../hooks/useWalletConfig';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
-import { useWalletConnectUri } from '../../hooks/useWalletConnectUri';
 import { cx } from '../../utils/css';
 import { container, officialButton } from './styles.css';
 import { MODAL_AUTO_CLOSE_DELAY } from '../../constants/common';
 import { ForwardIcon } from '../../components/base/icons/ForwardIcon';
 import { ModalBody } from '../../components/base/Modal/ModalBody';
 import { CustomQRCode } from '../../components/CustomQRCode';
+import { useWalletConnectUri } from '../../components/WalletConnectUriProvider/context';
 
 export function ConnectWithQRCodePage() {
   const { selectedConnector, onClose, options } = useWalletKitContext();

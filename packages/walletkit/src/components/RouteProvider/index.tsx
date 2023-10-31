@@ -20,7 +20,7 @@ export function RouteProvider(props: RouteProviderProps) {
   const { children } = props;
 
   const { onClose } = useWalletKitContext();
-  const [route, setRoute] = useState('ConnectWithQRCode');
+  const [route, setRoute] = useState('');
   const { current: history } = useRef<string[]>([]);
 
   const page = useMemo(() => {

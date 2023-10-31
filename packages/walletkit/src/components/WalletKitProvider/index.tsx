@@ -15,6 +15,7 @@ import { WalletKitModal } from '../WalletKitModal';
 import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
 import { ToastProvider } from '../base/toast/ToastProvider';
 import { CustomTheme } from '../../themes/base';
+import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -65,9 +66,11 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     <WalletKitContext.Provider value={value}>
       <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
         <RouteProvider>
-          {children}
-          <WalletKitModal />
-          <ToastProvider />
+          <WalletConnectUriProvider>
+            {children}
+            <WalletKitModal />
+            <ToastProvider />
+          </WalletConnectUriProvider>
         </RouteProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>

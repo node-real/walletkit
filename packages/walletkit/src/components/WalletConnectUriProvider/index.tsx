@@ -1,29 +1,36 @@
-import { useState, useEffect } from 'react';
-
+import { useEffect, useMemo, useState } from 'react';
+import { WalletConnectUriContext } from './context';
+import { useWalletKitContext } from '../WalletKitProvider/context';
+import { WALLET_CONNECT_ID } from '../../wallets';
+import { useConnector } from '../../hooks/useConnectors';
 import { useAccount, useConnect } from 'wagmi';
-import { useWalletKitContext } from '..';
-import { useConnector } from './useConnectors';
-import { WALLET_CONNECT_ID } from '../wallets';
-import { commonErrorHandler } from '../utils/common';
+import { commonErrorHandler } from '../../utils/common';
 
 /**
  * Don't use `useWalletKitConnect`
  * otherwise when user repeats go and back between the wallet list and QR code page
  * due to the following `connectAsync` logic, multiple errors will be thrown
  */
+
+export interface WalletConnectUriProviderProps {
+  children: React.ReactNode;
+}
+
 let timer: any = 0;
 
-export function useWalletConnectUri() {
+export function WalletConnectUriProvider(props: WalletConnectUriProviderProps) {
+  const { children } = props;
+
   const { log, options } = useWalletKitContext();
 
-  const [wcUri, setWcUri] = useState<string | undefined>(undefined);
+  const [wcUri, setWcUri] = useState<string>('');
   const connector = useConnector(WALLET_CONNECT_ID);
 
   const { connectAsync } = useConnect(); // don't use `useWalletKitConnect`
   const { isConnected } = useAccount();
 
   useEffect(() => {
-    if (!connector || wcUri || isConnected) return;
+    if (!connector || isConnected || connector?.options.showQrModal) return;
 
     let provider: any;
     const updateWcUri = async () => {
@@ -60,7 +67,13 @@ export function useWalletConnectUri() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connector, isConnected]);
 
-  return {
-    wcUri,
-  };
+  const value = useMemo(() => {
+    return {
+      wcUri,
+    };
+  }, [wcUri]);
+
+  return (
+    <WalletConnectUriContext.Provider value={value}>{children}</WalletConnectUriContext.Provider>
+  );
 }

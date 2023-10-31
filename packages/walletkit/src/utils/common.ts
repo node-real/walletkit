@@ -21,7 +21,7 @@ export function mergeList(list1: any[] = [], list2: any[] = []) {
   return result;
 }
 
-export function commonErrorHandler(props: any) {
+export function commonErrorHandler(props: { log: any; handler: any; error: any }) {
   const { log, handler, error } = props;
 
   let text = '';
