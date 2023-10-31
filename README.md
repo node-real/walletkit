@@ -2,7 +2,7 @@
 
 WalletKit is a React component library for easily connecting a wallet to your dApp.
 
-## Main Features
+## Features
 
 - 💡 Typescript — Get types straight out of the box.
 - 🌱 Ecosystem Standards — Built on top of [wagmi](https://wagmi.sh) and [viem](https://viem.sh)

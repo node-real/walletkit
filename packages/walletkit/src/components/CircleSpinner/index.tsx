@@ -1,7 +1,7 @@
 import { cx } from '../../utils/css';
-import { CircleLoadingIcon } from '../icons/CircleLoadingIcon';
 import { circleSpinner, circleSpinnerInner, errorCircle, loading } from './styles.css';
 import { Box, BoxProps } from '../base/Box';
+import { CircleLoadingIcon } from '../base/icons/CircleLoadingIcon';
 
 export interface CircleSpinnerProps extends BoxProps {
   isLoading?: boolean;

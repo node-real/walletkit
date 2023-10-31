@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { ToastOptions } from '.';
 import { ToastManager } from './ToastManager';
 import { Box } from '../Box';
-import { InfoIcon } from '../../icons/InfoIcon';
-import { ErrorIcon } from '../../icons/ErrorIcon';
 import { container, descWrapper, iconWrapper } from './styles.css';
 import { Animation } from '../Animation';
+import { InfoIcon } from '../icons/InfoIcon';
+import { ErrorIcon } from '../icons/ErrorIcon';
 
 const iconMap: Record<string, React.ReactNode> = {
   info: <InfoIcon />,

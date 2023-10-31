@@ -7,6 +7,7 @@ export * from './tokenPocket/connector';
 export * from './trustWallet';
 export * from './trustWallet/connector';
 export * from './walletConnect';
+export * from './walletConnect/connector';
 
 // utils
 export * from './utils';

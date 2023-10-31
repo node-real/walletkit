@@ -52,7 +52,7 @@ export const modalOverlay = style({
 export const modalContent = style({
   position: 'absolute',
   background: cssVar('modalBackground'),
-  padding: '40px 24px',
+  padding: '48px 24px',
   width: 'calc(100% - 32px)',
   maxWidth: 484,
   borderRadius: cssVar('modal', 'radii'),
@@ -62,7 +62,14 @@ export const modalHeader = style({
   fontWeight: 600,
   display: 'flex',
   fontSize: 24,
-  lineHeight: 1.5,
+  lineHeight: '29px',
   justifyContent: 'center',
+  textAlign: 'center',
+});
+
+export const modalBody = style({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: 32,
   textAlign: 'center',
 });

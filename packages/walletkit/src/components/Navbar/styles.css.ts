@@ -7,6 +7,6 @@ export const navbar = style({
   position: 'absolute',
   top: 0,
   left: 0,
-  padding: '16px 24px 0',
+  padding: '24px 24px 0',
   width: '100%',
 });

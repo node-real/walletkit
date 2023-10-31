@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
 export const wallets = style({
-  marginTop: 40,
   overflowY: 'auto',
   display: 'flex',
   flexDirection: 'column',
@@ -9,7 +8,7 @@ export const wallets = style({
 });
 
 export const footer = style({
-  marginTop: 40,
+  marginTop: 32,
   display: 'flex',
   justifyContent: 'center',
 });

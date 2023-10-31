@@ -6,6 +6,7 @@ export interface WalletProps {
   name: string;
   logos: {
     default: ReactElement;
+    mobile?: ReactElement;
   };
   downloadUrls: {
     default: string | undefined;
@@ -15,4 +16,4 @@ export interface WalletProps {
   getUri: () => string | undefined;
 }
 
-export type PartialWalletProps = Partial<Omit<WalletProps, 'id'>>;
+export type PartialWalletProps = Partial<WalletProps>;

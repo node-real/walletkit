@@ -6,6 +6,7 @@ import { useWalletConnectModal } from './useWalletConnectModal';
 import { isMobile } from '../utils/mobile';
 import { isWalletConnectConnector } from '../wallets';
 import { routes } from '../components/RouteProvider';
+import { MODAL_AUTO_CLOSE_DELAY } from '../constants/common';
 
 export function useClickWallet() {
   const router = useRouter();
@@ -27,11 +28,15 @@ export function useClickWallet() {
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         if (isWalletConnectConnector(connector)) {
-          onOpenWcModal();
-
-          setTimeout(() => {
-            onClose();
-          }, 1000);
+          if (connector.options.showQrModal) {
+            onOpenWcModal();
+            setTimeout(() => {
+              onClose();
+            }, MODAL_AUTO_CLOSE_DELAY);
+          } else {
+            setSelectedConnector(connector);
+            router.push(routes.CONNECT_WITH_QRCODE);
+          }
         } else if (mobile && !connector._wallet.installed) {
           const uri = connector._wallet.getUri?.();
           if (uri) {

@@ -1,7 +1,6 @@
 import { style, globalStyle } from '@vanilla-extract/css';
 
 export const content = style({
-  marginTop: 16,
   overflowY: 'auto',
   paddingBottom: 14,
 });
@@ -10,7 +9,6 @@ export const center = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  paddingTop: 32,
   paddingBottom: 32,
   position: 'relative',
 });

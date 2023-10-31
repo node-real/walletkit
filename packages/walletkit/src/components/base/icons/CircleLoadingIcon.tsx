@@ -1,4 +1,4 @@
-import { cssVar } from '../../utils/css';
+import { cssVar } from '../../../utils/css';
 
 export interface CircleLoadingIconProps extends React.SVGProps<SVGSVGElement> {
   thickness?: number;

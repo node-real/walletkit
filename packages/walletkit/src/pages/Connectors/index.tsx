@@ -2,8 +2,10 @@ import { Navbar } from '../../components/Navbar';
 import { useWalletKitContext } from '../../components/WalletKitProvider/context';
 import { Box } from '../../components/base/Box';
 import { Link } from '../../components/base/Link';
+import { ModalBody } from '../../components/base/Modal/ModalBody';
 import { ModalHeader } from '../../components/base/Modal/ModalHeader';
-import { WalletIcon } from '../../components/icons/WalletIcon';
+import { WalletIcon } from '../../components/base/icons/WalletIcon';
+
 import { useConnectors } from '../../hooks/useConnectors';
 import { cx } from '../../utils/css';
 import { WalletOption } from './WalletOption';
@@ -18,9 +20,9 @@ export function ConnectorsPage() {
       <Navbar />
       <ModalHeader>Connect Wallet</ModalHeader>
 
-      <Box className={cx('wk-modal-body wk-wallets', wallets)}>
+      <ModalBody className={cx('wk-wallets', wallets)}>
         {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}
-      </Box>
+      </ModalBody>
 
       {!options.hideNoWalletCTA && (
         <Box className={cx('wk-modal-footer', footer)}>

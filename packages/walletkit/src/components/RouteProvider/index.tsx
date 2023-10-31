@@ -4,10 +4,12 @@ import { RouteContext } from './context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 import { ConnectorsPage } from '../../pages/Connectors';
 import { ConnectingPage } from '../../pages/Connecting';
+import { ConnectWithQRCodePage } from '../../pages/ConnectWithQRCode';
 
 export const routes = {
   CONNECTING: 'Connecting',
   CONNECTORS: 'Connectors',
+  CONNECT_WITH_QRCODE: 'ConnectWithQRCode',
 };
 
 export interface RouteProviderProps {
@@ -18,7 +20,7 @@ export function RouteProvider(props: RouteProviderProps) {
   const { children } = props;
 
   const { onClose } = useWalletKitContext();
-  const [route, setRoute] = useState('');
+  const [route, setRoute] = useState('ConnectWithQRCode');
   const { current: history } = useRef<string[]>([]);
 
   const page = useMemo(() => {
@@ -27,6 +29,8 @@ export function RouteProvider(props: RouteProviderProps) {
         return <ConnectingPage />;
       case routes.CONNECTORS:
         return <ConnectorsPage />;
+      case routes.CONNECT_WITH_QRCODE:
+        return <ConnectWithQRCodePage />;
     }
     return null;
   }, [route]);

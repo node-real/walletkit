@@ -11,7 +11,7 @@ export default {
   output: {
     dir: 'dist',
   },
-  external: ['react', 'react-dom', 'viem', 'wagmi'],
+  external: ['react', 'react-dom', 'viem', 'wagmi', 'qrcode'],
   plugins: [
     vanillaExtractPlugin(),
     peerDepsExternal(),

@@ -11,6 +11,7 @@ const radii = {
   walletOptionIcon: 'var(--wk-radii-common)',
   chainOption: 'var(--wk-radii-common)',
   toast: 'var(--wk-radii-common)',
+  qrCode: 'var(--wk-radii-common)',
 };
 
 export const base = {
@@ -56,6 +57,9 @@ export const base = {
       disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
 
       toastBackground: 'var(--wk-colors-modalBackground)',
+
+      qrCodeDot: 'var(--wk-colors-text)',
+      qrCodeBorder: 'var(--wk-colors-border)',
     },
     shadows: {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
@@ -104,6 +108,9 @@ export const base = {
       disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
 
       toastBackground: 'var(--wk-colors-modalBackground)',
+
+      qrCodeDot: 'var(--wk-colors-text)',
+      qrCodeBorder: 'var(--wk-colors-border)',
     },
     shadows: {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',

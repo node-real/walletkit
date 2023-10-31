@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Connector } from 'wagmi';
 import { useWalletKitContext } from '../components/WalletKitProvider/context';
-import { isWalletConnectConnector } from '../wallets';
+import { WalletConnectConnector, isWalletConnectConnector } from '../wallets';
 import { useWalletKitConnect } from './useWalletKitConnect';
 
 export function useWalletConnectModal() {
@@ -22,16 +22,26 @@ export function useWalletConnectModal() {
         isWalletConnectConnector(c),
       );
 
-      setIsOpen(true);
+      if (clientConnector) {
+        const connector = new WalletConnectConnector({
+          ...clientConnector,
+          options: {
+            ...clientConnector.options,
+            showQrModal: true,
+          },
+        });
 
-      try {
-        await connectAsync({ connector: clientConnector });
-      } catch (err) {
-        log('WalletConnect', err);
+        setIsOpen(true);
+
+        try {
+          await connectAsync({ connector });
+        } catch (err) {
+          log('WalletConnect', err);
+        }
+
+        setIsOpen(false);
+        document.head.removeChild(w3mcss);
       }
-
-      setIsOpen(false);
-      document.head.removeChild(w3mcss);
     },
   };
 }

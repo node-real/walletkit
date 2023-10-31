@@ -11,9 +11,9 @@ import { Description } from './Content/Description';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
 import { CircleSpinner } from '../../components/CircleSpinner';
-import { RefreshIcon } from '../../components/icons/RefreshIcon';
-import { cx } from '../../utils/css';
 import { center, content, logoWrapper, refreshIconWrapper } from './styles.css';
+import { RefreshIcon } from '../../components/base/icons/RefreshIcon';
+import { ModalBody } from '../../components/base/Modal/ModalBody';
 
 export const states = {
   CONNECTED: 'connected',
@@ -106,7 +106,7 @@ export function ConnectingPage() {
       <Navbar showBack={true} />
       <ModalHeader>{wallet?.name}</ModalHeader>
 
-      <Box className={cx('wk-modal-body', content)}>
+      <ModalBody className={content}>
         <Box className={center}>
           <CircleSpinner
             isLoading={status === states.CONNECTING}
@@ -169,7 +169,7 @@ export function ConnectingPage() {
         )}
 
         {status === states.UNAVAILABLE && <UnsupportedContent />}
-      </Box>
+      </ModalBody>
     </>
   );
 }

@@ -3,8 +3,8 @@ import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 import { Box, BoxProps } from '../base/Box';
 import { IconButton } from '../base/IconButton';
-import { BackIcon } from '../icons/BackIcon';
-import { CloseIcon } from '../icons/CloseIcon';
+import { BackIcon } from '../base/icons/BackIcon';
+import { CloseIcon } from '../base/icons/CloseIcon';
 import { navbar } from './styles.css';
 
 export interface NavbarProps extends BoxProps {

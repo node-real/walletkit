@@ -12,8 +12,8 @@ import { chainList, container, content, description, disconnectButton } from './
 import { Description } from '../../pages/Connecting/Content/Description';
 import { ChainOption } from './ChainOption';
 import { Button } from '../base/Button';
-import { ExitIcon } from '../icons/ExitIcon';
 import { DividerWithText } from './DividerWithText';
+import { ExitIcon } from '../base/icons/ExitIcon';
 
 export type SwitchNetworkModalProps = BoxProps;
 

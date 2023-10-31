@@ -1,1 +1,0 @@
-# UI kit documents

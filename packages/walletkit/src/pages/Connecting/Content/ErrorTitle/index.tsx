@@ -1,5 +1,6 @@
 import { Box, BoxProps } from '../../../../components/base/Box';
-import { AlertIcon } from '../../../../components/icons/AlertIcon';
+import { AlertIcon } from '../../../../components/base/icons/AlertIcon';
+
 import { cx } from '../../../../utils/css';
 import { errorTitle } from './styles.css';
 

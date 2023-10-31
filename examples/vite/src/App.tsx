@@ -46,7 +46,7 @@ export default function App() {
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />
 
-      <WalletKitProvider options={options} mode={mode}>
+      <WalletKitProvider options={options} mode={mode} debugMode>
         <ConnectInfo />
         <ConnectButton />
 

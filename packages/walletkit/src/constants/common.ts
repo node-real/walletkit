@@ -1,2 +1,4 @@
 // TODO
 export const WALLET_CONNECT_PROJECT_ID = 'e68a1816d39726c2afabf05661a32767';
+
+export const MODAL_AUTO_CLOSE_DELAY = 1000;
