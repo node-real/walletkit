@@ -18,10 +18,7 @@ export function ConnectWithQRCodePage() {
 
   const wallet = useWalletConfig(selectedConnector);
   const { wcUri } = useWalletConnectUri();
-
   const { onOpenWcModal } = useWalletConnectModal();
-
-  const logo = wallet?.logos?.mobile ?? wallet?.logos?.default;
 
   const onClickOpenWcModal = useCallback(() => {
     onOpenWcModal();
@@ -29,6 +26,8 @@ export function ConnectWithQRCodePage() {
       onClose();
     }, MODAL_AUTO_CLOSE_DELAY);
   }, [onClose, onOpenWcModal]);
+
+  const logo = wallet?.logos?.mobile ?? wallet?.logos?.default;
 
   return (
     <>

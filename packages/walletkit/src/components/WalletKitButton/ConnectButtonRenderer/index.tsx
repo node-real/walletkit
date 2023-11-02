@@ -1,11 +1,11 @@
 import { Chain, useAccount, useNetwork } from 'wagmi';
 import { useIsMounted } from '../../../hooks/useIsMounted';
-import { ConnectVariant, useWalletKitContext } from '../../WalletKitProvider/context';
+import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { useCallback } from 'react';
 
 export interface ConnectButtonRendererProps {
-  variant?: ConnectVariant;
+  role?: ConnectRole;
 
   children?: (renderProps: {
     show: () => void;
@@ -17,23 +17,25 @@ export interface ConnectButtonRendererProps {
     isConnected: boolean;
     isConnecting: boolean;
     address?: string;
+    truncatedAddress?: string;
+    ensName?: string;
   }) => React.ReactNode;
 }
 
 export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
-  const { variant = 'default', children } = props;
+  const { role = 'default', children } = props;
 
   const isMounted = useIsMounted();
-  const { isOpen, onClose, setConnectVariant } = useWalletKitContext();
+  const { isOpen, onClose, setConnectRole } = useWalletKitContext();
   const { onOpenModal } = useOpenModal();
 
   const { chain } = useNetwork();
   const { address } = useAccount();
 
   const onOpen = useCallback(() => {
-    setConnectVariant(variant);
+    setConnectRole(role);
     onOpenModal();
-  }, [onOpenModal, setConnectVariant, variant]);
+  }, [onOpenModal, setConnectRole, role]);
 
   if (!children || !isMounted) return null;
 

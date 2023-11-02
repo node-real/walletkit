@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
 import { ChainProps } from '../../chains/types';
 
-export type ConnectVariant = 'add-network' | 'default';
+export type ConnectRole = 'add-network' | 'default';
 
 export type WalletErrorProps = {
   description?: string;
@@ -28,8 +28,8 @@ export interface WalletKitContextProps {
   onOpen: () => void;
   onClose: () => void;
 
-  connectVariant: ConnectVariant;
-  setConnectVariant: (variant: ConnectVariant) => void;
+  connectRole: ConnectRole;
+  setConnectRole: (role: ConnectRole) => void;
 
   selectedConnector: Connector;
   setSelectedConnector: (connector: Connector) => void;

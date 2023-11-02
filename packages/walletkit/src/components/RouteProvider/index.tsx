@@ -5,11 +5,13 @@ import { useWalletKitContext } from '../WalletKitProvider/context';
 import { ConnectorsPage } from '../../pages/Connectors';
 import { ConnectingPage } from '../../pages/Connecting';
 import { ConnectWithQRCodePage } from '../../pages/ConnectWithQRCode';
+import { ConnectedPage } from '../../pages/Connected';
 
 export const routes = {
   CONNECTING: 'Connecting',
   CONNECTORS: 'Connectors',
   CONNECT_WITH_QRCODE: 'ConnectWithQRCode',
+  CONNECTED: 'Connected',
 };
 
 export interface RouteProviderProps {
@@ -31,6 +33,8 @@ export function RouteProvider(props: RouteProviderProps) {
         return <ConnectorsPage />;
       case routes.CONNECT_WITH_QRCODE:
         return <ConnectWithQRCodePage />;
+      case routes.CONNECTED:
+        return <ConnectedPage />;
     }
     return null;
   }, [route]);

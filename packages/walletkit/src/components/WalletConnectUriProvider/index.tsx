@@ -6,12 +6,6 @@ import { useConnector } from '../../hooks/useConnectors';
 import { useAccount, useConnect } from 'wagmi';
 import { commonErrorHandler } from '../../utils/common';
 
-/**
- * Don't use `useWalletKitConnect`
- * otherwise when user repeats go and back between the wallet list and QR code page
- * due to the following `connectAsync` logic, multiple errors will be thrown
- */
-
 export interface WalletConnectUriProviderProps {
   children: React.ReactNode;
 }
@@ -21,13 +15,17 @@ let timer: any = 0;
 export function WalletConnectUriProvider(props: WalletConnectUriProviderProps) {
   const { children } = props;
 
-  const { log, options } = useWalletKitContext();
-
-  const [wcUri, setWcUri] = useState<string>('');
-  const connector = useConnector(WALLET_CONNECT_ID);
-
-  const { connectAsync } = useConnect(); // don't use `useWalletKitConnect`
+  /**
+   * Don't use `useWalletKitConnect`
+   * otherwise when user repeats go and back between the wallet list and QR code page
+   * due to the following `connectAsync` logic, multiple errors will be thrown
+   */
+  const { connectAsync } = useConnect();
   const { isConnected } = useAccount();
+
+  const { log, options } = useWalletKitContext();
+  const connector = useConnector(WALLET_CONNECT_ID);
+  const [wcUri, setWcUri] = useState<string>('');
 
   useEffect(() => {
     if (!connector || isConnected || connector?.options.showQrModal) return;

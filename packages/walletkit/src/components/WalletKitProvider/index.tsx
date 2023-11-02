@@ -1,11 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Connector } from 'wagmi';
-import {
-  ConnectVariant,
-  WalletKitContext,
-  WalletKitContextProps,
-  WalletKitOptions,
-} from './context';
+import { ConnectRole, WalletKitContext, WalletKitContextProps, WalletKitOptions } from './context';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { useChains } from '../../hooks/useChains';
 import { getDefaultProviderOptions } from '../../defaultConfig/getDefaultProviderOptions';
@@ -36,7 +31,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     customTheme,
   } = props;
 
-  const [connectVariant, setConnectVariant] = useState<ConnectVariant>('default');
+  const [connectRole, setConnectRole] = useState<ConnectRole>('default');
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,15 +47,15 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
       isOpen,
       onOpen,
       onClose,
-      connectVariant,
-      setConnectVariant,
+      connectRole,
+      setConnectRole,
       selectedConnector,
       setSelectedConnector,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       log: debugMode ? console.log : () => {},
     };
     return finalValue;
-  }, [options, chains, isOpen, onOpen, onClose, connectVariant, selectedConnector, debugMode]);
+  }, [options, chains, isOpen, onOpen, onClose, connectRole, selectedConnector, debugMode]);
 
   return (
     <WalletKitContext.Provider value={value}>
