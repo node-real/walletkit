@@ -1,4 +1,4 @@
-import { WagmiConfig, createConfig, useAccount, useNetwork } from 'wagmi';
+import { WagmiConfig, createConfig } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -27,8 +27,6 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 56,
-  // hideOfficialWalletConnectCTA: true,
-  // hideNoWalletCTA: true,
 };
 
 export default function App() {
@@ -42,7 +40,6 @@ export default function App() {
       <div style={{ height: 20 }} />
 
       <WalletKitProvider options={options} mode={mode} debugMode>
-        <ConnectInfo />
         <WalletKitButton />
 
         {/*
@@ -53,17 +50,5 @@ export default function App() {
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>
-  );
-}
-
-function ConnectInfo() {
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-
-  return (
-    <div>
-      <div>address: {address || '-'}</div>
-      <div>chainId: {chain?.id || '-'}</div>
-    </div>
   );
 }
