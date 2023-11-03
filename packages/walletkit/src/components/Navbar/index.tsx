@@ -1,11 +1,11 @@
 import { cx } from '../../utils/css';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { Box, BoxProps } from '../base/Box';
-import { IconButton } from '../base/IconButton';
-import { BackIcon } from '../base/icons/BackIcon';
-import { CloseIcon } from '../base/icons/CloseIcon';
-import { navbar } from './styles.css';
+import { Box, BoxProps } from '../../base/Box';
+import { IconButton } from '../../base/IconButton';
+import { BackIcon } from '../../base/icons/BackIcon';
+import { CloseIcon } from '../../base/icons/CloseIcon';
+import { clsNavbar } from './styles.css';
 
 export interface NavbarProps extends BoxProps {
   showBack?: boolean;
@@ -30,7 +30,7 @@ export function Navbar(props: NavbarProps) {
   };
 
   return (
-    <Box className={cx('wk-navbar', navbar, className)} {...restProps}>
+    <Box className={cx('wk-navbar', clsNavbar, className)} {...restProps}>
       {showBack && (
         <IconButton className="wk-back-button" icon={<BackIcon />} onClick={onBeforeBack} />
       )}

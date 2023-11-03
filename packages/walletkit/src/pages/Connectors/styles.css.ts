@@ -1,17 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
-export const wallets = style({
+export const clsWallets = style({
   overflowY: 'auto',
   gap: 16,
 });
 
-export const footer = style({
-  marginTop: 32,
-  display: 'flex',
-  justifyContent: 'center',
-});
-
-export const downloadLink = style({
+export const clsDownloadLink = style({
   display: 'flex',
   alignItems: 'center',
   gap: 10,

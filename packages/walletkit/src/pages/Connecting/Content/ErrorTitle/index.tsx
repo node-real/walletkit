@@ -1,14 +1,14 @@
-import { Box, BoxProps } from '../../../../components/base/Box';
-import { AlertIcon } from '../../../../components/base/icons/AlertIcon';
+import { Box, BoxProps } from '../../../../base/Box';
+import { AlertIcon } from '../../../../base/icons/AlertIcon';
 
 import { cx } from '../../../../utils/css';
-import { errorTitle } from './styles.css';
+import { clsErrorTitle } from './styles.css';
 
 export function ErrorTitle(props: BoxProps) {
   const { className, children, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-error-title', errorTitle, className)} {...restProps}>
+    <Box className={cx('wk-error-title', clsErrorTitle, className)} {...restProps}>
       <AlertIcon />
       {children}
     </Box>

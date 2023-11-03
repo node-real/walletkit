@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { cssVar } from '../../../../utils/css';
 
-export const errorTitle = style({
+export const clsErrorTitle = style({
   display: 'flex',
   fontSize: 18,
   fontWeight: 500,
@@ -9,5 +9,5 @@ export const errorTitle = style({
   alignItems: 'center',
   justifyContent: 'center',
   color: cssVar('error'),
-  gap: 3,
+  gap: 4,
 });

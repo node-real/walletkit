@@ -1,18 +1,123 @@
-export const TrustWalletIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
-      <g clipPath="url(#clip0_827_48424)">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M25.1038 9.82664C25.6315 9.38591 26.399 9.38591 26.9267 9.82664C31.5058 13.6509 36.7265 13.6204 38.7219 13.6088C38.8221 13.6082 38.9142 13.6076 38.9976 13.6076C39.3784 13.6076 39.7433 13.7604 40.0106 14.0317C40.2778 14.303 40.4251 14.6702 40.4193 15.051C40.3251 21.2927 40.075 25.7357 39.5864 28.9851C39.0981 32.2328 38.3534 34.4269 37.1725 36.068C35.9843 37.7194 34.4557 38.662 32.7882 39.5835C32.5006 39.7425 32.2067 39.9019 31.9052 40.0654C30.4375 40.8615 28.7927 41.7536 26.844 43.1515C26.3486 43.5068 25.6818 43.5068 25.1865 43.1515C23.2397 41.755 21.597 40.8633 20.1315 40.0677C19.8287 39.9033 19.5334 39.743 19.2445 39.5832C17.5784 38.6615 16.0519 37.7187 14.866 36.0668C13.6877 34.4255 12.9456 32.2316 12.4591 28.9844C11.9723 25.7353 11.7232 21.2925 11.6291 15.051C11.6233 14.6702 11.7706 14.303 12.0378 14.0317C12.3051 13.7604 12.67 13.6076 13.0508 13.6076C13.1333 13.6076 13.2244 13.6082 13.3237 13.6088C15.303 13.6204 20.5243 13.6512 25.1038 9.82664ZM14.4977 16.4475C14.6068 21.8967 14.8504 25.7528 15.2714 28.563C15.7289 31.6165 16.3779 33.2965 17.1761 34.4084C17.9667 35.5096 19.0019 36.1991 20.6211 37.0949C20.8861 37.2415 21.165 37.3927 21.4573 37.5512C22.7316 38.2423 24.2616 39.0721 26.0153 40.2624C27.7713 39.0706 29.3036 38.2403 30.5799 37.5487C30.8709 37.391 31.1487 37.2405 31.4127 37.0946C33.0339 36.1986 34.0715 35.5088 34.8642 34.4071C35.6643 33.2952 36.3152 31.6153 36.7743 28.5623C37.1968 25.7524 37.4414 21.8966 37.5507 16.4477C35.0368 16.3893 30.3736 15.9228 26.0152 12.7234C21.6618 15.9193 17.0048 16.3882 14.4977 16.4475Z"
-          fill="#3375BB"
-        />
-      </g>
+      <path
+        d="M10.9199 13.9364L25.9996 9.03516V42.9652C15.2282 38.4407 10.9199 29.7698 10.9199 24.8696V13.9364Z"
+        fill="#0500FF"
+      />
+      <path
+        d="M41.0806 13.9364L26.001 9.03516V42.9652C36.7723 38.4407 41.0806 29.7698 41.0806 24.8696V13.9364Z"
+        fill="url(#paint0_linear_5881_50120)"
+      />
       <defs>
-        <clipPath id="clip0_827_48424">
-          <rect width="52" height="52" fill="white" />
-        </clipPath>
+        <linearGradient
+          id="paint0_linear_5881_50120"
+          x1="37.075"
+          y1="6.65916"
+          x2="25.6836"
+          y2="42.5016"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.02" stopColor="#0000FF" />
+          <stop offset="0.08" stopColor="#0094FF" />
+          <stop offset="0.16" stopColor="#48FF91" />
+          <stop offset="0.42" stopColor="#0094FF" />
+          <stop offset="0.68" stopColor="#0038FF" />
+          <stop offset="0.9" stopColor="#0500FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const TrustWalletDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
+      <path
+        d="M10.9199 13.9423L25.9996 9.04102V42.971C15.2282 38.4466 10.9199 29.7757 10.9199 24.8754V13.9423Z"
+        fill="#48FF91"
+      />
+      <path
+        d="M41.0806 13.9423L26.001 9.04102V42.971C36.7723 38.4466 41.0806 29.7757 41.0806 24.8754V13.9423Z"
+        fill="url(#paint0_linear_5881_50134)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_5881_50134"
+          x1="25.3642"
+          y1="47.2355"
+          x2="37.7066"
+          y2="2.59158"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.26" stopColor="#48FF91" />
+          <stop offset="0.66" stopColor="#0094FF" />
+          <stop offset="0.8" stopColor="#0038FF" />
+          <stop offset="0.89" stopColor="#0500FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const TrustWalletMobileLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
+      <rect width="60" height="60" rx="16" fill="#242426" />
+      <path
+        d="M12.2197 15.7781L29.9971 10V50C17.2988 44.6662 12.2197 34.444 12.2197 28.6672V15.7781Z"
+        fill="#48FF91"
+      />
+      <path
+        d="M47.7764 15.7781L29.999 10V50C42.6973 44.6662 47.7764 34.444 47.7764 28.6672V15.7781Z"
+        fill="url(#paint0_linear_5881_50281)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_5881_50281"
+          x1="29.2483"
+          y1="55.0274"
+          x2="43.7988"
+          y2="2.39678"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.26" stopColor="#48FF91" />
+          <stop offset="0.66" stopColor="#0094FF" />
+          <stop offset="0.8" stopColor="#0038FF" />
+          <stop offset="0.89" stopColor="#0500FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const TrustWalletMobileDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
+      <path
+        d="M12.2197 15.7781L29.9971 10V50C17.2988 44.6662 12.2197 34.444 12.2197 28.6672V15.7781Z"
+        fill="#0500FF"
+      />
+      <path
+        d="M47.7764 15.7781L29.999 10V50C42.6973 44.6662 47.7764 34.444 47.7764 28.6672V15.7781Z"
+        fill="url(#paint0_linear_5881_50290)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_5881_50290"
+          x1="43.0542"
+          y1="7.19894"
+          x2="29.6249"
+          y2="49.4536"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.02" stopColor="#0000FF" />
+          <stop offset="0.08" stopColor="#0094FF" />
+          <stop offset="0.16" stopColor="#48FF91" />
+          <stop offset="0.42" stopColor="#0094FF" />
+          <stop offset="0.68" stopColor="#0038FF" />
+          <stop offset="0.9" stopColor="#0500FF" />
+        </linearGradient>
       </defs>
     </svg>
   );

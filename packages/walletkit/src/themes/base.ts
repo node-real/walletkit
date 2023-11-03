@@ -5,6 +5,8 @@ const radii = {
   common: '8px',
   modal: '12px',
 
+  navButton: '4px',
+  button: 'var(--wk-radii-common)',
   connectButton: 'var(--wk-radii-common)',
   disconnectButton: 'var(--wk-radii-common)',
   walletOption: 'var(--wk-radii-common)',
@@ -17,26 +19,42 @@ const radii = {
 export const base = {
   light: {
     colors: {
-      text: '#1e2026',
+      text: '#1E2026',
       textSecondary: '#76808F',
-      primary: '#9B00FB',
-      primaryActive: '#B845FF',
-      warning: '#F5B631',
-      error: '#FC6E75',
+      primary: '#CC9D09',
+      primaryActive: '#F0B90B',
+      error: '#D9304E',
+      errorActive: '#B82942',
       border: '#E6E8EA',
+      disabled: '#AEB4BC',
 
       modalBackground: '#FFFFFF',
       modalOverlay: 'rgba(0, 0, 0, 0.5)',
 
-      optionText: '#1e2026',
-      optionTextHover: '#1e2026',
-      optionBackground: '#f5f5f5',
-      optionBackgroundHover: rgba('#B845FF', 0.1),
+      buttonText: 'var(--wk-colors-text)',
+      buttonTextHover: 'var(--wk-colors-text)',
+      buttonBackground: '#f5f5f5',
+      buttonBackgroundHover: rgba('#F0B90B', 0.1),
 
-      connectButtonText: '#fff',
-      connectButtonTextHover: '#fff',
-      connectButtonBackground: 'var(--wk-colors-primary)',
-      connectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
+      connectButtonText: 'var(--wk-colors-text)',
+      connectButtonTextHover: 'var(--wk-colors-text)',
+      connectButtonBackground: '#f5f5f5',
+      connectButtonBackgroundHover: '#e6e8ea',
+
+      navButtonText: 'var(--wk-colors-textSecondary)',
+      navButtonBackgroundHover: 'var(--wk-colors-border)',
+
+      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      disconnectButtonBackground: 'transparent',
+      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+      disconnectButtonBorder: 'var(--wk-colors-border)',
+      disconnectButtonBorderHover: 'var(--wk-colors-border)',
+
+      optionText: 'var(--wk-colors-text)',
+      optionTextHover: 'var(--wk-colors-text)',
+      optionBackground: '#f5f5f5',
+      optionBackgroundHover: rgba('#F0B90B', 0.1),
 
       walletOptionText: 'var(--wk-colors-optionText)',
       walletOptionTextHover: 'var(--wk-colors-optionTextHover)',
@@ -47,14 +65,6 @@ export const base = {
       chainOptionTextHover: 'var(--wk-colors-optionTextHover)',
       chainOptionBackground: 'var(--wk-colors-optionBackground)',
       chainOptionBackgroundHover: 'var(--wk-colors-optionBackgroundHover)',
-
-      closeButtonText: 'var(--wk-colors-textSecondary)',
-      closeButtonBackgroundHover: 'var(--wk-colors-border)',
-
-      disconnectButtonBackgroundText: '#fff',
-      disconnectButtonBackgroundTextHover: '#fff',
-      disconnectButtonBackground: 'var(--wk-colors-primary)',
-      disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
 
       toastBackground: 'var(--wk-colors-modalBackground)',
 
@@ -70,24 +80,40 @@ export const base = {
     colors: {
       text: '#FFF',
       textSecondary: '#76808F',
-      primary: '#9B00FB',
-      primaryActive: '#B845FF',
-      warning: '#F5B631',
-      error: '#FC6E75',
+      primary: '#CC9D09',
+      primaryActive: '#F0B90B',
+      error: '#D9304E',
+      errorActive: '#B82942',
       border: '#2e323a',
+      disabled: '#5E6673',
 
       modalBackground: '#1E2026',
       modalOverlay: rgba('#000', 0.5),
 
-      optionText: '#FFF',
-      optionTextHover: '#FFF',
-      optionBackground: '#14151a',
-      optionBackgroundHover: rgba('#B845FF', 0.1),
+      buttonText: 'var(--wk-colors-text)',
+      buttonTextHover: 'var(--wk-colors-text)',
+      buttonBackground: '#14151a',
+      buttonBackgroundHover: rgba('#F0B90B', 0.1),
 
-      connectButtonText: '#fff',
-      connectButtonTextHover: '#fff',
-      connectButtonBackground: 'var(--wk-colors-primary)',
-      connectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
+      connectButtonText: 'var(--wk-colors-text)',
+      connectButtonTextHover: 'var(--wk-colors-text)',
+      connectButtonBackground: '#2b2f36',
+      connectButtonBackgroundHover: '#2e323a',
+
+      navButtonText: 'var(--wk-colors-textSecondary)',
+      navButtonBackgroundHover: 'var(--wk-colors-border)',
+
+      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      disconnectButtonBackground: 'transparent',
+      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+      disconnectButtonBorder: 'var(--wk-colors-border)',
+      disconnectButtonBorderHover: 'var(--wk-colors-border)',
+
+      optionText: 'var(--wk-colors-text)',
+      optionTextHover: 'var(--wk-colors-text)',
+      optionBackground: '#14151a',
+      optionBackgroundHover: rgba('#F0B90B', 0.1),
 
       walletOptionText: 'var(--wk-colors-optionText)',
       walletOptionTextHover: 'var(--wk-colors-optionTextHover)',
@@ -98,14 +124,6 @@ export const base = {
       chainOptionTextHover: 'var(--wk-colors-optionTextHover)',
       chainOptionBackground: 'var(--wk-colors-optionBackground)',
       chainOptionBackgroundHover: 'var(--wk-colors-optionBackgroundHover)',
-
-      closeButtonText: 'var(--wk-colors-textSecondary)',
-      closeButtonBackgroundHover: 'var(--wk-colors-border)',
-
-      disconnectButtonBackgroundText: '#fff',
-      disconnectButtonBackgroundTextHover: '#fff',
-      disconnectButtonBackground: 'var(--wk-colors-primary)',
-      disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
 
       toastBackground: 'var(--wk-colors-modalBackground)',
 

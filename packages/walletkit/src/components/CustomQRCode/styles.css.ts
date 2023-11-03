@@ -1,7 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { cssVar } from '../../utils/css';
 
-export const qrCodeContainer = style({
+export const clsQrCodeContainer = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -14,13 +14,13 @@ export const qrCodeContainer = style({
   borderRadius: cssVar('qrCode', 'radii'),
 });
 
-export const qrCodeWrapper = style({
+export const clsQrCodeWrapper = style({
   width: 212,
   height: 212,
   position: 'relative',
 });
 
-export const qrCodeLogo = style({
+export const clsQrCodeLogo = style({
   position: 'absolute',
   left: '50%',
   top: '50%',
@@ -28,7 +28,7 @@ export const qrCodeLogo = style({
   display: 'inline-flex',
 });
 
-globalStyle(`${qrCodeLogo} > svg`, {
+globalStyle(`${clsQrCodeLogo} > svg`, {
   width: '100%',
   height: '100%',
 });

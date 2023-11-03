@@ -1,6 +1,11 @@
 import { Chain } from 'wagmi';
 
-import { TrustWalletIcon } from './icon';
+import {
+  TrustWalletDarkIcon,
+  TrustWalletLightIcon,
+  TrustWalletMobileDarkIcon,
+  TrustWalletMobileLightIcon,
+} from './icon';
 import { PartialWalletProps, WalletProps } from '../types';
 import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
 import { Connector } from 'wagmi/connectors';
@@ -18,11 +23,19 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
     id: TRUST_WALLET_ID,
     name: 'Trust Wallet',
     logos: {
-      default: <TrustWalletIcon />,
+      default: {
+        light: <TrustWalletLightIcon />,
+        dark: <TrustWalletDarkIcon />,
+      },
+      mobile: {
+        light: <TrustWalletMobileLightIcon />,
+        dark: <TrustWalletMobileDarkIcon />,
+      },
     },
     downloadUrls: {
       default: 'https://trustwallet.com/',
     },
+    spinnerColor: '#1098FC',
     installed: isTrustWallet(),
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({

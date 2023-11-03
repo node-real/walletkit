@@ -1,35 +1,38 @@
 import { style, globalStyle } from '@vanilla-extract/css';
+import { cssVar } from '../..';
 
-export const content = style({
+export const clsContent = style({
   overflowY: 'auto',
-  paddingBottom: 14,
 });
 
-export const center = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  paddingBottom: 32,
-  position: 'relative',
-});
-
-export const logoWrapper = style({
+export const clsLogoWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 });
 
-globalStyle(`${logoWrapper} > svg`, {
+globalStyle(`${clsLogoWrapper} > svg`, {
   width: 80,
   height: 80,
 });
 
-export const refreshIconWrapper = style({
-  width: 100,
-  height: 100,
-  position: 'absolute',
-  bottom: 0,
-  right: 0,
-  cursor: 'pointer',
-  zIndex: 2,
+export const clsGap = style({
+  marginTop: 32,
+});
+
+export const clsButton = style({
+  height: 56,
+  width: '100%',
+  borderRadius: cssVar('button', 'radii'),
+  background: cssVar('buttonBackground'),
+  color: cssVar('buttonText'),
+  ':hover': {
+    background: cssVar('buttonBackgroundHover'),
+    color: cssVar('buttonTextHover'),
+  },
+});
+
+export const clsFooter = style({
+  marginTop: 40,
+  marginBottom: -8,
 });

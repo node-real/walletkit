@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
-import { Box, BoxProps } from '../base/Box';
+import { Box, BoxProps } from '../../base/Box';
 import { QRCode } from './QRCode';
 import { QRCodePlaceHolder } from './QRCodePlaceHolder';
-import { qrCodeContainer, qrCodeLogo, qrCodeWrapper } from './styles.css';
+import { clsQrCodeContainer, clsQrCodeLogo, clsQrCodeWrapper } from './styles.css';
 import { cx } from '../../utils/css';
 
 export interface CustomQRCodeProps extends BoxProps {
@@ -15,11 +15,11 @@ export function CustomQRCode(props: CustomQRCodeProps) {
   const { className, logo, logoSize = 52, value, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-qrcode', qrCodeContainer, className)} {...restProps}>
-      <Box className={qrCodeWrapper}>
+    <Box className={cx('wk-qrcode', clsQrCodeContainer, className)} {...restProps}>
+      <Box className={clsQrCodeWrapper}>
         {value ? <QRCode uri={value} /> : <QRCodePlaceHolder />}
         <Box
-          className={cx('wk-qrcode-logo', qrCodeLogo)}
+          className={cx('wk-qrcode-logo', clsQrCodeLogo)}
           style={{
             width: logoSize,
             height: logoSize,

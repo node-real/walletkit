@@ -1,4 +1,4 @@
-import { bsc } from 'wagmi/chains';
+import { bsc, mainnet } from 'wagmi/chains';
 
 export const chains = [
   {
@@ -24,28 +24,6 @@ export const chains = [
     },
   },
   {
-    id: 204,
-    name: 'opBNB mainnet',
-    network: 'opBNB mainnet',
-    nativeCurrency: {
-      name: 'BNB',
-      symbol: 'BNB',
-      decimals: 18,
-    },
-    rpcUrls: {
-      default: {
-        http: [`https://opbnb-mainnet-rpc.bnbchain.org`],
-      },
-      public: {
-        http: [`https://opbnb-mainnet-rpc.bnbchain.org`],
-      },
-    },
-    blockExplorers: {
-      etherscan: { name: 'opBNBScan', url: `https://opbnbscan.com` },
-      default: { name: 'opBNBScan', url: `https://opbnbscan.com` },
-    },
-  },
-  {
     id: 97,
     name: 'BNB Smart Chain Testnet',
     network: 'BNB Smart Chain Testnet',
@@ -68,4 +46,5 @@ export const chains = [
     },
   },
   bsc,
+  mainnet,
 ];

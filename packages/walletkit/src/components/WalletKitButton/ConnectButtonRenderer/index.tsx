@@ -1,8 +1,9 @@
-import { Chain, useAccount, useNetwork } from 'wagmi';
+import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { useIsMounted } from '../../../hooks/useIsMounted';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { useCallback } from 'react';
+import { truncateAddress } from '../../../utils/account';
 
 export interface ConnectButtonRendererProps {
   role?: ConnectRole;
@@ -32,6 +33,11 @@ export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
   const { chain } = useNetwork();
   const { address } = useAccount();
 
+  const { data: ensName } = useEnsName({
+    chainId: 1,
+    address: address,
+  });
+
   const onOpen = useCallback(() => {
     setConnectRole(role);
     onOpenModal();
@@ -49,6 +55,8 @@ export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
         isConnected: !!address,
         isConnecting: isOpen, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
+        truncatedAddress: address ? truncateAddress(address) : undefined,
+        ensName: ensName?.toString(),
       })}
     </>
   );

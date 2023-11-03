@@ -27,6 +27,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
     downloadUrls: {
       default: 'https://metamask.io/download/',
     },
+    spinnerColor: '#F0B90B',
     installed: isMetaMask(),
     createConnector: (chains: Chain[]) => {
       return new MetaMaskConnector({

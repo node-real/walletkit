@@ -10,7 +10,7 @@ const flicker = keyframes({
   },
 });
 
-export const container = style({
+export const clsContainer = style({
   width: '100%',
   height: '100%',
   opacity: 0.1,
@@ -46,7 +46,7 @@ export const container = style({
   },
 });
 
-export const corner = style({
+export const clsCorner = style({
   zIndex: 4,
   position: 'absolute',
 

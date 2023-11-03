@@ -1,14 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
-export const container = style({
+export const clsContainer = style({
   alignItems: 'center',
 });
 
-export const officialButton = style({
+export const clsOfficialButton = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginTop: 32,
   fontSize: 14,
   fontWeight: 400,
   lineHeight: '20px',

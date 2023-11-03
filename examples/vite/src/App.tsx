@@ -1,11 +1,4 @@
-import {
-  WagmiConfig,
-  createConfig,
-  useAccount,
-  useDisconnect,
-  useNetwork,
-  useSwitchNetwork,
-} from 'wagmi';
+import { WagmiConfig, createConfig, useAccount, useNetwork } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -33,7 +26,7 @@ const config = createConfig(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 5600,
+  initialChainId: 56,
   // hideOfficialWalletConnectCTA: true,
   // hideNoWalletCTA: true,
 };
@@ -50,7 +43,7 @@ export default function App() {
 
       <WalletKitProvider options={options} mode={mode} debugMode>
         <ConnectInfo />
-        <ConnectButton />
+        <WalletKitButton />
 
         {/*
           👇 Here's the SwitchNetworkModal
@@ -72,32 +65,5 @@ function ConnectInfo() {
       <div>address: {address || '-'}</div>
       <div>chainId: {chain?.id || '-'}</div>
     </div>
-  );
-}
-
-function ConnectButton() {
-  const { isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { switchNetwork } = useSwitchNetwork();
-
-  return (
-    <>
-      {isConnected ? (
-        <>
-          <button onClick={() => disconnect()}>disconnect</button>
-
-          <button onClick={() => switchNetwork?.(56)}>chainId 56</button>
-          <button onClick={() => switchNetwork?.(97)}>chainId 97</button>
-          <button onClick={() => switchNetwork?.(204)}>chainId 204</button>
-          <button onClick={() => switchNetwork?.(5600)}>chainId 5600</button>
-        </>
-      ) : (
-        <WalletKitButton.Custom>
-          {({ show }) => {
-            return <button onClick={show}>connect</button>;
-          }}
-        </WalletKitButton.Custom>
-      )}
-    </>
   );
 }

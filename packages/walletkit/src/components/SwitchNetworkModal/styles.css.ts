@@ -1,31 +1,30 @@
 import { style } from '@vanilla-extract/css';
 import { cssVar } from '../../utils/css';
 
-export const container = style({});
-
-export const content = style({});
-
-export const description = style({
-  margin: '32px auto  24px auto',
+export const clsDescription = style({
+  lineHeight: '19px',
+  fontSize: 16,
+  textAlign: 'center',
+  fontWeight: 400,
+  color: cssVar('textSecondary'),
 });
 
-export const chainList = style({
+export const clsChains = style({
   overflowY: 'auto',
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
   lineHeight: 1.5,
-  maxHeight: 324,
+  marginTop: 24,
+  width: '100%',
+  maxHeight: 320,
 });
 
-export const disconnectButton = style({
-  width: '100%',
-  gap: 8,
-  borderRadius: cssVar('disconnectButton', 'radii'),
-  background: cssVar('disconnectButtonBackground'),
-  color: cssVar('disconnectButtonBackgroundText'),
-  ':hover': {
-    background: cssVar('disconnectButtonBackgroundHover'),
-    color: cssVar('disconnectButtonBackgroundTextHover'),
-  },
+export const clsOrSeparator = style({
+  fontWeight: 500,
+  fontSize: 16,
+  lineHeight: '19px',
+  textAlign: 'center',
+  margin: '16px 0',
+  color: cssVar('disabled'),
 });

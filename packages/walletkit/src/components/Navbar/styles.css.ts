@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const navbar = style({
+export const clsNavbar = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',

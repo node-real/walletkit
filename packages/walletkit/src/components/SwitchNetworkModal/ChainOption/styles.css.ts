@@ -1,42 +1,53 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { cssVar } from '../../../utils/css';
 
-export const container = style({
+export const clsContainer = style({
+  padding: '4px 8px',
+  gap: 8,
+  width: '100%',
+  height: 'auto',
+  flexShrink: 0,
+  minHeight: 50,
   color: cssVar('chainOptionText'),
   background: cssVar('chainOptionBackground'),
-  padding: '16px',
-  gap: 20,
-  width: '100%',
   borderRadius: cssVar('chainOption', 'radii'),
-  height: 'auto',
   ':hover': {
     color: cssVar('chainOptionTextHover'),
     background: cssVar('chainOptionBackgroundHover'),
   },
 });
 
-export const chainOptionLogo = style({
+export const clsChainOptionLogo = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 36,
-  height: 36,
+  width: 32,
+  height: 32,
   borderRadius: '50%',
   overflow: 'hidden',
   background: '#fff',
   flexShrink: 0,
 });
 
-globalStyle(`${chainOptionLogo} > svg`, {
-  width: 26,
-  height: 26,
+globalStyle(`${clsChainOptionLogo} > svg`, {
+  width: 24,
+  height: 24,
 });
 
-export const chainOptionName = style({
+export const clsChainOptionName = style({
   display: 'flex',
   flex: 1,
   textAlign: 'left',
-  fontSize: 18,
-  lineHeight: '22px',
+  fontSize: 16,
+  lineHeight: '19px',
   fontWeight: 600,
+  padding: '15px 0',
+});
+
+export const clsConnectedTag = style({
+  color: cssVar('primary'),
+  fontSize: 16,
+  fontWeight: 500,
+  lineHeight: '19px',
+  flexShrink: 0,
 });

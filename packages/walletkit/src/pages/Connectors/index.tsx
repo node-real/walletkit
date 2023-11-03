@@ -1,15 +1,15 @@
 import { Navbar } from '../../components/Navbar';
 import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { Box } from '../../components/base/Box';
-import { Link } from '../../components/base/Link';
-import { ModalBody } from '../../components/base/Modal/ModalBody';
-import { ModalHeader } from '../../components/base/Modal/ModalHeader';
-import { WalletIcon } from '../../components/base/icons/WalletIcon';
+import { Link } from '../../base/Link';
+import { ModalBody } from '../../base/Modal/ModalBody';
+import { ModalFooter } from '../../base/Modal/ModalFooter';
+import { ModalHeader } from '../../base/Modal/ModalHeader';
+import { WalletIcon } from '../../base/icons/WalletIcon';
 
 import { useConnectors } from '../../hooks/useConnectors';
 import { cx } from '../../utils/css';
 import { WalletOption } from './WalletOption';
-import { downloadLink, footer, wallets } from './styles.css';
+import { clsDownloadLink, clsWallets } from './styles.css';
 
 export function ConnectorsPage() {
   const connectors = useConnectors();
@@ -20,16 +20,19 @@ export function ConnectorsPage() {
       <Navbar />
       <ModalHeader>Connect Wallet</ModalHeader>
 
-      <ModalBody className={cx('wk-wallets', wallets)}>
+      <ModalBody className={cx('wk-wallets', clsWallets)}>
         {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}
       </ModalBody>
 
       {!options.hideNoWalletCTA && (
-        <Box className={cx('wk-modal-footer', footer)}>
-          <Link className={cx('wk-download-link', downloadLink)} href={options.walletDownloadUrl}>
+        <ModalFooter>
+          <Link
+            className={cx('wk-download-link', clsDownloadLink)}
+            href={options.walletDownloadUrl}
+          >
             <WalletIcon />I don’t have a wallet
           </Link>
-        </Box>
+        </ModalFooter>
       )}
     </>
   );

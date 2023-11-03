@@ -1,12 +1,12 @@
-import { Box, BoxProps } from '../../../../components/base/Box';
+import { Box, BoxProps } from '../../../../base/Box';
 import { cx } from '../../../../utils/css';
-import { infoTitle } from './styles.css';
+import { clsInfoTitle } from './styles.css';
 
 export function InfoTitle(props: BoxProps) {
   const { className, children, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-info-title', infoTitle, className)} {...restProps}>
+    <Box className={cx('wk-info-title', clsInfoTitle, className)} {...restProps}>
       {children}
     </Box>
   );

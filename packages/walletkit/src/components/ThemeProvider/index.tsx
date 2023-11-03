@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CustomTheme, base } from '../../themes/base';
 import { deepMerge } from '../../utils/common';
+import { ColorMode, ThemeContext } from './context';
 
-export type ThemeMode = 'auto' | 'dark' | 'light';
+export type ThemeMode = 'auto' | ColorMode;
 
 export type ThemeVariant = 'base';
 
@@ -78,7 +79,33 @@ export function ThemeProvider(props: ThemeProviderProps) {
     styleElement.textContent = styleContent;
   }, [styleContent]);
 
-  return <>{children}</>;
+  const [colorMode, setColorMode] = useState<ColorMode>('light');
+
+  useEffect(() => {
+    if (mode === 'auto') {
+      const onChangeColorMode = () => {
+        const cm = mql.matches ? 'dark' : 'light';
+        setColorMode(cm);
+      };
+
+      const mql = window.matchMedia('(prefers-color-scheme: dark)');
+
+      mql.addEventListener('change', onChangeColorMode);
+      return () => {
+        mql.removeEventListener('change', onChangeColorMode);
+      };
+    } else {
+      setColorMode(mode);
+    }
+  }, [mode]);
+
+  const value = useMemo(() => {
+    return {
+      colorMode,
+    };
+  }, [colorMode]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 function createCssVars(theme: Record<string, string>, prefix = '') {

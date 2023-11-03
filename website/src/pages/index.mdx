@@ -104,7 +104,7 @@ export default function App() {
 
       <WalletKitProvider options={options} mode={mode}>
         <ConnectInfo />
-        <ConnectButton />
+        <WalletKitButton />
 
         {/*
           👇 Here's the SwitchNetworkModal
@@ -126,33 +126,6 @@ function ConnectInfo() {
       <div>address: {address || '-'}</div>
       <div>chainId: {chain?.id || '-'}</div>
     </div>
-  );
-}
-
-function ConnectButton() {
-  const { isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { switchNetwork } = useSwitchNetwork();
-
-  return (
-    <>
-      {isConnected ? (
-        <>
-          <button onClick={() => disconnect()}>disconnect</button>
-
-          <button onClick={() => switchNetwork?.(56)}>chainId 56</button>
-          <button onClick={() => switchNetwork?.(97)}>chainId 97</button>
-          <button onClick={() => switchNetwork?.(204)}>chainId 204</button>
-          <button onClick={() => switchNetwork?.(5600)}>chainId 5600</button>
-        </>
-      ) : (
-        <WalletKitButton.Custom>
-          {({ show }) => {
-            return <button onClick={show}>connect</button>;
-          }}
-        </WalletKitButton.Custom>
-      )}
-    </>
   );
 }
 ```
@@ -197,7 +170,7 @@ const config = createConfig(
 
 ```tsx live=false
 <WalletKitButton.Custom>
-  {({ show, hide, isConnecting, isConnected, address }) => {
+  {({ show, hide, isConnecting, isConnected, address, truncatedAddress }) => {
     if (isConnected) {
       return <div>{address}</div>;
     } else if (isConnecting) {
@@ -246,26 +219,42 @@ An exmaple for customTheme
 ```tsx live=false
 const customTheme = {
   colors: {
-    text: '#1e2026',
+    text: '#1E2026',
     textSecondary: '#76808F',
-    primary: '#9B00FB',
-    primaryActive: '#B845FF',
-    warning: '#F5B631',
-    error: '#FC6E75',
+    primary: '#CC9D09',
+    primaryActive: '#F0B90B',
+    error: '#D9304E',
+    errorActive: '#B82942',
     border: '#E6E8EA',
+    disabled: '#AEB4BC',
 
     modalBackground: '#FFFFFF',
     modalOverlay: 'rgba(0, 0, 0, 0.5)',
 
-    optionText: '#1e2026',
-    optionTextHover: '#1e2026',
-    optionBackground: '#f5f5f5',
-    optionBackgroundHover: rgba('#B845FF', 0.1),
+    buttonText: 'var(--wk-colors-text)',
+    buttonTextHover: 'var(--wk-colors-text)',
+    buttonBackground: '#f5f5f5',
+    buttonBackgroundHover: rgba('#F0B90B', 0.1),
 
-    connectButtonText: '#fff',
-    connectButtonTextHover: '#fff',
-    connectButtonBackground: 'var(--wk-colors-primary)',
-    connectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
+    connectButtonText: 'var(--wk-colors-text)',
+    connectButtonTextHover: 'var(--wk-colors-text)',
+    connectButtonBackground: '#f5f5f5',
+    connectButtonBackgroundHover: '#e6e8ea',
+
+    navButtonText: 'var(--wk-colors-textSecondary)',
+    navButtonBackgroundHover: 'var(--wk-colors-border)',
+
+    disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+    disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+    disconnectButtonBackground: 'transparent',
+    disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+    disconnectButtonBorder: 'var(--wk-colors-border)',
+    disconnectButtonBorderHover: 'var(--wk-colors-border)',
+
+    optionText: 'var(--wk-colors-text)',
+    optionTextHover: 'var(--wk-colors-text)',
+    optionBackground: '#f5f5f5',
+    optionBackgroundHover: rgba('#F0B90B', 0.1),
 
     walletOptionText: 'var(--wk-colors-optionText)',
     walletOptionTextHover: 'var(--wk-colors-optionTextHover)',
@@ -276,14 +265,6 @@ const customTheme = {
     chainOptionTextHover: 'var(--wk-colors-optionTextHover)',
     chainOptionBackground: 'var(--wk-colors-optionBackground)',
     chainOptionBackgroundHover: 'var(--wk-colors-optionBackgroundHover)',
-
-    closeButtonText: 'var(--wk-colors-textSecondary)',
-    closeButtonBackgroundHover: 'var(--wk-colors-border)',
-
-    disconnectButtonBackgroundText: '#fff',
-    disconnectButtonBackgroundTextHover: '#fff',
-    disconnectButtonBackground: 'var(--wk-colors-primary)',
-    disconnectButtonBackgroundHover: 'var(--wk-colors-primaryActive)',
 
     toastBackground: 'var(--wk-colors-modalBackground)',
 
@@ -297,6 +278,8 @@ const customTheme = {
     common: '8px',
     modal: '12px',
 
+    navButton: '4px',
+    button: 'var(--wk-radii-common)',
     connectButton: 'var(--wk-radii-common)',
     disconnectButton: 'var(--wk-radii-common)',
     walletOption: 'var(--wk-radii-common)',

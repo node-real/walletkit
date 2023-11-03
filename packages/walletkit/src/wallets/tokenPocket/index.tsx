@@ -22,6 +22,7 @@ export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
     downloadUrls: {
       default: 'https://www.tokenpocket.pro/en/download/app',
     },
+    spinnerColor: '#2980FE',
     installed: isTokenPocket(),
     createConnector: (chains: Chain[]) => {
       return new TokenPocketConnector({

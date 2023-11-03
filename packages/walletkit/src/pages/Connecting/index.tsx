@@ -3,17 +3,19 @@ import { useWalletKitContext } from '../../components/WalletKitProvider/context'
 import { useWalletConfig } from '../../hooks/useWalletConfig';
 import { useWalletKitConnect } from '../../hooks/useWalletKitConnect';
 import { Navbar } from '../../components/Navbar';
-import { ModalHeader } from '../../components/base/Modal/ModalHeader';
-import { Box } from '../../components/base/Box';
+import { ModalHeader } from '../../base/Modal/ModalHeader';
+import { Box } from '../../base/Box';
 import { Content } from './Content';
 import { ErrorTitle } from './Content/ErrorTitle';
 import { Description } from './Content/Description';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
-import { CircleSpinner } from '../../components/CircleSpinner';
-import { center, content, logoWrapper, refreshIconWrapper } from './styles.css';
-import { RefreshIcon } from '../../components/base/icons/RefreshIcon';
-import { ModalBody } from '../../components/base/Modal/ModalBody';
+import { CircleSpinner } from './CircleSpinner';
+import { clsContent, clsGap, clsLogoWrapper, clsButton, clsFooter } from './styles.css';
+import { ModalBody } from '../../base/Modal/ModalBody';
+import { ModalFooter } from '../../base/Modal/ModalFooter';
+import { Button } from '../../base/Button';
+import { useWalletLogos } from '../../hooks/useWalletLogos';
 
 export const states = {
   CONNECTED: 'connected',
@@ -28,6 +30,7 @@ export function ConnectingPage() {
   const { selectedConnector, options, connectRole, log } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
+  const logos = useWalletLogos(wallet.logos);
 
   const [status, setStatus] = useState(!wallet.installed ? states.UNAVAILABLE : states.CONNECTING);
 
@@ -101,36 +104,22 @@ export function ConnectingPage() {
 
   log('[Connect]', status, selectedConnector);
 
+  const isError = [states.FAILED, states.NOTCONNECTED, states.REJECTED].includes(status);
+  const isLoading = status === states.CONNECTING;
+
   return (
     <>
       <Navbar showBack={true} />
       <ModalHeader>{wallet?.name}</ModalHeader>
 
-      <ModalBody className={content}>
-        <Box className={center}>
-          <CircleSpinner
-            isLoading={status === states.CONNECTING}
-            isError={status !== states.CONNECTING && status !== states.CONNECTED}
-          >
-            <Box className={logoWrapper} onClick={runConnect}>
-              {wallet.logos.default}
-            </Box>
-            {(status === states.FAILED || status === states.REJECTED) && (
-              <Box className={refreshIconWrapper} onClick={runConnect}>
-                <RefreshIcon
-                  style={{
-                    position: 'absolute',
-                    bottom: 6,
-                    right: 10,
-                    width: 16,
-                    height: 16,
-                  }}
-                />
-              </Box>
-            )}
-          </CircleSpinner>
-        </Box>
+      <ModalBody className={clsContent}>
+        <CircleSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
+          <Box className={clsLogoWrapper}>{logos.default}</Box>
+        </CircleSpinner>
 
+        <Box className={clsGap} />
+
+        {/* typo ok */}
         {status === states.FAILED && (
           <Content>
             <ErrorTitle>Connection Failed</ErrorTitle>
@@ -138,6 +127,7 @@ export function ConnectingPage() {
           </Content>
         )}
 
+        {/* typo ok */}
         {status === states.REJECTED && (
           <Content>
             <InfoTitle>Request Cancelled</InfoTitle>
@@ -145,6 +135,7 @@ export function ConnectingPage() {
           </Content>
         )}
 
+        {/* typo ok */}
         {status === states.CONNECTING && (
           <Content>
             <InfoTitle>Requesting Connection</InfoTitle>
@@ -154,6 +145,7 @@ export function ConnectingPage() {
           </Content>
         )}
 
+        {/* typo ok */}
         {status === states.CONNECTED && (
           <Content>
             <InfoTitle>Already Connected</InfoTitle>
@@ -170,6 +162,14 @@ export function ConnectingPage() {
 
         {status === states.UNAVAILABLE && <UnsupportedContent />}
       </ModalBody>
+
+      {(status === states.FAILED || status === states.REJECTED) && (
+        <ModalFooter className={clsFooter}>
+          <Button className={clsButton} onClick={runConnect}>
+            Try Again
+          </Button>
+        </ModalFooter>
+      )}
     </>
   );
 }

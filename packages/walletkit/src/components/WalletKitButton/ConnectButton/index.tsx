@@ -2,18 +2,21 @@ import React, { useCallback } from 'react';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { cx } from '../../../utils/css';
-import { Button, ButtonProps } from '../../base/Button';
-import { walletkitButton } from './styles.css';
+import { Button, ButtonProps } from '../../../base/Button';
+import { clsWalletkitButton } from './styles.css';
+import { useAccount } from 'wagmi';
+import { ConnectedInfo } from './ConnectedInfo';
 
 export interface ConnectButtonProps extends ButtonProps {
   role?: ConnectRole;
 }
 
 export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: any) => {
-  const { className, children, role = 'default', onClick, ...restProps } = props;
+  const { className, role = 'default', onClick, ...restProps } = props;
 
   const { setConnectRole } = useWalletKitContext();
   const { onOpenModal } = useOpenModal();
+  const { isConnected } = useAccount();
 
   const onClickButton = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,14 +28,18 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
     [role, onClick, onOpenModal, setConnectRole],
   );
 
+  if (isConnected) {
+    return <ConnectedInfo />;
+  }
+
   return (
     <Button
       ref={ref}
-      className={cx('wk-walletkit-button', walletkitButton, className)}
+      className={cx('wk-walletkit-button', clsWalletkitButton, className)}
       onClick={onClickButton}
       {...restProps}
     >
-      {children ?? 'Connect Wallet'}
+      Connect Wallet
     </Button>
   );
 });

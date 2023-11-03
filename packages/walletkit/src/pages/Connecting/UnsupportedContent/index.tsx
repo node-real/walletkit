@@ -2,7 +2,7 @@ import { useWalletKitContext } from '../../../components/WalletKitProvider/conte
 import { isMetaMaskConnector } from '../../../wallets';
 import { Content } from '../Content';
 import { Description } from '../Content/Description';
-import { ErrorTitle } from '../Content/ErrorTitle';
+import { InfoTitle } from '../Content/InfoTitle';
 
 export function UnsupportedContent() {
   const { selectedConnector } = useWalletKitContext();
@@ -14,7 +14,7 @@ export function UnsupportedContent() {
   ) {
     return (
       <Content>
-        <ErrorTitle>Switch Wallet</ErrorTitle>
+        <InfoTitle>Switch Wallet</InfoTitle>
         <Description>
           Please install the {selectedConnector?._wallet.name} extension first, then switch the
           wallet manually in the corresponding extension, and refresh the page to log in.
@@ -25,7 +25,7 @@ export function UnsupportedContent() {
 
   return (
     <Content>
-      <ErrorTitle>Unsupported Browser</ErrorTitle>
+      <InfoTitle>Install {selectedConnector?._wallet.name}</InfoTitle>
       <Description>
         To continue, please install {selectedConnector?._wallet.name} extension to your browser.
       </Description>

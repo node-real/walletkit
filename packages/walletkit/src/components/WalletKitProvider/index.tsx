@@ -8,13 +8,13 @@ import { getDefaultSupportedChains } from '../../defaultConfig/getDefaultSupport
 import { RouteProvider } from '../RouteProvider';
 import { WalletKitModal } from '../WalletKitModal';
 import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
-import { ToastProvider } from '../base/toast/ToastProvider';
+import { ToastProvider } from '../../base/toast/ToastProvider';
 import { CustomTheme } from '../../themes/base';
 import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
-  children: any;
+  children: React.ReactNode;
   debugMode?: boolean;
   theme?: ThemeVariant;
   mode?: ThemeMode;
