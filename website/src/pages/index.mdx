@@ -54,14 +54,7 @@ export const chains: Chain[] = [
 ### 2. Add `WagmiConfig` and `WalletKitProvider` to your project
 
 ```tsx live=false
-import {
-  WagmiConfig,
-  createConfig,
-  useAccount,
-  useDisconnect,
-  useNetwork,
-  useSwitchNetwork,
-} from 'wagmi';
+import { WagmiConfig, createConfig } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -81,7 +74,7 @@ const config = createConfig(
 
     // WalletConnect 2.0 requires a projectId which you can create quickly
     // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-    walletConnectProjectId: 'xxx',
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
 
     chains,
     connectors: [trustWallet(), metaMask(), walletConnect()],
@@ -89,7 +82,7 @@ const config = createConfig(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 5600,
+  initialChainId: 56,
 };
 
 export default function App() {
@@ -102,8 +95,7 @@ export default function App() {
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />
 
-      <WalletKitProvider options={options} mode={mode}>
-        <ConnectInfo />
+      <WalletKitProvider options={options} mode={mode} debugMode>
         <WalletKitButton />
 
         {/*
@@ -114,18 +106,6 @@ export default function App() {
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>
-  );
-}
-
-function ConnectInfo() {
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-
-  return (
-    <div>
-      <div>address: {address || '-'}</div>
-      <div>chainId: {chain?.id || '-'}</div>
-    </div>
   );
 }
 ```
