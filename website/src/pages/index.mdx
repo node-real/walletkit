@@ -11,7 +11,8 @@ npm i @totejs/walletkit wagmi viem
 
 ## Examples
 
-- [vite demo](https://github.com/node-real/walletkit/blob/main/examples/vite/src/App.tsx)
+- [nextjs](https://github.com/node-real/walletkit/blob/main/examples/nextjs/pages/_app.tsx)
+- [vite](https://github.com/node-real/walletkit/blob/main/examples/vite/src/App.tsx)
 
 ## Playground
 
@@ -19,7 +20,18 @@ npm i @totejs/walletkit wagmi viem
 
 ## How to use
 
-### 1. Add chain configurations
+### 1. Import walletkit styles
+
+```tsx live=false
+// 👇 Import walletkit styles here.
+import '@totejs/walletkit/styles.css';
+
+import { WagmiConfig, createConfig } from 'wagmi';
+import { chains } from './chains';
+// ...
+```
+
+### 2. Add chain configurations
 
 ```tsx live=false
 import { Chain } from 'wagmi';
@@ -51,9 +63,12 @@ export const chains: Chain[] = [
 ];
 ```
 
-### 2. Add `WagmiConfig` and `WalletKitProvider` to your project
+### 3. Add `WagmiConfig` and `WalletKitProvider` to your project
 
 ```tsx live=false
+// 👇 Import walletkit styles here.
+import '@totejs/walletkit/styles.css';
+
 import { WagmiConfig, createConfig } from 'wagmi';
 import { chains } from './chains';
 import {
@@ -110,15 +125,18 @@ export default function App() {
 }
 ```
 
+## useModal
+
+```tsx live=false
+import { useModal } from '@totejs/walletkit';
+
+const { isOpen, onOpen, onClose } = useModal();
+```
+
 ## Customizing wallets
 
 ```tsx live=false
-import {
-  metaMask,
-  tokenPocket,
-  trustWallet,
-  walletConnect,
-} from '@totejs/walletkit/wallets';
+import { metaMask, tokenPocket, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -129,14 +147,18 @@ const config = createConfig(
     connectors: [
       metaMask({
         name: 'MetaMask',
-        logo: <MetaMaskLogo />
+        logos: {
+          default: <MetaMaskLogo />,
+        },
         connectorOptions: {
           shimDisconnect: false,
         },
       }),
       trustWallet({
         name: 'Trust Wallet',
-        logo: <TrustWalletLogo />
+        logos: {
+          default: <TrustWalletLogo />,
+        },
         connectorOptions: {
           shimDisconnect: true,
         },
@@ -194,7 +216,9 @@ type ThemeVariant = 'base';
 </WalletKitProvider>;
 ```
 
-An exmaple for customTheme
+An exmaple for custom theme as follows, or you can configure themes in both light and dark modes,
+for more details, please click
+[here](https://github.com/node-real/walletkit/blob/main/packages/walletkit/src/themes/base.ts).
 
 ```tsx live=false
 const customTheme = {

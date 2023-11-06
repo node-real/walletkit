@@ -73,7 +73,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
       styleElement = document.createElement('style');
 
       styleElement.id = id;
-      document.documentElement.appendChild(styleElement);
+      document.head.appendChild(styleElement);
     }
 
     styleElement.textContent = styleContent;

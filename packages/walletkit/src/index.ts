@@ -9,6 +9,9 @@ export * from './components/SwitchNetworkModal';
 
 export { type ThemeMode, type ThemeVariant } from './components/ThemeProvider';
 
+// hooks
+export * from './hooks/useModal';
+
 // utils
 export * from './utils/mobile';
 export * from './utils/css';
