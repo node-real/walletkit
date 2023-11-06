@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '../../../../base/Box';
+import { Box, BoxProps } from '../../../../base/components/Box';
 import { cx } from '../../../../utils/css';
 import { clsDescription } from './styles.css';
 

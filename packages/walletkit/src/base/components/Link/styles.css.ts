@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../utils/css';
+import { cssVar } from '../../../utils/css';
 
 export const clsLink = style({
   textDecoration: 'none',

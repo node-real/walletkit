@@ -1,9 +1,9 @@
 import { Connector } from 'wagmi';
 
 import { useWalletConfig } from '../../../hooks/useWalletConfig';
-import { Button } from '../../../base/Button';
-import { Text } from '../../../base/Text';
-import { Box } from '../../../base/Box';
+import { Button } from '../../../base/components/Button';
+import { Text } from '../../../base/components/Text';
+import { Box } from '../../../base/components/Box';
 import { useClickWallet } from '../../../hooks/useClickWallet';
 import { cx } from '../../../utils/css';
 import { clsWalletOption, clsWalletOptionIcon, clsWalletOptionName } from './styles.css';

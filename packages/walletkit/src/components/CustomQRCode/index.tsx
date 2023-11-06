@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Box, BoxProps } from '../../base/Box';
+import { Box, BoxProps } from '../../base/components/Box';
 import { QRCode } from './QRCode';
 import { QRCodePlaceHolder } from './QRCodePlaceHolder';
 import { clsQrCodeContainer, clsQrCodeLogo, clsQrCodeWrapper } from './styles.css';

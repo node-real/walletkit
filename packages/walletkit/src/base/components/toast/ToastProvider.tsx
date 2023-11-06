@@ -5,7 +5,7 @@ import { ToastOptions } from '.';
 import { ToastComponent } from './ToastComponent';
 import { Box } from '../Box';
 import { clsToastRoot } from './styles.css';
-import { cx } from '../../utils/css';
+import { cx } from '../../../utils/css';
 
 export const ToastProvider = () => {
   const [toastList, setToastList] = useState<ToastOptions[]>([]);

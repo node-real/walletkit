@@ -1,6 +1,6 @@
 import { cx } from '../../../utils/css';
 import { clsContainer, clsChildren, clsErrorCircle, clsLoading } from './styles.css';
-import { Box, BoxProps } from '../../../base/Box';
+import { Box, BoxProps } from '../../../base/components/Box';
 import { CircleLoadingIcon } from '../../../base/icons/CircleLoadingIcon';
 
 export interface CircleSpinnerProps extends BoxProps {

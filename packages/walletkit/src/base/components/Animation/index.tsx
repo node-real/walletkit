@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { cx } from '../../utils/css';
+import { cx } from '../../../utils/css';
 import { clsFadeIn, clsFadeOut } from './fade.css';
 import { clsToastSlideIn, clsToastSlideOut } from './toastSlide.css';
 

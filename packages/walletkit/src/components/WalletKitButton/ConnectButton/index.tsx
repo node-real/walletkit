@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { cx } from '../../../utils/css';
-import { Button, ButtonProps } from '../../../base/Button';
+import { Button, ButtonProps } from '../../../base/components/Button';
 import { clsWalletkitButton } from './styles.css';
 import { useAccount } from 'wagmi';
 import { ConnectedInfo } from './ConnectedInfo';
-import { useIsMounted } from '../../../hooks/useIsMounted';
+import { useIsMounted } from '../../../base/hooks/useIsMounted';
 
 export interface ConnectButtonProps extends ButtonProps {
   role?: ConnectRole;

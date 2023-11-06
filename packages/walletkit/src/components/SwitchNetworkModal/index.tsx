@@ -1,9 +1,9 @@
 import { useAccount, useNetwork } from 'wagmi';
 import { useEffect } from 'react';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { BoxProps } from '../../base/Box';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import { useIsMounted } from '../../hooks/useIsMounted';
+import { BoxProps } from '../../base/components/Box';
+import { useDisclosure } from '../../base/hooks/useDisclosure';
+import { useIsMounted } from '../../base/hooks/useIsMounted';
 import { SwitchModal } from './SwitchModal';
 
 export type SwitchNetworkModalProps = BoxProps;

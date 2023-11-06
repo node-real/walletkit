@@ -1,8 +1,8 @@
 import { cx } from '../../utils/css';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { Box, BoxProps } from '../../base/Box';
-import { IconButton } from '../../base/IconButton';
+import { Box, BoxProps } from '../../base/components/Box';
+import { IconButton } from '../../base/components/IconButton';
 import { BackIcon } from '../../base/icons/BackIcon';
 import { CloseIcon } from '../../base/icons/CloseIcon';
 import { clsNavbar } from './styles.css';

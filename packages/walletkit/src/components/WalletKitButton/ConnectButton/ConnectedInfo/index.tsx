@@ -1,9 +1,9 @@
 import { useAccount, useBalance, useEnsName, useNetwork } from 'wagmi';
-import { Text } from '../../../../base/Text';
+import { Text } from '../../../../base/components/Text';
 import { Avatar } from '../../../Avatar';
 import { formatBalance, truncateAddress, truncateENSName } from '../../../../utils/account';
-import { Box } from '../../../../base/Box';
-import { Button } from '../../../../base/Button';
+import { Box } from '../../../../base/components/Box';
+import { Button } from '../../../../base/components/Button';
 import { useCallback } from 'react';
 import { useRouter } from '../../../RouteProvider/context';
 import { routes } from '../../../RouteProvider';
@@ -21,7 +21,7 @@ import {
 } from './styles.css';
 import { clsWalletkitButton } from '../styles.css';
 import { DownArrowIcon } from '../../../../base/icons/DownArrowIcon';
-import { useDisclosure } from '../../../../hooks/useDisclosure';
+import { useDisclosure } from '../../../../base/hooks/useDisclosure';
 import { SwitchModal } from '../../../SwitchNetworkModal/SwitchModal';
 
 export function ConnectedInfo() {

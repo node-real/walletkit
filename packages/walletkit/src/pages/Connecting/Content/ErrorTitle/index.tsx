@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '../../../../base/Box';
+import { Box, BoxProps } from '../../../../base/components/Box';
 import { AlertIcon } from '../../../../base/icons/AlertIcon';
 
 import { cx } from '../../../../utils/css';
