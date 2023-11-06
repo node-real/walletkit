@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --recursive --parallel --filter @totejs/walletkit --filter example-vite dev",
+    "dev": "pnpm --recursive --parallel --filter @totejs/walletkit --filter example-nextjs dev",
     "dev:lib": "pnpm --filter @totejs/walletkit dev",
     "dev:example": "pnpm --filter example-vite dev"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rainbow-me/rainbowkit.git"
+    "url": "git+https://github.com/node-real/walletkit.git"
   },
   "license": "MIT",
   "devDependencies": {
