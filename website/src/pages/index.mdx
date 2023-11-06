@@ -170,6 +170,8 @@ const config = createConfig(
 
 ## Customizing ConnectButton
 
+`WalletKitButton.Custom`
+
 ```tsx live=false
 <WalletKitButton.Custom>
   {({ show, hide, isConnecting, isConnected, address, truncatedAddress }) => {
@@ -182,6 +184,15 @@ const config = createConfig(
     }
   }}
 </WalletKitButton.Custom>
+```
+
+`useModal`
+
+```tsx live=false
+import { useModal } from '@totejs/walletkit';
+
+const { isOpen, onOpen, onClose } = useModal();
+<button onClick={onOpen}>connect</button>;
 ```
 
 ## Handle wallet errors by yourself
