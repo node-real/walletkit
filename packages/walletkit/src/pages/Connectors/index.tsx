@@ -7,7 +7,7 @@ import { ModalHeader } from '../../base/components/Modal/ModalHeader';
 import { WalletIcon } from '../../base/icons/WalletIcon';
 
 import { useConnectors } from '../../hooks/useConnectors';
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { WalletOption } from './WalletOption';
 import { clsDownloadLink, clsWallets } from './styles.css';
 

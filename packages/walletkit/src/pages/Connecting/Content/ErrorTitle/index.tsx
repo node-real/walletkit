@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '../../../../base/components/Box';
 import { AlertIcon } from '../../../../base/icons/AlertIcon';
 
-import { cx } from '../../../../utils/css';
+import { cx } from '../../../../base/utils/css';
 import { clsErrorTitle } from './styles.css';
 
 export function ErrorTitle(props: BoxProps) {

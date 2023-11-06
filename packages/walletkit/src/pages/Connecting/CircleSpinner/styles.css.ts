@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { cssVar } from '../../../utils/css';
+import { cssVar } from '../../../base/utils/css';
 
 export const clsContainer = style({
   position: 'relative',

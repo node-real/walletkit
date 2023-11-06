@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../../utils/css';
+import { cssVar } from '../../../base/utils/css';
 
 export const clsDescription = style({
   lineHeight: '19px',

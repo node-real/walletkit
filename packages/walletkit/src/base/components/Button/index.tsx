@@ -1,5 +1,5 @@
 import React from 'react';
-import { cx } from '../../../utils/css';
+import { cx } from '../../utils/css';
 import { clsButton } from './styles.css';
 import { Box, BoxProps } from '../Box';
 

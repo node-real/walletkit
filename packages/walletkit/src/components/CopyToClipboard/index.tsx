@@ -3,7 +3,7 @@ import { Box, BoxProps } from '../../base/components/Box';
 import { useClipboard } from '../../base/hooks/useClipboard';
 import { SuccessIcon } from '../../base/icons/SuccessIcon';
 import { CopyIcon } from '../../base/icons/CopyIcon';
-import { cssVar, cx } from '../../utils/css';
+import { cssVar, cx } from '../../base/utils/css';
 import { clsCopy } from './styles.css';
 
 export interface CopyToClipboardProps extends BoxProps {

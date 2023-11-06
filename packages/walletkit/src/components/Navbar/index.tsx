@@ -1,4 +1,4 @@
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 import { Box, BoxProps } from '../../base/components/Box';

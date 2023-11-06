@@ -5,7 +5,7 @@ import { Link } from '../../base/components/Link';
 import { ModalHeader } from '../../base/components/Modal/ModalHeader';
 import { useWalletConfig } from '../../hooks/useWalletConfig';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { MODAL_AUTO_CLOSE_DELAY } from '../../constants/common';
 import { ForwardIcon } from '../../base/icons/ForwardIcon';

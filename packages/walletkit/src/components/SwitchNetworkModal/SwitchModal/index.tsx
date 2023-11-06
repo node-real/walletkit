@@ -5,7 +5,7 @@ import { ModalBody } from '../../../base/components/Modal/ModalBody';
 import { ModalHeader } from '../../../base/components/Modal/ModalHeader';
 import { useIsMounted } from '../../../base/hooks/useIsMounted';
 import { useWalletKitSwitchNetwork } from '../../../hooks/useWalletKitSwitchNetwork';
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { DisconnectButton } from '../../DisconnectButton';
 import { Navbar } from '../../Navbar';
 import { useWalletKitContext } from '../../WalletKitProvider/context';

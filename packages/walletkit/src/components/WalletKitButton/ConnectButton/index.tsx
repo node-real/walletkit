@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { Button, ButtonProps } from '../../../base/components/Button';
 import { clsWalletkitButton } from './styles.css';
 import { useAccount } from 'wagmi';

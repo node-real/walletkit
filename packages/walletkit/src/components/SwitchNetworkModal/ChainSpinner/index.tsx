@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '../../../base/components/Box';
 import { ChainSpinnerIcon } from '../../../base/icons/ChainSpinnerIcon';
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { clsContainer, clsLoading } from './styles.css';
 
 export interface ChainSpinnerProps extends BoxProps {

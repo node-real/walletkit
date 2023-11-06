@@ -1,5 +1,5 @@
 import { DeepPartial } from '../types';
-import { rgba } from '../utils/css';
+import { rgba } from '../base/utils/css';
 
 const radii = {
   common: '8px',

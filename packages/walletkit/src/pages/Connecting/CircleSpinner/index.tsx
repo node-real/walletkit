@@ -1,4 +1,4 @@
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { clsContainer, clsChildren, clsErrorCircle, clsLoading } from './styles.css';
 import { Box, BoxProps } from '../../../base/components/Box';
 import { CircleLoadingIcon } from '../../../base/icons/CircleLoadingIcon';

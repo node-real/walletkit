@@ -1,5 +1,5 @@
 import { ChainProps } from '../../../chains/types';
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { Box } from '../../../base/components/Box';
 import { Button, ButtonProps } from '../../../base/components/Button';
 import {

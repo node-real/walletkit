@@ -2,7 +2,7 @@ import { useConnect, useDisconnect } from 'wagmi';
 import { Button, ButtonProps } from '../../base/components/Button';
 import { ExitIcon } from '../../base/icons/ExitIcon';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { clsContainer } from './styles.css';
 
 export type DisconnectButtonProps = ButtonProps;
