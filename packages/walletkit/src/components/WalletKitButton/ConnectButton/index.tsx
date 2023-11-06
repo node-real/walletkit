@@ -6,6 +6,7 @@ import { Button, ButtonProps } from '../../../base/Button';
 import { clsWalletkitButton } from './styles.css';
 import { useAccount } from 'wagmi';
 import { ConnectedInfo } from './ConnectedInfo';
+import { useIsMounted } from '../../../hooks/useIsMounted';
 
 export interface ConnectButtonProps extends ButtonProps {
   role?: ConnectRole;
@@ -17,6 +18,7 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
   const { setConnectRole } = useWalletKitContext();
   const { onOpenModal } = useOpenModal();
   const { isConnected } = useAccount();
+  const isMounted = useIsMounted();
 
   const onClickButton = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,6 +29,8 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
     },
     [role, onClick, onOpenModal, setConnectRole],
   );
+
+  if (!isMounted) return null;
 
   if (isConnected) {
     return <ConnectedInfo />;

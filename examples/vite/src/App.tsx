@@ -1,3 +1,4 @@
+import '@totejs/walletkit/styles.css';
 import { WagmiConfig, createConfig } from 'wagmi';
 import { chains } from './chains';
 import {

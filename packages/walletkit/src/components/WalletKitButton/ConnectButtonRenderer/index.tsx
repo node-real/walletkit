@@ -1,5 +1,4 @@
 import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
-import { useIsMounted } from '../../../hooks/useIsMounted';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { useOpenModal } from '../../../hooks/useOpenModal';
 import { useCallback } from 'react';
@@ -26,7 +25,6 @@ export interface ConnectButtonRendererProps {
 export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
   const { role = 'default', children } = props;
 
-  const isMounted = useIsMounted();
   const { isOpen, onClose, setConnectRole } = useWalletKitContext();
   const { onOpenModal } = useOpenModal();
 
@@ -43,7 +41,7 @@ export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
     onOpenModal();
   }, [onOpenModal, setConnectRole, role]);
 
-  if (!children || !isMounted) return null;
+  if (!children) return null;
 
   return (
     <>
