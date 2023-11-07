@@ -33,17 +33,7 @@ const options: WalletKitOptions = {
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={config}>
-      <WalletKitProvider
-        options={options}
-        mode="auto"
-        debugMode
-        customTheme={{
-          colors: {
-            primary: 'red',
-            primaryActive: 'red',
-          },
-        }}
-      >
+      <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
         <Component {...pageProps} />
         <SwitchNetworkModal />
