@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
 import { ChainProps } from '../../chains/types';
 
@@ -11,6 +11,7 @@ export type WalletErrorProps = {
 
 export interface WalletKitOptions {
   initialChainId?: number;
+  disclaimer?: ReactNode;
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
   walletDownloadUrl?: string;

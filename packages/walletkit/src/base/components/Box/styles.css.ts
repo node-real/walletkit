@@ -6,6 +6,7 @@ export const clsBox = style({
   boxSizing: 'border-box',
   transitionProperty: 'background,color,opacity',
   transitionDuration: '0.2s',
+  textDecoration: 'none',
   '::before': {
     margin: 0,
     padding: 0,
