@@ -7,10 +7,8 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-  ThemeMode,
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
-import { useState } from 'react';
 
 const client = createClient(
   getDefaultConfig({
@@ -31,16 +29,9 @@ const options: WalletKitOptions = {
 };
 
 export default function App() {
-  const [mode, setMode] = useState<ThemeMode>('light');
-  const nextMode = mode === 'light' ? 'dark' : 'light';
-
   return (
     <WagmiConfig client={client}>
-      <div>mode: {mode} </div>
-      <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
-      <div style={{ height: 20 }} />
-
-      <WalletKitProvider options={options} mode={mode} debugMode>
+      <WalletKitProvider options={options} mode='light'>
         <WalletKitButton />
 
         {/*
