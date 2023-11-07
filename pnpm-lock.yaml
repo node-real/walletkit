@@ -64,6 +64,40 @@ importers:
         specifier: ^5
         version: 5.2.2
 
+  examples/test:
+    dependencies:
+      '@totejs/walletkit':
+        specifier: workspace:*
+        version: link:../../packages/walletkit
+      next:
+        specifier: ^13
+        version: 13.5.6(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+      viem:
+        specifier: ^1.16.6
+        version: 1.16.6(typescript@5.2.2)
+      wagmi:
+        specifier: ^1.4.4
+        version: 1.4.4(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.16.6)
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.8.10
+      '@types/react':
+        specifier: ^18
+        version: 18.2.30
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.2.14
+      typescript:
+        specifier: ^5
+        version: 5.2.2
+
   examples/vite:
     dependencies:
       '@totejs/walletkit':
@@ -2341,7 +2375,6 @@ packages:
     resolution: {integrity: sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/parse-json@4.0.1:
     resolution: {integrity: sha512-3YmXzzPAdOTVljVMkTMBdBEvlOLg2cDQaDhnnhT3nT9uDbnJzjWhKlzb+desT12Y7tGqaN6d+AbozcKzyL36Ng==}
@@ -2352,7 +2385,7 @@ packages:
   /@types/qrcode@1.5.4:
     resolution: {integrity: sha512-ufYqUO7wUBq49hugJry+oIYKscvxIQerJSmXeny215aJKfrepN04DDZP8FCgxvV82kOqKPULCE4PIW3qUmZrRA==}
     dependencies:
-      '@types/node': 18.6.5
+      '@types/node': 20.8.10
     dev: true
 
   /@types/react-dom@18.2.14:
@@ -4229,7 +4262,7 @@ packages:
     resolution: {integrity: sha512-EzV94NYKoO09GLXGjXj9JIlXijVck4ONSr5wiCWDvhsvj5jxSrzTmRU/9C1DyB6uToszLs8aifA6NQ7lEQdvFw==}
     engines: {node: '>= 0.8'}
     dependencies:
-      '@types/node': 18.6.5
+      '@types/node': 20.8.10
       require-like: 0.1.2
     dev: true
 

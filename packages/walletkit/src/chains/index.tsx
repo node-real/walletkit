@@ -4,12 +4,12 @@ import { ComboIcon } from './icons/ComboIcon';
 const chainsConfig = [
   {
     id: 56,
-    name: 'BNB Smart Chain',
+    name: 'BSC',
     logo: <BscIcon />,
   },
   {
     id: 97,
-    name: 'BNB Smart Chain Testnet',
+    name: 'BSC Testnet',
     logo: <BscIcon />,
   },
   {
