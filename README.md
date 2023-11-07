@@ -16,6 +16,7 @@ For full documentation, visit [here](https://node-real.github.io/walletkit/websi
 
 The following examples are provided in the [examples](./examples/) folder of this repo.
 
+- [nextjs](https://github.com/node-real/walletkit/tree/main/examples/nextjs)
 - [vite](https://github.com/node-real/walletkit/tree/main/examples/vite)
 
 ## Installation
