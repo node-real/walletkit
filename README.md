@@ -5,7 +5,7 @@ WalletKit is a React component library for easily connecting a wallet to your dA
 ## Features
 
 - 💡 Typescript — Get types straight out of the box.
-- 🌱 Ecosystem Standards — Built on top of [wagmi](https://wagmi.sh) and [viem](https://viem.sh)
+- 🌱 Ecosystem Standards — Built on top of [wagmi](https://wagmi.sh)
 - 🎨 Customization — Easily customizing wallets and themes
 
 ## Documentation
@@ -22,7 +22,7 @@ The following examples are provided in the [examples](./examples/) folder of thi
 ## Installation
 
 ```bash
-npm i @totejs/walletkit wagmi viem
+npm i @totejs/walletkit wagmi ethers@^5
 
 ```
 
