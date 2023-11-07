@@ -24,3 +24,54 @@ The following examples are provided in the [examples](./examples/) folder of thi
 npm i @totejs/walletkit wagmi viem
 
 ```
+
+## Usage
+
+```tsx
+import '@totejs/walletkit/styles.css';
+import { WagmiConfig, createConfig } from 'wagmi';
+import { chains } from './chains';
+import {
+  WalletKitButton,
+  WalletKitProvider,
+  getDefaultConfig,
+  WalletKitOptions,
+  SwitchNetworkModal,
+} from '@totejs/walletkit';
+import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+
+const config = createConfig(
+  getDefaultConfig({
+    autoConnect: true,
+    appName: 'WalletKit',
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
+
+    chains,
+    connectors: [trustWallet(), metaMask(), walletConnect()],
+  }),
+);
+
+const options: WalletKitOptions = {
+  initialChainId: 56,
+};
+
+export default function App() {
+  return (
+    <WagmiConfig config={config}>
+      <WalletKitProvider options={options} mode="light">
+        <WalletKitButton />
+
+        {/*
+          👇 Here's the SwitchNetworkModal
+          If the user switches to a network that is not supported by our dapp,
+          this modal will be displayed to remind the user to switch to our supported networks.
+        */}
+        <SwitchNetworkModal />
+      </WalletKitProvider>
+    </WagmiConfig>
+  );
+}
+```

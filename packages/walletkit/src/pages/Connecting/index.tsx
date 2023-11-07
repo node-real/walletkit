@@ -16,6 +16,7 @@ import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { ModalFooter } from '../../base/components/Modal/ModalFooter';
 import { Button } from '../../base/components/Button';
 import { useWalletLogos } from '../../hooks/useWalletLogos';
+import { useWalletDownloadUrl } from '../../hooks/useWalletDownloadUrl';
 
 export const states = {
   CONNECTED: 'connected',
@@ -31,6 +32,7 @@ export function ConnectingPage() {
 
   const wallet = useWalletConfig(selectedConnector);
   const logos = useWalletLogos(wallet.logos);
+  const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
   const [status, setStatus] = useState(!wallet.installed ? states.UNAVAILABLE : states.CONNECTING);
 
@@ -167,6 +169,14 @@ export function ConnectingPage() {
         <ModalFooter className={clsFooter}>
           <Button className={clsButton} onClick={runConnect}>
             Try Again
+          </Button>
+        </ModalFooter>
+      )}
+
+      {status === states.UNAVAILABLE && (
+        <ModalFooter className={clsFooter}>
+          <Button className={clsButton} as="a" href={downloadUrl} target="_blank" rel="noopener">
+            Install the Extension
           </Button>
         </ModalFooter>
       )}
