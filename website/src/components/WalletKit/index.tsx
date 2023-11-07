@@ -1,4 +1,4 @@
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
 
 import {
   WalletKitButton,
@@ -12,7 +12,7 @@ import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets'
 import { chains } from './chains';
 import { Box, useColorMode } from '@totejs/uikit';
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <Box borderRadius={8} border="1px solid readable.border" p={16}>
-      <WagmiConfig config={config}>
+      <WagmiConfig client={client}>
         <WalletKitProvider options={options} mode={colorMode}>
           <WalletKitButton />
           <SwitchNetworkModal />

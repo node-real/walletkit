@@ -1,10 +1,4 @@
-import {
-  ChainProviderFn,
-  Connector,
-  PublicClient,
-  WebSocketPublicClient,
-  configureChains,
-} from 'wagmi';
+import { ChainProviderFn, Connector, configureChains } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
@@ -31,17 +25,17 @@ export interface DefaultConfigProps {
   connectors?: Array<WalletProps | Connector>;
 
   autoConnect?: boolean;
-  publicClient?: any;
-  webSocketPublicClient?: any;
-  enableWebSocketPublicClient?: boolean;
+  provider?: any;
+  webSocketProvider?: any;
+  enableWebSocketProvider?: boolean;
   stallTimeout?: number;
 }
 
 export interface ConnectWalletClientProps {
   autoConnect?: boolean;
   connectors?: Connector[];
-  publicClient: PublicClient;
-  webSocketPublicClient?: WebSocketPublicClient;
+  provider: any;
+  webSocketProvider?: any;
 }
 
 const defaultChains = [mainnet];
@@ -61,9 +55,9 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
     connectors: customizedWallets,
 
     autoConnect = true,
-    publicClient,
-    webSocketPublicClient,
-    enableWebSocketPublicClient,
+    provider,
+    webSocketProvider,
+    enableWebSocketProvider,
     stallTimeout,
   } = props;
 
@@ -79,11 +73,11 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
 
   const providers: ChainProviderFn[] = [];
   if (alchemyId) {
-    providers.push(alchemyProvider({ apiKey: alchemyId }));
+    providers.push(alchemyProvider({ apiKey: alchemyId, stallTimeout }));
   }
 
   if (infuraId) {
-    providers.push(infuraProvider({ apiKey: infuraId }));
+    providers.push(infuraProvider({ apiKey: infuraId, stallTimeout }));
   }
 
   providers.push(
@@ -97,9 +91,9 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   providers.push(publicProvider());
 
   const {
-    publicClient: configuredPublicClient,
+    provider: configuredProvider,
     chains: configuredChains,
-    webSocketPublicClient: configuredWebSocketPublicClient,
+    webSocketProvider: configuredWebSocketProvider,
   } = configureChains(chains, providers, { stallTimeout });
 
   const wallets = customizedWallets ?? getDefaultWallets();
@@ -108,9 +102,9 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   return {
     autoConnect,
     connectors: configuredConnectors,
-    publicClient: publicClient ?? configuredPublicClient,
-    webSocketPublicClient: enableWebSocketPublicClient // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
-      ? webSocketPublicClient ?? configuredWebSocketPublicClient
+    provider: provider ?? configuredProvider,
+    webSocketProvider: enableWebSocketProvider // Removed by default, breaks if used in Next.js – "unhandledRejection: Error: could not detect network"
+      ? webSocketProvider ?? configuredWebSocketProvider
       : undefined,
   };
 };

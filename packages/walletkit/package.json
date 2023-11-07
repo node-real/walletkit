@@ -1,6 +1,6 @@
 {
   "name": "@totejs/walletkit",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "type": "module",
   "files": [
     "dist",
@@ -17,8 +17,8 @@
   "peerDependencies": {
     "react": ">=17",
     "react-dom": ">=17",
-    "viem": "^1.0.0",
-    "wagmi": "^1.0.0"
+    "wagmi": "^0",
+    "ethers": "^5"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.11.0",
@@ -41,10 +41,10 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.0.2",
-    "viem": "^1.16.6",
     "vite": "^4.5.0",
     "vite-plugin-dts": "^3.6.3",
-    "wagmi": "^1.4.4"
+    "wagmi": "^0",
+    "ethers": "^5"
   },
   "dependencies": {
     "qrcode": "^1.5.3"

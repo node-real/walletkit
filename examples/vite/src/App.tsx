@@ -1,5 +1,5 @@
 import '@totejs/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -12,7 +12,7 @@ import {
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
@@ -35,7 +35,7 @@ export default function App() {
   const nextMode = mode === 'light' ? 'dark' : 'light';
 
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig client={client}>
       <div>mode: {mode} </div>
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />
