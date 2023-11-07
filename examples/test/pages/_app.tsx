@@ -1,14 +1,18 @@
 import '@totejs/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
+import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
 import { chains } from './chains';
+import { WagmiConfig, createConfig } from 'wagmi';
 import {
+  SwitchNetworkModal,
+  ThemeMode,
   WalletKitButton,
+  WalletKitOptions,
   WalletKitProvider,
   getDefaultConfig,
-  WalletKitOptions,
-  SwitchNetworkModal,
 } from '@totejs/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
+import { useState } from 'react';
 
 const config = createConfig(
   getDefaultConfig({
@@ -28,17 +32,19 @@ const options: WalletKitOptions = {
   initialChainId: 56,
 };
 
-export default function App() {
+export default function App({ Component, pageProps }: AppProps) {
+  const [mode, setMode] = useState<ThemeMode>('light');
+  const nextMode = mode === 'light' ? 'dark' : 'light';
+
   return (
     <WagmiConfig config={config}>
-      <WalletKitProvider options={options} mode="light">
-        <WalletKitButton />
+      <div>mode: {mode} </div>
+      <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
+      <div style={{ height: 20 }} />
 
-        {/*
-          👇 Here's the SwitchNetworkModal
-          If the user switches to a network that is not supported by our dapp,
-          this modal will be displayed to remind the user to switch to our supported networks.
-        */}
+      <WalletKitProvider options={options} mode={mode} debugMode>
+        <WalletKitButton />
+        <Component {...pageProps} />
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>
