@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm i @totejs/walletkit wagmi^0 ethers@^5
+npm i @totejs/walletkit^0 wagmi^0 ethers@^5
 ```
 
 ## Examples
