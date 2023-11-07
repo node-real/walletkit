@@ -9,7 +9,8 @@ import { WalletIcon } from '../../base/icons/WalletIcon';
 import { useConnectors } from '../../hooks/useConnectors';
 import { cx } from '../../base/utils/css';
 import { WalletOption } from './WalletOption';
-import { clsDownloadLink, clsWallets } from './styles.css';
+import { clsDisclaimer, clsDownloadLink, clsWallets } from './styles.css';
+import { Box } from '../../base/components/Box';
 
 export function ConnectorsPage() {
   const connectors = useConnectors();
@@ -19,6 +20,10 @@ export function ConnectorsPage() {
     <>
       <Navbar />
       <ModalHeader>Connect Wallet</ModalHeader>
+
+      {options.disclaimer && (
+        <Box className={cx('wk-disclaimer', clsDisclaimer)}>{options.disclaimer}</Box>
+      )}
 
       <ModalBody className={cx('wk-wallets', clsWallets)}>
         {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}

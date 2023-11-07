@@ -34,7 +34,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
         chains,
         options: {
           shimDisconnect: true,
-          UNSTABLE_shimOnConnectSelectAccount: true,
+          UNSTABLE_shimOnConnectSelectAccount: false,
           ...connectorOptions,
         },
       });
