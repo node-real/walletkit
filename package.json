@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --recursive --parallel --filter @totejs/walletkit --filter example-nextjs dev",
-    "dev:lib": "pnpm --filter @totejs/walletkit dev",
-    "dev:example": "pnpm --filter example-vite dev"
+    "dev": "pnpm --recursive --parallel --filter @totejs/walletkit --filter example-nextjs dev"
   },
   "repository": {
     "type": "git",
