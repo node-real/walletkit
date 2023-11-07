@@ -13,8 +13,8 @@ export { type ThemeMode, type ThemeVariant } from './components/ThemeProvider';
 export * from './hooks/useModal';
 
 // utils
-export * from './utils/mobile';
-export * from './utils/css';
+export * from './base/utils/mobile';
+export * from './base/utils/css';
 
 // types
 export * from './types';

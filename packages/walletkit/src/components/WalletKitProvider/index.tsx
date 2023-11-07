@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react';
 import { Connector } from 'wagmi';
 import { ConnectRole, WalletKitContext, WalletKitContextProps, WalletKitOptions } from './context';
-import { useDisclosure } from '../../hooks/useDisclosure';
+import { useDisclosure } from '../../base/hooks/useDisclosure';
 import { useChains } from '../../hooks/useChains';
 import { getDefaultProviderOptions } from '../../defaultConfig/getDefaultProviderOptions';
 import { getDefaultSupportedChains } from '../../defaultConfig/getDefaultSupportedChains';
 import { RouteProvider } from '../RouteProvider';
 import { WalletKitModal } from '../WalletKitModal';
 import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
-import { ToastProvider } from '../../base/toast/ToastProvider';
+import { ToastProvider } from '../../base/components/toast/ToastProvider';
 import { CustomTheme } from '../../themes/base';
 import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
 

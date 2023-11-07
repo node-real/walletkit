@@ -1,7 +1,7 @@
 import { ChainProps } from '../../../chains/types';
-import { cx } from '../../../utils/css';
-import { Box } from '../../../base/Box';
-import { Button, ButtonProps } from '../../../base/Button';
+import { cx } from '../../../base/utils/css';
+import { Box } from '../../../base/components/Box';
+import { Button, ButtonProps } from '../../../base/components/Button';
 import {
   clsChainOptionLogo,
   clsChainOptionName,

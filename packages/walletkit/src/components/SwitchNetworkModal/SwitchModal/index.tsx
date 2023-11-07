@@ -1,11 +1,11 @@
 import { useNetwork } from 'wagmi';
-import { Box } from '../../../base/Box';
-import { Modal, ModalProps } from '../../../base/Modal';
-import { ModalBody } from '../../../base/Modal/ModalBody';
-import { ModalHeader } from '../../../base/Modal/ModalHeader';
-import { useIsMounted } from '../../../hooks/useIsMounted';
+import { Box } from '../../../base/components/Box';
+import { Modal, ModalProps } from '../../../base/components/Modal';
+import { ModalBody } from '../../../base/components/Modal/ModalBody';
+import { ModalHeader } from '../../../base/components/Modal/ModalHeader';
+import { useIsMounted } from '../../../base/hooks/useIsMounted';
 import { useWalletKitSwitchNetwork } from '../../../hooks/useWalletKitSwitchNetwork';
-import { cx } from '../../../utils/css';
+import { cx } from '../../../base/utils/css';
 import { DisconnectButton } from '../../DisconnectButton';
 import { Navbar } from '../../Navbar';
 import { useWalletKitContext } from '../../WalletKitProvider/context';

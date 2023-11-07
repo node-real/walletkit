@@ -1,13 +1,13 @@
 import { Navbar } from '../../components/Navbar';
 import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { Link } from '../../base/Link';
-import { ModalBody } from '../../base/Modal/ModalBody';
-import { ModalFooter } from '../../base/Modal/ModalFooter';
-import { ModalHeader } from '../../base/Modal/ModalHeader';
+import { Link } from '../../base/components/Link';
+import { ModalBody } from '../../base/components/Modal/ModalBody';
+import { ModalFooter } from '../../base/components/Modal/ModalFooter';
+import { ModalHeader } from '../../base/components/Modal/ModalHeader';
 import { WalletIcon } from '../../base/icons/WalletIcon';
 
 import { useConnectors } from '../../hooks/useConnectors';
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { WalletOption } from './WalletOption';
 import { clsDownloadLink, clsWallets } from './styles.css';
 

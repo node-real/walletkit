@@ -4,8 +4,8 @@ import { ToastManager } from './ToastManager';
 import { Box } from '../Box';
 import { clsContainer, clsDescWrapper, clsIconWrapper } from './styles.css';
 import { Animation } from '../Animation';
-import { InfoIcon } from '../icons/InfoIcon';
-import { ErrorIcon } from '../icons/ErrorIcon';
+import { InfoIcon } from '../../icons/InfoIcon';
+import { ErrorIcon } from '../../icons/ErrorIcon';
 
 const iconMap: Record<string, React.ReactNode> = {
   info: <InfoIcon />,

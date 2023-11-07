@@ -3,7 +3,7 @@ import { Connector, useDisconnect } from 'wagmi';
 import { useRouter } from '../components/RouteProvider/context';
 import { useWalletKitContext } from '../components/WalletKitProvider/context';
 import { useWalletConnectModal } from './useWalletConnectModal';
-import { isMobile } from '../utils/mobile';
+import { isMobile } from '../base/utils/mobile';
 import { isWalletConnectConnector } from '../wallets';
 import { routes } from '../components/RouteProvider';
 import { MODAL_AUTO_CLOSE_DELAY } from '../constants/common';

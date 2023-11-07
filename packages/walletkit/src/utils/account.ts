@@ -30,11 +30,11 @@ export function formatBalance(balance: FetchBalanceResult): string {
 
   let result = String(number);
   if (number < 1) {
-    result = toPrecision(number, 3);
+    result = toPrecision(number, 4);
   } else if (number < 10 ** 2) {
-    result = toPrecision(number, 2);
+    result = toPrecision(number, 4);
   } else if (number < 10 ** 4) {
-    result = new Intl.NumberFormat().format(parseFloat(toPrecision(number, 1)));
+    result = new Intl.NumberFormat().format(parseFloat(toPrecision(number, 4)));
   } else {
     const decimalsDivisor = 10 ** 1;
     const units = ['k', 'm', 'b', 't'];
@@ -45,7 +45,7 @@ export function formatBalance(balance: FetchBalanceResult): string {
       if (size <= number) {
         number = (number * decimalsDivisor) / size / decimalsDivisor;
 
-        result = toPrecision(number, 1) + units[i];
+        result = toPrecision(number, 4) + units[i];
 
         break;
       }

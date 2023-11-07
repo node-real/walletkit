@@ -1,7 +1,7 @@
-import { useIsMounted } from '../../hooks/useIsMounted';
+import { useIsMounted } from '../../base/hooks/useIsMounted';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { Modal } from '../../base/Modal';
+import { Modal } from '../../base/components/Modal';
 
 export function WalletKitModal() {
   const { isOpen, onClose } = useWalletKitContext();

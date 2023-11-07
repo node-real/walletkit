@@ -3,7 +3,7 @@ import { useWalletKitContext } from '..';
 import { routes } from '../components/RouteProvider';
 import { useRouter } from '../components/RouteProvider/context';
 import { useAccount } from 'wagmi';
-import { toast } from '../base/toast';
+import { toast } from '../base/components/toast';
 
 export function useModal() {
   const { isOpen, onOpen, onClose } = useWalletKitContext();

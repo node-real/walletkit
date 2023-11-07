@@ -1,4 +1,4 @@
-import { Box } from '../../../base/Box';
+import { Box } from '../../../base/components/Box';
 import { clsContainer, clsCorner } from './styles.css';
 
 export function QRCodePlaceHolder() {

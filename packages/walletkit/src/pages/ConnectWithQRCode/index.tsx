@@ -1,18 +1,18 @@
 import { useCallback } from 'react';
 import { Navbar } from '../../components/Navbar';
 import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { Link } from '../../base/Link';
-import { ModalHeader } from '../../base/Modal/ModalHeader';
+import { Link } from '../../base/components/Link';
+import { ModalHeader } from '../../base/components/Modal/ModalHeader';
 import { useWalletConfig } from '../../hooks/useWalletConfig';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
-import { cx } from '../../utils/css';
+import { cx } from '../../base/utils/css';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { MODAL_AUTO_CLOSE_DELAY } from '../../constants/common';
 import { ForwardIcon } from '../../base/icons/ForwardIcon';
-import { ModalBody } from '../../base/Modal/ModalBody';
+import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { CustomQRCode } from '../../components/CustomQRCode';
 import { useWalletConnectUri } from '../../components/WalletConnectUriProvider/context';
-import { ModalFooter } from '../../base/Modal/ModalFooter';
+import { ModalFooter } from '../../base/components/Modal/ModalFooter';
 import { useWalletLogos } from '../../hooks/useWalletLogos';
 
 export function ConnectWithQRCodePage() {
