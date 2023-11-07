@@ -29,7 +29,7 @@ npm i @totejs/walletkit wagmi viem
 
 ```tsx
 import '@totejs/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -40,7 +40,7 @@ import {
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
@@ -60,7 +60,7 @@ const options: WalletKitOptions = {
 
 export default function App() {
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig client={client}>
       <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
 
