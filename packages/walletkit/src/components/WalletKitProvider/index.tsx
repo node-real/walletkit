@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Connector } from 'wagmi';
 import { ConnectRole, WalletKitContext, WalletKitContextProps, WalletKitOptions } from './context';
-import { useDisclosure } from '../../base/hooks/useDisclosure';
 import { useChains } from '../../hooks/useChains';
 import { getDefaultProviderOptions } from '../../defaultConfig/getDefaultProviderOptions';
 import { getDefaultSupportedChains } from '../../defaultConfig/getDefaultSupportedChains';
@@ -11,6 +10,7 @@ import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
 import { ToastProvider } from '../../base/components/toast/ToastProvider';
 import { CustomTheme } from '../../themes/base';
 import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
+import { ModalProvider } from '../ModalProvider';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -34,7 +34,6 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const [connectRole, setConnectRole] = useState<ConnectRole>('default');
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const chains = useChains();
 
   const value = useMemo(() => {
@@ -44,9 +43,6 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     const finalValue: WalletKitContextProps = {
       options: finalOptions,
       supportedChains: finalChains,
-      isOpen,
-      onOpen,
-      onClose,
       connectRole,
       setConnectRole,
       selectedConnector,
@@ -55,17 +51,19 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
       log: debugMode ? console.log : () => {},
     };
     return finalValue;
-  }, [options, chains, isOpen, onOpen, onClose, connectRole, selectedConnector, debugMode]);
+  }, [options, chains, connectRole, selectedConnector, debugMode]);
 
   return (
     <WalletKitContext.Provider value={value}>
       <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
         <RouteProvider>
-          <WalletConnectUriProvider>
-            {children}
-            <WalletKitModal />
-            <ToastProvider />
-          </WalletConnectUriProvider>
+          <ModalProvider>
+            <WalletConnectUriProvider>
+              {children}
+              <WalletKitModal />
+              <ToastProvider />
+            </WalletConnectUriProvider>
+          </ModalProvider>
         </RouteProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>

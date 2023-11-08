@@ -25,10 +25,6 @@ export interface WalletKitContextProps {
   options: WalletKitOptions;
   supportedChains: ChainProps[];
 
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-
   connectRole: ConnectRole;
   setConnectRole: (role: ConnectRole) => void;
 

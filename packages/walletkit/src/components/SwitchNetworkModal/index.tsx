@@ -1,44 +1,25 @@
 import { useAccount, useNetwork } from 'wagmi';
 import { useEffect } from 'react';
-import { useWalletKitContext } from '../WalletKitProvider/context';
-import { BoxProps } from '../../base/components/Box';
-import { useDisclosure } from '../../base/hooks/useDisclosure';
-import { useIsMounted } from '../../base/hooks/useIsMounted';
-import { SwitchModal } from './SwitchModal';
+import { useModal } from '../..';
 
-export type SwitchNetworkModalProps = BoxProps;
-
-export function SwitchNetworkModal(props: SwitchNetworkModalProps) {
-  const { ...restProps } = props;
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMounted = useIsMounted();
-
+export function SwitchNetworkModal() {
+  const { onOpenSwitchNetwork } = useModal();
   const { chain } = useNetwork();
   const { isConnected } = useAccount();
-
-  const { onClose: onCloseWalletKitModal } = useWalletKitContext();
 
   useEffect(() => {
     if (isConnected) {
       const timer = setTimeout(() => {
         if (chain?.unsupported) {
-          onCloseWalletKitModal();
-          onOpen();
-        } else {
-          onClose();
+          onOpenSwitchNetwork({ isClosable: false });
         }
       }, 300);
 
       return () => {
         clearTimeout(timer);
       };
-    } else {
-      onClose();
     }
-  }, [chain?.unsupported, isConnected, onClose, onCloseWalletKitModal, onOpen]);
+  }, [chain?.unsupported, isConnected, onOpenSwitchNetwork]);
 
-  if (!isMounted) return null;
-
-  return <SwitchModal isOpen={isOpen} onClose={onClose} {...restProps} />;
+  return null;
 }
