@@ -10,7 +10,7 @@ import { ErrorTitle } from './Content/ErrorTitle';
 import { Description } from './Content/Description';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
-import { CircleSpinner } from './CircleSpinner';
+import { ConnectSpinner } from './ConnectSpinner';
 import { clsContent, clsGap, clsLogoWrapper, clsButton, clsFooter } from './styles.css';
 import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { ModalFooter } from '../../base/components/Modal/ModalFooter';
@@ -104,7 +104,7 @@ export function ConnectingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  log('[Connect]', status, selectedConnector);
+  log('[Connect]', status, selectedConnector?.name);
 
   const isError = [states.FAILED, states.NOTCONNECTED, states.REJECTED].includes(status);
   const isLoading = status === states.CONNECTING;
@@ -115,9 +115,9 @@ export function ConnectingPage() {
       <ModalHeader>{wallet?.name}</ModalHeader>
 
       <ModalBody className={clsContent}>
-        <CircleSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
+        <ConnectSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
           <Box className={clsLogoWrapper}>{logos.default}</Box>
-        </CircleSpinner>
+        </ConnectSpinner>
 
         <Box className={clsGap} />
 

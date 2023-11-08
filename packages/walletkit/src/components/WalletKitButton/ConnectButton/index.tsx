@@ -39,7 +39,7 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
   return (
     <Button
       ref={ref}
-      className={cx('wk-walletkit-button', clsWalletkitButton, className)}
+      className={cx('wk-connect-button', clsWalletkitButton, className)}
       onClick={onClickButton}
       {...restProps}
     >

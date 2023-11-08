@@ -6,6 +6,7 @@ export interface RouteContextProps {
   back: () => void;
   replace: (nextRoute: string) => void;
   push: (nextRoute: string) => void;
+  reset: () => void;
 }
 
 export const RouteContext = React.createContext({} as RouteContextProps);

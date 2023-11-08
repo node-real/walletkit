@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { Navbar } from '../../components/Navbar';
 import { useWalletKitContext } from '../../components/WalletKitProvider/context';
 import { Link } from '../../base/components/Link';
@@ -7,7 +6,6 @@ import { useWalletConfig } from '../../hooks/useWalletConfig';
 import { useWalletConnectModal } from '../../hooks/useWalletConnectModal';
 import { cx } from '../../base/utils/css';
 import { clsContainer, clsOfficialButton } from './styles.css';
-import { MODAL_AUTO_CLOSE_DELAY } from '../../constants/common';
 import { ForwardIcon } from '../../base/icons/ForwardIcon';
 import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { CustomQRCode } from '../../components/CustomQRCode';
@@ -16,20 +14,13 @@ import { ModalFooter } from '../../base/components/Modal/ModalFooter';
 import { useWalletLogos } from '../../hooks/useWalletLogos';
 
 export function ConnectWithQRCodePage() {
-  const { selectedConnector, onClose, options } = useWalletKitContext();
+  const { selectedConnector, options } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
   const logos = useWalletLogos(wallet.logos);
 
   const { wcUri } = useWalletConnectUri();
   const { onOpenWcModal } = useWalletConnectModal();
-
-  const onClickOpenWcModal = useCallback(() => {
-    onOpenWcModal();
-    setTimeout(() => {
-      onClose();
-    }, MODAL_AUTO_CLOSE_DELAY);
-  }, [onClose, onOpenWcModal]);
 
   const logo = logos?.mobile ?? logos?.default;
 
@@ -44,10 +35,7 @@ export function ConnectWithQRCodePage() {
 
       {!options.hideOfficialWalletConnectCTA && (
         <ModalFooter>
-          <Link
-            className={cx('wk-official-button', clsOfficialButton)}
-            onClick={onClickOpenWcModal}
-          >
+          <Link className={cx('wk-official-wc-button', clsOfficialButton)} onClick={onOpenWcModal}>
             Open the official WalletConnect modal
             <ForwardIcon />
           </Link>

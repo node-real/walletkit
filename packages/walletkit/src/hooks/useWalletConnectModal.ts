@@ -1,14 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Connector } from 'wagmi';
 import { useWalletKitContext } from '../components/WalletKitProvider/context';
 import { WalletConnectConnector, isWalletConnectConnector } from '../wallets';
 import { useWalletKitConnect } from './useWalletKitConnect';
+import { MODAL_AUTO_CLOSE_DELAY } from '../constants/common';
+import { useModal } from '../components/ModalProvider/context';
 
 export function useWalletConnectModal() {
   const { connectAsync, connectors } = useWalletKitConnect();
+  const { onClose } = useModal();
+  const { log } = useWalletKitContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const { log } = useWalletKitContext();
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, MODAL_AUTO_CLOSE_DELAY);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isOpen, onClose]);
 
   return {
     isOpenWcModal: isOpen,
