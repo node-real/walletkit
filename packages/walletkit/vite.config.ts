@@ -15,7 +15,7 @@ export default defineConfig({
     dts(),
   ],
   build: {
-    target: 'es2020',
+    target: 'esnext',
     minify: false,
     lib: {
       formats: ['es'],
@@ -27,6 +27,9 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom', 'viem', 'wagmi', 'qrcode'],
       plugins: [peerDepsExternal(), nodeResolve()],
+      output: {
+        chunkFileNames: 'common.js',
+      },
     },
   },
 });

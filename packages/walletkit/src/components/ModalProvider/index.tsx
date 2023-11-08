@@ -49,8 +49,8 @@ export function ModalProvider(props: ModalProviderProps) {
           });
         }
       },
-      onOpenSwitchNetwork(options: OpenSwitchNetworkOptions = {}) {
-        const { isClosable = true } = options;
+      onOpenSwitchNetwork(options?: OpenSwitchNetworkOptions) {
+        const { isClosable = true } = options ?? {};
 
         if (isConnected) {
           router.push(routes.SWITCH_NETWORK);

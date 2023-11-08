@@ -10,6 +10,7 @@ import {
   WalletKitOptions,
   WalletKitProvider,
   getDefaultConfig,
+  useModal,
 } from '@totejs/walletkit';
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
@@ -44,9 +45,22 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <WalletKitProvider options={options} mode={mode} debugMode>
         <WalletKitButton />
+        <Example />
         <Component {...pageProps} />
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>
+  );
+}
+
+function Example() {
+  const { onOpen, onOpenProfile, onOpenSwitchNetwork } = useModal();
+
+  return (
+    <>
+      <button onClick={onOpen}>Open Connect Modal</button>
+      <button onClick={onOpenProfile}>Open Profile Modal</button>
+      <button onClick={onOpenSwitchNetwork}>Open SwitchNetwork Modal</button>
+    </>
   );
 }

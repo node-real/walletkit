@@ -41,14 +41,14 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     const finalChains = getDefaultSupportedChains(options, chains);
 
     const finalValue: WalletKitContextProps = {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      log: debugMode ? console.log : () => {},
       options: finalOptions,
       supportedChains: finalChains,
       connectRole,
       setConnectRole,
       selectedConnector,
       setSelectedConnector,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      log: debugMode ? console.log : () => {},
     };
     return finalValue;
   }, [options, chains, connectRole, selectedConnector, debugMode]);
