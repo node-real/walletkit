@@ -3,14 +3,14 @@ import { clsContainer, clsChildren, clsErrorCircle, clsLoading } from './styles.
 import { Box, BoxProps } from '../../../base/components/Box';
 import { CircleLoadingIcon } from '../../../base/icons/CircleLoadingIcon';
 
-export interface CircleSpinnerProps extends BoxProps {
+export interface ConnectSpinnerProps extends BoxProps {
   isLoading?: boolean;
   isError?: boolean;
   thickness?: number;
   loadingColor?: string;
 }
 
-export function CircleSpinner(props: CircleSpinnerProps) {
+export function ConnectSpinner(props: ConnectSpinnerProps) {
   const {
     className,
     isLoading = false,
@@ -22,7 +22,7 @@ export function CircleSpinner(props: CircleSpinnerProps) {
   } = props;
 
   return (
-    <Box className={cx('wk-circle-spinner', clsContainer, className)} {...restProps}>
+    <Box className={cx('wk-connect-spinner', clsContainer, className)} {...restProps}>
       {isLoading && (
         <CircleLoadingIcon className={clsLoading} thickness={thickness} endColor={loadingColor} />
       )}

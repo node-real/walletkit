@@ -6,11 +6,10 @@ import { useWalletConnectModal } from './useWalletConnectModal';
 import { isMobile } from '../base/utils/mobile';
 import { isWalletConnectConnector } from '../wallets';
 import { routes } from '../components/RouteProvider';
-import { MODAL_AUTO_CLOSE_DELAY } from '../constants/common';
 
 export function useClickWallet() {
   const router = useRouter();
-  const { options, setSelectedConnector, onClose } = useWalletKitContext();
+  const { options, setSelectedConnector } = useWalletKitContext();
 
   const { disconnect } = useDisconnect();
   const { onOpenWcModal } = useWalletConnectModal();
@@ -30,9 +29,6 @@ export function useClickWallet() {
         if (isWalletConnectConnector(connector)) {
           if (connector.options.showQrModal) {
             onOpenWcModal();
-            setTimeout(() => {
-              onClose();
-            }, MODAL_AUTO_CLOSE_DELAY);
           } else {
             setSelectedConnector(connector);
             router.push(routes.CONNECT_WITH_QRCODE);
@@ -48,7 +44,7 @@ export function useClickWallet() {
         }
       }, 300);
     },
-    [disconnect, mobile, onClose, onOpenWcModal, options, router, setSelectedConnector],
+    [disconnect, mobile, onOpenWcModal, options, router, setSelectedConnector],
   );
 
   return onClickWallet;

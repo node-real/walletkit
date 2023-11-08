@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { RouteContext } from './context';
-import { useWalletKitContext } from '../WalletKitProvider/context';
 import { ConnectorsPage } from '../../pages/Connectors';
 import { ConnectingPage } from '../../pages/Connecting';
 import { ConnectWithQRCodePage } from '../../pages/ConnectWithQRCode';
 import { ConnectedPage } from '../../pages/Connected';
+import { SwitchNetworkPage } from '../../pages/SwitchNetwork';
 
 export const routes = {
   CONNECTING: 'Connecting',
   CONNECTORS: 'Connectors',
   CONNECT_WITH_QRCODE: 'ConnectWithQRCode',
   CONNECTED: 'Connected',
+  SWITCH_NETWORK: 'SwitchNetwork',
 };
 
 export interface RouteProviderProps {
@@ -21,7 +21,6 @@ export interface RouteProviderProps {
 export function RouteProvider(props: RouteProviderProps) {
   const { children } = props;
 
-  const { onClose } = useWalletKitContext();
   const [route, setRoute] = useState('');
   const { current: history } = useRef<string[]>([]);
 
@@ -35,6 +34,8 @@ export function RouteProvider(props: RouteProviderProps) {
         return <ConnectWithQRCodePage />;
       case routes.CONNECTED:
         return <ConnectedPage />;
+      case routes.SWITCH_NETWORK:
+        return <SwitchNetworkPage />;
     }
     return null;
   }, [route]);
@@ -67,6 +68,10 @@ export function RouteProvider(props: RouteProviderProps) {
     [history],
   );
 
+  const reset = useCallback(() => {
+    history.length = 0;
+  }, [history]);
+
   const value = useMemo(() => {
     return {
       route,
@@ -74,16 +79,9 @@ export function RouteProvider(props: RouteProviderProps) {
       back,
       push,
       replace,
+      reset,
     };
-  }, [back, page, push, replace, route]);
-
-  const { isConnected } = useAccount();
-
-  useEffect(() => {
-    if (isConnected) {
-      onClose();
-    }
-  }, [isConnected, onClose]);
+  }, [back, page, push, replace, reset, route]);
 
   return <RouteContext.Provider value={value}>{children}</RouteContext.Provider>;
 }

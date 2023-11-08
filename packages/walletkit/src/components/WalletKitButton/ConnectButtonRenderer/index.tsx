@@ -2,9 +2,9 @@ import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
 import { useCallback } from 'react';
 import { truncateAddress } from '../../../utils/account';
-import { useModal } from '../../../hooks/useModal';
 import { routes } from '../../RouteProvider';
 import { useRouter } from '../../RouteProvider/context';
+import { useModal } from '../../ModalProvider/context';
 
 export interface ConnectButtonRendererProps {
   role?: ConnectRole;
@@ -27,8 +27,8 @@ export interface ConnectButtonRendererProps {
 export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
   const { role = 'default', children } = props;
 
-  const { isOpen, onClose, setConnectRole } = useWalletKitContext();
-  const { onOpen, onOpenProfile } = useModal();
+  const { setConnectRole } = useWalletKitContext();
+  const { isOpen, onOpen, onClose, onOpenProfile } = useModal();
 
   const router = useRouter();
   const { chain } = useNetwork();

@@ -1,9 +1,9 @@
 import { useConnect, useDisconnect } from 'wagmi';
 import { Button, ButtonProps } from '../../base/components/Button';
 import { ExitIcon } from '../../base/icons/ExitIcon';
-import { useWalletKitContext } from '../WalletKitProvider/context';
 import { cx } from '../../base/utils/css';
 import { clsContainer } from './styles.css';
+import { useModal } from '../..';
 
 export type DisconnectButtonProps = ButtonProps;
 
@@ -12,12 +12,14 @@ export function DisconnectButton(props: DisconnectButtonProps) {
 
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
-  const { onClose } = useWalletKitContext();
+  const { onClose } = useModal();
 
   const onDisconnect = () => {
-    disconnect();
-    reset();
     onClose();
+    setTimeout(() => {
+      disconnect();
+      reset();
+    }, 100);
   };
 
   return (
