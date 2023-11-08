@@ -27,10 +27,13 @@ export function useModal() {
     }
   }, [isConnected, onOpen, router]);
 
+  // const onOpenSwitchNetwork = useCallback(() => {}, []);
+
   return {
     isOpen,
     onClose,
     onOpen: onOpenModal,
     onOpenProfile,
+    // onOpenSwitchNetwork,
   };
 }

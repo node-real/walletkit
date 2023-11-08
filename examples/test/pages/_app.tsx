@@ -43,7 +43,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <div style={{ height: 20 }} />
 
       <WalletKitProvider options={options} mode={mode} debugMode>
-        <WalletKitButton />
+        <WalletKitButton.Custom>
+          {({ show, isConnecting }) => {
+            console.log(isConnecting, '==');
+            return <button onClick={show}>wenty</button>;
+          }}
+        </WalletKitButton.Custom>
         <Component {...pageProps} />
         <SwitchNetworkModal />
       </WalletKitProvider>
