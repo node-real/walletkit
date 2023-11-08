@@ -16,6 +16,11 @@ const radii = {
   qrCode: 'var(--wk-radii-common)',
 };
 
+const zIndices = {
+  modal: 1300,
+  toast: 1500,
+};
+
 export const base = {
   light: {
     colors: {
@@ -75,6 +80,7 @@ export const base = {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     radii,
+    zIndices,
   },
   dark: {
     colors: {
@@ -134,6 +140,7 @@ export const base = {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     radii,
+    zIndices,
   },
 };
 

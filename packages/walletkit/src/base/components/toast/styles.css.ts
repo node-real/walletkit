@@ -6,7 +6,7 @@ export const clsToastRoot = style({
   top: 0,
   left: '50%',
   transform: 'translateX(-50%)',
-  zIndex: 10001,
+  zIndex: cssVar('toast', 'zIndices'),
   padding: 8,
   display: 'flex',
   flexDirection: 'column',

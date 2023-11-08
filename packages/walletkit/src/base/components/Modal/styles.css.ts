@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { cssVar } from '../../utils/css';
 
 export const clsModal = style({
-  zIndex: 10000,
+  zIndex: cssVar('modal', 'zIndices'),
   position: 'fixed',
   left: 0,
   top: 0,

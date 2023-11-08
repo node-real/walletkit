@@ -129,6 +129,8 @@ function createConnectors(input: Array<WalletProps | Connector> = [], chains: Ch
 // !!!hack
 // sometimes provider isn't ready, requests will be pending and no responses,
 function withHackHandler(c: Connector) {
+  return c;
+
   const provider = c?.options?.getProvider?.();
 
   if (provider && !provider.__hasWrappedRequest && isMetaMaskConnector(c)) {
