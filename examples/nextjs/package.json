@@ -13,8 +13,8 @@
     "react-dom": "^18",
     "next": "^13",
     "@totejs/walletkit": "workspace:*",
-    "viem": "^1.16.6",
-    "wagmi": "^1.4.4"
+    "viem": "^1.0.0",
+    "wagmi": "^1.0.0"
   },
   "devDependencies": {
     "typescript": "^5",
