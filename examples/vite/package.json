@@ -12,8 +12,8 @@
     "@totejs/walletkit": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^1.16.6",
-    "wagmi": "^1.4.4"
+    "viem": "^1.0.0",
+    "wagmi": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
