@@ -1,8 +1,10 @@
 import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
-import { useOpenModal } from '../../../hooks/useOpenModal';
 import { useCallback } from 'react';
 import { truncateAddress } from '../../../utils/account';
+import { routes } from '../../RouteProvider';
+import { useRouter } from '../../RouteProvider/context';
+import { useModal } from '../../ModalProvider/context';
 
 export interface ConnectButtonRendererProps {
   role?: ConnectRole;
@@ -25,33 +27,36 @@ export interface ConnectButtonRendererProps {
 export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
   const { role = 'default', children } = props;
 
-  const { isOpen, onClose, setConnectRole } = useWalletKitContext();
-  const { onOpenModal } = useOpenModal();
+  const { setConnectRole } = useWalletKitContext();
+  const { isOpen, onOpen, onClose, onOpenProfile } = useModal();
 
+  const router = useRouter();
   const { chain } = useNetwork();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   const { data: ensName } = useEnsName({
     chainId: 1,
     address: address,
   });
 
-  const onOpen = useCallback(() => {
+  const onOpenModal = useCallback(() => {
     setConnectRole(role);
-    onOpenModal();
-  }, [onOpenModal, setConnectRole, role]);
+    onOpen();
+  }, [setConnectRole, role, onOpen]);
 
   if (!children) return null;
+
+  const isConnecting = [routes.CONNECTORS, routes.CONNECTING].includes(router.route) && isOpen;
 
   return (
     <>
       {children({
-        show: onOpen,
+        show: isConnected ? onOpenProfile : onOpenModal,
         hide: onClose,
         chain: chain,
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
-        isConnecting: isOpen, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
+        isConnecting: isConnecting, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
         truncatedAddress: address ? truncateAddress(address) : undefined,
         ensName: ensName?.toString(),

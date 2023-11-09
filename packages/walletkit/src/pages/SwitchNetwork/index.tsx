@@ -1,29 +1,21 @@
 import { useNetwork } from 'wagmi';
-import { Box } from '../../../base/components/Box';
-import { Modal, ModalProps } from '../../../base/components/Modal';
-import { ModalBody } from '../../../base/components/Modal/ModalBody';
-import { ModalHeader } from '../../../base/components/Modal/ModalHeader';
-import { useIsMounted } from '../../../base/hooks/useIsMounted';
-import { useWalletKitSwitchNetwork } from '../../../hooks/useWalletKitSwitchNetwork';
-import { cx } from '../../../base/utils/css';
-import { DisconnectButton } from '../../DisconnectButton';
-import { Navbar } from '../../Navbar';
-import { useWalletKitContext } from '../../WalletKitProvider/context';
-import { ChainOption } from '../ChainOption';
+import { ModalHeader } from '../../base/components/Modal/ModalHeader';
+import { Navbar } from '../../components/Navbar';
+import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { clsChains, clsDescription, clsOrSeparator } from './styles.css';
+import { useWalletKitContext } from '../../components/WalletKitProvider/context';
+import { useWalletKitSwitchNetwork } from '../../hooks/useWalletKitSwitchNetwork';
+import { Box } from '../../base/components/Box';
+import { cx } from '../../base/utils/css';
+import { ChainOption } from './ChainOption';
+import { DisconnectButton } from '../../components/DisconnectButton';
+import { useModal } from '../..';
 
-export interface SwitchModalProps extends ModalProps {
-  isClosable?: boolean;
-}
-
-export function SwitchModal(props: SwitchModalProps) {
-  const { className, isOpen, onClose, isClosable = false, ...restProps } = props;
-
-  const isMounted = useIsMounted();
-
+export function SwitchNetworkPage() {
   const { supportedChains } = useWalletKitContext();
   const { isLoading, switchNetwork, pendingChainId } = useWalletKitSwitchNetwork();
   const { chain } = useNetwork();
+  const { isClosable } = useModal();
 
   const onSwitchNetwork = (chainId: number) => {
     if (switchNetwork && !isLoading) {
@@ -31,18 +23,9 @@ export function SwitchModal(props: SwitchModalProps) {
     }
   };
 
-  if (!isMounted) return null;
-
   return (
-    <Modal
-      className={cx('wk-switch-network-modal', className)}
-      isOpen={isOpen}
-      onClose={onClose}
-      closeOnEsc={false}
-      closeOnOverlayClick={false}
-      {...restProps}
-    >
-      {isClosable && <Navbar onClose={onClose} />}
+    <>
+      {isClosable && <Navbar />}
       <ModalHeader>Switch Network</ModalHeader>
 
       <ModalBody>
@@ -70,6 +53,6 @@ export function SwitchModal(props: SwitchModalProps) {
 
         <DisconnectButton />
       </ModalBody>
-    </Modal>
+    </>
   );
 }

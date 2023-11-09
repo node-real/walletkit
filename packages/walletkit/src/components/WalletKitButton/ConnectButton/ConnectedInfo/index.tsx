@@ -4,10 +4,7 @@ import { Avatar } from '../../../Avatar';
 import { formatBalance, truncateAddress, truncateENSName } from '../../../../utils/account';
 import { Box } from '../../../../base/components/Box';
 import { Button } from '../../../../base/components/Button';
-import { useCallback } from 'react';
-import { useRouter } from '../../../RouteProvider/context';
-import { routes } from '../../../RouteProvider';
-import { cx, useWalletKitContext } from '../../../..';
+import { cx, useModal } from '../../../..';
 import { useChainConfig } from '../../../../hooks/useChainConfig';
 import {
   clsAccountButton,
@@ -21,19 +18,11 @@ import {
 } from './styles.css';
 import { clsWalletkitButton } from '../styles.css';
 import { DownArrowIcon } from '../../../../base/icons/DownArrowIcon';
-import { useDisclosure } from '../../../../base/hooks/useDisclosure';
-import { SwitchModal } from '../../../SwitchNetworkModal/SwitchModal';
 
 export function ConnectedInfo() {
   const { address } = useAccount();
-  const router = useRouter();
 
-  const { onOpen: openProfile } = useWalletKitContext();
-
-  const onOpenProfile = useCallback(() => {
-    router.replace(routes.CONNECTED);
-    openProfile();
-  }, [openProfile, router]);
+  const { onOpenProfile, onOpenSwitchNetwork } = useModal();
 
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -47,19 +36,12 @@ export function ConnectedInfo() {
   const { chain } = useNetwork();
   const chainConfig = useChainConfig(chain);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const onOpenSwitchNetworkModal = useCallback(() => {
-    onOpen();
-  }, [onOpen]);
-
   return (
-    <Box className={cx('wk-info', clsInfo)}>
-      <SwitchModal isOpen={isOpen} onClose={onClose} closeOnEsc closeOnOverlayClick isClosable />
-
+    <Box className={cx('wk-connected-button-group', clsInfo)}>
       {chain?.unsupported ? (
         <Button
           className={cx('wk-wrong-network-button', clsWalletkitButton, clsWrongButton)}
-          onClick={onOpenSwitchNetworkModal}
+          onClick={onOpenSwitchNetwork}
         >
           Wrong network
           <DownArrowIcon />
@@ -68,7 +50,7 @@ export function ConnectedInfo() {
         <>
           <Button
             className={cx('wk-chain-button', clsWalletkitButton, clsChainButton)}
-            onClick={onOpenSwitchNetworkModal}
+            onClick={onOpenSwitchNetwork}
           >
             <Box className={clsChainLogo}>{chainConfig?.logo}</Box>
             <Box title={chainConfig.name}>{truncateENSName(chainConfig.name)}</Box>

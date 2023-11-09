@@ -1,4 +1,4 @@
-import { Connector, useConnect } from 'wagmi';
+import { useConnect, Connector } from 'wagmi';
 
 export function useConnectors() {
   const { connectors } = useConnect();
@@ -7,5 +7,5 @@ export function useConnectors() {
 
 export function useConnector(id: string) {
   const connectors = useConnectors();
-  return connectors.find((c) => c.id === id) as Connector;
+  return connectors.find((c) => c.id === id) as Connector | undefined;
 }
