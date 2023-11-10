@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "release",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["example-nextjs", "example-vite", "example-test", "website"]
 }
