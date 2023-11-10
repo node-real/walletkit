@@ -12,6 +12,7 @@ import {
   getDefaultConfig,
   useModal,
 } from '@totejs/walletkit';
+
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
