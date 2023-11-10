@@ -1,6 +1,7 @@
 {
   "name": "@totejs/walletkit",
   "version": "1.0.2",
+  "private": false,
   "type": "module",
   "files": [
     "dist",

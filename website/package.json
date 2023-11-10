@@ -1,13 +1,11 @@
 {
   "name": "website",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
-  "homepage": "https://wenty22.github.io/walletkit/",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "publish": "ts-node --project tsconfig.node.json scripts/publish.ts"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "@emotion/react": "^11",
