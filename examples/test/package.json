@@ -1,6 +1,7 @@
 {
   "name": "example-test",
   "version": "0.0.1",
+  "author": "node-real",
   "private": true,
   "scripts": {
     "dev": "next dev",

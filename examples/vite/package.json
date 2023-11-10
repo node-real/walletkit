@@ -1,6 +1,7 @@
 {
   "name": "example-vite",
   "version": "0.0.1",
+  "author": "node-real",
   "private": true,
   "type": "module",
   "scripts": {
