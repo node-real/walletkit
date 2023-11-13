@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-export interface OpenSwitchNetworkOptions extends React.MouseEvent {
+export interface OpenSwitchNetworkOptions {
   isClosable?: boolean;
 }
 
