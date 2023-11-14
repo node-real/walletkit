@@ -6,6 +6,8 @@ export interface OpenSwitchNetworkOptions {
 
 export interface ModalContextProps {
   isClosable: boolean;
+  closeOnEsc?: boolean;
+  closeOnOverlayClick?: boolean;
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
