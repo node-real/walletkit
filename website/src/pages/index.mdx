@@ -334,8 +334,12 @@ interface WalletKitOptions {
 
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
-  walletDownloadUrl?: string;
 
+  closeModalAfterConnected?: boolean;
+  closeModalOnEsc?: boolean;
+  closeModalOnOverlayClick?: boolean;
+
+  walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
 
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;

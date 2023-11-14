@@ -114,10 +114,20 @@ export default function App() {
 
 ## useModal
 
+Use hook `useModal` to show/dismiss the specific modal. Must be used within a `<WalletKitProvider>`.
+
+- `onOpen`: open the connect wallet modal
+- `onOpenProfile`: open the connected modal
+- `onOpenSwitchNetwork`: open the switch network modal
+
 ```tsx live=false
 import { useModal } from '@totejs/walletkit';
 
-const { isOpen, onOpen, onClose } = useModal();
+const { isOpen, onOpen, onClose, onOpenProfile, onOpenSwitchNetwork } = useModal();
+
+<button onClick={onOpen}>Open Connect Modal</button>
+<button onClick={onOpenProfile}>Open Connected Modal</button>
+<button onClick={onOpenSwitchNetwork}>Open SwitchNetwork Modal</button>
 ```
 
 ## Customizing wallets
@@ -290,6 +300,10 @@ const customTheme = {
     toast: 'var(--wk-radii-common)',
     qrCode: 'var(--wk-radii-common)',
   },
+  zIndices: {
+    modal: 1300,
+    toast: 1500,
+  },
 };
 ```
 
@@ -320,14 +334,18 @@ interface WalletKitOptions {
 
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
-  walletDownloadUrl?: string;
 
+  closeModalAfterConnected?: boolean;
+  closeModalOnEsc?: boolean;
+  closeModalOnOverlayClick?: boolean;
+
+  walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
 
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
 
   // !!! Notice
-  // This callback takes effect only if ConnectButton's connectMode='add-network'
+  // This callback takes effect only if WalletKitButton's connectRole='add-network'
   // will be called if network has already added to the wallet
   onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
 

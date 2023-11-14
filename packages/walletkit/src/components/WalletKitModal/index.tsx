@@ -4,7 +4,7 @@ import { Modal } from '../../base/components/Modal';
 import { useModal } from '../..';
 
 export function WalletKitModal() {
-  const { isOpen, onClose } = useModal();
+  const { isOpen, onClose, closeOnEsc, closeOnOverlayClick } = useModal();
   const { page } = useRouter();
   const isMounted = useIsMounted();
   const { isClosable } = useModal();
@@ -16,8 +16,8 @@ export function WalletKitModal() {
       className="wk-connect-modal"
       isOpen={isOpen}
       onClose={onClose}
-      closeOnEsc={isClosable}
-      closeOnOverlayClick={isClosable}
+      closeOnEsc={isClosable ? closeOnEsc : false}
+      closeOnOverlayClick={isClosable ? closeOnOverlayClick : false}
     >
       {page}
     </Modal>
