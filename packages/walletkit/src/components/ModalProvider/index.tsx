@@ -5,6 +5,7 @@ import { useRouter } from '../RouteProvider/context';
 import { useAccount, useNetwork } from 'wagmi';
 import { routes } from '../RouteProvider';
 import { toast } from '../../base/components/toast';
+import { useWalletKitContext } from '../..';
 
 export interface ModalProviderProps {
   children: React.ReactNode;
@@ -20,6 +21,9 @@ export function ModalProvider(props: ModalProviderProps) {
   const { chain } = useNetwork();
   const router = useRouter();
 
+  const { options } = useWalletKitContext();
+  const { closeModalAfterConnected, closeModalOnEsc, closeModalOnOverlayClick } = options;
+
   useEffect(() => {
     if (router.route === routes.SWITCH_NETWORK && isConnected && !chain?.unsupported) {
       setIsClosable(true);
@@ -29,6 +33,8 @@ export function ModalProvider(props: ModalProviderProps) {
   const value = useMemo(() => {
     return {
       isClosable,
+      closeOnEsc: closeModalOnEsc,
+      closeOnOverlayClick: closeModalOnOverlayClick,
       isOpen,
       onClose() {
         router.reset();
@@ -63,13 +69,26 @@ export function ModalProvider(props: ModalProviderProps) {
         }
       },
     };
-  }, [isClosable, isConnected, isOpen, onClose, onOpen, router]);
+  }, [
+    closeModalOnEsc,
+    closeModalOnOverlayClick,
+    isClosable,
+    isConnected,
+    isOpen,
+    onClose,
+    onOpen,
+    router,
+  ]);
 
   useEffect(() => {
-    if ([routes.CONNECTING, routes.CONNECT_WITH_QRCODE].includes(router.route) && isConnected) {
+    if (
+      [routes.CONNECTING, routes.CONNECT_WITH_QRCODE].includes(router.route) &&
+      isConnected &&
+      closeModalAfterConnected
+    ) {
       onClose();
     }
-  }, [isConnected, onClose, router.route]);
+  }, [isConnected, onClose, closeModalAfterConnected, router.route]);
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
 }

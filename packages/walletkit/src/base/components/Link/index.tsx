@@ -8,7 +8,13 @@ export const Link = (props: LinkProps) => {
   const { className, ...restProps } = props;
 
   return (
-    <Box as="a" className={cx(clsLink, className)} target="_blank" rel="noopener" {...restProps} />
+    <Box
+      as="a"
+      className={cx('wk-link', clsLink, className)}
+      target="_blank"
+      rel="noopener"
+      {...restProps}
+    />
   );
 };
 

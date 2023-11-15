@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+build
 dist-ssr
 *.local
 .next
@@ -24,3 +25,4 @@ dist-ssr
 *.sln
 *.sw?
 .npmrc
+.pnpm-store

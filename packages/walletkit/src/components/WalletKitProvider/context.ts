@@ -14,6 +14,11 @@ export interface WalletKitOptions {
   disclaimer?: ReactNode;
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
+
+  closeModalAfterConnected?: boolean;
+  closeModalOnEsc?: boolean;
+  closeModalOnOverlayClick?: boolean;
+
   walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;

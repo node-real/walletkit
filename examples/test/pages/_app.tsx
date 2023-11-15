@@ -12,6 +12,7 @@ import {
   getDefaultConfig,
   useModal,
 } from '@totejs/walletkit';
+
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
@@ -31,6 +32,9 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 56,
+  closeModalAfterConnected: false,
+  closeModalOnEsc: true,
+  closeModalOnOverlayClick: false,
 };
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -58,9 +62,9 @@ function Example() {
 
   return (
     <>
-      <button onClick={onOpen}>Open Connect Modal</button>
-      <button onClick={onOpenProfile}>Open Profile Modal</button>
-      <button onClick={onOpenSwitchNetwork}>Open SwitchNetwork Modal</button>
+      <button onClick={() => onOpen()}>Open Connect Modal</button>
+      <button onClick={() => onOpenProfile()}>Open Profile Modal</button>
+      <button onClick={() => onOpenSwitchNetwork()}>Open SwitchNetwork Modal</button>
     </>
   );
 }

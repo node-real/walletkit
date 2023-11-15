@@ -1,6 +1,20 @@
 {
   "name": "@totejs/walletkit",
-  "version": "1.0.2",
+  "version": "1.0.4",
+  "author": "node-real",
+  "private": false,
+  "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
+  "homepage": "https://node-real.github.io/walletkit",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-real/walletkit.git",
+    "directory": "packages/walletkit"
+  },
+  "keywords": [
+    "walletkit",
+    "ethereum"
+  ],
   "type": "module",
   "files": [
     "dist",
@@ -10,6 +24,11 @@
   "sideEffects": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/style.css",
+    "./wallets": "./dist/wallets/index.js"
+  },
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build"
