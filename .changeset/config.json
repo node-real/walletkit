@@ -5,7 +5,7 @@
   "fixed": [],
   "linked": [],
   "access": "public",
-  "baseBranch": "release",
+  "baseBranch": "0.x",
   "updateInternalDependencies": "patch",
   "ignore": ["example-nextjs", "example-vite", "example-test", "website"]
 }

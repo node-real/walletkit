@@ -25,3 +25,4 @@ dist-ssr
 *.sln
 *.sw?
 .npmrc
+.pnpm-store

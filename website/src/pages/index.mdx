@@ -125,9 +125,9 @@ import { useModal } from '@totejs/walletkit';
 
 const { isOpen, onOpen, onClose, onOpenProfile, onOpenSwitchNetwork } = useModal();
 
-<button onClick={onOpen}>Open Connect Modal</button>
-<button onClick={onOpenProfile}>Open Connected Modal</button>
-<button onClick={onOpenSwitchNetwork}>Open SwitchNetwork Modal</button>
+<button onClick={() => onOpen()}>Open Connect Modal</button>
+<button onClick={() => onOpenProfile()}>Open Connected Modal</button>
+<button onClick={() => onOpenSwitchNetwork()}>Open SwitchNetwork Modal</button>
 ```
 
 ## Customizing wallets
