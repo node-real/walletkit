@@ -8,7 +8,9 @@ export type ButtonProps = BoxProps;
 export const Button = React.forwardRef<HTMLElement, ButtonProps>((props: ButtonProps, ref: any) => {
   const { className, ...restProps } = props;
 
-  return <Box ref={ref} as="button" className={cx(clsButton, className)} {...restProps} />;
+  return (
+    <Box ref={ref} as="button" className={cx('wk-button', clsButton, className)} {...restProps} />
+  );
 });
 
 Button.displayName = 'Button';
