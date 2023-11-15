@@ -1,6 +1,7 @@
 import { Chain } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { TRUST_WALLET_ID } from '.';
+import { getInjectedProvider } from '..';
 
 export type TrustWalletConnectorOptions = {
   shimDisconnect?: boolean;
@@ -20,7 +21,7 @@ export class TrustWalletConnector extends MetaMaskConnector {
     const options = {
       name: 'Trust Wallet',
       shimDisconnect: true,
-      getProvider: getTrustWalletProvider,
+      getProvider,
       ..._options,
     };
 
@@ -31,29 +32,14 @@ export class TrustWalletConnector extends MetaMaskConnector {
   }
 }
 
-function getTrustWalletProvider() {
-  const isTrustWallet = (ethereum: any) => {
-    return !!ethereum.isTrust;
-  };
+function getProvider() {
+  if (typeof window === 'undefined') return;
 
-  const injectedProviderExist =
-    typeof window !== 'undefined' && typeof window.ethereum !== 'undefined';
+  const provider = getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
 
-  if (!injectedProviderExist) {
-    return;
+  if (provider && provider.removeListener === undefined) {
+    provider.removeListener = provider.off;
   }
 
-  if (isTrustWallet(window.ethereum)) {
-    return window.ethereum;
-  }
-
-  if (window.ethereum?.providers) {
-    return window.ethereum.providers.find(isTrustWallet);
-  }
-
-  if (window.trustwallet && window.trustwallet.removeListener === undefined) {
-    window.trustwallet.removeListener = window.trustwallet.off;
-  }
-
-  return window.trustwallet;
+  return provider;
 }

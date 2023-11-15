@@ -11,7 +11,7 @@ import { Description } from './Content/Description';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
 import { ConnectSpinner } from './ConnectSpinner';
-import { clsContent, clsGap, clsLogoWrapper, clsButton, clsFooter } from './styles.css';
+import { clsContent, clsGap, clsButton, clsFooter } from './styles.css';
 import { ModalBody } from '../../base/components/Modal/ModalBody';
 import { ModalFooter } from '../../base/components/Modal/ModalFooter';
 import { Button } from '../../base/components/Button';
@@ -116,7 +116,7 @@ export function ConnectingPage() {
 
       <ModalBody className={clsContent}>
         <ConnectSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
-          <Box className={clsLogoWrapper}>{logos.default}</Box>
+          {logos.default}
         </ConnectSpinner>
 
         <Box className={clsGap} />

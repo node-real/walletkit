@@ -1,16 +1,13 @@
-import { Chain, Connector } from 'wagmi';
+import { Chain } from 'wagmi';
 
-import { PartialWalletProps, WalletProps } from '../types';
+import { WalletProps } from '../types';
 import { TokenPocketIcon } from './icon';
-import { TokenPocketConnector, TokenPocketConnectorOptions } from '../tokenPocket/connector';
+import { PartialCustomProps, getInjectedProvider, hasInjectedProvider } from '..';
+import { CustomConnector } from '../custom/connector';
 
 export const TOKEN_POCKET_ID = 'tokenPocket';
 
-export interface TokenPocketProps extends PartialWalletProps {
-  connectorOptions?: TokenPocketConnectorOptions;
-}
-
-export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
+export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -25,19 +22,27 @@ export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
     spinnerColor: '#2980FE',
     installed: isTokenPocket(),
     createConnector: (chains: Chain[]) => {
-      return new TokenPocketConnector({
+      return new CustomConnector({
+        id: TOKEN_POCKET_ID,
         chains,
         options: {
+          name: 'TokenPocket',
           shimDisconnect: true,
+          getProvider() {
+            if (typeof window === 'undefined') return;
+
+            const provider = getInjectedProvider('isTokenPocket') ?? window.tokenpocket;
+            return provider;
+          },
           ...connectorOptions,
         },
       });
     },
     getUri: () => {
-      const tpParams = {
+      const params = {
         url: window.location.href,
       };
-      return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(tpParams))}`;
+      return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
     },
     ...restProps,
   };
@@ -45,9 +50,6 @@ export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
 
 export function isTokenPocket() {
   if (typeof window === 'undefined') return false;
-  return window?.ethereum?.isTokenPocket ?? !!window.tokenpocket;
-}
 
-export function isTokenPocketConnector(connector?: Connector) {
-  return connector?.id === TOKEN_POCKET_ID;
+  return !!(hasInjectedProvider('isTokenPocket') || window.tokenpocket);
 }

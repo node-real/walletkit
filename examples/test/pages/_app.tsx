@@ -13,7 +13,7 @@ import {
   useModal,
 } from '@totejs/walletkit';
 
-import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
+import { trustWallet, metaMask, walletConnect, okxWallet } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
 const config = createConfig(
@@ -26,15 +26,12 @@ const config = createConfig(
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
 
     chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
+    connectors: [trustWallet(), metaMask(), okxWallet(), walletConnect()],
   }),
 );
 
 const options: WalletKitOptions = {
   initialChainId: 56,
-  closeModalAfterConnected: false,
-  closeModalOnEsc: true,
-  closeModalOnOverlayClick: false,
 };
 
 export default function App({ Component, pageProps }: AppProps) {

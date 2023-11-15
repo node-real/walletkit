@@ -1,4 +1,4 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { globalStyle, keyframes, style } from '@vanilla-extract/css';
 import { cssVar } from '../../../base/utils/css';
 
 export const clsContainer = style({
@@ -10,9 +10,17 @@ export const clsContainer = style({
   justifyContent: 'center',
 });
 
-export const clsChildren = style({
+export const clsLogo = style({
   borderRadius: '50%',
   overflow: 'hidden',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+globalStyle(`${clsLogo} > *`, {
+  width: 80,
+  height: 80,
 });
 
 export const clsErrorCircle = style({
