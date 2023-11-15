@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "pnpm --recursive --parallel --filter example-test --filter @totejs/walletkit dev",
-    "ci:version": "pnpm changeset version && pnpm install",
+    "ci:version": "pnpm changeset version && pnpm install && cp README.md packages/walletkit/README.md",
     "ci:publish": "pnpm publish -r"
   },
   "devDependencies": {
