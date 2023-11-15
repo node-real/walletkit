@@ -4,10 +4,13 @@
   "author": "node-real",
   "private": true,
   "packageManager": "pnpm@8.9.2",
+  "description": "Toolkit for connecting wallets.",
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "dev": "pnpm --recursive --parallel --filter example-test --filter @totejs/walletkit dev"
+    "dev": "pnpm --recursive --parallel --filter example-test --filter @totejs/walletkit dev",
+    "ci:version": "changeset version && pnpm install",
+    "ci:publish": "publish -r"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
