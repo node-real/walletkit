@@ -1,11 +1,7 @@
----
 name: Bug Report
 description: File a bug/issue
-title: '[bug] <title>'
+title: '[bug]'
 labels: bug
-assignees:
----
-
 body:
   - type: markdown
     attributes:
@@ -22,7 +18,7 @@ body:
 
   - type: input
     attributes:
-      label: wagmi Version
+      label: Wagmi Version
       description: What version of wagmi are you using?
       placeholder: 1.0.0
     validations:
@@ -46,15 +42,6 @@ body:
     attributes:
       label: Steps to reproduce
       description: Steps or code snippets to reproduce the behavior.
-    validations:
-      required: false
-
-  - type: input
-    attributes:
-      label: Link to Minimal Reproducible Example (CodeSandbox, StackBlitz, etc.)
-      description: |
-        This makes investigating issues and helping you out significantly easier! For most issues, you will likely get asked to provide one so why not add one now :)
-      placeholder: https://codesandbox.io
     validations:
       required: false
 
