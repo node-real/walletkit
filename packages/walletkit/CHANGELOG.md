@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 0.2.5
+
+### Patch Changes
+
+- c520ac5: Test github action
+
 ## 0.2.4
 
 ### Patch Changes
