@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { TRUST_WALLET_ID } from '.';
-import { getInjectedProvider } from '..';
+import { getInjectedProvider } from '../utils';
 
 export type TrustWalletConnectorOptions = {
   shimDisconnect?: boolean;

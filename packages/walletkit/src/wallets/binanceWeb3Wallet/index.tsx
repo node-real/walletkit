@@ -1,33 +1,33 @@
 import { Chain } from 'wagmi';
 
 import { WalletProps } from '../types';
-import { OkxWalletIcon } from './icon';
+import { BinanceWeb3WalletIcon } from './icon';
 import { CustomConnector } from '../custom/connector';
-import { getInjectedProvider, hasInjectedProvider } from '../utils';
+import { getInjectedProvider } from '../utils';
 import { PartialCustomProps } from '../custom';
 
-export const OKX_WALLET_ID = 'okxWallet';
+export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
 
-export function okxWallet(props: PartialCustomProps = {}): WalletProps {
+export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
-    id: OKX_WALLET_ID,
-    name: 'OKX Wallet',
+    id: BINANCE_WEB3_WALLET_ID,
+    name: 'Binance Web3 Wallet',
     logos: {
-      default: <OkxWalletIcon />,
+      default: <BinanceWeb3WalletIcon />,
     },
     downloadUrls: {
-      default: 'https://www.okx.com/web3',
+      default: 'https://www.binance.com/en/web3wallet',
     },
     spinnerColor: undefined,
-    installed: isOkxWallet(),
+    installed: isBinanceWeb3Wallet(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
-        id: OKX_WALLET_ID,
+        id: BINANCE_WEB3_WALLET_ID,
         chains,
         options: {
-          name: 'OKX Wallet',
+          name: 'Binance Web3 Wallet',
           shimDisconnect: true,
           getProvider() {
             if (typeof window === 'undefined') return;
@@ -40,14 +40,14 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
       });
     },
     getUri: () => {
-      return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
+      return undefined;
     },
     ...restProps,
   };
 }
 
-export function isOkxWallet() {
+export function isBinanceWeb3Wallet() {
   if (typeof window === 'undefined') return false;
 
-  return !!(hasInjectedProvider('isOkxWallet') || window.okexchain?.isOkxWallet);
+  return false;
 }

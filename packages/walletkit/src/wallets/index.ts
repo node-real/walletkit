@@ -1,6 +1,3 @@
-// utils
-export * from './utils';
-
 // types
 export * from './types';
 
@@ -14,4 +11,7 @@ export * from './trustWallet';
 export * from './trustWallet/connector';
 export * from './walletConnect';
 export * from './walletConnect/connector';
-export * from './okxWallet';
+// export * from './okxWallet';
+// export * from './mathWallet';
+// export * from './binanceWeb3Wallet';
+// export * from './coinbaseWallet';

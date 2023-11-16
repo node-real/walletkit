@@ -13,12 +13,20 @@ import {
   useModal,
 } from '@totejs/walletkit';
 
-import { trustWallet, metaMask, walletConnect, okxWallet } from '@totejs/walletkit/wallets';
+import {
+  trustWallet,
+  metaMask,
+  walletConnect,
+  okxWallet,
+  mathWallet,
+  binanceWeb3Wallet,
+  coinbaseWallet,
+} from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
 const config = createConfig(
   getDefaultConfig({
-    autoConnect: true,
+    autoConnect: false,
     appName: 'WalletKit',
 
     // WalletConnect 2.0 requires a projectId which you can create quickly
@@ -26,7 +34,15 @@ const config = createConfig(
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
 
     chains,
-    connectors: [trustWallet(), metaMask(), okxWallet(), walletConnect()],
+    connectors: [
+      trustWallet(),
+      metaMask(),
+      okxWallet(),
+      mathWallet(),
+      binanceWeb3Wallet(),
+      coinbaseWallet(),
+      walletConnect(),
+    ],
   }),
 );
 

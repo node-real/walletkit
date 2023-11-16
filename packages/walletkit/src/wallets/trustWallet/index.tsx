@@ -8,7 +8,7 @@ import {
 } from './icon';
 import { PartialWalletProps, WalletProps } from '../types';
 import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
-import { hasInjectedProvider } from '..';
+import { hasInjectedProvider } from '../utils';
 
 export const TRUST_WALLET_ID = 'trust';
 

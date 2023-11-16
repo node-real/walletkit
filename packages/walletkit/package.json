@@ -30,7 +30,7 @@
     "./wallets": "./dist/wallets/index.js"
   },
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --emptyOutDir=false",
     "build": "vite build"
   },
   "peerDependencies": {
