@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CustomTheme, base } from '../../themes/base';
-import { deepMerge } from '../../utils/common';
 import { ColorMode, ThemeContext } from './context';
+import { deepMerge } from '../../base/utils/common';
 
 export type ThemeMode = 'auto' | ColorMode;
 

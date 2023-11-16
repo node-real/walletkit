@@ -1,19 +1,8 @@
-import { style, globalStyle } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { cssVar } from '../..';
 
 export const clsContent = style({
   overflowY: 'auto',
-});
-
-export const clsLogoWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
-globalStyle(`${clsLogoWrapper} > svg`, {
-  width: 80,
-  height: 80,
 });
 
 export const clsGap = style({

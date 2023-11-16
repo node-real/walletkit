@@ -8,7 +8,7 @@ import {
 } from './icon';
 import { PartialWalletProps, WalletProps } from '../types';
 import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
-import { Connector } from 'wagmi/connectors';
+import { hasInjectedProvider } from '../utils';
 
 export const TRUST_WALLET_ID = 'trust';
 
@@ -58,16 +58,10 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
 
 export function isTrustWallet() {
   if (typeof window === 'undefined') return false;
-  const { ethereum } = window;
 
   return !!(
-    ethereum?.isTrust ||
-    (ethereum?.providers && ethereum?.providers.find((provider: any) => provider.isTrust)) ||
+    hasInjectedProvider('isTrust') ||
     window?.trustwallet?.isTrust ||
     window?.trustWallet?.isTrust
   );
-}
-
-export function isTrustWalletConnector(connector?: Connector) {
-  return connector?.id === TRUST_WALLET_ID;
 }

@@ -7,8 +7,16 @@ export function getDefaultProviderOptions(options: WalletKitOptions, chains: Cha
 
   const mergedOptions: WalletKitOptions = {
     initialChainId: chains?.[0]?.id,
+    disclaimer: null,
+    chainsConfig: undefined,
+
     hideNoWalletCTA: false,
     hideOfficialWalletConnectCTA: false,
+
+    closeModalAfterConnected: true,
+    closeModalOnEsc: true,
+    closeModalOnOverlayClick: true,
+
     walletDownloadUrl: `https://trustwallet.com/`,
     onError,
     ...restOptions,
