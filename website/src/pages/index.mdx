@@ -186,6 +186,45 @@ const config = createConfig(
 </WalletKitButton.Custom>
 ```
 
+## Customizing walletConnect recommended wallets
+
+Sometimes, we need to customize walletConnect's wallets, which we can configure as follows. The
+wallet id can be obtained from [walletConnect explorer](https://walletconnect.com/explorer).
+
+Other supported configurations are also available from
+[walletConnect's official documentation](https://docs.walletconnect.com/advanced/walletconnectmodal/options).
+
+```tsx live=false
+const config = createConfig(
+  getDefaultConfig({
+    autoConnect: true,
+    appName: 'WalletKit',
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
+
+    chains,
+    connectors: [
+      trustWallet(),
+      metaMask(),
+      walletConnect({
+        connectorOptions: {
+          showQrModal: true, // Open walletConnect's modal directly rather than displaying the QR code.
+          qrModalOptions: {
+            explorerRecommendedWalletIds: [
+              '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
+              'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
+              '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+            ],
+          },
+        },
+      }),
+    ],
+  }),
+);
+```
+
 `useModal`
 
 ```tsx live=false

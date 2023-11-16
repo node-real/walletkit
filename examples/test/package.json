@@ -10,17 +10,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@totejs/walletkit": "workspace:*",
+    "next": "^13",
     "react": "^18",
     "react-dom": "^18",
-    "next": "^13",
-    "@totejs/walletkit": "workspace:*",
     "viem": "^1.0.0",
     "wagmi": "^1.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "typescript": "^5"
   }
 }
