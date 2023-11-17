@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "dev": "pnpm --recursive --parallel --filter example-vite --filter @totejs/walletkit dev",
+    "lint": "pnpm eslint .",
+    "dev": "pnpm --recursive --parallel --filter example-test --filter @totejs/walletkit dev",
     "ci:version": "pnpm changeset version && pnpm install && cp README.md packages/walletkit/README.md",
     "ci:publish": "pnpm publish -r"
   },
