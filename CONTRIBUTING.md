@@ -39,7 +39,7 @@ can check your code by running:
 pnpm lint
 ```
 
-Besides, git hook will automatically run eslint to check and fix the errors before committing.
+Besides, before committing, git hook will automatically run eslint to check and fix errors.
 
 ## Tests
 
@@ -53,14 +53,14 @@ Just submit an issue though [github issue page](https://github.com/node-real/wal
 
 Before adding a new wallet, you need to collect some information:
 
-| item               | description                                                                                    | e.g.                                | required |
-| ------------------ | ---------------------------------------------------------------------------------------------- | ----------------------------------- | -------- |
-| wallet name        | -                                                                                              | Trust Wallet                        | yes      |
-| short name         | If display space is insufficient, the short name will be displayed.                            | Trust                               | optional |
-| wallet logo        | logo in svg format.                                                                            | -                                   | yes      |
-| download url       | -                                                                                              | https://trustwallet.com/download    | yes      |
-| deeplink           | After clicking deeplink in the system browser, we can open our dapp in the app's dapp browser. | trust://open_url?coin_id=60&url=xxx | yes      |
-| WalletConnect link | If your app supports WalletConnect, please provides the WalletConnect uri.                     | trust://wc?uri=xxx                  | optional |
+| item               | description                                                                                         | e.g.                                | required |
+| ------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------- | -------- |
+| wallet name        | -                                                                                                   | Trust Wallet                        | yes      |
+| short name         | If display space is insufficient, the short name will be displayed.                                 | Trust                               | optional |
+| wallet logo        | logo in svg format.                                                                                 | -                                   | yes      |
+| download url       | -                                                                                                   | https://trustwallet.com/download    | yes      |
+| deeplink           | After clicking deeplink in the system browser, we can directly open dapp in the app's dapp browser. | trust://open_url?coin_id=60&url=xxx | yes      |
+| WalletConnect link | If your app supports WalletConnect, please provides the WalletConnect uri.                          | trust://wc?uri=xxx                  | optional |
 
 Then you can add it to project by following steps:
 
@@ -76,7 +76,7 @@ export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
   )
 ```
 
-3. Create the wallet configuration file `index.tsx`:
+3. Create wallet configuration file `index.tsx`:
 
 ```tsx
 import { Chain } from 'wagmi';
@@ -210,8 +210,8 @@ A complete development workflow like following:
 1. Create a new branch out of `main` branch
 2. Make some changes, fix bugs or add new features
 3. Run `pnpm changeset` to create a new changeset
-4. Commit the code, code review is required
-5. After code review, we can merge the code to `main` branch
-6. Then [github action](https://github.com/node-real/walletkit/actions) will automatically execute
-   and create a new [release PR](https://github.com/node-real/walletkit/pulls)
-7. Merge this PR, a new version will be released
+4. Commit the code, code review is required, after code review, we can merge the code to `main`
+   branch
+5. Then [github action](https://github.com/node-real/walletkit/actions) will automatically execute
+   and create a new [release PR](https://github.com/node-real/walletkit/pulls), merge this PR, a new
+   version will be released
