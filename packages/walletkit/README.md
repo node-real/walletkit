@@ -76,3 +76,11 @@ export default function App() {
   );
 }
 ```
+
+## Contributing
+
+Please follow our [WalletKit Contribution Guide](./CONTRIBUTING.md).
+
+## License
+
+See [LICENSE](./LICENSE) for more information.
