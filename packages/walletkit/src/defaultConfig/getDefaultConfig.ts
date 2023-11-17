@@ -8,7 +8,6 @@ import { WalletProps } from '../wallets/types';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
-import { getWalletById, isMetaMaskConnector } from '../wallets';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -22,7 +21,7 @@ export interface DefaultConfigProps {
   infuraId?: string;
 
   chains?: Chain[];
-  connectors?: Array<WalletProps | Connector>;
+  connectors?: WalletProps[];
 
   autoConnect?: boolean;
   provider?: any;
@@ -109,61 +108,11 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   };
 };
 
-// 1. if item is a connector object, add the `_wallet` field directly
-// 2. if item is a wallet config object, calling `createConnector` to get a new connector
-//    and keeping the wallet config object to the `_wallet` field
-function createConnectors(input: Array<WalletProps | Connector> = [], chains: Chain[]) {
-  const connectors = input.map((w: any) => {
-    if (w.createConnector) {
-      const c = w.createConnector(chains);
-      c._wallet = w;
-      return withHackHandler(c);
-    } else {
-      w._wallet = getWalletById(w.id);
-      return withHackHandler(w);
-    }
+function createConnectors(input: WalletProps[], chains: Chain[]) {
+  const connectors = input.map((w) => {
+    const c = w.createConnector(chains);
+    c._wallet = w;
+    return c;
   });
   return connectors;
-}
-
-// !!!hack
-// sometimes provider isn't ready, requests will be pending and no responses,
-function withHackHandler(c: Connector) {
-  return c;
-
-  const provider = c?.options?.getProvider?.();
-
-  if (provider && !provider.__hasWrappedRequest && isMetaMaskConnector(c)) {
-    provider.__hasWrappedRequest = true;
-
-    const originalReq = provider.request;
-
-    const run = (duration = 0, timerArr: any = [], ...params: any) => {
-      return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => {
-          originalReq
-            .call(provider, ...params)
-            .then((res: any) => {
-              // recovery
-              provider.request = originalReq;
-              timerArr.forEach((item: any) => {
-                clearTimeout(item);
-              });
-              resolve(res);
-            })
-            .catch(reject);
-        }, duration);
-
-        timerArr.push(timer);
-      });
-    };
-
-    provider.request = async function (...params: any) {
-      const durationArr = [0, 500, 1000, 1500, 2000, 3000];
-      const timerArr: any = [];
-      return Promise.race(durationArr.map((t) => run(t, timerArr, ...params)));
-    };
-  }
-
-  return c;
 }

@@ -1,5 +1,5 @@
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { Chain, Connector } from 'wagmi';
+import { Chain } from 'wagmi';
 
 import { PartialWalletProps, WalletProps } from '../types';
 import { InjectedIcon } from './icon';
@@ -44,8 +44,4 @@ export function injected(props: InjectedProps = {}): WalletProps {
 
 export function isInjected() {
   return typeof window !== 'undefined' && Boolean(window.ethereum);
-}
-
-export function isInjectedConnector(connector?: Connector) {
-  return connector?.id === INJECTED_ID;
 }

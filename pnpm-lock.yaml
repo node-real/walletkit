@@ -81,9 +81,6 @@ importers:
       '@totejs/walletkit':
         specifier: workspace:*
         version: link:../../packages/walletkit
-      ethers:
-        specifier: ^5
-        version: 5.7.2
       next:
         specifier: ^13
         version: 13.5.6(react-dom@18.2.0)(react@18.2.0)
@@ -93,9 +90,6 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.2.0(react@18.2.0)
-      wagmi:
-        specifier: ^0
-        version: 0.12.19(@types/react@18.2.37)(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -124,6 +118,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      vconsole:
+        specifier: ^3.15.1
+        version: 3.15.1
       wagmi:
         specifier: ^0
         version: 0.12.19(@types/react@18.2.37)(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
@@ -140,9 +137,6 @@ importers:
       typescript:
         specifier: ^5.0.2
         version: 5.2.2
-      vconsole:
-        specifier: ^3.15.1
-        version: 3.15.1
       vite:
         specifier: ^4.4.5
         version: 4.5.0(@types/node@18.18.9)
@@ -3956,6 +3950,7 @@ packages:
   /copy-text-to-clipboard@3.2.0:
     resolution: {integrity: sha512-RnJFp1XR/LOBDckxTib5Qjr/PMfkatD0MUCQgdpqS8MdKiNUzBjAQBEN6oUy+jW7LI93BBG3DtMB2KOOKpGs2Q==}
     engines: {node: '>=12'}
+    dev: false
 
   /copy-to-clipboard@3.3.3:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
@@ -3965,6 +3960,7 @@ packages:
   /core-js@3.33.2:
     resolution: {integrity: sha512-XeBzWI6QL3nJQiHmdzbAOiMYqjrb7hwU7A39Qhvd/POSa/t9E1AeZyEZx3fNvp/vtM8zXwhoL0FsiS0hD0pruQ==}
     requiresBuild: true
+    dev: false
 
   /cosmiconfig-typescript-loader@5.0.0(@types/node@18.18.9)(cosmiconfig@8.3.6)(typescript@5.2.2):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
@@ -6450,6 +6446,7 @@ packages:
 
   /mutation-observer@1.0.3:
     resolution: {integrity: sha512-M/O/4rF2h776hV7qGMZUH3utZLO/jK7p8rnNgGkjKUw8zCGjRQPxB8z6+5l8+VjRUQ3dNYu4vjqXYLr+U8ZVNA==}
+    dev: false
 
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
@@ -8138,6 +8135,7 @@ packages:
       copy-text-to-clipboard: 3.2.0
       core-js: 3.33.2
       mutation-observer: 1.0.3
+    dev: false
 
   /vfile-message@3.1.4:
     resolution: {integrity: sha512-fa0Z6P8HUrQN4BZaX05SIVXic+7kE3b05PWAtPuYP9QLHsLKYR7/AlLW3NtOrpXRLeawpDLMsVkmk5DG0NXgWw==}
