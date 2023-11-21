@@ -48,6 +48,7 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 56,
+  // hideOfficialWalletConnectCTA: true,
 };
 
 export default function App({ Component, pageProps }: AppProps) {

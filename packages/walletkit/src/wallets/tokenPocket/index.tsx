@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 
 import { WalletProps } from '../types';
-import { TokenPocketIcon } from './icon';
+import { TokenPocketIcon, TokenPocketTransparentIcon } from './icon';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { CustomConnector } from '../custom/connector';
 import { PartialCustomProps } from '../custom';
@@ -16,6 +16,7 @@ export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
     name: 'TokenPocket',
     logos: {
       default: <TokenPocketIcon />,
+      transparent: <TokenPocketTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.tokenpocket.pro/en/download/app',

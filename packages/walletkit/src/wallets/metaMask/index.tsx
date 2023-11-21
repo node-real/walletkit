@@ -1,7 +1,7 @@
 import { Chain, Connector } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
-import { MetaMaskIcon } from './icon';
+import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
 import { isTokenPocket } from '../tokenPocket';
 import { PartialWalletProps, WalletProps } from '../types';
 
@@ -23,6 +23,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
     name: 'MetaMask',
     logos: {
       default: <MetaMaskIcon />,
+      transparent: <MetaMaskTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://metamask.io/download/',

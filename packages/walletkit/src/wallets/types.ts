@@ -7,7 +7,7 @@ export interface WalletProps {
   name: string;
   logos: {
     default: ReactElement | { [x in ColorMode]: ReactElement };
-    mobile?: ReactElement | { [x in ColorMode]: ReactElement };
+    transparent?: ReactElement | { [x in ColorMode]: ReactElement };
   };
   downloadUrls: {
     default: string | undefined;

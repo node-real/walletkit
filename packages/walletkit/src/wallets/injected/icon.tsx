@@ -1,4 +1,6 @@
-export const InjectedIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '../../types';
+
+export const InjectedIcon = (props: SVGIconProps) => {
   return (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
       <path

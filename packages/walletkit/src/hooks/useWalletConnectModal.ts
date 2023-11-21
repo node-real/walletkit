@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Connector } from 'wagmi';
 import { useWalletKitContext } from '../components/WalletKitProvider/context';
-import { WalletConnectConnector, isWalletConnectConnector } from '../wallets';
+import { isWalletConnectConnector } from '../wallets';
 import { useWalletKitConnect } from './useWalletKitConnect';
 import { MODAL_AUTO_CLOSE_DELAY } from '../constants/common';
 import { useModal } from '../components/ModalProvider/context';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 export function useWalletConnectModal() {
   const { connectAsync, connectors } = useWalletKitConnect();

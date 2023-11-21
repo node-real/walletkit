@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 
 import { WalletProps } from '../types';
-import { MathWalletDarkIcon, MathWalletLightIcon } from './icon';
+import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { PartialCustomProps } from '../custom';
@@ -15,10 +15,8 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
     id: MATH_WALLET_ID,
     name: 'Math Wallet',
     logos: {
-      default: {
-        light: <MathWalletLightIcon />,
-        dark: <MathWalletDarkIcon />,
-      },
+      default: <MathWalletIcon />,
+      transparent: <MathWalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://mathwallet.org',

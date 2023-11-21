@@ -1,4 +1,6 @@
-export const BackIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '../../types';
+
+export const BackIcon = (props: SVGIconProps) => {
   return (
     <svg width="20" height="20" viewBox="0 0 40 40" fill="currentColor" {...props}>
       <path

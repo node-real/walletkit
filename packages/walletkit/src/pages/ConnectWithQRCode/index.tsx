@@ -22,15 +22,13 @@ export function ConnectWithQRCodePage() {
   const { wcUri } = useWalletConnectUri();
   const { onOpenWcModal } = useWalletConnectModal();
 
-  const logo = logos?.mobile ?? logos?.default;
-
   return (
     <>
       <Navbar showBack />
       <ModalHeader>Scan with your phone</ModalHeader>
 
       <ModalBody className={cx('wk-scan-qrcode', clsContainer)}>
-        <CustomQRCode value={wcUri} logo={logo} />
+        <CustomQRCode value={wcUri} logo={logos?.default} />
       </ModalBody>
 
       {!options.hideOfficialWalletConnectCTA && (

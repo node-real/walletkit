@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 
 import { WalletProps } from '../types';
-import { BinanceWeb3WalletIcon } from './icon';
+import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider } from '../utils';
 import { PartialCustomProps } from '../custom';
@@ -16,6 +16,7 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     name: 'Binance Web3 Wallet',
     logos: {
       default: <BinanceWeb3WalletIcon />,
+      transparent: <BinanceWeb3WalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.binance.com/en/web3wallet',

@@ -1,6 +1,7 @@
+import { SVGIconProps } from '../../types';
 import { cssVar } from '../utils/css';
 
-export interface CircleLoadingIconProps extends React.SVGProps<SVGSVGElement> {
+export interface CircleLoadingIconProps extends SVGIconProps {
   thickness?: number;
   endColor?: string;
 }

@@ -1,4 +1,6 @@
-export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '../../types';
+
+export const TrustWalletTransparentLightIcon = (props: SVGIconProps) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
       <path
@@ -30,7 +32,7 @@ export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export const TrustWalletDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletTransparentDarkIcon = (props: SVGIconProps) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
       <path
@@ -60,7 +62,7 @@ export const TrustWalletDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export const TrustWalletMobileLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletLightIcon = (props: SVGIconProps) => {
   return (
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
       <rect width="60" height="60" rx="16" fill="#242426" />
@@ -91,7 +93,7 @@ export const TrustWalletMobileLightIcon = (props: React.SVGProps<SVGSVGElement>)
   );
 };
 
-export const TrustWalletMobileDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletDarkIcon = (props: SVGIconProps) => {
   return (
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
       <path

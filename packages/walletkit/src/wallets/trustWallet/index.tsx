@@ -3,8 +3,8 @@ import { Chain } from 'wagmi';
 import {
   TrustWalletDarkIcon,
   TrustWalletLightIcon,
-  TrustWalletMobileDarkIcon,
-  TrustWalletMobileLightIcon,
+  TrustWalletTransparentDarkIcon,
+  TrustWalletTransparentLightIcon,
 } from './icon';
 import { PartialWalletProps, WalletProps } from '../types';
 import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
@@ -27,9 +27,9 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         light: <TrustWalletLightIcon />,
         dark: <TrustWalletDarkIcon />,
       },
-      mobile: {
-        light: <TrustWalletMobileLightIcon />,
-        dark: <TrustWalletMobileDarkIcon />,
+      transparent: {
+        light: <TrustWalletTransparentLightIcon />,
+        dark: <TrustWalletTransparentDarkIcon />,
       },
     },
     downloadUrls: {

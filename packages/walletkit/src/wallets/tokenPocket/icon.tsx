@@ -1,4 +1,6 @@
-export const TokenPocketIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '../../types';
+
+export const TokenPocketTransparentIcon = (props: SVGIconProps) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
       <mask id="mask0_1_2" maskUnits="userSpaceOnUse" x="8" y="14" width="36" height="24">
@@ -47,3 +49,5 @@ export const TokenPocketIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
+
+export const TokenPocketIcon = TokenPocketTransparentIcon;

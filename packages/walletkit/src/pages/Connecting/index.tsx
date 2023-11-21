@@ -116,7 +116,7 @@ export function ConnectingPage() {
 
       <ModalBody className={clsContent}>
         <ConnectSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
-          {logos.default}
+          {logos.transparent}
         </ConnectSpinner>
 
         <Box className={clsGap} />

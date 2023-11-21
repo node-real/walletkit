@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 
 import { WalletProps } from '../types';
-import { OkxWalletIcon } from './icon';
+import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { PartialCustomProps } from '../custom';
@@ -16,6 +16,7 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
     name: 'OKX Wallet',
     logos: {
       default: <OkxWalletIcon />,
+      transparent: <OkxWalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.okx.com/web3',

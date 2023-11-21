@@ -1,7 +1,7 @@
 import { Chain } from 'wagmi';
 
 import { PartialWalletProps, WalletProps } from '../types';
-import { CoinbaseWalletIcon } from './icon';
+import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
 import { hasInjectedProvider } from '../utils';
 import { getGlobalData } from '../../globalData';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
@@ -24,6 +24,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     name: 'Coinbase Wallet',
     logos: {
       default: <CoinbaseWalletIcon />,
+      transparent: <CoinbaseWalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://coinbase.com/wallet',

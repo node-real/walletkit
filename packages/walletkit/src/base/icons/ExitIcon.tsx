@@ -1,4 +1,6 @@
-export const ExitIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '../../types';
+
+export const ExitIcon = (props: SVGIconProps) => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path

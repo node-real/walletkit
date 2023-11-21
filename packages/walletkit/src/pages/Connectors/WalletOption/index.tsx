@@ -27,7 +27,7 @@ export function WalletOption(props: WalletOptionProps) {
       onClick={(e) => onClickWallet(connector, e)}
     >
       <Text className={cx('wk-wallet-option-name', clsWalletOptionName)}>{wallet.name}</Text>
-      <Box className={cx('wk-wallet-option-logo', clsWalletOptionIcon)}>{logos.default}</Box>
+      <Box className={cx('wk-wallet-option-logo', clsWalletOptionIcon)}>{logos.transparent}</Box>
     </Button>
   );
 }
