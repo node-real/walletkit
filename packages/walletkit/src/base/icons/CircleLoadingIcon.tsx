@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../../types';
+import { SVGIconProps } from '@/types';
 import { cssVar } from '../utils/css';
 
 export interface CircleLoadingIconProps extends SVGIconProps {

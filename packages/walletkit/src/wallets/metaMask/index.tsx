@@ -1,9 +1,7 @@
 import { Chain, Connector } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-
+import { PartialWalletProps, WalletProps, isTokenPocket } from '..';
 import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
-import { isTokenPocket } from '../tokenPocket';
-import { PartialWalletProps, WalletProps } from '../types';
 
 export const META_MASK_ID = 'metaMask';
 

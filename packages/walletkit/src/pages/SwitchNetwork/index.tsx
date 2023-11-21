@@ -1,15 +1,13 @@
+import { Box } from '@/base/components/Box';
+import { ModalBody } from '@/base/components/Modal/ModalBody';
+import { ModalHeader } from '@/base/components/Modal/ModalHeader';
+import { DisconnectButton } from '@/components/DisconnectButton';
+import { Navbar } from '@/components/Navbar';
+import { useWalletKitSwitchNetwork } from '@/hooks/useWalletKitSwitchNetwork';
+import { useWalletKitContext, useModal, cx } from '@/index';
 import { useNetwork } from 'wagmi';
-import { ModalHeader } from '../../base/components/Modal/ModalHeader';
-import { Navbar } from '../../components/Navbar';
-import { ModalBody } from '../../base/components/Modal/ModalBody';
-import { clsChains, clsDescription, clsOrSeparator } from './styles.css';
-import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { useWalletKitSwitchNetwork } from '../../hooks/useWalletKitSwitchNetwork';
-import { Box } from '../../base/components/Box';
-import { cx } from '../../base/utils/css';
 import { ChainOption } from './ChainOption';
-import { DisconnectButton } from '../../components/DisconnectButton';
-import { useModal } from '../..';
+import { clsDescription, clsChains, clsOrSeparator } from './styles.css';
 
 export function SwitchNetworkPage() {
   const { supportedChains } = useWalletKitContext();

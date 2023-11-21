@@ -1,5 +1,5 @@
+import { WalletProps } from '@/wallets';
 import { useMemo } from 'react';
-import { WalletProps } from '../wallets';
 import { useWalletKitContext } from '..';
 
 type DownloadUrlsType = WalletProps['downloadUrls'];

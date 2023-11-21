@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../../types';
+import { SVGIconProps } from '@/types';
 
 export const MathWalletTransparentIcon = (props: SVGIconProps) => {
   return <MathWalletIcon width={34} height={34} {...props} />;

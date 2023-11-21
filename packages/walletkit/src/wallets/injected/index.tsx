@@ -1,7 +1,6 @@
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { Chain } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
+import { PartialWalletProps, WalletProps } from '..';
 import { InjectedIcon } from './icon';
 
 export const INJECTED_ID = 'injected';

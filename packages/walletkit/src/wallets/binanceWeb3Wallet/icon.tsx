@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../../types';
+import { SVGIconProps } from '@/types';
 
 export const BinanceWeb3WalletTransparentIcon = (props: SVGIconProps) => {
   return <BinanceWeb3WalletIcon width={34} height={34} {...props} />;

@@ -1,10 +1,9 @@
+import { getGlobalData } from '@/globalData';
 import { Chain } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
-import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
-import { hasInjectedProvider } from '../utils';
-import { getGlobalData } from '../../globalData';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { PartialWalletProps, WalletProps } from '..';
+import { hasInjectedProvider } from '../utils';
+import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
 
 export const COINBASE_WALLET_ID = 'coinbaseWallet';
 

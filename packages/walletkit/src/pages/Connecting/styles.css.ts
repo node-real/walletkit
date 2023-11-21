@@ -1,5 +1,5 @@
+import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../..';
 
 export const clsContent = style({
   overflowY: 'auto',

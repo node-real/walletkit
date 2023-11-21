@@ -12,8 +12,8 @@ export const OkxWalletIcon = (props: SVGIconProps) => {
         fill="black"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M13.2812 13.2812H27.0938V27.0938H13.2812V13.2812ZM40.9062 27.0938H27.0938V40.9062H13.2812V54.7188H27.0938V40.9062H40.9062V54.7188H54.7188V40.9062H40.9062V27.0938ZM40.9062 27.0938V13.2812H54.7188V27.0938H40.9062Z"
         fill="white"
       />

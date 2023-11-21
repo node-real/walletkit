@@ -1,4 +1,4 @@
-import { WalletProps, metaMask, safe, trustWallet, walletConnect } from '../wallets';
+import { WalletProps, safe, trustWallet, metaMask, walletConnect } from '@/wallets';
 
 export const getDefaultWallets = () => {
   const shouldUseSafeConnector = !(typeof window === 'undefined') && window?.parent !== window;

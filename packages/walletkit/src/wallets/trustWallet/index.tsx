@@ -1,14 +1,17 @@
 import { Chain } from 'wagmi';
-
 import {
-  TrustWalletDarkIcon,
-  TrustWalletLightIcon,
-  TrustWalletTransparentDarkIcon,
-  TrustWalletTransparentLightIcon,
-} from './icon';
-import { PartialWalletProps, WalletProps } from '../types';
-import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
+  PartialWalletProps,
+  TrustWalletConnectorOptions,
+  WalletProps,
+  TrustWalletConnector,
+} from '..';
 import { hasInjectedProvider } from '../utils';
+import {
+  TrustWalletLightIcon,
+  TrustWalletDarkIcon,
+  TrustWalletTransparentLightIcon,
+  TrustWalletTransparentDarkIcon,
+} from './icon';
 
 export const TRUST_WALLET_ID = 'trust';
 

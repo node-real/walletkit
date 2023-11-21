@@ -1,5 +1,5 @@
+import { cssVar } from '@/index';
 import { globalStyle, style } from '@vanilla-extract/css';
-import { cssVar } from '../../../..';
 
 export const clsInfo = style({
   display: 'flex',

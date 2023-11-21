@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../../types';
+import { SVGIconProps } from '@/types';
 
 export const ExitIcon = (props: SVGIconProps) => {
   return (

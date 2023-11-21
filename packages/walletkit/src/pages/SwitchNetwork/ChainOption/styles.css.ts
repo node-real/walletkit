@@ -1,5 +1,5 @@
+import { cssVar } from '@/index';
 import { globalStyle, style } from '@vanilla-extract/css';
-import { cssVar } from '../../../base/utils/css';
 
 export const clsContainer = style({
   padding: '4px 8px',

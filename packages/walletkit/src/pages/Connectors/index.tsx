@@ -1,20 +1,20 @@
-import { Navbar } from '../../components/Navbar';
-import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { Link } from '../../base/components/Link';
-import { ModalBody } from '../../base/components/Modal/ModalBody';
-import { ModalFooter } from '../../base/components/Modal/ModalFooter';
-import { ModalHeader } from '../../base/components/Modal/ModalHeader';
-import { WalletIcon } from '../../base/icons/WalletIcon';
-
-import { useConnectors } from '../../hooks/useConnectors';
-import { cx } from '../../base/utils/css';
-import { WalletOption } from './WalletOption';
-import { clsDisclaimer, clsDownloadLink, clsWallets } from './styles.css';
-import { Box } from '../../base/components/Box';
+import { Box } from '@/base/components/Box';
+import { ModalHeader } from '@/base/components/Modal/ModalHeader';
+import { useResponsive } from '@/base/hooks/useResponsive';
+import { Navbar } from '@/components/Navbar';
+import { GRID_LAYOUT_THRESHOLD } from '@/constants/common';
+import { useWalletKitContext, cx } from '@/index';
+import { useConnect } from 'wagmi';
+import { GridLayout } from './GridLayout';
+import { ListLayout } from './ListLayout';
+import { clsDisclaimer } from './styles.css';
 
 export function ConnectorsPage() {
-  const connectors = useConnectors();
+  const { connectors } = useConnect();
   const { options } = useWalletKitContext();
+
+  const { isMobileLayout } = useResponsive();
+  const useGridLayout = false; // connectors.length > GRID_LAYOUT_THRESHOLD || isMobileLayout;
 
   return (
     <>
@@ -25,20 +25,7 @@ export function ConnectorsPage() {
         <Box className={cx('wk-disclaimer', clsDisclaimer)}>{options.disclaimer}</Box>
       )}
 
-      <ModalBody className={cx('wk-wallets', clsWallets)}>
-        {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}
-      </ModalBody>
-
-      {!options.hideNoWalletCTA && (
-        <ModalFooter>
-          <Link
-            className={cx('wk-download-link', clsDownloadLink)}
-            href={options.walletDownloadUrl}
-          >
-            <WalletIcon />I don’t have a wallet
-          </Link>
-        </ModalFooter>
-      )}
+      {useGridLayout ? <GridLayout /> : <ListLayout />}
     </>
   );
 }

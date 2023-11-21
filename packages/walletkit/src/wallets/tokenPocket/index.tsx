@@ -1,10 +1,8 @@
 import { Chain } from 'wagmi';
-
-import { WalletProps } from '../types';
-import { TokenPocketIcon, TokenPocketTransparentIcon } from './icon';
-import { getInjectedProvider, hasInjectedProvider } from '../utils';
+import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
-import { PartialCustomProps } from '../custom';
+import { getInjectedProvider, hasInjectedProvider } from '../utils';
+import { TokenPocketIcon, TokenPocketTransparentIcon } from './icon';
 
 export const TOKEN_POCKET_ID = 'tokenPocket';
 

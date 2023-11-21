@@ -1,13 +1,12 @@
+import { Box } from '@/base/components/Box';
+import { Text } from '@/base/components/Text';
+import { Button } from '@/base/components/Button';
+import { useClickWallet } from '@/hooks/useClickWallet';
+import { useWalletConfig } from '@/hooks/useWalletConfig';
+import { useWalletLogos } from '@/hooks/useWalletLogos';
+import { cx } from '@/index';
 import { Connector } from 'wagmi';
-
-import { useWalletConfig } from '../../../hooks/useWalletConfig';
-import { Button } from '../../../base/components/Button';
-import { Text } from '../../../base/components/Text';
-import { Box } from '../../../base/components/Box';
-import { useClickWallet } from '../../../hooks/useClickWallet';
-import { cx } from '../../../base/utils/css';
-import { clsWalletOption, clsWalletOptionIcon, clsWalletOptionName } from './styles.css';
-import { useWalletLogos } from '../../../hooks/useWalletLogos';
+import { clsWalletOption, clsWalletOptionName, clsWalletOptionIcon } from './styles.css';
 
 export interface WalletOptionProps {
   connector: Connector;

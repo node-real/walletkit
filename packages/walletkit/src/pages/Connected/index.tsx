@@ -1,13 +1,13 @@
+import { Box } from '@/base/components/Box';
+import { ModalBody } from '@/base/components/Modal/ModalBody';
+import { ModalHeader } from '@/base/components/Modal/ModalHeader';
+import { Avatar } from '@/components/Avatar';
+import { CopyToClipboard } from '@/components/CopyToClipboard';
+import { DisconnectButton } from '@/components/DisconnectButton';
+import { Navbar } from '@/components/Navbar';
+import { truncateENSName, truncateAddress, formatBalance } from '@/utils/account';
 import { useAccount, useBalance, useEnsName } from 'wagmi';
-import { Avatar } from '../../components/Avatar';
-import { CopyToClipboard } from '../../components/CopyToClipboard';
-import { Navbar } from '../../components/Navbar';
-import { ModalBody } from '../../base/components/Modal/ModalBody';
-import { ModalHeader } from '../../base/components/Modal/ModalHeader';
-import { clsAvatar, clsBalance, clsInfo } from './styles.css';
-import { formatBalance, truncateAddress, truncateENSName } from '../../utils/account';
-import { Box } from '../../base/components/Box';
-import { DisconnectButton } from '../../components/DisconnectButton';
+import { clsAvatar, clsInfo, clsBalance } from './styles.css';
 
 export function ConnectedPage() {
   const { address } = useAccount();

@@ -1,10 +1,10 @@
+import { useConnector } from '@/hooks/useConnector';
+import { commonErrorHandler } from '@/utils/common';
+import { WALLET_CONNECT_ID } from '@/wallets';
 import { useEffect, useMemo, useState } from 'react';
-import { WalletConnectUriContext } from './context';
+import { useConnect, useAccount } from 'wagmi';
 import { useWalletKitContext } from '../WalletKitProvider/context';
-import { WALLET_CONNECT_ID } from '../../wallets';
-import { useConnector } from '../../hooks/useConnectors';
-import { useAccount, useConnect } from 'wagmi';
-import { commonErrorHandler } from '../../utils/common';
+import { WalletConnectUriContext } from './context';
 
 export interface WalletConnectUriProviderProps {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
-import { useTheme } from '../components/ThemeProvider/context';
+import { useTheme } from '@/components/ThemeProvider/context';
+import { WalletProps } from '@/wallets';
 import { useMemo } from 'react';
-import { WalletProps } from '../wallets';
 
 type LogosType = WalletProps['logos'];
 

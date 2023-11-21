@@ -1,7 +1,7 @@
 import React from 'react';
-import { cx } from '../../utils/css';
-import { Button, ButtonProps } from '../Button';
+import { ButtonProps, Button } from '../Button';
 import { clsIconButton } from './styles.css';
+import { cx } from '@/base/utils/css';
 
 export interface IconButtonProps extends ButtonProps {
   icon: React.ReactElement;

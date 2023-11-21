@@ -1,5 +1,5 @@
+import { cssVar } from '@/base/utils/css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../..';
 
 export const clsAvatar = style({
   width: 100,

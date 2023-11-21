@@ -1,10 +1,8 @@
 import { Chain } from 'wagmi';
-
-import { WalletProps } from '../types';
-import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
+import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { PartialCustomProps } from '../custom';
+import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
 
 export const MATH_WALLET_ID = 'mathWallet';
 

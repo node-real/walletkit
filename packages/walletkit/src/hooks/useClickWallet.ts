@@ -1,11 +1,10 @@
+import { routes } from '@/components/RouteProvider';
+import { useRouter } from '@/components/RouteProvider/context';
+import { isWalletConnectConnector } from '@/wallets';
 import { useCallback, useRef } from 'react';
 import { Connector, useDisconnect } from 'wagmi';
-import { useRouter } from '../components/RouteProvider/context';
-import { useWalletKitContext } from '../components/WalletKitProvider/context';
+import { useWalletKitContext, isMobile } from '..';
 import { useWalletConnectModal } from './useWalletConnectModal';
-import { isMobile } from '../base/utils/mobile';
-import { isWalletConnectConnector } from '../wallets';
-import { routes } from '../components/RouteProvider';
 
 export function useClickWallet() {
   const router = useRouter();

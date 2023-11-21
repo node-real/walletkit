@@ -1,9 +1,9 @@
 import { SafeConnector } from 'wagmi/connectors/safe';
 import { Chain } from 'wagmi';
 
-import { PartialWalletProps, WalletProps } from '../types';
-import { InjectedIcon } from '../injected/icon';
 import { Connector } from 'wagmi/connectors';
+import { PartialWalletProps, WalletProps } from '..';
+import { InjectedIcon } from '../injected/icon';
 
 export const SAFE_ID = 'safe';
 

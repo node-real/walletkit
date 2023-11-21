@@ -1,6 +1,6 @@
+import { ColorMode } from '@/components/ThemeProvider/context';
 import { ReactElement } from 'react';
 import { Chain, Connector } from 'wagmi';
-import { ColorMode } from '../components/ThemeProvider/context';
 
 export interface WalletProps {
   id: string;
