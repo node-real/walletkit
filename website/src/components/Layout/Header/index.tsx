@@ -23,7 +23,9 @@ export function Header() {
         borderColor="readable.border"
         px={16}
       >
-        <Heading fontSize={20}>WalletKit</Heading>
+        <Heading as="a" fontSize={20} href="#/test">
+          WalletKit
+        </Heading>
         <HStack spacing={16}>
           <Link
             href="https://github.com/node-real/walletkit/tree/main"
