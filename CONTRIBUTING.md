@@ -68,9 +68,9 @@ Then you can add it to project by following steps:
 2. Create an icon file `icon.tsx`:
 
 ```tsx
-export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletLightIcon = (props: SVGIconProps) => {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52">
+    <svg width="52" height="52" viewBox="0 0 52 52" {...props}>
       ...
     </svg>
   )
@@ -84,8 +84,8 @@ import { Chain } from 'wagmi';
 import {
   TrustWalletDarkIcon,
   TrustWalletLightIcon,
-  TrustWalletMobileDarkIcon,
-  TrustWalletMobileLightIcon,
+  TrustWalletTransparentDarkIcon,
+  TrustWalletTransparentLightIcon,
 } from './icon';
 import { PartialWalletProps, WalletProps } from '../types';
 import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
@@ -127,7 +127,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
@@ -156,15 +156,17 @@ export interface WalletProps {
   name: string;
   logos: {
     default: ReactElement | { [x in ColorMode]: ReactElement };
-    mobile?: ReactElement | { [x in ColorMode]: ReactElement };
+    transparent?: ReactElement | { [x in ColorMode]: ReactElement };
   };
   downloadUrls: {
     default: string | undefined;
   };
   spinnerColor?: string;
+  showQRCode?: boolean;
   installed: boolean | undefined;
   createConnector: (chains: Chain[]) => Connector;
-  getUri: () => string | undefined;
+  getDeepLink: () => string | undefined;
+  getQRCodeUri?: (uri: string) => string;
 }
 ```
 
