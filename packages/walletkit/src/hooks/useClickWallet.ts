@@ -21,6 +21,10 @@ export function useClickWallet() {
       const pass = options.onClickWallet?.(connector, e);
       if (pass === false) return;
 
+      console.log('connector', connector);
+      console.log('ethereum', window.ethereum);
+      console.log('okexchain', window.okexchain);
+
       const gotoQRcodePage = () => {
         setSelectedConnector(connector);
         router.push(routes.CONNECT_WITH_QRCODE);
