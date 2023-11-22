@@ -3,6 +3,7 @@ import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
+import { isMobile } from '@/index';
 
 export const OKX_WALLET_ID = 'okxWallet';
 
@@ -29,12 +30,7 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
         options: {
           name: 'OKX Wallet',
           shimDisconnect: true,
-          getProvider() {
-            if (typeof window === 'undefined') return;
-
-            const provider = getInjectedProvider('isOkxWallet') ?? window.okexchain;
-            return provider;
-          },
+          getProvider,
           ...connectorOptions,
         },
       });
@@ -49,8 +45,22 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
   };
 }
 
+function getProvider() {
+  if (typeof window === 'undefined') return;
+
+  if (isMobile()) {
+    return window.ethereum || window.okexchain;
+  }
+
+  return getInjectedProvider('isOkxWallet') ?? window.okexchain;
+}
+
 export function isOkxWallet() {
   if (typeof window === 'undefined') return false;
+
+  if (isMobile()) {
+    return !!(window.ethereum || window.okexchain);
+  }
 
   return !!(hasInjectedProvider('isOkxWallet') || window.okexchain?.isOkxWallet);
 }
