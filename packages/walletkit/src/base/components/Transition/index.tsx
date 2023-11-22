@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { cx } from '../../utils/css';
+import { cx } from '@/base/utils/css';
 import { clsFadeIn, clsFadeOut } from './fade.css';
 import { clsToastSlideIn, clsToastSlideOut } from './toastSlide.css';
 
@@ -8,14 +8,14 @@ const animationMap = {
   'toast-slide': [clsToastSlideOut, clsToastSlideIn],
 };
 
-export interface AnimationProps {
+export interface TransitionProps {
   in: boolean;
   children: React.ReactElement;
   variant?: 'fade' | 'toast-slide';
   onExit?: () => void;
 }
 
-export const Animation = (props: AnimationProps) => {
+export const Transition = (props: TransitionProps) => {
   const { in: show, children, variant = 'fade', onExit } = props;
 
   const { className, onAnimationEnd, ...restProps } = children.props;

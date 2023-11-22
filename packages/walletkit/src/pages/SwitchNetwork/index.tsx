@@ -1,15 +1,21 @@
+import { Box } from '@/base/components/Box';
+import { ModalBody } from '@/base/components/Modal/ModalBody';
+import { ModalHeader } from '@/base/components/Modal/ModalHeader';
+import { DisconnectButton } from '@/components/DisconnectButton';
+import { Navbar } from '@/components/Navbar';
+import { useWalletKitSwitchNetwork } from '@/hooks/useWalletKitSwitchNetwork';
+import { useWalletKitContext, useModal, cx } from '@/index';
 import { useNetwork } from 'wagmi';
-import { ModalHeader } from '../../base/components/Modal/ModalHeader';
-import { Navbar } from '../../components/Navbar';
-import { ModalBody } from '../../base/components/Modal/ModalBody';
-import { clsChains, clsDescription, clsOrSeparator } from './styles.css';
-import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { useWalletKitSwitchNetwork } from '../../hooks/useWalletKitSwitchNetwork';
-import { Box } from '../../base/components/Box';
-import { cx } from '../../base/utils/css';
 import { ChainOption } from './ChainOption';
-import { DisconnectButton } from '../../components/DisconnectButton';
-import { useModal } from '../..';
+import {
+  clsDescription,
+  clsChains,
+  clsOrSeparator,
+  clsBody,
+  clsFooter,
+  clsNoNavHeader,
+} from './styles.css';
+import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 
 export function SwitchNetworkPage() {
   const { supportedChains } = useWalletKitContext();
@@ -26,9 +32,9 @@ export function SwitchNetworkPage() {
   return (
     <>
       {isClosable && <Navbar />}
-      <ModalHeader>Switch Network</ModalHeader>
+      <ModalHeader className={isClosable ? undefined : clsNoNavHeader}>Switch Network</ModalHeader>
 
-      <ModalBody>
+      <ModalBody className={clsBody}>
         {chain?.unsupported && (
           <Box className={clsDescription}>
             This app does not support the current connected network. Switch or disconnect to
@@ -48,11 +54,12 @@ export function SwitchNetworkPage() {
             );
           })}
         </Box>
-
         <Box className={clsOrSeparator}>or</Box>
-
-        <DisconnectButton />
       </ModalBody>
+
+      <ModalFooter className={clsFooter}>
+        <DisconnectButton />
+      </ModalFooter>
     </>
   );
 }

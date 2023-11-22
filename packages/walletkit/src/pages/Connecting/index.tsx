@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useWalletKitContext } from '../../components/WalletKitProvider/context';
-import { useWalletConfig } from '../../hooks/useWalletConfig';
-import { useWalletKitConnect } from '../../hooks/useWalletKitConnect';
-import { Navbar } from '../../components/Navbar';
-import { ModalHeader } from '../../base/components/Modal/ModalHeader';
-import { Box } from '../../base/components/Box';
+import { Box } from '@/base/components/Box';
+import { Button } from '@/base/components/Button';
+import { ModalBody } from '@/base/components/Modal/ModalBody';
+import { ModalFooter } from '@/base/components/Modal/ModalFooter';
+import { ModalHeader } from '@/base/components/Modal/ModalHeader';
+import { Navbar } from '@/components/Navbar';
+import { useWalletConfig } from '@/hooks/useWalletConfig';
+import { useWalletDownloadUrl } from '@/hooks/useWalletDownloadUrl';
+import { useWalletKitConnect } from '@/hooks/useWalletKitConnect';
+import { useWalletLogos } from '@/hooks/useWalletLogos';
+import { useWalletKitContext } from '@/index';
+import { useState, useCallback, useEffect } from 'react';
+import { ConnectSpinner } from './ConnectSpinner';
 import { Content } from './Content';
-import { ErrorTitle } from './Content/ErrorTitle';
 import { Description } from './Content/Description';
+import { ErrorTitle } from './Content/ErrorTitle';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
-import { ConnectSpinner } from './ConnectSpinner';
-import { clsContent, clsGap, clsButton, clsFooter } from './styles.css';
-import { ModalBody } from '../../base/components/Modal/ModalBody';
-import { ModalFooter } from '../../base/components/Modal/ModalFooter';
-import { Button } from '../../base/components/Button';
-import { useWalletLogos } from '../../hooks/useWalletLogos';
-import { useWalletDownloadUrl } from '../../hooks/useWalletDownloadUrl';
+import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
 
 export const states = {
   CONNECTED: 'connected',
@@ -116,7 +116,7 @@ export function ConnectingPage() {
 
       <ModalBody className={clsContent}>
         <ConnectSpinner isLoading={isLoading} isError={isError} loadingColor={wallet.spinnerColor}>
-          {logos.default}
+          {logos.transparent}
         </ConnectSpinner>
 
         <Box className={clsGap} />

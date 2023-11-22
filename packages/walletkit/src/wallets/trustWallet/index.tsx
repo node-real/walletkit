@@ -1,14 +1,17 @@
 import { Chain } from 'wagmi';
-
 import {
-  TrustWalletDarkIcon,
-  TrustWalletLightIcon,
-  TrustWalletMobileDarkIcon,
-  TrustWalletMobileLightIcon,
-} from './icon';
-import { PartialWalletProps, WalletProps } from '../types';
-import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
+  PartialWalletProps,
+  TrustWalletConnectorOptions,
+  WalletProps,
+  TrustWalletConnector,
+} from '..';
 import { hasInjectedProvider } from '../utils';
+import {
+  TrustWalletLightIcon,
+  TrustWalletDarkIcon,
+  TrustWalletTransparentLightIcon,
+  TrustWalletTransparentDarkIcon,
+} from './icon';
 
 export const TRUST_WALLET_ID = 'trust';
 
@@ -27,15 +30,16 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         light: <TrustWalletLightIcon />,
         dark: <TrustWalletDarkIcon />,
       },
-      mobile: {
-        light: <TrustWalletMobileLightIcon />,
-        dark: <TrustWalletMobileDarkIcon />,
+      transparent: {
+        light: <TrustWalletTransparentLightIcon />,
+        dark: <TrustWalletTransparentDarkIcon />,
       },
     },
     downloadUrls: {
       default: 'https://trustwallet.com/',
     },
     spinnerColor: '#1098FC',
+    showQRCode: false,
     installed: isTrustWallet(),
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({
@@ -46,11 +50,14 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
       return dappPath;
+    },
+    getQRCodeUri(uri) {
+      return `trust://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };

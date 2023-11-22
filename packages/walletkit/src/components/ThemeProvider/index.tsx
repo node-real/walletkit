@@ -1,7 +1,7 @@
+import { deepMerge } from '@/base/utils/common';
+import { CustomTheme, base } from '@/themes/base';
 import { useEffect, useMemo, useState } from 'react';
-import { CustomTheme, base } from '../../themes/base';
 import { ColorMode, ThemeContext } from './context';
-import { deepMerge } from '../../base/utils/common';
 
 export type ThemeMode = 'auto' | ColorMode;
 
@@ -83,16 +83,15 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   useEffect(() => {
     if (mode === 'auto') {
-      const onChangeColorMode = () => {
-        const cm = mql.matches ? 'dark' : 'light';
+      const onChange = () => {
+        const cm = matchMedia.matches ? 'dark' : 'light';
         setColorMode(cm);
       };
 
-      const mql = window.matchMedia('(prefers-color-scheme: dark)');
-
-      mql.addEventListener('change', onChangeColorMode);
+      const matchMedia = window.matchMedia('(prefers-color-scheme: dark)');
+      matchMedia.addEventListener('change', onChange);
       return () => {
-        mql.removeEventListener('change', onChangeColorMode);
+        matchMedia.removeEventListener('change', onChange);
       };
     } else {
       setColorMode(mode);

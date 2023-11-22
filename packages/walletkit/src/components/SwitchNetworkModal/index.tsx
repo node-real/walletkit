@@ -1,6 +1,6 @@
 import { useAccount, useNetwork } from 'wagmi';
 import { useEffect } from 'react';
-import { useModal } from '../..';
+import { useModal } from '../ModalProvider/context';
 
 export function SwitchNetworkModal() {
   const { onOpenSwitchNetwork } = useModal();

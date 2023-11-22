@@ -1,7 +1,6 @@
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { Chain } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
+import { PartialWalletProps, WalletProps } from '..';
 import { InjectedIcon } from './icon';
 
 export const INJECTED_ID = 'injected';
@@ -26,6 +25,7 @@ export function injected(props: InjectedProps = {}): WalletProps {
     downloadUrls: {
       default: undefined,
     },
+    showQRCode: false,
     installed: isInjected(),
     createConnector: (chains: Chain[]) => {
       return new InjectedConnector({
@@ -37,7 +37,7 @@ export function injected(props: InjectedProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

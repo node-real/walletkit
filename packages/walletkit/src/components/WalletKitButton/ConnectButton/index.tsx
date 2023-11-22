@@ -1,12 +1,10 @@
+import { ButtonProps, Button } from '@/base/components/Button';
+import { useIsMounted } from '@/base/hooks/useIsMounted';
+import { ConnectRole, useWalletKitContext, useModal, cx } from '@/index';
 import React, { useCallback } from 'react';
-import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
-import { cx } from '../../../base/utils/css';
-import { Button, ButtonProps } from '../../../base/components/Button';
-import { clsWalletkitButton } from './styles.css';
 import { useAccount } from 'wagmi';
 import { ConnectedInfo } from './ConnectedInfo';
-import { useIsMounted } from '../../../base/hooks/useIsMounted';
-import { useModal } from '../../..';
+import { clsWalletkitButton } from './styles.css';
 
 export interface ConnectButtonProps extends ButtonProps {
   role?: ConnectRole;

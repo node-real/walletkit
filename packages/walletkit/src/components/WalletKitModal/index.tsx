@@ -1,7 +1,7 @@
-import { useIsMounted } from '../../base/hooks/useIsMounted';
+import { Modal } from '@/base/components/Modal';
+import { useIsMounted } from '@/base/hooks/useIsMounted';
+import { useModal } from '../ModalProvider/context';
 import { useRouter } from '../RouteProvider/context';
-import { Modal } from '../../base/components/Modal';
-import { useModal } from '../..';
 
 export function WalletKitModal() {
   const { isOpen, onClose, closeOnEsc, closeOnOverlayClick } = useModal();

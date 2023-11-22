@@ -7,6 +7,7 @@ import { theme } from './theme';
 import { Layout } from './components/Layout';
 import DocsPage from './pages/index.mdx';
 import { MDXComponents } from './components/MDXComponent';
+import TestPage from './pages/TestPage';
 
 new VConsole();
 
@@ -15,6 +16,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/test" element={<TestPage />} />
           <Route path="*" element={<DocsPage components={MDXComponents} />} />
         </Route>
       </Routes>

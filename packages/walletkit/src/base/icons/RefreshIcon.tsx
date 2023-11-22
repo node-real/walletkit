@@ -1,4 +1,6 @@
-export const RefreshIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const RefreshIcon = (props: SVGIconProps) => {
   return (
     <svg width="24" height="24" viewBox="4 0 16 16" fill="none" {...props}>
       <g filter="url(#filter0_d_1252_60835)">

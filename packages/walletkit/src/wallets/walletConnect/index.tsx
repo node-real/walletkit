@@ -1,11 +1,9 @@
+import { getGlobalData } from '@/globalData';
+import { isMobile } from '@/index';
 import { Chain, Connector } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
-import { WalletConnectIcon, WalletConnectMobileIcon } from './icon';
-import { getGlobalData } from '../../globalData';
-
-import { WalletConnectConnector } from '../walletConnect/connector';
-import { isMobile } from '../..';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { PartialWalletProps, WalletProps } from '..';
+import { WalletConnectIcon, WalletConnectTransparentIcon } from './icon';
 
 export const WALLET_CONNECT_ID = 'walletConnect';
 
@@ -25,7 +23,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
     name: 'WalletConnect',
     logos: {
       default: <WalletConnectIcon />,
-      mobile: <WalletConnectMobileIcon />,
+      transparent: <WalletConnectTransparentIcon />,
     },
     downloadUrls: {
       default: undefined,
@@ -66,7 +64,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

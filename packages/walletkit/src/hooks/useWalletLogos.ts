@@ -1,6 +1,6 @@
-import { useTheme } from '../components/ThemeProvider/context';
+import { useTheme } from '@/components/ThemeProvider/context';
+import { WalletProps } from '@/wallets';
 import { useMemo } from 'react';
-import { WalletProps } from '../wallets';
 
 type LogosType = WalletProps['logos'];
 
@@ -8,14 +8,15 @@ export function useWalletLogos(walletLogos: LogosType) {
   const { colorMode } = useTheme();
 
   const logos = useMemo(() => {
-    const { default: defaultLogos, mobile: mobileLogos } = walletLogos;
+    const { default: defaultLogos, transparent: transparentLogos } = walletLogos;
 
     const defaultLogo = (defaultLogos as any)?.[colorMode] ?? defaultLogos;
-    const mobileLogo = (mobileLogos as any)?.[colorMode] ?? mobileLogos ?? defaultLogo;
+    const transparentLogo =
+      (transparentLogos as any)?.[colorMode] ?? transparentLogos ?? defaultLogo;
 
     return {
       default: defaultLogo,
-      mobile: mobileLogo,
+      transparent: transparentLogo,
     };
   }, [colorMode, walletLogos]);
 

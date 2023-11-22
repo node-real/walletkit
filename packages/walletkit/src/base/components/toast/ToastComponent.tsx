@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import { clsIconWrapper, clsDescWrapper, clsContainer } from './styles.css';
+import { ErrorIcon } from '@/base/icons/ErrorIcon';
+import { InfoIcon } from '@/base/icons/InfoIcon';
 import { ToastOptions } from '.';
-import { ToastManager } from './ToastManager';
 import { Box } from '../Box';
-import { clsContainer, clsDescWrapper, clsIconWrapper } from './styles.css';
-import { Animation } from '../Animation';
-import { InfoIcon } from '../../icons/InfoIcon';
-import { ErrorIcon } from '../../icons/ErrorIcon';
+import { Transition } from '../Transition';
+import { ToastManager } from './ToastManager';
 
 const iconMap: Record<string, React.ReactNode> = {
   info: <InfoIcon />,
@@ -43,13 +43,13 @@ export function ToastComponent(props: ToastOptions) {
   };
 
   return (
-    <Animation in={show} variant="toast-slide" onExit={onExit}>
+    <Transition in={show} variant="toast-slide" onExit={onExit}>
       <Box className="wk-toast">
         <Box className={clsContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           <Box className={clsIconWrapper}>{iconMap[variant]}</Box>
           <Box className={clsDescWrapper}>{description}</Box>
         </Box>
       </Box>
-    </Animation>
+    </Transition>
   );
 }

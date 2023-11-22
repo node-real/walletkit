@@ -1,10 +1,9 @@
+import { getGlobalData } from '@/globalData';
 import { Chain } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
-import { CoinbaseWalletIcon } from './icon';
-import { hasInjectedProvider } from '../utils';
-import { getGlobalData } from '../../globalData';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { PartialWalletProps, WalletProps } from '..';
+import { hasInjectedProvider } from '../utils';
+import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
 
 export const COINBASE_WALLET_ID = 'coinbaseWallet';
 
@@ -24,11 +23,13 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     name: 'Coinbase Wallet',
     logos: {
       default: <CoinbaseWalletIcon />,
+      transparent: <CoinbaseWalletTransparentIcon />,
     },
     downloadUrls: {
-      default: 'https://coinbase.com/wallet',
+      default: 'https://www.coinbase.com/wallet/downloads',
     },
     spinnerColor: undefined,
+    showQRCode: false,
     installed: isCoinbaseWallet(),
     createConnector: (chains: Chain[]) => {
       const { walletConnectDefaultOptions } = getGlobalData();
@@ -43,8 +44,11 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };

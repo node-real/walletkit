@@ -1,5 +1,5 @@
-import { Box, BoxProps } from '../../../base/components/Box';
-import { cx } from '../../../base/utils/css';
+import { BoxProps, Box } from '@/base/components/Box';
+import { cx } from '@/index';
 import { clsContent } from './styles.css';
 
 export function Content(props: BoxProps) {

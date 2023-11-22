@@ -1,7 +1,7 @@
 import React from 'react';
-import { cx } from '../../utils/css';
 import { clsButton } from './styles.css';
 import { Box, BoxProps } from '../Box';
+import { cx } from '@/base/utils/css';
 
 export type ButtonProps = BoxProps;
 

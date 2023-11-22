@@ -1,9 +1,9 @@
+import { ButtonProps, Button } from '@/base/components/Button';
+import { ExitIcon } from '@/base/icons/ExitIcon';
+import { cx } from '@/index';
 import { useConnect, useDisconnect } from 'wagmi';
-import { Button, ButtonProps } from '../../base/components/Button';
-import { ExitIcon } from '../../base/icons/ExitIcon';
-import { cx } from '../../base/utils/css';
+import { useModal } from '../ModalProvider/context';
 import { clsContainer } from './styles.css';
-import { useModal } from '../..';
 
 export type DisconnectButtonProps = ButtonProps;
 

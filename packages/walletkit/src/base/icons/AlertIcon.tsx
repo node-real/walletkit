@@ -1,4 +1,6 @@
-export const AlertIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const AlertIcon = (props: SVGIconProps) => {
   return (
     <svg width="16" height="16" viewBox="0 0 16 15" fill="none" {...props}>
       <path

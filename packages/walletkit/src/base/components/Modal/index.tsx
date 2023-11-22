@@ -1,9 +1,9 @@
-import { cx } from '../../utils/css';
-import { Box, BoxProps } from '../Box';
+import { useKeyDown } from '@/base/hooks/useKeyDown';
+import { cx } from '@/base/utils/css';
+import { BoxProps, Box } from '../Box';
 import { Portal } from '../Portal';
-import { clsModal, clsModalContent, clsModalOverlay } from './styles.css';
-import { Animation } from '../Animation';
-import { useKeyDown } from '../../hooks/useKeyDown';
+import { Transition } from '../Transition';
+import { clsModal, clsModalOverlay, clsModalContent } from './styles.css';
 
 export interface ModalProps extends BoxProps {
   isOpen: boolean;
@@ -36,7 +36,7 @@ export function Modal(props: ModalProps) {
 
   return (
     <Portal>
-      <Animation in={isOpen} variant="fade">
+      <Transition in={isOpen} variant="fade">
         <Box className={cx('wk-modal', clsModal, className)} {...restProps}>
           <Box
             className={cx('wk-modal-overlay', clsModalOverlay)}
@@ -46,7 +46,7 @@ export function Modal(props: ModalProps) {
             {children}
           </Box>
         </Box>
-      </Animation>
+      </Transition>
     </Portal>
   );
 }

@@ -1,12 +1,11 @@
+import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../../base/utils/css';
 
 export const clsWalletOption = style({
   height: 68,
   paddingLeft: 20,
   paddingRight: 20,
   borderRadius: cssVar('walletOption', 'radii'),
-  fontSize: 16,
   color: cssVar('walletOptionText'),
   background: cssVar('walletOptionBackground'),
   width: '100%',

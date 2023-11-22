@@ -1,5 +1,15 @@
+import { MOBILE_MEDIA } from '@/base/constant';
+import { cssVar } from '@/base/utils/css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../..';
+
+export const clsFooter = style({
+  marginTop: 0,
+  '@media': {
+    [MOBILE_MEDIA]: {
+      marginBottom: -16,
+    },
+  },
+});
 
 export const clsAvatar = style({
   width: 100,

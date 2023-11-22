@@ -1,11 +1,6 @@
 import { useConnect, Connector } from 'wagmi';
 
-export function useConnectors() {
-  const { connectors } = useConnect();
-  return connectors;
-}
-
 export function useConnector(id: string) {
-  const connectors = useConnectors();
+  const { connectors } = useConnect();
   return connectors.find((c) => c.id === id) as Connector | undefined;
 }

@@ -1,10 +1,9 @@
-import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
-import { ConnectRole, useWalletKitContext } from '../../WalletKitProvider/context';
+import { routes } from '@/components/RouteProvider';
+import { useRouter } from '@/components/RouteProvider/context';
+import { ConnectRole, useWalletKitContext, useModal } from '@/index';
+import { truncateAddress } from '@/utils/account';
 import { useCallback } from 'react';
-import { truncateAddress } from '../../../utils/account';
-import { routes } from '../../RouteProvider';
-import { useRouter } from '../../RouteProvider/context';
-import { useModal } from '../../ModalProvider/context';
+import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
 
 export interface ConnectButtonRendererProps {
   role?: ConnectRole;
