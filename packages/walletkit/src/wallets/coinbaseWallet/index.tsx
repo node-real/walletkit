@@ -26,7 +26,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
       transparent: <CoinbaseWalletTransparentIcon />,
     },
     downloadUrls: {
-      default: 'https://coinbase.com/wallet',
+      default: 'https://www.coinbase.com/wallet/downloads',
     },
     spinnerColor: undefined,
     showQRCode: false,

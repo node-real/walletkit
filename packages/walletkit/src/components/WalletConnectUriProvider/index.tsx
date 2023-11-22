@@ -49,10 +49,7 @@ export function WalletConnectUriProvider(props: WalletConnectUriProviderProps) {
             error,
             handler: options.onError,
           });
-
-          if (error?.code === 4001) {
-            connectWallet();
-          }
+          connectWallet(); // refresh qr code
         }, 100);
       }
     };
