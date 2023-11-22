@@ -1,9 +1,7 @@
 import { Chain, Connector } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-
-import { MetaMaskIcon } from './icon';
-import { isTokenPocket } from '../tokenPocket';
-import { PartialWalletProps, WalletProps } from '../types';
+import { PartialWalletProps, WalletProps, isTokenPocket } from '..';
+import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
 
 export const META_MASK_ID = 'metaMask';
 
@@ -23,11 +21,13 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
     name: 'MetaMask',
     logos: {
       default: <MetaMaskIcon />,
+      transparent: <MetaMaskTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://metamask.io/download/',
     },
     spinnerColor: '#F0B90B',
+    showQRCode: false,
     installed: isMetaMask(),
     createConnector: (chains: Chain[]) => {
       return new MetaMaskConnector({
@@ -39,9 +39,12 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
       return `dapp://${dappPath}`;
+    },
+    getQRCodeUri(uri) {
+      return `metamask://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };

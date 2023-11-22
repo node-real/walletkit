@@ -1,14 +1,14 @@
-import { ChainProps } from '../../../chains/types';
-import { cx } from '../../../base/utils/css';
-import { Box } from '../../../base/components/Box';
-import { Button, ButtonProps } from '../../../base/components/Button';
+import { Box } from '@/base/components/Box';
+import { ButtonProps, Button } from '@/base/components/Button';
+import { ChainProps } from '@/chains/types';
+import { cx } from '@/index';
+import { ChainSpinner } from '../ChainSpinner';
 import {
+  clsContainer,
   clsChainOptionLogo,
   clsChainOptionName,
   clsConnectedTag,
-  clsContainer,
 } from './styles.css';
-import { ChainSpinner } from '../ChainSpinner';
 
 export interface ChainOptionProps extends Omit<ButtonProps, 'data'> {
   data: ChainProps;

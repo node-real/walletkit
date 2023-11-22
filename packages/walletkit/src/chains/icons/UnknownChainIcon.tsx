@@ -1,4 +1,6 @@
-export const UnknownChainIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const UnknownChainIcon = (props: SVGIconProps) => {
   return (
     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" {...props}>
       <path

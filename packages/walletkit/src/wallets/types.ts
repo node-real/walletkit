@@ -1,21 +1,23 @@
+import { ColorMode } from '@/components/ThemeProvider/context';
 import { ReactElement } from 'react';
 import { Chain, Connector } from 'wagmi';
-import { ColorMode } from '../components/ThemeProvider/context';
 
 export interface WalletProps {
   id: string;
   name: string;
   logos: {
     default: ReactElement | { [x in ColorMode]: ReactElement };
-    mobile?: ReactElement | { [x in ColorMode]: ReactElement };
+    transparent?: ReactElement | { [x in ColorMode]: ReactElement };
   };
   downloadUrls: {
     default: string | undefined;
   };
   spinnerColor?: string;
+  showQRCode?: boolean;
   installed: boolean | undefined;
   createConnector: (chains: Chain[]) => Connector;
-  getUri: () => string | undefined;
+  getDeepLink: () => string | undefined;
+  getQRCodeUri?: (uri: string) => string;
 }
 
 export type PartialWalletProps = Partial<WalletProps>;

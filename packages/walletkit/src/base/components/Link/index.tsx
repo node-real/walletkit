@@ -1,4 +1,4 @@
-import { cx } from '../../utils/css';
+import { cx } from '@/base/utils/css';
 import { Box, BoxProps } from '../Box';
 import { clsLink } from './styles.css';
 

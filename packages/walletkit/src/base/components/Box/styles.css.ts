@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const clsBox = style({
+  WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   margin: 0,
   padding: 0,
   boxSizing: 'border-box',

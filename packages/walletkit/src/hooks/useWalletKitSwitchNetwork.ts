@@ -1,6 +1,6 @@
+import { commonErrorHandler } from '@/utils/common';
 import { useSwitchNetwork } from 'wagmi';
-import { useWalletKitContext } from '../components/WalletKitProvider/context';
-import { commonErrorHandler } from '../utils/common';
+import { useWalletKitContext } from '..';
 
 export function useWalletKitSwitchNetwork({ ...props }: any = {}): ReturnType<
   typeof useSwitchNetwork

@@ -1,5 +1,5 @@
+import { cssVar } from '@/base/utils/css';
 import { globalStyle, style } from '@vanilla-extract/css';
-import { cssVar } from '../../base/utils/css';
 
 export const clsQrCodeContainer = style({
   display: 'flex',
@@ -26,6 +26,8 @@ export const clsQrCodeLogo = style({
   top: '50%',
   transform: 'translate(-50%, -50%)',
   display: 'inline-flex',
+  borderRadius: 12,
+  overflow: 'hidden',
 });
 
 globalStyle(`${clsQrCodeLogo} > svg`, {

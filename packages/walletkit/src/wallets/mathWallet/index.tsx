@@ -1,10 +1,8 @@
 import { Chain } from 'wagmi';
-
-import { WalletProps } from '../types';
-import { MathWalletDarkIcon, MathWalletLightIcon } from './icon';
+import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { PartialCustomProps } from '../custom';
+import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
 
 export const MATH_WALLET_ID = 'mathWallet';
 
@@ -15,14 +13,13 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
     id: MATH_WALLET_ID,
     name: 'Math Wallet',
     logos: {
-      default: {
-        light: <MathWalletLightIcon />,
-        dark: <MathWalletDarkIcon />,
-      },
+      default: <MathWalletIcon />,
+      transparent: <MathWalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://mathwallet.org',
     },
+    showQRCode: false,
     spinnerColor: undefined,
     installed: isMathWallet(),
     createConnector: (chains: Chain[]) => {
@@ -42,8 +39,13 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
-      return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
+    getDeepLink: () => {
+      // return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
+      // return `mathwallet://wc?uri=${encodeURIComponent(uri)}`;
+      return undefined;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };

@@ -1,9 +1,8 @@
+import { MOBILE_MEDIA } from '@/base/constant';
+import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../..';
 
-export const clsContent = style({
-  overflowY: 'auto',
-});
+export const clsContent = style({});
 
 export const clsGap = style({
   marginTop: 32,
@@ -24,4 +23,10 @@ export const clsButton = style({
 export const clsFooter = style({
   marginTop: 40,
   marginBottom: -8,
+  '@media': {
+    [MOBILE_MEDIA]: {
+      marginTop: 24,
+      marginBottom: -16,
+    },
+  },
 });

@@ -1,8 +1,8 @@
+import { getSupportedChains } from '@/chains';
+import { UnknownChainIcon } from '@/chains/icons/UnknownChainIcon';
+import { mergeList } from '@/utils/common';
 import { Chain } from 'wagmi';
-import { UnknownChainIcon } from '../chains/icons/UnknownChainIcon';
-import { WalletKitOptions } from '../components/WalletKitProvider/context';
-import { mergeList } from '../utils/common';
-import { getSupportedChains } from '../chains';
+import { WalletKitOptions } from '..';
 
 export function getDefaultSupportedChains(options: WalletKitOptions, chains: Chain[]) {
   const chainsConfig = mergeList(getSupportedChains(), options.chainsConfig);

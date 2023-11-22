@@ -1,6 +1,6 @@
-import { cssVar } from '../..';
+import { SVGIconProps, cssVar } from '../..';
 
-export const ChainSpinnerIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const ChainSpinnerIcon = (props: SVGIconProps) => {
   const stopColor = cssVar('primaryActive');
 
   return (

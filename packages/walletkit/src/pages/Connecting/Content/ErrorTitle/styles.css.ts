@@ -1,5 +1,5 @@
+import { cssVar } from '@/base/utils/css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../../../base/utils/css';
 
 export const clsErrorTitle = style({
   display: 'flex',

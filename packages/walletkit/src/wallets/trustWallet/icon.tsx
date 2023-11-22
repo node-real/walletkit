@@ -1,4 +1,6 @@
-export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const TrustWalletTransparentLightIcon = (props: SVGIconProps) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
       <path
@@ -30,7 +32,7 @@ export const TrustWalletLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export const TrustWalletDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletTransparentDarkIcon = (props: SVGIconProps) => {
   return (
     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
       <path
@@ -60,7 +62,7 @@ export const TrustWalletDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export const TrustWalletMobileLightIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletLightIcon = (props: SVGIconProps) => {
   return (
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
       <rect width="60" height="60" rx="16" fill="#242426" />
@@ -91,20 +93,21 @@ export const TrustWalletMobileLightIcon = (props: React.SVGProps<SVGSVGElement>)
   );
 };
 
-export const TrustWalletMobileDarkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const TrustWalletDarkIcon = (props: SVGIconProps) => {
   return (
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" {...props}>
+      <rect width="60" height="60" rx="16" fill="white" />
       <path
         d="M12.2197 15.7781L29.9971 10V50C17.2988 44.6662 12.2197 34.444 12.2197 28.6672V15.7781Z"
         fill="#0500FF"
       />
       <path
         d="M47.7764 15.7781L29.999 10V50C42.6973 44.6662 47.7764 34.444 47.7764 28.6672V15.7781Z"
-        fill="url(#paint0_linear_5881_50290)"
+        fill="url(#paint0_linear_5881_50289)"
       />
       <defs>
         <linearGradient
-          id="paint0_linear_5881_50290"
+          id="paint0_linear_5881_50289"
           x1="43.0542"
           y1="7.19894"
           x2="29.6249"

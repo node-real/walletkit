@@ -1,6 +1,6 @@
+import { ChainProps } from '@/chains/types';
 import { ReactNode, createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
-import { ChainProps } from '../../chains/types';
 
 export type ConnectRole = 'add-network' | 'default';
 

@@ -1,10 +1,8 @@
 import { Chain } from 'wagmi';
-
-import { WalletProps } from '../types';
-import { BinanceWeb3WalletIcon } from './icon';
+import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
-import { getInjectedProvider } from '../utils';
-import { PartialCustomProps } from '../custom';
+import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
+import { isMobile } from '@/base/utils/mobile';
 
 export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
 
@@ -16,11 +14,13 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     name: 'Binance Web3 Wallet',
     logos: {
       default: <BinanceWeb3WalletIcon />,
+      transparent: <BinanceWeb3WalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.binance.com/en/web3wallet',
     },
     spinnerColor: undefined,
+    showQRCode: true,
     installed: isBinanceWeb3Wallet(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
@@ -32,15 +32,19 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
           getProvider() {
             if (typeof window === 'undefined') return;
 
-            const provider = getInjectedProvider('isOkxWallet') ?? window.okexchain;
-            return provider;
+            if (isMobile()) {
+              return window.ethereum;
+            }
           },
           ...connectorOptions,
         },
       });
     },
-    getUri: () => {
-      return undefined;
+    getDeepLink: () => {
+      return undefined; //`bnc://app.binance.com/cedefi/wc?uri=${encodeURIComponent(uri)}`;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };
@@ -48,6 +52,10 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
 
 export function isBinanceWeb3Wallet() {
   if (typeof window === 'undefined') return false;
+
+  if (isMobile()) {
+    return !!window.ethereum;
+  }
 
   return false;
 }

@@ -1,10 +1,9 @@
 import { Chain } from 'wagmi';
-
-import { WalletProps } from '../types';
-import { OkxWalletIcon } from './icon';
+import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { PartialCustomProps } from '../custom';
+import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
+import { isMobile } from '@/index';
 
 export const OKX_WALLET_ID = 'okxWallet';
 
@@ -16,11 +15,13 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
     name: 'OKX Wallet',
     logos: {
       default: <OkxWalletIcon />,
+      transparent: <OkxWalletTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.okx.com/web3',
     },
     spinnerColor: undefined,
+    showQRCode: false,
     installed: isOkxWallet(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
@@ -32,15 +33,21 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
           getProvider() {
             if (typeof window === 'undefined') return;
 
-            const provider = getInjectedProvider('isOkxWallet') ?? window.okexchain;
-            return provider;
+            if (isMobile()) {
+              return window.ethereum || window.okexchain;
+            }
+
+            return getInjectedProvider('isOkxWallet') ?? window.okexchain;
           },
           ...connectorOptions,
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
+    },
+    getQRCodeUri(uri) {
+      return `okex://main/wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };
@@ -48,6 +55,10 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
 
 export function isOkxWallet() {
   if (typeof window === 'undefined') return false;
+
+  if (isMobile()) {
+    return !!(window.ethereum || window.okexchain);
+  }
 
   return !!(hasInjectedProvider('isOkxWallet') || window.okexchain?.isOkxWallet);
 }

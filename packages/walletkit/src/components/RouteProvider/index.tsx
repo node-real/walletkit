@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { ConnectWithQRCodePage } from '@/pages/ConnectWithQRCode';
+import { ConnectedPage } from '@/pages/Connected';
+import { ConnectingPage } from '@/pages/Connecting';
+import { ConnectorsPage } from '@/pages/Connectors';
+import { SwitchNetworkPage } from '@/pages/SwitchNetwork';
+import { useState, useRef, useMemo, useCallback } from 'react';
 import { RouteContext } from './context';
-import { ConnectorsPage } from '../../pages/Connectors';
-import { ConnectingPage } from '../../pages/Connecting';
-import { ConnectWithQRCodePage } from '../../pages/ConnectWithQRCode';
-import { ConnectedPage } from '../../pages/Connected';
-import { SwitchNetworkPage } from '../../pages/SwitchNetwork';
 
 export const routes = {
   CONNECTING: 'Connecting',

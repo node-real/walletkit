@@ -1,5 +1,5 @@
-import { isTrustWallet } from '../wallets';
-import { isIOS } from '../base/utils/mobile';
+import { isIOS } from '@/base/utils/mobile';
+import { isTrustWallet } from '@/wallets';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
