@@ -1,5 +1,5 @@
-import { MOBILE_MEDIA } from '@/base/constant';
 import { cssVar } from '@/base/utils/css';
+import { mobile } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
 
 export const clsModal = style({
@@ -17,11 +17,9 @@ export const clsModal = style({
   padding: 0,
   transition: 'all 0.3s',
   boxSizing: 'border-box',
-  '@media': {
-    [MOBILE_MEDIA]: {
-      alignItems: 'flex-end',
-    },
-  },
+  '@media': mobile({
+    alignItems: 'flex-end',
+  }),
 });
 
 export const clsModalOverlay = style({
@@ -38,13 +36,11 @@ export const clsModalContent = style({
   width: 'calc(100% - 32px)',
   maxWidth: 484,
   borderRadius: cssVar('modal', 'radii'),
-  '@media': {
-    [MOBILE_MEDIA]: {
-      width: '100%',
-      maxWidth: 'unset',
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
-      paddingBottom: 40,
-    },
-  },
+  '@media': mobile({
+    width: '100%',
+    maxWidth: 'unset',
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    paddingBottom: 40,
+  }),
 });

@@ -1,3 +1,4 @@
+import { hover } from '@/base/vanilla/index.css';
 import { cssVar } from '@/index';
 import { globalStyle, style } from '@vanilla-extract/css';
 
@@ -14,10 +15,10 @@ globalStyle(`${clsInfo} svg`, {
 export const clsWrongButton = style({
   color: '#fff',
   background: cssVar('error'),
-  ':hover': {
+  '@media': hover({
     color: '#fff',
     background: cssVar('errorActive'),
-  },
+  }),
 });
 
 export const clsChainButton = style({
