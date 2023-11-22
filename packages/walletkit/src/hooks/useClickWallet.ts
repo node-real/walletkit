@@ -47,10 +47,10 @@ export function useClickWallet() {
           }
         } else if (!connector._wallet.installed) {
           if (mobile) {
-            // const deepLink = connector._wallet.getDeepLink?.();
-            // if (deepLink) {
-            //   window.open(deepLink, '_self', 'noopener noreferrer');
-            // }
+            const deepLink = connector._wallet.getDeepLink?.();
+            if (deepLink) {
+              window.open(deepLink, '_self', 'noopener noreferrer');
+            }
           } else if (connector._wallet.showQRCode) {
             gotoQRcodePage();
           } else {
