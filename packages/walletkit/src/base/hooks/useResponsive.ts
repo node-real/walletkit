@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MOBILE_MEDIA } from '../constant';
 
 export function useMediaQuery(query: string) {
   const [isMatched, setIsMatched] = useState(false);
@@ -8,6 +9,8 @@ export function useMediaQuery(query: string) {
       const isMatched = window.matchMedia(query).matches;
       setIsMatched(isMatched);
     };
+
+    onChange();
 
     const matchMedia = window.matchMedia(query);
     matchMedia.addEventListener('change', onChange);
@@ -20,7 +23,7 @@ export function useMediaQuery(query: string) {
 }
 
 export const useResponsive = () => {
-  const isMobileLayout = useMediaQuery('(min-width: 0px) and (max-width: 767px)');
+  const isMobileLayout = useMediaQuery(MOBILE_MEDIA);
 
   return {
     isMobileLayout,

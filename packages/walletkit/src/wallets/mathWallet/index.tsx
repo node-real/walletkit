@@ -19,6 +19,7 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
     downloadUrls: {
       default: 'https://mathwallet.org',
     },
+    showQRCode: false,
     spinnerColor: undefined,
     installed: isMathWallet(),
     createConnector: (chains: Chain[]) => {
@@ -38,8 +39,11 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };

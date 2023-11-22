@@ -27,6 +27,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
       default: 'https://metamask.io/download/',
     },
     spinnerColor: '#F0B90B',
+    showQRCode: false,
     installed: isMetaMask(),
     createConnector: (chains: Chain[]) => {
       return new MetaMaskConnector({
@@ -38,9 +39,12 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
       return `dapp://${dappPath}`;
+    },
+    getQRCodeUri(uri) {
+      return `metamask://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };

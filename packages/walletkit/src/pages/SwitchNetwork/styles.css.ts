@@ -1,5 +1,31 @@
+import { MOBILE_MEDIA } from '@/base/constant';
 import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
+
+export const clsNoNavHeader = style({
+  '@media': {
+    [MOBILE_MEDIA]: {
+      marginTop: -8,
+    },
+  },
+});
+
+export const clsBody = style({
+  '@media': {
+    [MOBILE_MEDIA]: {
+      marginTop: 24,
+    },
+  },
+});
+
+export const clsFooter = style({
+  marginTop: 0,
+  '@media': {
+    [MOBILE_MEDIA]: {
+      marginBottom: -16,
+    },
+  },
+});
 
 export const clsDescription = style({
   lineHeight: '19px',

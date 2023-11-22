@@ -39,6 +39,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
       default: 'https://trustwallet.com/',
     },
     spinnerColor: '#1098FC',
+    showQRCode: false,
     installed: isTrustWallet(),
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({
@@ -49,11 +50,14 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
       return dappPath;
+    },
+    getQRCodeUri(uri) {
+      return `trust://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };

@@ -23,6 +23,7 @@ export function CustomQRCode(props: CustomQRCodeProps) {
           style={{
             width: logoSize,
             height: logoSize,
+            opacity: value ? 1 : 0.3,
           }}
         >
           {logo}

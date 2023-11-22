@@ -13,9 +13,11 @@ export interface WalletProps {
     default: string | undefined;
   };
   spinnerColor?: string;
+  showQRCode?: boolean;
   installed: boolean | undefined;
   createConnector: (chains: Chain[]) => Connector;
-  getUri: () => string | undefined;
+  getDeepLink: () => string | undefined;
+  getQRCodeUri?: (uri: string) => string;
 }
 
 export type PartialWalletProps = Partial<WalletProps>;

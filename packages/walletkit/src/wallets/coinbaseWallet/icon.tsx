@@ -19,9 +19,9 @@ export const CoinbaseWalletIcon = (props: SVGIconProps) => {
         d="M0 18.1333C0 8.11857 8.11857 0 18.1333 0H49.8667C59.8814 0 68 8.11857 68 18.1333V49.8667C68 59.8814 59.8814 68 49.8667 68H18.1333C8.11857 68 0 59.8814 0 49.8667V18.1333Z"
         fill="#0051FE"
       />
-      <rect x="2.2666" y="2.26758" width="63.4667" height="63.4667" fill="url(#pattern0)" />
+      <rect x="2.2666" y="2.26758" width="63.4667" height="63.4667" fill="url(#cbpattern0)" />
       <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <pattern id="cbpattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
           <use xlinkHref="#image0_6070_1983" transform="scale(0.00166667)" />
         </pattern>
         <image

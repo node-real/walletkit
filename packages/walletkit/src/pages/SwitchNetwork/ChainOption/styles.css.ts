@@ -1,5 +1,6 @@
+import { MOBILE_MEDIA } from '@/base/constant';
 import { cssVar } from '@/index';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 export const clsContainer = style({
   padding: '4px 8px',
@@ -7,13 +8,18 @@ export const clsContainer = style({
   width: '100%',
   height: 'auto',
   flexShrink: 0,
-  minHeight: 50,
   color: cssVar('chainOptionText'),
   background: cssVar('chainOptionBackground'),
   borderRadius: cssVar('chainOption', 'radii'),
   ':hover': {
     color: cssVar('chainOptionTextHover'),
     background: cssVar('chainOptionBackgroundHover'),
+  },
+  '@media': {
+    [MOBILE_MEDIA]: {
+      padding: '3px 8px 3px 4px',
+      gap: 4,
+    },
   },
 });
 
@@ -29,11 +35,6 @@ export const clsChainOptionLogo = style({
   flexShrink: 0,
 });
 
-globalStyle(`${clsChainOptionLogo} > svg`, {
-  width: 24,
-  height: 24,
-});
-
 export const clsChainOptionName = style({
   display: 'flex',
   flex: 1,
@@ -41,13 +42,13 @@ export const clsChainOptionName = style({
   fontSize: 16,
   lineHeight: '19px',
   fontWeight: 600,
-  padding: '15px 0',
+  padding: '8px 0',
 });
 
 export const clsConnectedTag = style({
   color: cssVar('primary'),
   fontSize: 16,
-  fontWeight: 500,
+  fontWeight: 400,
   lineHeight: '19px',
   flexShrink: 0,
 });

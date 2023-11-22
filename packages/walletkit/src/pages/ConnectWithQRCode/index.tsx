@@ -11,6 +11,7 @@ import { useWalletConnectModal } from '@/hooks/useWalletConnectModal';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
 import { useWalletKitContext, cx } from '@/index';
 import { clsContainer, clsOfficialButton } from './styles.css';
+import { isWalletConnectConnector } from '@/wallets';
 
 export function ConnectWithQRCodePage() {
   const { selectedConnector, options } = useWalletKitContext();
@@ -20,6 +21,8 @@ export function ConnectWithQRCodePage() {
 
   const { wcUri } = useWalletConnectUri();
   const { onOpenWcModal } = useWalletConnectModal();
+  const isWalletConnect = isWalletConnectConnector(selectedConnector);
+  const qrCodeUri = wcUri && (wallet.getQRCodeUri?.(wcUri) ?? wcUri);
 
   return (
     <>
@@ -27,10 +30,10 @@ export function ConnectWithQRCodePage() {
       <ModalHeader>Scan with your phone</ModalHeader>
 
       <ModalBody className={cx('wk-scan-qrcode', clsContainer)}>
-        <CustomQRCode value={wcUri} logo={logos?.default} />
+        <CustomQRCode value={qrCodeUri} logo={logos?.default} />
       </ModalBody>
 
-      {!options.hideOfficialWalletConnectCTA && (
+      {isWalletConnect && !options.hideOfficialWalletConnectCTA && (
         <ModalFooter>
           <Link className={cx('wk-official-wc-button', clsOfficialButton)} onClick={onOpenWcModal}>
             Open the official WalletConnect modal

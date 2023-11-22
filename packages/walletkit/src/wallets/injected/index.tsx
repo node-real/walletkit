@@ -25,6 +25,7 @@ export function injected(props: InjectedProps = {}): WalletProps {
     downloadUrls: {
       default: undefined,
     },
+    showQRCode: false,
     installed: isInjected(),
     createConnector: (chains: Chain[]) => {
       return new InjectedConnector({
@@ -36,7 +37,7 @@ export function injected(props: InjectedProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

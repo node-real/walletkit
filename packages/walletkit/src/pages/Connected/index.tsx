@@ -7,7 +7,8 @@ import { DisconnectButton } from '@/components/DisconnectButton';
 import { Navbar } from '@/components/Navbar';
 import { truncateENSName, truncateAddress, formatBalance } from '@/utils/account';
 import { useAccount, useBalance, useEnsName } from 'wagmi';
-import { clsAvatar, clsInfo, clsBalance } from './styles.css';
+import { clsAvatar, clsInfo, clsBalance, clsFooter } from './styles.css';
+import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 
 export function ConnectedPage() {
   const { address } = useAccount();
@@ -37,9 +38,11 @@ export function ConnectedPage() {
             <>{balance ? `${formatBalance(balance)}` : '-'}</>
           </Box>
         </Box>
-
-        <DisconnectButton />
       </ModalBody>
+
+      <ModalFooter className={clsFooter}>
+        <DisconnectButton />
+      </ModalFooter>
     </>
   );
 }

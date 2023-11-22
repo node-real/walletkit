@@ -64,7 +64,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

@@ -20,6 +20,7 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
       default: 'https://www.binance.com/en/web3wallet',
     },
     spinnerColor: undefined,
+    showQRCode: true,
     installed: isBinanceWeb3Wallet(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
@@ -38,8 +39,11 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return undefined;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };

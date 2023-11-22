@@ -29,6 +29,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
       default: 'https://coinbase.com/wallet',
     },
     spinnerColor: undefined,
+    showQRCode: false,
     installed: isCoinbaseWallet(),
     createConnector: (chains: Chain[]) => {
       const { walletConnectDefaultOptions } = getGlobalData();
@@ -43,8 +44,11 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
+    },
+    getQRCodeUri(uri) {
+      return uri;
     },
     ...restProps,
   };

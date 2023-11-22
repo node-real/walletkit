@@ -1,3 +1,4 @@
+import { MOBILE_MEDIA } from '@/base/constant';
 import { style } from '@vanilla-extract/css';
 
 export const clsModalHeader = style({
@@ -7,4 +8,11 @@ export const clsModalHeader = style({
   lineHeight: '29px',
   justifyContent: 'center',
   textAlign: 'center',
+
+  '@media': {
+    [MOBILE_MEDIA]: {
+      fontSize: 18,
+      lineHeight: '22px',
+    },
+  },
 });

@@ -20,6 +20,7 @@ export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
       default: 'https://www.tokenpocket.pro/en/download/app',
     },
     spinnerColor: '#2980FE',
+    showQRCode: false,
     installed: isTokenPocket(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
@@ -38,11 +39,14 @@ export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const params = {
         url: window.location.href,
       };
       return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
+    },
+    getQRCodeUri(uri) {
+      return `tpoutside://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };

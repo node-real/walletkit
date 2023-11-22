@@ -21,12 +21,13 @@ import {
   mathWallet,
   binanceWeb3Wallet,
   coinbaseWallet,
+  tokenPocket,
 } from '@totejs/walletkit/wallets';
 import { useState } from 'react';
 
 const config = createConfig(
   getDefaultConfig({
-    autoConnect: false,
+    autoConnect: true,
     appName: 'WalletKit',
 
     // WalletConnect 2.0 requires a projectId which you can create quickly
@@ -42,13 +43,13 @@ const config = createConfig(
       binanceWeb3Wallet(),
       coinbaseWallet(),
       walletConnect(),
+      // tokenPocket(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
-  // hideOfficialWalletConnectCTA: true,
+  initialChainId: 1,
 };
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -63,6 +64,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <WalletKitProvider options={options} mode={mode} debugMode>
         <WalletKitButton />
+        <a href="bnc://app.binance.com/mp/app?appId=xoqXxUSMRccLCrZNRebmzj&startPagePath=L3BhZ2VzL2Rhc2hib2FyZC1uZXcvaW5kZXg=&startPageQuery=ZnJvbT10YWI=">
+          bnb
+        </a>
         <Example />
         <Component {...pageProps} />
         <SwitchNetworkModal />

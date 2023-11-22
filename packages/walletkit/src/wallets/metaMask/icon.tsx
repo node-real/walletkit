@@ -132,7 +132,7 @@ export function MetaMaskIcon(props: SVGIconProps) {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       {...props}
     >
-      <g clip-path="url(#clip0_6070_1947)">
+      <g clipPath="url(#clip0_6070_1947)">
         <rect width="68" height="68" rx="16" fill="#3375BB" />
         <rect x="-5.6665" y="-3.40039" width="79.3333" height="74.8" fill="url(#pattern0)" />
       </g>

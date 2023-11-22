@@ -27,6 +27,7 @@ export function safe(props: SafeProps = {}): WalletProps {
     downloadUrls: {
       default: undefined,
     },
+    showQRCode: false,
     installed: isSafe(),
     createConnector: (chains: Chain[]) => {
       return new SafeConnector({
@@ -38,7 +39,7 @@ export function safe(props: SafeProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

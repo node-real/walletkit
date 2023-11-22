@@ -27,7 +27,7 @@ export function UnsupportedContent() {
     <Content>
       <InfoTitle>Install {selectedConnector?._wallet.name}</InfoTitle>
       <Description>
-        To continue, please install {selectedConnector?._wallet.name} extension to your browser.
+        To connect your {selectedConnector?._wallet.name}, install the browser extension.
       </Description>
     </Content>
   );

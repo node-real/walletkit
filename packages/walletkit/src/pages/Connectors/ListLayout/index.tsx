@@ -4,8 +4,9 @@ import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/base/icons/WalletIcon';
 import { useWalletKitContext, cx } from '@/index';
 import { useConnect } from 'wagmi';
-import { clsWallets, clsDownloadLink } from '../styles.css';
+
 import { WalletOption } from './WalletOption';
+import { clsWallets, clsNoWalletLink } from './styles.css';
 
 export function ListLayout() {
   const { connectors } = useConnect();
@@ -13,14 +14,14 @@ export function ListLayout() {
 
   return (
     <>
-      <ModalBody className={cx('wk-wallets', clsWallets)}>
+      <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="list">
         {connectors?.map((c) => <WalletOption key={c.id} connector={c} />)}
       </ModalBody>
 
       {!options.hideNoWalletCTA && (
         <ModalFooter>
           <Link
-            className={cx('wk-download-link', clsDownloadLink)}
+            className={cx('wk-nowallet-link', clsNoWalletLink)}
             href={options.walletDownloadUrl}
           >
             <WalletIcon />I don’t have a wallet

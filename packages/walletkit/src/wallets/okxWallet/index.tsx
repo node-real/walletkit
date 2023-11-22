@@ -20,6 +20,7 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
       default: 'https://www.okx.com/web3',
     },
     spinnerColor: undefined,
+    showQRCode: false,
     installed: isOkxWallet(),
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
@@ -38,8 +39,11 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
+    },
+    getQRCodeUri(uri) {
+      return `okex://main/wc?uri=${decodeURIComponent(uri)}`;
     },
     ...restProps,
   };

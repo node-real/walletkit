@@ -7,7 +7,15 @@ import { useWalletKitSwitchNetwork } from '@/hooks/useWalletKitSwitchNetwork';
 import { useWalletKitContext, useModal, cx } from '@/index';
 import { useNetwork } from 'wagmi';
 import { ChainOption } from './ChainOption';
-import { clsDescription, clsChains, clsOrSeparator } from './styles.css';
+import {
+  clsDescription,
+  clsChains,
+  clsOrSeparator,
+  clsBody,
+  clsFooter,
+  clsNoNavHeader,
+} from './styles.css';
+import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 
 export function SwitchNetworkPage() {
   const { supportedChains } = useWalletKitContext();
@@ -24,9 +32,9 @@ export function SwitchNetworkPage() {
   return (
     <>
       {isClosable && <Navbar />}
-      <ModalHeader>Switch Network</ModalHeader>
+      <ModalHeader className={isClosable ? undefined : clsNoNavHeader}>Switch Network</ModalHeader>
 
-      <ModalBody>
+      <ModalBody className={clsBody}>
         {chain?.unsupported && (
           <Box className={clsDescription}>
             This app does not support the current connected network. Switch or disconnect to
@@ -46,11 +54,12 @@ export function SwitchNetworkPage() {
             );
           })}
         </Box>
-
         <Box className={clsOrSeparator}>or</Box>
-
-        <DisconnectButton />
       </ModalBody>
+
+      <ModalFooter className={clsFooter}>
+        <DisconnectButton />
+      </ModalFooter>
     </>
   );
 }

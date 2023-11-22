@@ -6,7 +6,6 @@ export const clsWalletOption = style({
   paddingLeft: 20,
   paddingRight: 20,
   borderRadius: cssVar('walletOption', 'radii'),
-  fontSize: 16,
   color: cssVar('walletOptionText'),
   background: cssVar('walletOptionBackground'),
   width: '100%',
