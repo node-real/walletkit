@@ -55,17 +55,17 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
 
   return (
     <WalletKitContext.Provider value={value}>
-      <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
-        <RouteProvider>
-          <ModalProvider>
-            <WalletConnectUriProvider>
+      <WalletConnectUriProvider>
+        <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
+          <RouteProvider>
+            <ModalProvider>
               {children}
               <WalletKitModal />
               <ToastProvider />
-            </WalletConnectUriProvider>
-          </ModalProvider>
-        </RouteProvider>
-      </ThemeProvider>
+            </ModalProvider>
+          </RouteProvider>
+        </ThemeProvider>
+      </WalletConnectUriProvider>
     </WalletKitContext.Provider>
   );
 };

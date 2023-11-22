@@ -1,6 +1,5 @@
-import { useConnector } from '@/hooks/useConnector';
 import { commonErrorHandler } from '@/utils/common';
-import { WALLET_CONNECT_ID } from '@/wallets';
+import { walletConnect } from '@/wallets';
 import { useEffect, useMemo, useState } from 'react';
 import { useConnect, useAccount } from 'wagmi';
 import { useWalletKitContext } from '../WalletKitProvider/context';
@@ -20,26 +19,38 @@ export function WalletConnectUriProvider(props: WalletConnectUriProviderProps) {
    * otherwise when user repeats go and back between the wallet list and QR code page
    * due to the following `connectAsync` logic, multiple errors will be thrown
    */
-  const { connectAsync } = useConnect();
+  const { connectAsync, connectors } = useConnect();
   const { isConnected } = useAccount();
 
   const { log, options } = useWalletKitContext();
-  const connector = useConnector(WALLET_CONNECT_ID);
   const [wcUri, setWcUri] = useState<string>('');
 
+  const uriConnector = useMemo(() => {
+    const chains = connectors?.[0]?.chains;
+
+    if (chains?.length > 0) {
+      return walletConnect({
+        connectorOptions: {
+          showQrModal: false,
+        },
+      }).createConnector(chains);
+    }
+    return null;
+  }, [connectors]);
+
   useEffect(() => {
-    if (!connector || isConnected || connector?.options.showQrModal) return;
+    if (!uriConnector || isConnected) return;
 
     let provider: any;
     const updateWcUri = async () => {
-      provider = await connector.getProvider();
+      provider = await uriConnector.getProvider();
       provider.on('display_uri', setWcUri);
     };
     updateWcUri();
 
     const connectWallet = async () => {
       try {
-        await connectAsync({ connector });
+        await connectAsync({ connector: uriConnector });
       } catch (error: any) {
         clearTimeout(timer);
 
@@ -60,7 +71,7 @@ export function WalletConnectUriProvider(props: WalletConnectUriProviderProps) {
       provider?.off?.('display_uri', setWcUri);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connector, isConnected]);
+  }, [uriConnector, isConnected]);
 
   const value = useMemo(() => {
     return {

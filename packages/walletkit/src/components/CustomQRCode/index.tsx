@@ -12,7 +12,7 @@ export interface CustomQRCodeProps extends BoxProps {
 }
 
 export function CustomQRCode(props: CustomQRCodeProps) {
-  const { className, logo, logoSize = 52, value, ...restProps } = props;
+  const { className, logo, logoSize = 44, value, ...restProps } = props;
 
   return (
     <Box className={cx('wk-qrcode', clsQrCodeContainer, className)} {...restProps}>

@@ -8,7 +8,7 @@ import { useWalletConnectModal } from './useWalletConnectModal';
 
 export function useClickWallet() {
   const router = useRouter();
-  const { options, setSelectedConnector } = useWalletKitContext();
+  const { options, log, setSelectedConnector } = useWalletKitContext();
 
   const { disconnect } = useDisconnect();
   const { onOpenWcModal } = useWalletConnectModal();
@@ -20,6 +20,9 @@ export function useClickWallet() {
     (connector: Connector, e?: React.MouseEvent<Element, MouseEvent>) => {
       const pass = options.onClickWallet?.(connector, e);
       if (pass === false) return;
+
+      log('[click wallet] connector', connector);
+      log('[click wallet] ethereum', window.ethereum);
 
       const gotoQRcodePage = () => {
         setSelectedConnector(connector);
@@ -46,6 +49,8 @@ export function useClickWallet() {
             const deepLink = connector._wallet.getDeepLink?.();
             if (deepLink) {
               window.open(deepLink, '_self', 'noopener noreferrer');
+            } else {
+              options.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
             }
           } else if (connector._wallet.showQRCode) {
             gotoQRcodePage();
@@ -57,7 +62,7 @@ export function useClickWallet() {
         }
       }, 300);
     },
-    [disconnect, mobile, onOpenWcModal, options, router, setSelectedConnector],
+    [disconnect, log, mobile, onOpenWcModal, options, router, setSelectedConnector],
   );
 
   return onClickWallet;

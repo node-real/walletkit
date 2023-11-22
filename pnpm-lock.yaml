@@ -90,6 +90,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.2.0(react@18.2.0)
+      vconsole:
+        specifier: ^3.15.1
+        version: 3.15.1
       viem:
         specifier: ^1.0.0
         version: 1.18.9(typescript@5.2.2)

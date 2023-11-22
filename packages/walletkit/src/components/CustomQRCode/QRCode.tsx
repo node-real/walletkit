@@ -25,7 +25,7 @@ export interface QRCodeProps {
 }
 
 export function QRCode(props: QRCodeProps) {
-  const { ecl = 'M', clearSize = 52, size = 212, uri } = props;
+  const { ecl = 'M', clearSize = 40, size = 212, uri } = props;
 
   const dots = useMemo(() => {
     const dots: ReactElement[] = [];

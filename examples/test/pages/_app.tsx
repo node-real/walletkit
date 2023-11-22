@@ -23,7 +23,7 @@ import {
   coinbaseWallet,
   tokenPocket,
 } from '@totejs/walletkit/wallets';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const config = createConfig(
   getDefaultConfig({
@@ -43,18 +43,24 @@ const config = createConfig(
       binanceWeb3Wallet(),
       coinbaseWallet(),
       walletConnect(),
-      // tokenPocket(),
+      tokenPocket(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 1,
+  initialChainId: 56,
 };
 
 export default function App({ Component, pageProps }: AppProps) {
   const [mode, setMode] = useState<ThemeMode>('light');
   const nextMode = mode === 'light' ? 'dark' : 'light';
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const VConsole = require('vconsole');
+    new VConsole();
+  }, []);
 
   return (
     <WagmiConfig config={config}>
@@ -62,11 +68,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />
 
-      <WalletKitProvider options={options} mode={mode} debugMode>
+      <WalletKitProvider options={options} mode={mode} debugMode={true}>
         <WalletKitButton />
-        <a href="bnc://app.binance.com/mp/app?appId=xoqXxUSMRccLCrZNRebmzj&startPagePath=L3BhZ2VzL2Rhc2hib2FyZC1uZXcvaW5kZXg=&startPageQuery=ZnJvbT10YWI=">
-          bnb
-        </a>
         <Example />
         <Component {...pageProps} />
         <SwitchNetworkModal />
