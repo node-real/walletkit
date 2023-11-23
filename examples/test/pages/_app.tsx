@@ -72,6 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <WalletKitButton />
         <Example />
         <Component {...pageProps} />
+        <div style={{ height: 2000 }}></div>
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>

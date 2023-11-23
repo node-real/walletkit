@@ -1,7 +1,7 @@
-import { StyleRule } from '@vanilla-extract/css';
+import { ComplexStyleRule } from '@vanilla-extract/css';
 import { MOBILE_MEDIA } from '../constant';
 
-export function hover(props: StyleRule) {
+export function hover(props: ComplexStyleRule): any {
   return {
     '(hover: hover) and (pointer: fine)': {
       ':hover': {
@@ -13,10 +13,10 @@ export function hover(props: StyleRule) {
         ...props,
       },
     },
-  } as StyleRule['@media'];
+  };
 }
 
-export function mobile(props: StyleRule) {
+export function mobile(props: ComplexStyleRule): any {
   return {
     [MOBILE_MEDIA]: {
       ...props,
