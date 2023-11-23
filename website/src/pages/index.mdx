@@ -234,6 +234,30 @@ const { isOpen, onOpen, onClose } = useModal();
 <button onClick={onOpen}>connect</button>;
 ```
 
+## Customizing chains
+
+The chain's information will be displayed in the `switch network modal`
+
+```tsx live=false
+<WalletKitProvider
+  options={{
+    initialChainId: 56,
+    chainsConfig: [
+      {
+        id: 56,
+        name: 'BSC',
+        logo: <BscIcon width={24} height={24} />,
+      },
+      {
+        id: 97,
+        name: 'BSC Testnet',
+        logo: <BscIcon width={24} height={24} />,
+      },
+    ],
+  }}
+></WalletKitProvider>
+```
+
 ## Handle wallet errors by yourself
 
 ```tsx live=false

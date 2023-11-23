@@ -24,6 +24,7 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 56, // Once connected to the wallet, which chain you want to use
+  chainsConfig: [],
 };
 
 export default function App() {
