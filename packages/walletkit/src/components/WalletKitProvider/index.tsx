@@ -8,7 +8,6 @@ import { Connector } from 'wagmi';
 import { ModalProvider } from '../ModalProvider';
 import { RouteProvider } from '../RouteProvider';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
-import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
 import { WalletKitModal } from '../WalletKitModal';
 import { WalletKitOptions, ConnectRole, WalletKitContextProps, WalletKitContext } from './context';
 
@@ -55,17 +54,17 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
 
   return (
     <WalletKitContext.Provider value={value}>
-      <WalletConnectUriProvider>
-        <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
-          <RouteProvider>
-            <ModalProvider>
-              {children}
-              <WalletKitModal />
-              <ToastProvider />
-            </ModalProvider>
-          </RouteProvider>
-        </ThemeProvider>
-      </WalletConnectUriProvider>
+      {/* <WalletConnectUriProvider> */}
+      <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
+        <RouteProvider>
+          <ModalProvider>
+            {children}
+            <WalletKitModal />
+            <ToastProvider />
+          </ModalProvider>
+        </RouteProvider>
+      </ThemeProvider>
+      {/* </WalletConnectUriProvider> */}
     </WalletKitContext.Provider>
   );
 };

@@ -14,6 +14,7 @@ import { WalletProps } from '../wallets/types';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
+import { WALLET_CONNECT_ID, walletConnect } from '@/wallets';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -104,6 +105,8 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   const wallets = customizedWallets ?? getDefaultWallets();
   const configuredConnectors = createConnectors(wallets, configuredChains);
 
+  createGlobalWalletConnect(configuredConnectors);
+
   return {
     autoConnect,
     connectors: configuredConnectors,
@@ -114,11 +117,42 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   };
 };
 
-function createConnectors(input: WalletProps[], chains: Chain[]) {
-  const connectors = input.map((w) => {
+function createConnectors(wallets: WalletProps[], chains: Chain[]) {
+  const connectors = wallets.map((w) => {
     const c = w.createConnector(chains);
     c._wallet = w;
     return c;
   });
   return connectors;
+}
+
+// !!!hack
+// If creating WalletConnect connector after wagmi initialization,
+// the speed of creating qr code and displaying WalletConnect modal will be very slow.
+function createGlobalWalletConnect(connectors: Connector[]) {
+  const wc = connectors.find((c) => c.id === WALLET_CONNECT_ID);
+
+  const { createConnector, ...restWalletProps } = wc?._wallet ?? walletConnect();
+  const options = wc?.options;
+
+  const qrCodeWalletConnectConnector = walletConnect({
+    ...restWalletProps,
+    connectorOptions: {
+      ...options,
+      showQrModal: false,
+    },
+  }).createConnector(wc?.chains ?? []);
+
+  const modalWalletConnectConnector = walletConnect({
+    ...restWalletProps,
+    connectorOptions: {
+      ...options,
+      showQrModal: true,
+    },
+  }).createConnector(wc?.chains ?? []);
+
+  setGlobalData({
+    qrCodeWalletConnectConnector,
+    modalWalletConnectConnector,
+  });
 }

@@ -1,6 +1,3 @@
-import '@totejs/walletkit/styles.css';
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
 import { chains } from './chains';
 import { WagmiConfig, createConfig } from 'wagmi';
 import {
@@ -11,19 +8,19 @@ import {
   WalletKitProvider,
   getDefaultConfig,
   useModal,
-} from '@totejs/walletkit';
+} from '@/index';
 
+import { useState } from 'react';
 import {
-  trustWallet,
-  metaMask,
-  walletConnect,
-  okxWallet,
-  mathWallet,
   binanceWeb3Wallet,
   coinbaseWallet,
+  mathWallet,
+  metaMask,
+  okxWallet,
   tokenPocket,
-} from '@totejs/walletkit/wallets';
-import { useEffect, useState } from 'react';
+  trustWallet,
+  walletConnect,
+} from '@/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -42,25 +39,23 @@ const config = createConfig(
       mathWallet(),
       binanceWeb3Wallet(),
       coinbaseWallet(),
-      walletConnect(),
+      walletConnect({
+        connectorOptions: {
+          showQrModal: true,
+        },
+      }),
       tokenPocket(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  initialChainId: 1,
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App() {
   const [mode, setMode] = useState<ThemeMode>('light');
   const nextMode = mode === 'light' ? 'dark' : 'light';
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const VConsole = require('vconsole');
-    new VConsole();
-  }, []);
 
   return (
     <WagmiConfig config={config}>
@@ -71,7 +66,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <WalletKitProvider options={options} mode={mode} debugMode={true}>
         <WalletKitButton />
         <Example />
-        <Component {...pageProps} />
         <div style={{ height: 2000 }}></div>
         <SwitchNetworkModal />
       </WalletKitProvider>

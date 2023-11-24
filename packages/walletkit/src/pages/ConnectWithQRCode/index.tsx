@@ -5,13 +5,14 @@ import { ModalHeader } from '@/base/components/Modal/ModalHeader';
 import { ForwardIcon } from '@/base/icons/ForwardIcon';
 import { CustomQRCode } from '@/components/CustomQRCode';
 import { Navbar } from '@/components/Navbar';
-import { useWalletConnectUri } from '@/components/WalletConnectUriProvider/context';
 import { useWalletConfig } from '@/hooks/useWalletConfig';
 import { useWalletConnectModal } from '@/hooks/useWalletConnectModal';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
 import { useWalletKitContext, cx } from '@/index';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { isWalletConnectConnector } from '@/wallets';
+import { useQRCodeUri } from '@/hooks/useQRCodeUri';
+import { useEffect, useRef } from 'react';
 
 export function ConnectWithQRCodePage() {
   const { selectedConnector, options } = useWalletKitContext();
@@ -19,10 +20,15 @@ export function ConnectWithQRCodePage() {
   const wallet = useWalletConfig(selectedConnector);
   const logos = useWalletLogos(wallet.logos);
 
-  const { wcUri } = useWalletConnectUri();
+  const wcUri = useQRCodeUri();
   const { onOpenWcModal } = useWalletConnectModal();
   const isWalletConnect = isWalletConnectConnector(selectedConnector);
   const qrCodeUri = wcUri && (wallet.getQRCodeUri?.(wcUri) ?? wcUri);
+
+  const startRef = useRef<any>(wcUri ? 0 : Date.now());
+  useEffect(() => {
+    console.log(Date.now() - startRef.current, '==');
+  }, [wcUri]);
 
   return (
     <>

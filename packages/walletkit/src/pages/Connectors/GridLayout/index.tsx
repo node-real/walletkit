@@ -1,4 +1,3 @@
-import { Link } from '@/base/components/Link';
 import { ModalBody } from '@/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/base/icons/WalletIcon';

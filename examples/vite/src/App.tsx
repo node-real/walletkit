@@ -10,10 +10,6 @@ import {
 } from '@totejs/walletkit';
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 
-import VConsole from 'vconsole';
-
-new VConsole();
-
 const config = createConfig(
   getDefaultConfig({
     autoConnect: true,

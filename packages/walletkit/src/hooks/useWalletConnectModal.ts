@@ -1,12 +1,11 @@
 import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
-import { isWalletConnectConnector, walletConnect } from '@/wallets';
 import { useEffect, useState } from 'react';
-import { Connector } from 'wagmi';
 import { useModal, useWalletKitContext } from '..';
 import { useWalletKitConnect } from './useWalletKitConnect';
+import { getGlobalData } from '@/globalData';
 
 export function useWalletConnectModal() {
-  const { connectAsync, connectors } = useWalletKitConnect();
+  const { connectAsync } = useWalletKitConnect();
   const { onClose } = useModal();
   const { log } = useWalletKitContext();
 
@@ -32,19 +31,9 @@ export function useWalletConnectModal() {
       document.head.appendChild(w3mcss);
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const clientConnector: Connector<any, any> | undefined = connectors.find((c) =>
-        isWalletConnectConnector(c),
-      );
+      const { modalWalletConnectConnector: connector } = getGlobalData();
 
-      if (clientConnector) {
-        const connector = walletConnect({
-          ...clientConnector._wallet,
-          connectorOptions: {
-            ...clientConnector.options,
-            showQrModal: true,
-          },
-        }).createConnector(clientConnector.chains);
-
+      if (connector) {
         setIsOpen(true);
 
         try {
