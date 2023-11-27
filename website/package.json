@@ -4,6 +4,7 @@
   "author": "node-real",
   "private": true,
   "type": "module",
+  "homepage": "https://node-real.github.io/walletkit",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc && vite build"

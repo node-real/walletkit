@@ -1,0 +1,25 @@
+name: Deploy docs
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  release:
+    name: deploy docs
+    if: github.repository == 'node-real/walletkit'
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/setup
+
+      - name: Build docs
+        run: pnpm build:docs
+
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./website/dist
+          branch: 'docs'
+          clean: true
+          force: true
