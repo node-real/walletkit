@@ -8,7 +8,7 @@ import {
   WalletKitProvider,
   getDefaultConfig,
   useModal,
-} from '@/index';
+} from '../src/index';
 
 import { useState } from 'react';
 import {
@@ -20,7 +20,8 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '@/wallets';
+} from '../src/wallets';
+import React from 'react';
 
 const config = createConfig(
   getDefaultConfig({

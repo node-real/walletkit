@@ -8,12 +8,12 @@ import {
   SwitchNetworkModal,
 } from '@totejs/walletkit';
 import {
-  binanceWeb3Wallet,
-  coinbaseWallet,
-  mathWallet,
+  // binanceWeb3Wallet,
+  // coinbaseWallet,
+  // mathWallet,
   metaMask,
-  okxWallet,
-  tokenPocket,
+  // okxWallet,
+  // tokenPocket,
   trustWallet,
   walletConnect,
 } from '@totejs/walletkit/wallets';
