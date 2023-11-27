@@ -1,6 +1,6 @@
-import { bsc, mainnet } from 'wagmi/chains';
+import { Chain, bsc, mainnet } from 'wagmi/chains';
 
-export const chains = [
+export const chains: Chain[] = [
   {
     id: 204,
     name: 'opBNB Mainnet',
