@@ -5,33 +5,17 @@ on:
       - main
       - 0.x
 
-env:
-  CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
-
 jobs:
   release:
     name: release
     if: github.repository == 'node-real/walletkit'
-    timeout-minutes: 15
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: ./.github/actions/setup
 
-      - name: Setup node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 8
-          run_install: false
+      - name: Build packages
+        run: pnpm build
 
       - name: Creating .npmrc
         run: |
@@ -40,15 +24,6 @@ jobs:
           EOF
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Setup pnpm config
-        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build packages
-        run: pnpm --filter "@totejs/**" build
 
       - name: Create and publish versions
         uses: changesets/action@v1

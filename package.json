@@ -9,7 +9,10 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "dev": "pnpm --filter @totejs/walletkit dev",
+    "dev": "pnpm --F @totejs/walletkit dev",
+    "build": "pnpm --F @totejs/walletkit build",
+    "dev:docs": "pnpm --F @totejs/walletkit build:watch & pnpm --F website dev",
+    "build:docs": "pnpm --F @totejs/walletkit build && pnpm --F website build",
     "ci:version": "pnpm changeset version && pnpm install && cp README.md packages/walletkit/README.md",
     "ci:publish": "pnpm publish -r"
   },
