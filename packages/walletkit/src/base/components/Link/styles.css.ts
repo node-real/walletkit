@@ -1,12 +1,13 @@
+import { cssVar } from '@/base/utils/css';
+import { hover } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../utils/css';
 
 export const clsLink = style({
   textDecoration: 'none',
   ':visited': {
     color: 'unset',
   },
-  ':hover': {
+  '@media': hover({
     color: cssVar('primaryActive'),
-  },
+  }),
 });

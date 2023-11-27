@@ -1,17 +1,15 @@
+import { getGlobalData } from '@/globalData';
+import { isMobile } from '@/index';
 import { Chain, Connector } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
-import { WalletConnectIcon, WalletConnectMobileIcon } from './icon';
-import { getGlobalData } from '../../globalData';
-
-import { WalletConnectConnector } from '../walletConnect/connector';
-import { isMobile } from '../..';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { PartialWalletProps, WalletProps } from '..';
+import { WalletConnectIcon, WalletConnectTransparentIcon } from './icon';
 
 export const WALLET_CONNECT_ID = 'walletConnect';
 
-export type WalletConnectConnectorOptions = Required<
-  ConstructorParameters<typeof WalletConnectConnector>
->[0]['options'];
+export type WalletConnectConnectorOptions = Partial<
+  Required<ConstructorParameters<typeof WalletConnectConnector>>[0]['options']
+>;
 
 export interface WalletConnectProps extends PartialWalletProps {
   connectorOptions?: WalletConnectConnectorOptions;
@@ -25,7 +23,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
     name: 'WalletConnect',
     logos: {
       default: <WalletConnectIcon />,
-      mobile: <WalletConnectMobileIcon />,
+      transparent: <WalletConnectTransparentIcon />,
     },
     downloadUrls: {
       default: undefined,
@@ -45,6 +43,8 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
       return new WalletConnectConnector({
         chains,
         options: {
+          // https://github.com/WalletConnect/walletconnect-monorepo/issues/2830
+          relayUrl: 'wss://relay.walletconnect.org',
           showQrModal: isMobile() ? true : false,
           projectId: walletConnectProjectId,
           metadata: hasAllAppData
@@ -58,9 +58,6 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
           qrModalOptions: {
             explorerRecommendedWalletIds: [
               '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
-              '971e689d0a5be527bac79629b4ee9b925e82208e5168b733496a09c0faed0709',
-              'fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa',
-              '7674bb4e353bf52886768a3ddc2a4562ce2f4191c80831291218ebd90f5f5e26',
               'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
               '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
             ],
@@ -69,7 +66,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => undefined,
+    getDeepLink: () => undefined,
     ...restProps,
   };
 }

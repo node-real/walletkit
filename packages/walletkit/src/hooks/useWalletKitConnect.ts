@@ -1,7 +1,6 @@
+import { commonErrorHandler } from '@/utils/common';
 import { useConnect } from 'wagmi';
-
-import { commonErrorHandler } from '../utils/common';
-import { useWalletKitContext } from '../components/WalletKitProvider/context';
+import { useWalletKitContext } from '..';
 
 export function useWalletKitConnect({ ...props }: any = {}): ReturnType<typeof useConnect> {
   const { log, options } = useWalletKitContext();

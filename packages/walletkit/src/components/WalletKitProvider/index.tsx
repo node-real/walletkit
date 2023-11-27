@@ -1,16 +1,15 @@
+import { ToastProvider } from '@/base/components/toast/ToastProvider';
+import { getDefaultProviderOptions } from '@/defaultConfig/getDefaultProviderOptions';
+import { getDefaultSupportedChains } from '@/defaultConfig/getDefaultSupportedChains';
+import { useChains } from '@/hooks/useChains';
+import { CustomTheme } from '@/themes/base';
 import { useMemo, useState } from 'react';
 import { Connector } from 'wagmi';
-import { ConnectRole, WalletKitContext, WalletKitContextProps, WalletKitOptions } from './context';
-import { useChains } from '../../hooks/useChains';
-import { getDefaultProviderOptions } from '../../defaultConfig/getDefaultProviderOptions';
-import { getDefaultSupportedChains } from '../../defaultConfig/getDefaultSupportedChains';
-import { RouteProvider } from '../RouteProvider';
-import { WalletKitModal } from '../WalletKitModal';
-import { ThemeMode, ThemeProvider, ThemeVariant } from '../ThemeProvider';
-import { ToastProvider } from '../../base/components/toast/ToastProvider';
-import { CustomTheme } from '../../themes/base';
-import { WalletConnectUriProvider } from '../WalletConnectUriProvider';
 import { ModalProvider } from '../ModalProvider';
+import { RouteProvider } from '../RouteProvider';
+import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
+import { WalletKitModal } from '../WalletKitModal';
+import { WalletKitOptions, ConnectRole, WalletKitContextProps, WalletKitContext } from './context';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -37,7 +36,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const chains = useChains();
 
   const value = useMemo(() => {
-    const finalOptions = getDefaultProviderOptions(options, chains);
+    const finalOptions = getDefaultProviderOptions(options);
     const finalChains = getDefaultSupportedChains(options, chains);
 
     const finalValue: WalletKitContextProps = {
@@ -55,17 +54,17 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
 
   return (
     <WalletKitContext.Provider value={value}>
+      {/* <WalletConnectUriProvider> */}
       <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
         <RouteProvider>
           <ModalProvider>
-            <WalletConnectUriProvider>
-              {children}
-              <WalletKitModal />
-              <ToastProvider />
-            </WalletConnectUriProvider>
+            {children}
+            <WalletKitModal />
+            <ToastProvider />
           </ModalProvider>
         </RouteProvider>
       </ThemeProvider>
+      {/* </WalletConnectUriProvider> */}
     </WalletKitContext.Provider>
   );
 };

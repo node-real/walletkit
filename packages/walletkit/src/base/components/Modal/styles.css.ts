@@ -1,5 +1,6 @@
+import { cssVar } from '@/base/utils/css';
+import { mobile } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../utils/css';
 
 export const clsModal = style({
   zIndex: cssVar('modal', 'zIndices'),
@@ -16,6 +17,9 @@ export const clsModal = style({
   padding: 0,
   transition: 'all 0.3s',
   boxSizing: 'border-box',
+  '@media': mobile({
+    alignItems: 'flex-end',
+  }),
 });
 
 export const clsModalOverlay = style({
@@ -32,4 +36,13 @@ export const clsModalContent = style({
   width: 'calc(100% - 32px)',
   maxWidth: 484,
   borderRadius: cssVar('modal', 'radii'),
+  '@media': mobile({
+    width: '100%',
+    maxWidth: '100vw',
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    paddingBottom: 40,
+    left: 0,
+    bottom: 0,
+  }),
 });

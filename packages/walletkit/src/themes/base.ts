@@ -1,5 +1,4 @@
-import { DeepPartial } from '../types';
-import { rgba } from '../base/utils/css';
+import { rgba, DeepPartial } from '..';
 
 const radii = {
   common: '8px',
@@ -9,6 +8,7 @@ const radii = {
   button: 'var(--wk-radii-common)',
   connectButton: 'var(--wk-radii-common)',
   disconnectButton: 'var(--wk-radii-common)',
+  noWalletButton: 'var(--wk-radii-common)',
   walletOption: 'var(--wk-radii-common)',
   walletOptionIcon: 'var(--wk-radii-common)',
   chainOption: 'var(--wk-radii-common)',
@@ -49,13 +49,6 @@ export const base = {
       navButtonText: 'var(--wk-colors-textSecondary)',
       navButtonBackgroundHover: 'var(--wk-colors-border)',
 
-      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
-      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
-      disconnectButtonBackground: 'transparent',
-      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
-      disconnectButtonBorder: 'var(--wk-colors-border)',
-      disconnectButtonBorderHover: 'var(--wk-colors-border)',
-
       optionText: 'var(--wk-colors-text)',
       optionTextHover: 'var(--wk-colors-text)',
       optionBackground: '#f5f5f5',
@@ -75,6 +68,20 @@ export const base = {
 
       qrCodeDot: 'var(--wk-colors-text)',
       qrCodeBorder: 'var(--wk-colors-border)',
+
+      noWalletButtonBackgroundText: 'var(--wk-colors-text)',
+      noWalletButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      noWalletButtonBackground: 'transparent',
+      noWalletButtonBackgroundHover: 'var(--wk-colors-border)',
+      noWalletButtonBorder: 'var(--wk-colors-border)',
+      noWalletButtonBorderHover: 'var(--wk-colors-border)',
+
+      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      disconnectButtonBackground: 'transparent',
+      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+      disconnectButtonBorder: 'var(--wk-colors-border)',
+      disconnectButtonBorderHover: 'var(--wk-colors-border)',
     },
     shadows: {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
@@ -109,13 +116,6 @@ export const base = {
       navButtonText: 'var(--wk-colors-textSecondary)',
       navButtonBackgroundHover: 'var(--wk-colors-border)',
 
-      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
-      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
-      disconnectButtonBackground: 'transparent',
-      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
-      disconnectButtonBorder: 'var(--wk-colors-border)',
-      disconnectButtonBorderHover: 'var(--wk-colors-border)',
-
       optionText: 'var(--wk-colors-text)',
       optionTextHover: 'var(--wk-colors-text)',
       optionBackground: '#14151a',
@@ -135,6 +135,20 @@ export const base = {
 
       qrCodeDot: 'var(--wk-colors-text)',
       qrCodeBorder: 'var(--wk-colors-border)',
+
+      noWalletButtonBackgroundText: 'var(--wk-colors-text)',
+      noWalletButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      noWalletButtonBackground: 'transparent',
+      noWalletButtonBackgroundHover: 'var(--wk-colors-border)',
+      noWalletButtonBorder: 'var(--wk-colors-border)',
+      noWalletButtonBorderHover: 'var(--wk-colors-border)',
+
+      disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+      disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      disconnectButtonBackground: 'transparent',
+      disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+      disconnectButtonBorder: 'var(--wk-colors-border)',
+      disconnectButtonBorderHover: 'var(--wk-colors-border)',
     },
     shadows: {
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',

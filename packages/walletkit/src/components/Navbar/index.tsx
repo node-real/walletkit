@@ -1,11 +1,11 @@
-import { cx } from '../../base/utils/css';
+import { BoxProps, Box } from '@/base/components/Box';
+import { IconButton } from '@/base/components/IconButton';
+import { BackIcon } from '@/base/icons/BackIcon';
+import { CloseIcon } from '@/base/icons/CloseIcon';
+import { cx } from '@/index';
+import { useModal } from '../ModalProvider/context';
 import { useRouter } from '../RouteProvider/context';
-import { Box, BoxProps } from '../../base/components/Box';
-import { IconButton } from '../../base/components/IconButton';
-import { BackIcon } from '../../base/icons/BackIcon';
-import { CloseIcon } from '../../base/icons/CloseIcon';
 import { clsNavbar } from './styles.css';
-import { useModal } from '../..';
 
 export interface NavbarProps extends BoxProps {
   showBack?: boolean;

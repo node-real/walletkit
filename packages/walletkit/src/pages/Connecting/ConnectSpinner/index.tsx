@@ -1,7 +1,7 @@
-import { cx } from '../../../base/utils/css';
-import { clsContainer, clsChildren, clsErrorCircle, clsLoading } from './styles.css';
-import { Box, BoxProps } from '../../../base/components/Box';
-import { CircleLoadingIcon } from '../../../base/icons/CircleLoadingIcon';
+import { BoxProps, Box } from '@/base/components/Box';
+import { CircleLoadingIcon } from '@/base/icons/CircleLoadingIcon';
+import { cx } from '@/index';
+import { clsContainer, clsLoading, clsErrorCircle, clsLogo } from './styles.css';
 
 export interface ConnectSpinnerProps extends BoxProps {
   isLoading?: boolean;
@@ -28,7 +28,7 @@ export function ConnectSpinner(props: ConnectSpinnerProps) {
       )}
       {isError && <Box className={clsErrorCircle} />}
 
-      <Box className={clsChildren}>{children}</Box>
+      <Box className={clsLogo}>{children}</Box>
     </Box>
   );
 }

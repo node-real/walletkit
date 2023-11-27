@@ -8,7 +8,7 @@ import {
   WalletKitOptions,
   SwitchNetworkModal,
 } from '@totejs/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -33,7 +33,6 @@ export default function App() {
     <WagmiConfig config={config}>
       <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
-
         {/*
           👇 Here's the SwitchNetworkModal
           If the user switches to a network that is not supported by our dapp,

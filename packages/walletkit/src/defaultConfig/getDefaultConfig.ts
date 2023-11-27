@@ -14,7 +14,7 @@ import { WalletProps } from '../wallets/types';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
-import { getWalletById, isMetaMaskConnector } from '../wallets';
+import { WALLET_CONNECT_ID, walletConnect } from '@/wallets';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -28,7 +28,7 @@ export interface DefaultConfigProps {
   infuraId?: string;
 
   chains?: Chain[];
-  connectors?: Array<WalletProps | Connector>;
+  connectors?: WalletProps[];
 
   autoConnect?: boolean;
   publicClient?: any;
@@ -105,6 +105,8 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   const wallets = customizedWallets ?? getDefaultWallets();
   const configuredConnectors = createConnectors(wallets, configuredChains);
 
+  createGlobalWalletConnect(configuredConnectors);
+
   return {
     autoConnect,
     connectors: configuredConnectors,
@@ -115,61 +117,42 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   };
 };
 
-// 1. if item is a connector object, add the `_wallet` field directly
-// 2. if item is a wallet config object, calling `createConnector` to get a new connector
-//    and keeping the wallet config object to the `_wallet` field
-function createConnectors(input: Array<WalletProps | Connector> = [], chains: Chain[]) {
-  const connectors = input.map((w: any) => {
-    if (w.createConnector) {
-      const c = w.createConnector(chains);
-      c._wallet = w;
-      return withHackHandler(c);
-    } else {
-      w._wallet = getWalletById(w.id);
-      return withHackHandler(w);
-    }
+function createConnectors(wallets: WalletProps[], chains: Chain[]) {
+  const connectors = wallets.map((w) => {
+    const c = w.createConnector(chains);
+    c._wallet = w;
+    return c;
   });
   return connectors;
 }
 
 // !!!hack
-// sometimes provider isn't ready, requests will be pending and no responses,
-function withHackHandler(c: Connector) {
-  return c;
+// If creating WalletConnect connector after wagmi initialization,
+// the speed of creating qr code and displaying WalletConnect modal will be very slow.
+function createGlobalWalletConnect(connectors: Connector[]) {
+  const wc = connectors.find((c) => c.id === WALLET_CONNECT_ID);
 
-  const provider = c?.options?.getProvider?.();
+  const { createConnector, ...restWalletProps } = wc?._wallet ?? walletConnect();
+  const options = wc?.options;
 
-  if (provider && !provider.__hasWrappedRequest && isMetaMaskConnector(c)) {
-    provider.__hasWrappedRequest = true;
+  const qrCodeWalletConnectConnector = walletConnect({
+    ...restWalletProps,
+    connectorOptions: {
+      ...options,
+      showQrModal: false,
+    },
+  }).createConnector(wc?.chains ?? []);
 
-    const originalReq = provider.request;
+  const modalWalletConnectConnector = walletConnect({
+    ...restWalletProps,
+    connectorOptions: {
+      ...options,
+      showQrModal: true,
+    },
+  }).createConnector(wc?.chains ?? []);
 
-    const run = (duration = 0, timerArr: any = [], ...params: any) => {
-      return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => {
-          originalReq
-            .call(provider, ...params)
-            .then((res: any) => {
-              // recovery
-              provider.request = originalReq;
-              timerArr.forEach((item: any) => {
-                clearTimeout(item);
-              });
-              resolve(res);
-            })
-            .catch(reject);
-        }, duration);
-
-        timerArr.push(timer);
-      });
-    };
-
-    provider.request = async function (...params: any) {
-      const durationArr = [0, 500, 1000, 1500, 2000, 3000];
-      const timerArr: any = [];
-      return Promise.race(durationArr.map((t) => run(t, timerArr, ...params)));
-    };
-  }
-
-  return c;
+  setGlobalData({
+    qrCodeWalletConnectConnector,
+    modalWalletConnectConnector,
+  });
 }

@@ -1,13 +1,11 @@
-import { Chain } from 'wagmi';
-import { WalletKitOptions } from '../components/WalletKitProvider/context';
-import { toast } from '../base/components/toast';
+import { toast } from '@/base/components/toast';
+import { WalletKitOptions } from '..';
 
-export function getDefaultProviderOptions(options: WalletKitOptions, chains: Chain[]) {
+export function getDefaultProviderOptions(options: WalletKitOptions) {
   const { ...restOptions } = options;
 
   const mergedOptions: WalletKitOptions = {
-    initialChainId: chains?.[0]?.id,
-    disclaimer: null,
+    disclaimer: undefined,
     chainsConfig: undefined,
 
     hideNoWalletCTA: false,

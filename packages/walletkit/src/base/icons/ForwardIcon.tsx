@@ -1,4 +1,6 @@
-export const ForwardIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const ForwardIcon = (props: SVGIconProps) => {
   return (
     <svg width="21" height="20" viewBox="0 0 21 20" fill="currentColor" {...props}>
       <path

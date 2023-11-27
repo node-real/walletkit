@@ -1,4 +1,5 @@
 import { Connector as WagmiConnector } from 'wagmi';
+import type { WindowProvider } from 'wagmi/window';
 
 import { WalletProps } from './wallets/types';
 
@@ -8,6 +9,7 @@ declare global {
     trustWallet: any;
     trustwallet: any;
     tokenpocket: any;
+    okexchain: any;
   }
 }
 

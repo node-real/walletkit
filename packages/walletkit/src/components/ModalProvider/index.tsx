@@ -1,11 +1,11 @@
+import { toast } from '@/base/components/toast';
+import { useDisclosure } from '@/base/hooks/useDisclosure';
 import { useEffect, useMemo, useState } from 'react';
-import { useDisclosure } from '../../base/hooks/useDisclosure';
-import { ModalContext, OpenSwitchNetworkOptions } from './context';
-import { useRouter } from '../RouteProvider/context';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useNetwork, useConnect } from 'wagmi';
 import { routes } from '../RouteProvider';
-import { toast } from '../../base/components/toast';
-import { useWalletKitContext } from '../..';
+import { useRouter } from '../RouteProvider/context';
+import { useWalletKitContext } from '../WalletKitProvider/context';
+import { OpenSwitchNetworkOptions, ModalContext } from './context';
 
 export interface ModalProviderProps {
   children: React.ReactNode;
@@ -37,9 +37,11 @@ export function ModalProvider(props: ModalProviderProps) {
       closeOnOverlayClick: closeModalOnOverlayClick,
       isOpen,
       onClose() {
-        router.reset();
-        setIsClosable(true);
         onClose();
+        setTimeout(() => {
+          setIsClosable(true);
+          router.reset();
+        }, 300);
       },
       onOpen() {
         router.push(routes.CONNECTORS);

@@ -1,6 +1,7 @@
+import { SVGIconProps } from '@/types';
 import { cssVar } from '../utils/css';
 
-export const ErrorIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const ErrorIcon = (props: SVGIconProps) => {
   const errorColor = cssVar('error');
 
   return (

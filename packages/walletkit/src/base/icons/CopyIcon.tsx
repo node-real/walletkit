@@ -1,4 +1,6 @@
-export const CopyIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const CopyIcon = (props: SVGIconProps) => {
   return (
     <svg width="24" height="24" viewBox="0 0 40 40" fill="currentColor" {...props}>
       <path

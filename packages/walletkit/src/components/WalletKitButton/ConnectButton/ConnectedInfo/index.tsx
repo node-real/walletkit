@@ -1,23 +1,23 @@
+import { Box } from '@/base/components/Box';
+import { Text } from '@/base/components/Text';
+import { Button } from '@/base/components/Button';
+import { DownArrowIcon } from '@/base/icons/DownArrowIcon';
+import { Avatar } from '@/components/Avatar';
+import { useChainConfig } from '@/hooks/useChainConfig';
+import { useModal, cx } from '@/index';
+import { truncateENSName, formatBalance, truncateAddress } from '@/utils/account';
 import { useAccount, useBalance, useEnsName, useNetwork } from 'wagmi';
-import { Text } from '../../../../base/components/Text';
-import { Avatar } from '../../../Avatar';
-import { formatBalance, truncateAddress, truncateENSName } from '../../../../utils/account';
-import { Box } from '../../../../base/components/Box';
-import { Button } from '../../../../base/components/Button';
-import { cx, useModal } from '../../../..';
-import { useChainConfig } from '../../../../hooks/useChainConfig';
+import { clsWalletkitButton } from '../styles.css';
 import {
-  clsAccountButton,
-  clsAddress,
-  clsBalance,
+  clsInfo,
+  clsWrongButton,
   clsChainButton,
   clsChainLogo,
-  clsInfo,
+  clsAccountButton,
+  clsBalance,
   clsSeparator,
-  clsWrongButton,
+  clsAddress,
 } from './styles.css';
-import { clsWalletkitButton } from '../styles.css';
-import { DownArrowIcon } from '../../../../base/icons/DownArrowIcon';
 
 export function ConnectedInfo() {
   const { address } = useAccount();
@@ -41,7 +41,7 @@ export function ConnectedInfo() {
       {chain?.unsupported ? (
         <Button
           className={cx('wk-wrong-network-button', clsWalletkitButton, clsWrongButton)}
-          onClick={onOpenSwitchNetwork}
+          onClick={() => onOpenSwitchNetwork()}
         >
           Wrong network
           <DownArrowIcon />
@@ -50,7 +50,7 @@ export function ConnectedInfo() {
         <>
           <Button
             className={cx('wk-chain-button', clsWalletkitButton, clsChainButton)}
-            onClick={onOpenSwitchNetwork}
+            onClick={() => onOpenSwitchNetwork()}
           >
             <Box className={clsChainLogo}>{chainConfig?.logo}</Box>
             <Box title={chainConfig.name}>{truncateENSName(chainConfig.name)}</Box>

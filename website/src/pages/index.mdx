@@ -186,6 +186,45 @@ const config = createConfig(
 </WalletKitButton.Custom>
 ```
 
+## Customizing walletConnect recommended wallets
+
+Sometimes, we need to customize walletConnect's wallets, which we can configure as follows. The
+wallet id can be obtained from [walletConnect explorer](https://walletconnect.com/explorer).
+
+Other supported configurations are also available from
+[walletConnect's official documentation](https://docs.walletconnect.com/advanced/walletconnectmodal/options).
+
+```tsx live=false
+const config = createConfig(
+  getDefaultConfig({
+    autoConnect: true,
+    appName: 'WalletKit',
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
+
+    chains,
+    connectors: [
+      trustWallet(),
+      metaMask(),
+      walletConnect({
+        connectorOptions: {
+          showQrModal: true, // Open walletConnect's modal directly rather than displaying the QR code.
+          qrModalOptions: {
+            explorerRecommendedWalletIds: [
+              '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
+              'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
+              '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+            ],
+          },
+        },
+      }),
+    ],
+  }),
+);
+```
+
 `useModal`
 
 ```tsx live=false
@@ -193,6 +232,30 @@ import { useModal } from '@totejs/walletkit';
 
 const { isOpen, onOpen, onClose } = useModal();
 <button onClick={onOpen}>connect</button>;
+```
+
+## Customizing chains
+
+The chain's information will be displayed in the `switch network modal`
+
+```tsx live=false
+<WalletKitProvider
+  options={{
+    initialChainId: 56,
+    chainsConfig: [
+      {
+        id: 56,
+        name: 'BSC',
+        logo: <BscIcon width={24} height={24} />,
+      },
+      {
+        id: 97,
+        name: 'BSC Testnet',
+        logo: <BscIcon width={24} height={24} />,
+      },
+    ],
+  }}
+></WalletKitProvider>
 ```
 
 ## Handle wallet errors by yourself
@@ -259,13 +322,6 @@ const customTheme = {
     navButtonText: 'var(--wk-colors-textSecondary)',
     navButtonBackgroundHover: 'var(--wk-colors-border)',
 
-    disconnectButtonBackgroundText: 'var(--wk-colors-text)',
-    disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
-    disconnectButtonBackground: 'transparent',
-    disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
-    disconnectButtonBorder: 'var(--wk-colors-border)',
-    disconnectButtonBorderHover: 'var(--wk-colors-border)',
-
     optionText: 'var(--wk-colors-text)',
     optionTextHover: 'var(--wk-colors-text)',
     optionBackground: '#f5f5f5',
@@ -285,6 +341,20 @@ const customTheme = {
 
     qrCodeDot: 'var(--wk-colors-text)',
     qrCodeBorder: 'var(--wk-colors-border)',
+
+    noWalletButtonBackgroundText: 'var(--wk-colors-text)',
+    noWalletButtonBackgroundTextHover: 'var(--wk-colors-text)',
+    noWalletButtonBackground: 'transparent',
+    noWalletButtonBackgroundHover: 'var(--wk-colors-border)',
+    noWalletButtonBorder: 'var(--wk-colors-border)',
+    noWalletButtonBorderHover: 'var(--wk-colors-border)',
+
+    disconnectButtonBackgroundText: 'var(--wk-colors-text)',
+    disconnectButtonBackgroundTextHover: 'var(--wk-colors-text)',
+    disconnectButtonBackground: 'transparent',
+    disconnectButtonBackgroundHover: 'var(--wk-colors-border)',
+    disconnectButtonBorder: 'var(--wk-colors-border)',
+    disconnectButtonBorderHover: 'var(--wk-colors-border)',
   },
   shadows: {
     toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
@@ -297,6 +367,7 @@ const customTheme = {
     button: 'var(--wk-radii-common)',
     connectButton: 'var(--wk-radii-common)',
     disconnectButton: 'var(--wk-radii-common)',
+    noWalletButton: 'var(--wk-radii-common)',
     walletOption: 'var(--wk-radii-common)',
     walletOptionIcon: 'var(--wk-radii-common)',
     chainOption: 'var(--wk-radii-common)',
@@ -383,7 +454,7 @@ export interface DefaultConfigProps {
   infuraId?: string;
 
   chains?: Chain[];
-  connectors?: Array<WalletProps | Connector>;
+  connectors?: WalletProps[];
 
   autoConnect?: boolean;
   publicClient?: any;

@@ -1,15 +1,14 @@
+import { routes } from '@/components/RouteProvider';
+import { useRouter } from '@/components/RouteProvider/context';
+import { isWalletConnectConnector } from '@/wallets';
 import { useCallback, useRef } from 'react';
 import { Connector, useDisconnect } from 'wagmi';
-import { useRouter } from '../components/RouteProvider/context';
-import { useWalletKitContext } from '../components/WalletKitProvider/context';
+import { useWalletKitContext, isMobile } from '..';
 import { useWalletConnectModal } from './useWalletConnectModal';
-import { isMobile } from '../base/utils/mobile';
-import { isWalletConnectConnector } from '../wallets';
-import { routes } from '../components/RouteProvider';
 
 export function useClickWallet() {
   const router = useRouter();
-  const { options, setSelectedConnector } = useWalletKitContext();
+  const { options, log, setSelectedConnector } = useWalletKitContext();
 
   const { disconnect } = useDisconnect();
   const { onOpenWcModal } = useWalletConnectModal();
@@ -22,6 +21,19 @@ export function useClickWallet() {
       const pass = options.onClickWallet?.(connector, e);
       if (pass === false) return;
 
+      log('[click wallet] connector', connector);
+      log('[click wallet] ethereum', window.ethereum);
+
+      const gotoQRcodePage = () => {
+        setSelectedConnector(connector);
+        router.push(routes.CONNECT_WITH_QRCODE);
+      };
+
+      const gotoConnectingPage = () => {
+        setSelectedConnector(connector);
+        router.push(routes.CONNECTING);
+      };
+
       disconnect();
 
       clearTimeout(timerRef.current);
@@ -30,21 +42,27 @@ export function useClickWallet() {
           if (connector.options.showQrModal) {
             onOpenWcModal();
           } else {
-            setSelectedConnector(connector);
-            router.push(routes.CONNECT_WITH_QRCODE);
+            gotoQRcodePage();
           }
-        } else if (mobile && !connector._wallet.installed) {
-          const uri = connector._wallet.getUri?.();
-          if (uri) {
-            window.open(uri, '_self', 'noopener noreferrer');
+        } else if (!connector._wallet.installed) {
+          if (mobile) {
+            const deepLink = connector._wallet.getDeepLink?.();
+            if (deepLink) {
+              window.open(deepLink, '_self', 'noopener noreferrer');
+            } else {
+              options.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
+            }
+          } else if (connector._wallet.showQRCode) {
+            gotoQRcodePage();
+          } else {
+            gotoConnectingPage();
           }
         } else {
-          setSelectedConnector(connector);
-          router.push(routes.CONNECTING);
+          gotoConnectingPage();
         }
       }, 300);
     },
-    [disconnect, mobile, onOpenWcModal, options, router, setSelectedConnector],
+    [disconnect, log, mobile, onOpenWcModal, options, router, setSelectedConnector],
   );
 
   return onClickWallet;

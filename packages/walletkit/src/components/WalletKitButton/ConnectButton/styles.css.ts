@@ -1,5 +1,6 @@
+import { hover } from '@/base/vanilla/index.css';
+import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../../base/utils/css';
 
 export const clsWalletkitButton = style({
   height: 40,
@@ -10,8 +11,8 @@ export const clsWalletkitButton = style({
   background: cssVar('connectButtonBackground'),
   color: cssVar('connectButtonText'),
   gap: 8,
-  ':hover': {
+  '@media': hover({
     background: cssVar('connectButtonBackgroundHover'),
     color: cssVar('connectButtonTextHover'),
-  },
+  }),
 });

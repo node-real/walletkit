@@ -1,4 +1,6 @@
-export function BscIcon(props: React.SVGProps<SVGSVGElement>) {
+import { SVGIconProps } from '@/types';
+
+export function BscIcon(props: SVGIconProps) {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" {...props}>
       <rect x="0.5" y="0.5" width="27" height="27" fill="url(#BscIconPattern0)" />

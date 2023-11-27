@@ -22,10 +22,11 @@ export interface QRCodeProps {
   clearSize?: number;
   size?: number;
   uri: string;
+  className?: string;
 }
 
 export function QRCode(props: QRCodeProps) {
-  const { ecl = 'M', clearSize = 52, size = 212, uri } = props;
+  const { className, ecl = 'M', clearSize = 40, size = 212, uri } = props;
 
   const dots = useMemo(() => {
     const dots: ReactElement[] = [];
@@ -101,7 +102,7 @@ export function QRCode(props: QRCodeProps) {
   }, [ecl, clearSize, size, uri]);
 
   return (
-    <svg height="100%" width="100%" viewBox={`0 0 ${size} ${size}`}>
+    <svg className={className} height="100%" width="100%" viewBox={`0 0 ${size} ${size}`}>
       {dots}
     </svg>
   );

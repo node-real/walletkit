@@ -1,9 +1,11 @@
-import { cx } from '../../utils/css';
-import { Box, BoxProps } from '../Box';
+import { useKeyDown } from '@/base/hooks/useKeyDown';
+import { cx } from '@/base/utils/css';
+import { BoxProps, Box } from '../Box';
 import { Portal } from '../Portal';
-import { clsModal, clsModalContent, clsModalOverlay } from './styles.css';
-import { Animation } from '../Animation';
-import { useKeyDown } from '../../hooks/useKeyDown';
+import { Transition } from '../Transition';
+import { clsModal, clsModalOverlay, clsModalContent } from './styles.css';
+import { useScrollLock } from '@/base/hooks/useScrollLock';
+import { useResponsive } from '@/base/hooks/useResponsive';
 
 export interface ModalProps extends BoxProps {
   isOpen: boolean;
@@ -34,19 +36,25 @@ export function Modal(props: ModalProps) {
     },
   });
 
+  useScrollLock(isOpen);
+
+  const { isMobileLayout } = useResponsive();
+
   return (
     <Portal>
-      <Animation in={isOpen} variant="fade">
+      <Transition in={isOpen} variant="fade">
         <Box className={cx('wk-modal', clsModal, className)} {...restProps}>
           <Box
             className={cx('wk-modal-overlay', clsModalOverlay)}
             onClick={() => closeOnOverlayClick && onClose()}
           />
-          <Box className={cx('wk-modal-content', clsModalContent, contentClassName)}>
-            {children}
-          </Box>
+          <Transition in={isOpen} variant={isMobileLayout ? 'modal-slide' : undefined}>
+            <Box className={cx('wk-modal-content', clsModalContent, contentClassName)}>
+              {children}
+            </Box>
+          </Transition>
         </Box>
-      </Animation>
+      </Transition>
     </Portal>
   );
 }

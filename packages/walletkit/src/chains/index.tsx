@@ -5,12 +5,12 @@ const chainsConfig = [
   {
     id: 56,
     name: 'BSC',
-    logo: <BscIcon />,
+    logo: <BscIcon width={24} height={24} />,
   },
   {
     id: 97,
     name: 'BSC Testnet',
-    logo: <BscIcon />,
+    logo: <BscIcon width={24} height={24} />,
   },
   {
     id: 91715,

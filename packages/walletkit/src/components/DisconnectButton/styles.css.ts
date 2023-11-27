@@ -1,5 +1,6 @@
+import { cssVar } from '@/base/utils/css';
+import { hover } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../base/utils/css';
 
 export const clsContainer = style({
   height: 50,
@@ -10,9 +11,9 @@ export const clsContainer = style({
   background: cssVar('disconnectButtonBackground'),
   borderColor: cssVar('disconnectButtonBorder'),
   color: cssVar('disconnectButtonBackgroundText'),
-  ':hover': {
+  '@media': hover({
     background: cssVar('disconnectButtonBackgroundHover'),
     color: cssVar('disconnectButtonBackgroundTextHover'),
     borderColor: cssVar('disconnectButtonBorderHover'),
-  },
+  }),
 });

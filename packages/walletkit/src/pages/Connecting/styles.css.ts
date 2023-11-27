@@ -1,20 +1,8 @@
-import { style, globalStyle } from '@vanilla-extract/css';
-import { cssVar } from '../..';
+import { hover, mobile } from '@/base/vanilla/index.css';
+import { cssVar } from '@/index';
+import { style } from '@vanilla-extract/css';
 
-export const clsContent = style({
-  overflowY: 'auto',
-});
-
-export const clsLogoWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
-globalStyle(`${clsLogoWrapper} > svg`, {
-  width: 80,
-  height: 80,
-});
+export const clsContent = style({});
 
 export const clsGap = style({
   marginTop: 32,
@@ -26,13 +14,17 @@ export const clsButton = style({
   borderRadius: cssVar('button', 'radii'),
   background: cssVar('buttonBackground'),
   color: cssVar('buttonText'),
-  ':hover': {
+  '@media': hover({
     background: cssVar('buttonBackgroundHover'),
     color: cssVar('buttonTextHover'),
-  },
+  }),
 });
 
 export const clsFooter = style({
   marginTop: 40,
   marginBottom: -8,
+  '@media': mobile({
+    marginTop: 24,
+    marginBottom: -16,
+  }),
 });

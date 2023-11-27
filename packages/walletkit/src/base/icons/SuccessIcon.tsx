@@ -1,4 +1,6 @@
-export const SuccessIcon = (props: React.SVGProps<SVGSVGElement>) => {
+import { SVGIconProps } from '@/types';
+
+export const SuccessIcon = (props: SVGIconProps) => {
   return (
     <svg width="24" height="24" viewBox="0 0 40 40" fill="currentColor" color="#02c076" {...props}>
       <path d="M36.6666 20.0002C36.6666 29.2049 29.2047 36.6668 20 36.6668C10.7952 36.6668 3.33331 29.2049 3.33331 20.0002C3.33331 10.7954 10.7952 3.3335 20 3.3335C29.2047 3.3335 36.6666 10.7954 36.6666 20.0002Z"></path>

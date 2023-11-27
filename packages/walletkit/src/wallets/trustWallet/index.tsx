@@ -1,14 +1,17 @@
 import { Chain } from 'wagmi';
-
 import {
-  TrustWalletDarkIcon,
+  PartialWalletProps,
+  TrustWalletConnectorOptions,
+  WalletProps,
+  TrustWalletConnector,
+} from '..';
+import { hasInjectedProvider } from '../utils';
+import {
   TrustWalletLightIcon,
-  TrustWalletMobileDarkIcon,
-  TrustWalletMobileLightIcon,
+  TrustWalletDarkIcon,
+  TrustWalletTransparentLightIcon,
+  TrustWalletTransparentDarkIcon,
 } from './icon';
-import { PartialWalletProps, WalletProps } from '../types';
-import { TrustWalletConnector, TrustWalletConnectorOptions } from '../trustWallet/connector';
-import { Connector } from 'wagmi/connectors';
 
 export const TRUST_WALLET_ID = 'trust';
 
@@ -27,15 +30,16 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         light: <TrustWalletLightIcon />,
         dark: <TrustWalletDarkIcon />,
       },
-      mobile: {
-        light: <TrustWalletMobileLightIcon />,
-        dark: <TrustWalletMobileDarkIcon />,
+      transparent: {
+        light: <TrustWalletTransparentLightIcon />,
+        dark: <TrustWalletTransparentDarkIcon />,
       },
     },
     downloadUrls: {
       default: 'https://trustwallet.com/',
     },
     spinnerColor: '#1098FC',
+    showQRCode: false,
     installed: isTrustWallet(),
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({
@@ -46,11 +50,14 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
         },
       });
     },
-    getUri: () => {
+    getDeepLink: () => {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
       return dappPath;
+    },
+    getQRCodeUri(uri) {
+      return `trust://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };
@@ -58,16 +65,10 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
 
 export function isTrustWallet() {
   if (typeof window === 'undefined') return false;
-  const { ethereum } = window;
 
   return !!(
-    ethereum?.isTrust ||
-    (ethereum?.providers && ethereum?.providers.find((provider: any) => provider.isTrust)) ||
+    hasInjectedProvider('isTrust') ||
     window?.trustwallet?.isTrust ||
     window?.trustWallet?.isTrust
   );
-}
-
-export function isTrustWalletConnector(connector?: Connector) {
-  return connector?.id === TRUST_WALLET_ID;
 }

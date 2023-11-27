@@ -1,4 +1,6 @@
-export function ComboIcon(props: React.SVGProps<SVGSVGElement>) {
+import { SVGIconProps } from '@/types';
+
+export function ComboIcon(props: SVGIconProps) {
   return (
     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" {...props}>
       <rect width="26" height="26" fill="url(#ComboIconPattern0)" />

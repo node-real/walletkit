@@ -1,5 +1,6 @@
+import { cssVar } from '@/base/utils/css';
+import { hover } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
-import { cssVar } from '../../utils/css';
 
 export const clsIconButton = style({
   width: 24,
@@ -8,7 +9,7 @@ export const clsIconButton = style({
   padding: 0,
   background: 'transparent',
   color: cssVar('navButtonText'),
-  ':hover': {
+  '@media': hover({
     background: cssVar('navButtonBackgroundHover'),
-  },
+  }),
 });

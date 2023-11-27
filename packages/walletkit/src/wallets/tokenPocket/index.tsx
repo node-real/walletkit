@@ -1,16 +1,12 @@
-import { Chain, Connector } from 'wagmi';
-
-import { PartialWalletProps, WalletProps } from '../types';
-import { TokenPocketIcon } from './icon';
-import { TokenPocketConnector, TokenPocketConnectorOptions } from '../tokenPocket/connector';
+import { Chain } from 'wagmi';
+import { PartialCustomProps, WalletProps } from '..';
+import { CustomConnector } from '../custom/connector';
+import { getInjectedProvider, hasInjectedProvider } from '../utils';
+import { TokenPocketIcon, TokenPocketTransparentIcon } from './icon';
 
 export const TOKEN_POCKET_ID = 'tokenPocket';
 
-export interface TokenPocketProps extends PartialWalletProps {
-  connectorOptions?: TokenPocketConnectorOptions;
-}
-
-export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
+export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -18,26 +14,39 @@ export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
     name: 'TokenPocket',
     logos: {
       default: <TokenPocketIcon />,
+      transparent: <TokenPocketTransparentIcon />,
     },
     downloadUrls: {
       default: 'https://www.tokenpocket.pro/en/download/app',
     },
     spinnerColor: '#2980FE',
+    showQRCode: false,
     installed: isTokenPocket(),
     createConnector: (chains: Chain[]) => {
-      return new TokenPocketConnector({
+      return new CustomConnector({
+        id: TOKEN_POCKET_ID,
         chains,
         options: {
+          name: 'TokenPocket',
           shimDisconnect: true,
+          getProvider() {
+            if (typeof window === 'undefined') return;
+
+            const provider = getInjectedProvider('isTokenPocket') ?? window.tokenpocket;
+            return provider;
+          },
           ...connectorOptions,
         },
       });
     },
-    getUri: () => {
-      const tpParams = {
+    getDeepLink: () => {
+      const params = {
         url: window.location.href,
       };
-      return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(tpParams))}`;
+      return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
+    },
+    getQRCodeUri(uri) {
+      return `tpoutside://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };
@@ -45,9 +54,6 @@ export function tokenPocket(props: TokenPocketProps = {}): WalletProps {
 
 export function isTokenPocket() {
   if (typeof window === 'undefined') return false;
-  return window?.ethereum?.isTokenPocket ?? !!window.tokenpocket;
-}
 
-export function isTokenPocketConnector(connector?: Connector) {
-  return connector?.id === TOKEN_POCKET_ID;
+  return !!(hasInjectedProvider('isTokenPocket') || window.tokenpocket);
 }
