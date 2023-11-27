@@ -36,7 +36,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const chains = useChains();
 
   const value = useMemo(() => {
-    const finalOptions = getDefaultProviderOptions(options, chains);
+    const finalOptions = getDefaultProviderOptions(options);
     const finalChains = getDefaultSupportedChains(options, chains);
 
     const finalValue: WalletKitContextProps = {
