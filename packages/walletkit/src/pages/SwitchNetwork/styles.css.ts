@@ -37,7 +37,7 @@ export const clsChains = style({
   gap: 16,
   lineHeight: 1.5,
   width: '100%',
-  maxHeight: 320,
+  maxHeight: 360,
 });
 
 export const clsOrSeparator = style({

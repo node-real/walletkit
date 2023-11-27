@@ -39,18 +39,14 @@ const config = createConfig(
       mathWallet(),
       binanceWeb3Wallet(),
       coinbaseWallet(),
-      walletConnect({
-        connectorOptions: {
-          showQrModal: true,
-        },
-      }),
       tokenPocket(),
+      walletConnect(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 1,
+  // initialChainId: 204,
 };
 
 export default function App() {

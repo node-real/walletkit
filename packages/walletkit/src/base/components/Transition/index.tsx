@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { cx } from '@/base/utils/css';
 import { clsFadeIn, clsFadeOut } from './fade.css';
 import { clsToastSlideIn, clsToastSlideOut } from './toastSlide.css';
+import { clsModalSlideIn, clsModalSlideOut } from './modalSlide.css';
 
 const animationMap = {
   fade: [clsFadeOut, clsFadeIn],
   'toast-slide': [clsToastSlideOut, clsToastSlideIn],
+  'modal-slide': [clsModalSlideOut, clsModalSlideIn],
 };
 
 export interface TransitionProps {
   in: boolean;
   children: React.ReactElement;
-  variant?: 'fade' | 'toast-slide';
+  variant?: keyof typeof animationMap;
   onExit?: () => void;
 }
 
