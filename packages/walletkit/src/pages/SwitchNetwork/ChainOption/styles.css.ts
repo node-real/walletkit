@@ -1,4 +1,4 @@
-import { MOBILE_MEDIA } from '@/base/constant';
+import { hover, mobile } from '@/base/vanilla/index.css';
 import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
 
@@ -11,15 +11,15 @@ export const clsContainer = style({
   color: cssVar('chainOptionText'),
   background: cssVar('chainOptionBackground'),
   borderRadius: cssVar('chainOption', 'radii'),
-  ':hover': {
-    color: cssVar('chainOptionTextHover'),
-    background: cssVar('chainOptionBackgroundHover'),
-  },
   '@media': {
-    [MOBILE_MEDIA]: {
+    ...mobile({
       padding: '3px 8px 3px 4px',
       gap: 4,
-    },
+    }),
+    ...hover({
+      color: cssVar('chainOptionTextHover'),
+      background: cssVar('chainOptionBackgroundHover'),
+    }),
   },
 });
 

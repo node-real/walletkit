@@ -1,5 +1,5 @@
-import { MOBILE_MEDIA } from '@/base/constant';
 import { cssVar } from '@/base/utils/css';
+import { hover, mobile } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
 
 export const clsWallets = style({
@@ -7,12 +7,10 @@ export const clsWallets = style({
   gridTemplateColumns: 'repeat(3, 1fr)',
   rowGap: 24,
   columnGap: 15,
-  '@media': {
-    [MOBILE_MEDIA]: {
-      rowGap: 16,
-      columnGap: 4.5,
-    },
-  },
+  '@media': mobile({
+    rowGap: 16,
+    columnGap: 4.5,
+  }),
 });
 
 export const clsNoWalletButton = style({
@@ -24,9 +22,9 @@ export const clsNoWalletButton = style({
   background: cssVar('noWalletButtonBackground'),
   borderColor: cssVar('noWalletButtonBorder'),
   color: cssVar('noWalletButtonBackgroundText'),
-  ':hover': {
+  '@media': hover({
     background: cssVar('noWalletButtonBackgroundHover'),
     color: cssVar('noWalletButtonBackgroundTextHover'),
     borderColor: cssVar('noWalletButtonBorderHover'),
-  },
+  }),
 });

@@ -14,15 +14,15 @@ export function useKeyDown(props: UseKeyDownProps = {}) {
       return;
     }
 
-    const onEnter = (e: KeyboardEvent) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.code === key) {
         handler?.();
       }
     };
 
-    window.addEventListener('keydown', onEnter);
+    window.addEventListener('keydown', onKeyDown);
     return () => {
-      window.removeEventListener('keydown', onEnter);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [enabled, handler, key]);
 }

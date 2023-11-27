@@ -37,9 +37,11 @@ export function ModalProvider(props: ModalProviderProps) {
       closeOnOverlayClick: closeModalOnOverlayClick,
       isOpen,
       onClose() {
-        router.reset();
-        setIsClosable(true);
         onClose();
+        setTimeout(() => {
+          setIsClosable(true);
+          router.reset();
+        }, 300);
       },
       onOpen() {
         router.push(routes.CONNECTORS);

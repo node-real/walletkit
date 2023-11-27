@@ -1,8 +1,8 @@
 import { Chain } from 'wagmi';
 import { PartialCustomProps, WalletProps } from '..';
 import { CustomConnector } from '../custom/connector';
-import { getInjectedProvider } from '../utils';
 import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
+import { isMobile } from '@/base/utils/mobile';
 
 export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
 
@@ -32,15 +32,16 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
           getProvider() {
             if (typeof window === 'undefined') return;
 
-            const provider = getInjectedProvider('isOkxWallet') ?? window.okexchain;
-            return provider;
+            if (isMobile()) {
+              return window.ethereum;
+            }
           },
           ...connectorOptions,
         },
       });
     },
     getDeepLink: () => {
-      return undefined;
+      return undefined; //`bnc://app.binance.com/cedefi/wc?uri=${encodeURIComponent(uri)}`;
     },
     getQRCodeUri(uri) {
       return uri;
@@ -51,6 +52,10 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
 
 export function isBinanceWeb3Wallet() {
   if (typeof window === 'undefined') return false;
+
+  if (isMobile()) {
+    return !!window.ethereum;
+  }
 
   return false;
 }

@@ -1,3 +1,4 @@
+import { hover } from '@/base/vanilla/index.css';
 import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
 
@@ -9,10 +10,10 @@ export const clsWalletOption = style({
   color: cssVar('walletOptionText'),
   background: cssVar('walletOptionBackground'),
   width: '100%',
-  ':hover': {
+  '@media': hover({
     color: cssVar('walletOptionTextHover'),
     background: cssVar('walletOptionBackgroundHover'),
-  },
+  }),
 });
 
 export const clsWalletOptionName = style({

@@ -1,4 +1,8 @@
+import { Connector } from 'wagmi/connectors';
+
 export interface GlobalDataType {
+  qrCodeWalletConnectConnector?: Connector;
+  modalWalletConnectConnector?: Connector;
   walletConnectDefaultOptions: {
     walletConnectProjectId?: string;
     appName: string;

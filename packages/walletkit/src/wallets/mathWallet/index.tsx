@@ -40,7 +40,9 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
       });
     },
     getDeepLink: () => {
-      return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
+      // return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
+      // return `mathwallet://wc?uri=${encodeURIComponent(uri)}`;
+      return undefined;
     },
     getQRCodeUri(uri) {
       return uri;

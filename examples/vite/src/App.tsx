@@ -10,10 +10,6 @@ import {
 } from '@totejs/walletkit';
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 
-import VConsole from 'vconsole';
-
-new VConsole();
-
 const config = createConfig(
   getDefaultConfig({
     autoConnect: true,
@@ -24,22 +20,7 @@ const config = createConfig(
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
 
     chains,
-    connectors: [
-      trustWallet(),
-      metaMask(),
-      walletConnect({
-        connectorOptions: {
-          showQrModal: true,
-          qrModalOptions: {
-            explorerRecommendedWalletIds: [
-              '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
-              'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
-              '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
-            ],
-          },
-        },
-      }),
-    ],
+    connectors: [trustWallet(), metaMask(), walletConnect()],
   }),
 );
 

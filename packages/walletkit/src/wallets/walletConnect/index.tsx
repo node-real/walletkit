@@ -43,6 +43,8 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
       return new WalletConnectConnector({
         chains,
         options: {
+          // https://github.com/WalletConnect/walletconnect-monorepo/issues/2830
+          relayUrl: 'wss://relay.walletconnect.org',
           showQrModal: isMobile() ? true : false,
           projectId: walletConnectProjectId,
           metadata: hasAllAppData

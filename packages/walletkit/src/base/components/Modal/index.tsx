@@ -4,6 +4,7 @@ import { BoxProps, Box } from '../Box';
 import { Portal } from '../Portal';
 import { Transition } from '../Transition';
 import { clsModal, clsModalOverlay, clsModalContent } from './styles.css';
+import { useScrollLock } from '@/base/hooks/useScrollLock';
 
 export interface ModalProps extends BoxProps {
   isOpen: boolean;
@@ -33,6 +34,8 @@ export function Modal(props: ModalProps) {
       onClose();
     },
   });
+
+  useScrollLock(isOpen);
 
   return (
     <Portal>

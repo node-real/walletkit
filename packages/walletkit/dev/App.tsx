@@ -1,6 +1,3 @@
-import '@totejs/walletkit/styles.css';
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
 import { chains } from './chains';
 import { WagmiConfig, createConfig } from 'wagmi';
 import {
@@ -11,19 +8,19 @@ import {
   WalletKitProvider,
   getDefaultConfig,
   useModal,
-} from '@totejs/walletkit';
+} from '@/index';
 
+import { useState } from 'react';
 import {
-  trustWallet,
-  metaMask,
-  walletConnect,
-  okxWallet,
-  mathWallet,
   binanceWeb3Wallet,
   coinbaseWallet,
+  mathWallet,
+  metaMask,
+  okxWallet,
   tokenPocket,
-} from '@totejs/walletkit/wallets';
-import { useState } from 'react';
+  trustWallet,
+  walletConnect,
+} from '@/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -42,7 +39,11 @@ const config = createConfig(
       mathWallet(),
       binanceWeb3Wallet(),
       coinbaseWallet(),
-      walletConnect(),
+      walletConnect({
+        connectorOptions: {
+          showQrModal: true,
+        },
+      }),
       tokenPocket(),
     ],
   }),
@@ -52,7 +53,7 @@ const options: WalletKitOptions = {
   initialChainId: 1,
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App() {
   const [mode, setMode] = useState<ThemeMode>('light');
   const nextMode = mode === 'light' ? 'dark' : 'light';
 
@@ -62,13 +63,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />
 
-      <WalletKitProvider options={options} mode={mode} debugMode>
+      <WalletKitProvider options={options} mode={mode} debugMode={true}>
         <WalletKitButton />
-        <a href="bnc://app.binance.com/mp/app?appId=xoqXxUSMRccLCrZNRebmzj&startPagePath=L3BhZ2VzL2Rhc2hib2FyZC1uZXcvaW5kZXg=&startPageQuery=ZnJvbT10YWI=">
-          bnb
-        </a>
         <Example />
-        <Component {...pageProps} />
+        <div style={{ height: 2000 }}></div>
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>

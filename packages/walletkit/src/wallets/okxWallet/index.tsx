@@ -30,7 +30,15 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
         options: {
           name: 'OKX Wallet',
           shimDisconnect: true,
-          getProvider,
+          getProvider() {
+            if (typeof window === 'undefined') return;
+
+            if (isMobile()) {
+              return window.ethereum || window.okexchain;
+            }
+
+            return getInjectedProvider('isOkxWallet') ?? window.okexchain;
+          },
           ...connectorOptions,
         },
       });
@@ -39,20 +47,10 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
       return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
     },
     getQRCodeUri(uri) {
-      return `okex://main/wc?uri=${decodeURIComponent(uri)}`;
+      return `okex://main/wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };
-}
-
-function getProvider() {
-  if (typeof window === 'undefined') return;
-
-  if (isMobile()) {
-    return window.ethereum || window.okexchain;
-  }
-
-  return getInjectedProvider('isOkxWallet') ?? window.okexchain;
 }
 
 export function isOkxWallet() {
