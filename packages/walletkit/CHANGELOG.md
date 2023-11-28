@@ -1,5 +1,12 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.0
+
+### Patch Changes
+
+- 5d859fc: Add chains type declaration for dev example
+- Fixed typescript declaration files export path error, remove `dev` in tsconfig.json includes field
+
 ## 1.0.6
 
 ### Patch Changes
