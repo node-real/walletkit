@@ -1,7 +1,7 @@
 import { toast } from '@/base/components/toast';
 import { useDisclosure } from '@/base/hooks/useDisclosure';
 import { useEffect, useMemo, useState } from 'react';
-import { useAccount, useNetwork, useConnect } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { routes } from '../RouteProvider';
 import { useRouter } from '../RouteProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';

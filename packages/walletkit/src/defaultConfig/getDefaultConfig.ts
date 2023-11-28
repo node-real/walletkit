@@ -105,7 +105,7 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   const wallets = customizedWallets ?? getDefaultWallets();
   const configuredConnectors = createConnectors(wallets, configuredChains);
 
-  createGlobalWalletConnect(configuredConnectors);
+  createGlobalWalletConnect(configuredConnectors, configuredChains);
 
   return {
     autoConnect,
@@ -129,7 +129,7 @@ function createConnectors(wallets: WalletProps[], chains: Chain[]) {
 // !!!hack
 // If creating WalletConnect connector after wagmi initialization,
 // the speed of creating qr code and displaying WalletConnect modal will be very slow.
-function createGlobalWalletConnect(connectors: Connector[]) {
+function createGlobalWalletConnect(connectors: Connector[], chains: Chain[]) {
   const wc = connectors.find((c) => c.id === WALLET_CONNECT_ID);
 
   const { createConnector, ...restWalletProps } = wc?._wallet ?? walletConnect();
@@ -141,7 +141,7 @@ function createGlobalWalletConnect(connectors: Connector[]) {
       ...options,
       showQrModal: false,
     },
-  }).createConnector(wc?.chains ?? []);
+  }).createConnector(chains);
 
   const modalWalletConnectConnector = walletConnect({
     ...restWalletProps,
@@ -149,7 +149,7 @@ function createGlobalWalletConnect(connectors: Connector[]) {
       ...options,
       showQrModal: true,
     },
-  }).createConnector(wc?.chains ?? []);
+  }).createConnector(chains);
 
   setGlobalData({
     qrCodeWalletConnectConnector,

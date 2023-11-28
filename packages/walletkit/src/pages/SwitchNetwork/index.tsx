@@ -54,7 +54,7 @@ export function SwitchNetworkPage() {
             );
           })}
         </Box>
-        <Box className={clsOrSeparator}>or</Box>
+        <Box className={cx('wk-or-separator', clsOrSeparator)}>or</Box>
       </ModalBody>
 
       <ModalFooter className={clsFooter}>
