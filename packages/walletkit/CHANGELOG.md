@@ -4,32 +4,36 @@
 
 ### Patch Changes
 
-- 9fd73b8: Add chains type declaration for dev example
-- 9fd73b8: Fixed typescript declaration files export path error, remove `dev` in tsconfig.json
-  includes field
+- 9fd73b8:
+  - Add chains type declaration for `dev example`
+- 9fd73b8:
+  - Fixed typescript declaration files export path error, remove `dev` from tsconfig.json includes
+    field
 
 ## 1.0.5
 
 ### Patch Changes
 
-- d3aaaf9: Add chains type declaration for dev example
-- 12ebee8: Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
+- 12ebee8:
 
-  Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
-  not installed.
+  - Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
 
-  UI adapted to mobile end and multiple wallets.
+  - Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
+    not installed.
 
-  Fixed the hover effect did not disappear after clicking button on the mobile end.
+  - UI adapted to mobile end and multiple wallets.
 
-  Fixed walletConnect popup and QR code display being very slow issue.
+  - Fixed the hover effect did not disappear after clicking button on the mobile end.
 
-  Disabled page scrolling when opening walletkit modal.
+  - Fixed walletConnect popup and QR code display being very slow issue.
 
-  For a smoother development experience, remove `examples/test` and create a dev demo in
-  `packages/walletkit`.
+  - Disabled page scrolling when opening walletkit modal.
 
-  Update walletConnect `relayUrl` to `wss://relay.walletconnect.org`.
+  - For a smoother development experience, remove `examples/test` and create a dev demo in
+    `packages/walletkit`.
 
-- 4a88b07: Remove default `initialChainId` to support the case only connecting a wallet and not
-  switching a network.
+  - Update walletConnect `relayUrl` to `wss://relay.walletconnect.org`.
+
+- 4a88b07:
+  - Remove default `initialChainId` to support the case only connecting a wallet and not switching a
+    network.

@@ -13,8 +13,10 @@
     "build": "pnpm --F @totejs/walletkit build",
     "dev:docs": "pnpm --F @totejs/walletkit build:watch & pnpm --F website dev",
     "build:docs": "pnpm --F @totejs/walletkit build && pnpm --F website build",
-    "ci:version": "pnpm changeset version && pnpm install && cp README.md packages/walletkit/README.md",
-    "ci:publish": "pnpm publish -r"
+    "ci:alpha": "pnpm changeset pre enter alpha",
+    "ci:exit": "pnpm changeset pre exit",
+    "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
+    "ci:publish": "pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",

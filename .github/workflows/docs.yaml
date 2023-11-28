@@ -21,6 +21,13 @@ jobs:
       - name: Build docs
         run: pnpm build:docs
 
+      - name: Redirect
+        run: |
+          mkdir -p ./website/dist/website/dist
+          cat << EOF > "./website/dist/website/dist/index.html"
+            <script>window.location.href='https://node-real.github.io/walletkit'</script>
+          EOF
+
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
