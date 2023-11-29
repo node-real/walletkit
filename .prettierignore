@@ -1,3 +1,4 @@
 .next
 dist
 CHANGELOG.md
+.changeset/*.md
