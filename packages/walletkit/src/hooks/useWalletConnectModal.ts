@@ -26,12 +26,11 @@ export function useWalletConnectModal() {
   return {
     isOpenWcModal: isOpen,
     onOpenWcModal: async () => {
-      const w3mcss = document.createElement('style');
-      w3mcss.innerHTML = `#walletconnect-wrapper{z-index:2147483647;}`;
-      document.head.appendChild(w3mcss);
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const { modalWalletConnectConnector: connector } = getGlobalData();
+      const { walletConnectConnector: connector } = getGlobalData();
+      const provider = await connector?.getProvider();
+      provider.rpc.showQrModal = true;
 
       if (connector) {
         setIsOpen(true);
@@ -43,7 +42,6 @@ export function useWalletConnectModal() {
         }
 
         setIsOpen(false);
-        document.head.removeChild(w3mcss);
       }
     },
   };

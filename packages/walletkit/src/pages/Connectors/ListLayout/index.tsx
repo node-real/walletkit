@@ -3,13 +3,17 @@ import { ModalBody } from '@/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/base/icons/WalletIcon';
 import { useWalletKitContext, cx } from '@/index';
-import { useConnect } from 'wagmi';
 
 import { WalletOption } from './WalletOption';
 import { clsWallets, clsNoWalletLink } from './styles.css';
+import { Connector } from 'wagmi/connectors';
 
-export function ListLayout() {
-  const { connectors } = useConnect();
+export interface ListLayoutProps {
+  connectors: Connector[];
+}
+
+export function ListLayout(props: ListLayoutProps) {
+  const { connectors } = props;
   const { options } = useWalletKitContext();
 
   return (

@@ -14,7 +14,7 @@ import { WalletProps } from '../wallets/types';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
-import { WALLET_CONNECT_ID, walletConnect } from '@/wallets';
+import { isWalletConnectConnector, walletConnect } from '@/wallets';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -68,13 +68,11 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   } = props;
 
   setGlobalData({
-    walletConnectDefaultOptions: {
-      walletConnectProjectId,
-      appName,
-      appIcon,
-      appDescription,
-      appUrl,
-    },
+    appName,
+    walletConnectProjectId,
+    appIcon,
+    appDescription,
+    appUrl,
   });
 
   const providers: ChainProviderFn[] = [];
@@ -126,33 +124,18 @@ function createConnectors(wallets: WalletProps[], chains: Chain[]) {
   return connectors;
 }
 
-// !!!hack
-// If creating WalletConnect connector after wagmi initialization,
-// the speed of creating qr code and displaying WalletConnect modal will be very slow.
+// !!! notice
+// Try to keep only one walletConnect connector in a project
+// or multiple walletConnect connectors may lead some competition issues.
 function createGlobalWalletConnect(connectors: Connector[], chains: Chain[]) {
-  const wc = connectors.find((c) => c.id === WALLET_CONNECT_ID);
-
-  const { createConnector, ...restWalletProps } = wc?._wallet ?? walletConnect();
-  const options = wc?.options;
-
-  const qrCodeWalletConnectConnector = walletConnect({
-    ...restWalletProps,
-    connectorOptions: {
-      ...options,
-      showQrModal: false,
-    },
-  }).createConnector(chains);
-
-  const modalWalletConnectConnector = walletConnect({
-    ...restWalletProps,
-    connectorOptions: {
-      ...options,
-      showQrModal: true,
-    },
-  }).createConnector(chains);
+  let wc = connectors.find((c) => isWalletConnectConnector(c));
+  if (!wc) {
+    // for hiding in the wallet list, there is no need to mount the `_wallet`
+    wc = walletConnect().createConnector(chains);
+    connectors.push(wc);
+  }
 
   setGlobalData({
-    qrCodeWalletConnectConnector,
-    modalWalletConnectConnector,
+    walletConnectConnector: wc,
   });
 }

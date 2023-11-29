@@ -1,21 +1,16 @@
 import { Connector } from 'wagmi/connectors';
 
 export interface GlobalDataType {
-  qrCodeWalletConnectConnector?: Connector;
-  modalWalletConnectConnector?: Connector;
-  walletConnectDefaultOptions: {
-    walletConnectProjectId?: string;
-    appName: string;
-    appIcon?: string;
-    appDescription?: string;
-    appUrl?: string;
-  };
+  appName: string;
+  appIcon?: string;
+  appDescription?: string;
+  appUrl?: string;
+  walletConnectProjectId?: string;
+  walletConnectConnector?: Connector;
 }
 
 let globalData: GlobalDataType = {
-  walletConnectDefaultOptions: {
-    appName: 'Connect Wallet',
-  },
+  appName: 'Connect Wallet',
 };
 
 export const setGlobalData = (value: Partial<GlobalDataType>) => {

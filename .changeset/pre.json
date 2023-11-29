@@ -7,8 +7,5 @@
     "@totejs/walletkit": "1.0.6",
     "website": "0.0.1"
   },
-  "changesets": [
-    "moody-eels-compete",
-    "pretty-zoos-type"
-  ]
+  "changesets": []
 }
