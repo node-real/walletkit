@@ -1,5 +1,12 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.1
+
+### Patch Changes
+
+- 3dd2578: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect
+
 ## 1.0.6
 
 ### Patch Changes
