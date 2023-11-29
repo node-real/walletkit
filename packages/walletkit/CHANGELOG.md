@@ -1,5 +1,13 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.1
+
+### Patch Changes
+
+- 1341665: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
+
 ## 1.0.6
 
 ### Patch Changes

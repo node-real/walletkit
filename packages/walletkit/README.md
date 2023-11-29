@@ -10,14 +10,14 @@ WalletKit is a React component library for easily connecting a wallet to your dA
 
 ## Documentation
 
-For full documentation, visit [here](https://node-real.github.io/walletkit/website/dist/#/index).
+For full documentation, visit [here](https://node-real.github.io/walletkit).
 
 ## Examples
 
 The following examples are provided in the [examples](./examples/) folder of this repo.
 
-- [nextjs](https://github.com/node-real/walletkit/tree/main/examples/nextjs)
-- [vite](https://github.com/node-real/walletkit/tree/main/examples/vite)
+- [nextjs](./examples/nextjs/)
+- [vite](./examples/vite/)
 
 ## Installation
 
