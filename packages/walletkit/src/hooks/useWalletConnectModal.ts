@@ -2,7 +2,7 @@ import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
 import { useEffect, useState } from 'react';
 import { useModal, useWalletKitContext } from '..';
 import { useWalletKitConnect } from './useWalletKitConnect';
-import { getGlobalData } from '@/globalData';
+import { getGlobalData, setGlobalData } from '@/globalData';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useWalletKitConnect();
@@ -21,6 +21,10 @@ export function useWalletConnectModal() {
         clearTimeout(timer);
       };
     }
+
+    setGlobalData({
+      walletConnectModalIsOpen: isOpen,
+    });
   }, [isOpen, onClose]);
 
   return {
@@ -28,7 +32,7 @@ export function useWalletConnectModal() {
     onOpenWcModal: async () => {
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const { walletConnectConnector: connector } = getGlobalData();
+      const connector = getGlobalData().walletConnectConnector;
       const provider = await connector?.getProvider();
       provider.rpc.showQrModal = true;
 
