@@ -4,7 +4,7 @@
   "initialVersions": {
     "example-nextjs": "0.0.1",
     "example-vite": "0.0.1",
-    "@totejs/walletkit": "1.0.7-alpha.1",
+    "@totejs/walletkit": "1.0.7-alpha.2",
     "website": "0.0.1"
   },
   "changesets": []
