@@ -2,6 +2,7 @@ import { Chain } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { TRUST_WALLET_ID } from '.';
 import { getInjectedProvider } from '../utils';
+import { sleep } from '@/utils/common';
 
 export type TrustWalletConnectorOptions = {
   shimDisconnect?: boolean;
@@ -30,6 +31,13 @@ export class TrustWalletConnector extends MetaMaskConnector {
       options,
     });
   }
+
+  public async getProvider() {
+    if (typeof window !== 'undefined' && !window.trustwallet?.request) {
+      await sleep();
+    }
+    return this.options.getProvider();
+  }
 }
 
 function getProvider() {
@@ -37,7 +45,7 @@ function getProvider() {
 
   const provider = getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
 
-  if (provider && provider.removeListener === undefined) {
+  if (provider && !provider.removeListener === undefined) {
     provider.removeListener = provider.off;
   }
 
