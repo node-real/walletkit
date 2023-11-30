@@ -5,24 +5,24 @@ WalletKit is a React component library for easily connecting a wallet to your dA
 ## Features
 
 - 💡 Typescript — Get types straight out of the box.
-- 🌱 Ecosystem Standards — Built on top of [wagmi](https://wagmi.sh) and [viem](https://viem.sh)
+- 🌱 Ecosystem Standards — Built on top of [wagmi](https://wagmi.sh)
 - 🎨 Customization — Easily customizing wallets and themes
 
 ## Documentation
 
-For full documentation, visit [here](https://node-real.github.io/walletkit/website/dist/#/index).
+For full documentation, visit [here](https://node-real.github.io/walletkit).
 
 ## Examples
 
 The following examples are provided in the [examples](./examples/) folder of this repo.
 
-- [nextjs](https://github.com/node-real/walletkit/tree/main/examples/nextjs)
-- [vite](https://github.com/node-real/walletkit/tree/main/examples/vite)
+- [nextjs](./examples/nextjs/)
+- [vite](./examples/vite/)
 
 ## Installation
 
 ```bash
-npm i @totejs/walletkit wagmi viem
+npm i @totejs/walletkit^0 wagmi^0 ethers@^5
 
 ```
 
@@ -30,7 +30,7 @@ npm i @totejs/walletkit wagmi viem
 
 ```tsx
 import '@totejs/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
   WalletKitButton,
@@ -41,7 +41,7 @@ import {
 } from '@totejs/walletkit';
 import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
@@ -61,7 +61,7 @@ const options: WalletKitOptions = {
 
 export default function App() {
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig client={client}>
       <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
 
