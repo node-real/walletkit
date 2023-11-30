@@ -10,10 +10,6 @@ import {
 } from '@totejs/walletkit';
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 
-import VConsole from 'vconsole';
-
-new VConsole();
-
 const client = createClient(
   getDefaultConfig({
     autoConnect: true,
@@ -29,7 +25,7 @@ const client = createClient(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  initialChainId: 1,
 };
 
 export default function App() {

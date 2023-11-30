@@ -28,11 +28,10 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
     downloadUrls: {
       default: undefined,
     },
+    showQRCode: isMobile() ? false : !connectorOptions?.showQrModal,
     installed: undefined,
     createConnector: (chains: Chain[]) => {
-      const { walletConnectDefaultOptions } = getGlobalData();
-      const { walletConnectProjectId, appName, appIcon, appDescription, appUrl } =
-        walletConnectDefaultOptions;
+      const { walletConnectProjectId, appName, appIcon, appDescription, appUrl } = getGlobalData();
 
       const hasAllAppData = appName && appIcon && appDescription && appUrl;
 
@@ -43,7 +42,8 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
       return new WalletConnectConnector({
         chains,
         options: {
-          showQrModal: isMobile() ? true : false,
+          // https://github.com/WalletConnect/walletconnect-monorepo/issues/2830
+          // relayUrl: 'wss://relay.walletconnect.org',
           projectId: walletConnectProjectId,
           metadata: hasAllAppData
             ? {
@@ -61,6 +61,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
             ],
           },
           ...connectorOptions,
+          showQrModal: true,
         },
       });
     },

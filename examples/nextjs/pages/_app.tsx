@@ -27,16 +27,13 @@ const client = createClient(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  initialChainId: 1,
 };
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
-      <WalletKitProvider
-        options={options}
-        mode="light"
-      >
+      <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
         <Component {...pageProps} />
         <SwitchNetworkModal />

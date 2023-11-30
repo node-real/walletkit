@@ -32,8 +32,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     showQRCode: false,
     installed: isCoinbaseWallet(),
     createConnector: (chains: Chain[]) => {
-      const { walletConnectDefaultOptions } = getGlobalData();
-      const { appName } = walletConnectDefaultOptions;
+      const { appName } = getGlobalData();
 
       return new CoinbaseWalletConnector({
         chains,

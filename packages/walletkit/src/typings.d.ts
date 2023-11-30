@@ -1,5 +1,4 @@
 import { Connector as WagmiConnector } from 'wagmi';
-import type { WindowProvider } from 'wagmi/window';
 
 import { WalletProps } from './wallets/types';
 

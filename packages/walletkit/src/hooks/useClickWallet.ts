@@ -39,10 +39,10 @@ export function useClickWallet() {
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         if (isWalletConnectConnector(connector)) {
-          if (connector.options.showQrModal) {
-            onOpenWcModal();
-          } else {
+          if (connector._wallet.showQRCode) {
             gotoQRcodePage();
+          } else {
+            onOpenWcModal();
           }
         } else if (!connector._wallet.installed) {
           if (mobile) {

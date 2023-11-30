@@ -7,7 +7,16 @@ import {
   WalletKitOptions,
   SwitchNetworkModal,
 } from '@totejs/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+import {
+  // binanceWeb3Wallet,
+  // coinbaseWallet,
+  // mathWallet,
+  metaMask,
+  // okxWallet,
+  // tokenPocket,
+  trustWallet,
+  walletConnect,
+} from '@totejs/walletkit/wallets';
 
 import { chains } from './chains';
 import { Box, useColorMode } from '@totejs/uikit';
@@ -18,12 +27,21 @@ const client = createClient(
     chains,
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', //
     autoConnect: false,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
+    connectors: [
+      trustWallet(),
+      metaMask(),
+      // binanceWeb3Wallet(),
+      // okxWallet(),
+      // coinbaseWallet(),
+      // mathWallet(),
+      // tokenPocket(),
+      walletConnect(),
+    ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56, // Once connected to the wallet, which chain you want to use
+  initialChainId: 1, // Once connected to the wallet, which chain you want to use
 };
 
 export default function App() {

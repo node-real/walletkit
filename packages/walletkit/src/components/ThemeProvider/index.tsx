@@ -83,12 +83,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   useEffect(() => {
     if (mode === 'auto') {
+      const matchMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
       const onChange = () => {
         const cm = matchMedia.matches ? 'dark' : 'light';
         setColorMode(cm);
       };
+      onChange();
 
-      const matchMedia = window.matchMedia('(prefers-color-scheme: dark)');
       matchMedia.addEventListener('change', onChange);
       return () => {
         matchMedia.removeEventListener('change', onChange);

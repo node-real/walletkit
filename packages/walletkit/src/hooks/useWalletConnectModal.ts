@@ -1,13 +1,11 @@
 import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
-import { isWalletConnectConnector } from '@/wallets';
 import { useEffect, useState } from 'react';
-import { Connector } from 'wagmi';
 import { useModal, useWalletKitContext } from '..';
 import { useWalletKitConnect } from './useWalletKitConnect';
-import { WalletConnectConnector } from '@/wallets/walletConnect/connector';
+import { getGlobalData, setGlobalData } from '@/globalData';
 
 export function useWalletConnectModal() {
-  const { connectAsync, connectors } = useWalletKitConnect();
+  const { connectAsync } = useWalletKitConnect();
   const { onClose } = useModal();
   const { log } = useWalletKitContext();
 
@@ -23,29 +21,22 @@ export function useWalletConnectModal() {
         clearTimeout(timer);
       };
     }
+
+    setGlobalData({
+      walletConnectModalIsOpen: isOpen,
+    });
   }, [isOpen, onClose]);
 
   return {
     isOpenWcModal: isOpen,
     onOpenWcModal: async () => {
-      const w3mcss = document.createElement('style');
-      w3mcss.innerHTML = `#walletconnect-wrapper{z-index:2147483647;}`;
-      document.head.appendChild(w3mcss);
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const clientConnector: Connector<any, any> | undefined = connectors.find((c) =>
-        isWalletConnectConnector(c),
-      );
+      const connector = getGlobalData().walletConnectConnector;
+      const provider = await connector?.getProvider();
+      provider.rpc.showQrModal = true;
 
-      if (clientConnector) {
-        const connector = new WalletConnectConnector({
-          ...clientConnector,
-          options: {
-            ...clientConnector.options,
-            showQrModal: true,
-          },
-        });
-
+      if (connector) {
         setIsOpen(true);
 
         try {
@@ -55,7 +46,6 @@ export function useWalletConnectModal() {
         }
 
         setIsOpen(false);
-        document.head.removeChild(w3mcss);
       }
     },
   };

@@ -8,6 +8,7 @@ import { WalletProps } from '../wallets/types';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
+import { isWalletConnectConnector, walletConnect } from '@/wallets';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -61,13 +62,11 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   } = props;
 
   setGlobalData({
-    walletConnectDefaultOptions: {
-      walletConnectProjectId,
-      appName,
-      appIcon,
-      appDescription,
-      appUrl,
-    },
+    appName,
+    walletConnectProjectId,
+    appIcon,
+    appDescription,
+    appUrl,
   });
 
   const providers: ChainProviderFn[] = [];
@@ -98,6 +97,8 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   const wallets = customizedWallets ?? getDefaultWallets();
   const configuredConnectors = createConnectors(wallets, configuredChains);
 
+  createGlobalWalletConnect(configuredConnectors, configuredChains);
+
   return {
     autoConnect,
     connectors: configuredConnectors,
@@ -108,11 +109,27 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   };
 };
 
-function createConnectors(input: WalletProps[], chains: Chain[]) {
-  const connectors = input.map((w) => {
+function createConnectors(wallets: WalletProps[], chains: Chain[]) {
+  const connectors = wallets.map((w) => {
     const c = w.createConnector(chains);
     c._wallet = w;
     return c;
   });
   return connectors;
+}
+
+// !!! notice
+// Try to keep only one walletConnect connector in a project
+// or multiple walletConnect connectors may lead some competition issues.
+function createGlobalWalletConnect(connectors: Connector[], chains: Chain[]) {
+  let wc = connectors.find((c) => isWalletConnectConnector(c));
+  if (!wc) {
+    // for hiding in the wallet list, there is no need to mount the `_wallet`
+    wc = walletConnect().createConnector(chains);
+    connectors.push(wc);
+  }
+
+  setGlobalData({
+    walletConnectConnector: wc,
+  });
 }

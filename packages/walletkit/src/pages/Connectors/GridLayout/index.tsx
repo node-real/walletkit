@@ -1,15 +1,18 @@
-import { Link } from '@/base/components/Link';
 import { ModalBody } from '@/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/base/icons/WalletIcon';
 import { useWalletKitContext, cx } from '@/index';
-import { useConnect } from 'wagmi';
+import { Connector } from 'wagmi';
 import { clsNoWalletButton, clsWallets } from './styles.css';
 import { WalletOption } from './WalletOption';
 import { Button } from '@/base/components/Button';
 
-export function GridLayout() {
-  const { connectors } = useConnect();
+export interface GridLayoutProps {
+  connectors: Connector[];
+}
+
+export function GridLayout(props: GridLayoutProps) {
+  const { connectors } = props;
   const { options } = useWalletKitContext();
 
   return (

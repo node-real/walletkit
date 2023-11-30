@@ -1,6 +1,3 @@
-import '@totejs/walletkit/styles.css';
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
 import { chains } from './chains';
 import { WagmiConfig, createClient } from 'wagmi';
 import {
@@ -11,19 +8,23 @@ import {
   WalletKitProvider,
   getDefaultConfig,
   useModal,
-} from '@totejs/walletkit';
+} from '../src/index';
 
+import { useState } from 'react';
 import {
-  trustWallet,
-  metaMask,
-  walletConnect,
-  okxWallet,
-  mathWallet,
   binanceWeb3Wallet,
   coinbaseWallet,
+  mathWallet,
+  metaMask,
+  okxWallet,
   tokenPocket,
-} from '@totejs/walletkit/wallets';
-import { useEffect, useState } from 'react';
+  trustWallet,
+  walletConnect,
+} from '../src/wallets';
+import React from 'react';
+import VConsole from 'vconsole';
+
+new VConsole();
 
 const client = createClient(
   getDefaultConfig({
@@ -42,25 +43,19 @@ const client = createClient(
       mathWallet(),
       binanceWeb3Wallet(),
       coinbaseWallet(),
-      walletConnect(),
       tokenPocket(),
+      walletConnect(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  // initialChainId: 204,
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App() {
   const [mode, setMode] = useState<ThemeMode>('light');
   const nextMode = mode === 'light' ? 'dark' : 'light';
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const VConsole = require('vconsole');
-    new VConsole();
-  }, []);
 
   return (
     <WagmiConfig client={client}>
@@ -71,7 +66,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <WalletKitProvider options={options} mode={mode} debugMode={true}>
         <WalletKitButton />
         <Example />
-        <Component {...pageProps} />
+        <div style={{ height: 2000 }}></div>
         <SwitchNetworkModal />
       </WalletKitProvider>
     </WagmiConfig>

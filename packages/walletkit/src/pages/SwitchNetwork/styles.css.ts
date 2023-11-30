@@ -1,30 +1,24 @@
-import { MOBILE_MEDIA } from '@/base/constant';
+import { mobile } from '@/base/vanilla/index.css';
 import { cssVar } from '@/index';
 import { style } from '@vanilla-extract/css';
 
 export const clsNoNavHeader = style({
-  '@media': {
-    [MOBILE_MEDIA]: {
-      marginTop: -8,
-    },
-  },
+  '@media': mobile({
+    marginTop: -8,
+  }),
 });
 
 export const clsBody = style({
-  '@media': {
-    [MOBILE_MEDIA]: {
-      marginTop: 24,
-    },
-  },
+  '@media': mobile({
+    marginTop: 24,
+  }),
 });
 
 export const clsFooter = style({
   marginTop: 0,
-  '@media': {
-    [MOBILE_MEDIA]: {
-      marginBottom: -16,
-    },
-  },
+  '@media': mobile({
+    marginBottom: -16,
+  }),
 });
 
 export const clsDescription = style({
@@ -43,7 +37,7 @@ export const clsChains = style({
   gap: 16,
   lineHeight: 1.5,
   width: '100%',
-  maxHeight: 320,
+  maxHeight: 360,
 });
 
 export const clsOrSeparator = style({

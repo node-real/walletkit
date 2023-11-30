@@ -1,4 +1,4 @@
-import { MOBILE_MEDIA } from '@/base/constant';
+import { hover, mobile } from '@/base/vanilla/index.css';
 import { cssVar } from '@/index';
 import { globalStyle, style } from '@vanilla-extract/css';
 
@@ -7,11 +7,9 @@ export const clsWalletOptionWrapper = style({
   alignItems: 'flex-start',
   justifyContent: 'center',
   height: 111,
-  '@media': {
-    [MOBILE_MEDIA]: {
-      height: 99,
-    },
-  },
+  '@media': mobile({
+    height: 99,
+  }),
 });
 
 export const clsWalletOption = style({
@@ -26,9 +24,9 @@ export const clsWalletOption = style({
   height: 'auto',
   color: cssVar('textSecondary'),
   background: 'transparent',
-  ':hover': {
+  '@media': hover({
     background: cssVar('walletOptionBackgroundHover'),
-  },
+  }),
 });
 
 export const clsWalletOptionName = style({
@@ -36,12 +34,10 @@ export const clsWalletOptionName = style({
   lineHeight: '19px',
   fontWeight: 600,
   textAlign: 'center',
-  '@media': {
-    [MOBILE_MEDIA]: {
-      fontSize: 12,
-      lineHeight: '15px',
-    },
-  },
+  '@media': mobile({
+    fontSize: 12,
+    lineHeight: '15px',
+  }),
 });
 
 export const clsWalletOptionIcon = style({
@@ -53,12 +49,10 @@ export const clsWalletOptionIcon = style({
   borderRadius: 16,
   overflow: 'hidden',
   flexShrink: 0,
-  '@media': {
-    [MOBILE_MEDIA]: {
-      width: 60,
-      height: 60,
-    },
-  },
+  '@media': mobile({
+    width: 60,
+    height: 60,
+  }),
 });
 
 globalStyle(`${clsWalletOptionIcon} > *`, {

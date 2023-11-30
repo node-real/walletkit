@@ -1,14 +1,12 @@
-import { MOBILE_MEDIA } from '@/base/constant';
 import { cssVar } from '@/base/utils/css';
+import { mobile } from '@/base/vanilla/index.css';
 import { style } from '@vanilla-extract/css';
 
 export const clsFooter = style({
   marginTop: 0,
-  '@media': {
-    [MOBILE_MEDIA]: {
-      marginBottom: -16,
-    },
-  },
+  '@media': mobile({
+    marginBottom: -16,
+  }),
 });
 
 export const clsAvatar = style({
