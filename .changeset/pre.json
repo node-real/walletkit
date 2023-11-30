@@ -4,8 +4,8 @@
   "initialVersions": {
     "example-nextjs": "0.0.1",
     "example-vite": "0.0.1",
-    "@totejs/walletkit": "0.2.5",
+    "@totejs/walletkit": "0.2.6.alpha.1",
     "website": "0.0.1"
   },
-  "changesets": []
+  "changesets": ["lovely-months-argue"]
 }
