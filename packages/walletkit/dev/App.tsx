@@ -1,5 +1,6 @@
 import { chains } from './chains';
 import { WagmiConfig, createConfig } from 'wagmi';
+import VConsole from 'vconsole';
 import {
   SwitchNetworkModal,
   ThemeMode,
@@ -22,6 +23,8 @@ import {
   walletConnect,
 } from '../src/wallets';
 import React from 'react';
+
+new VConsole();
 
 const config = createConfig(
   getDefaultConfig({

@@ -7,6 +7,7 @@ export interface GlobalDataType {
   appUrl?: string;
   walletConnectProjectId?: string;
   walletConnectConnector?: Connector;
+  walletConnectModalIsOpen?: boolean;
 }
 
 let globalData: GlobalDataType = {

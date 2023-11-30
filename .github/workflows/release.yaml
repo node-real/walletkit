@@ -6,7 +6,6 @@ on:
       - alpha
       - 0.x
       - 0.x-alpha
-      - dev
 
 jobs:
   release:

@@ -8,7 +8,7 @@ import { useWalletConfig } from '@/hooks/useWalletConfig';
 import { useWalletDownloadUrl } from '@/hooks/useWalletDownloadUrl';
 import { useWalletKitConnect } from '@/hooks/useWalletKitConnect';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
-import { useWalletKitContext } from '@/index';
+import { cx, useWalletKitContext } from '@/index';
 import { useState, useCallback, useEffect } from 'react';
 import { ConnectSpinner } from './ConnectSpinner';
 import { Content } from './Content';
@@ -167,7 +167,7 @@ export function ConnectingPage() {
 
       {(status === states.FAILED || status === states.REJECTED) && (
         <ModalFooter className={clsFooter}>
-          <Button className={clsButton} onClick={runConnect}>
+          <Button className={cx('wk-retry-button', clsButton)} onClick={runConnect}>
             Try Again
           </Button>
         </ModalFooter>
@@ -175,7 +175,13 @@ export function ConnectingPage() {
 
       {status === states.UNAVAILABLE && (
         <ModalFooter className={clsFooter}>
-          <Button className={clsButton} as="a" href={downloadUrl} target="_blank" rel="noopener">
+          <Button
+            className={cx('wk-download-button', clsButton)}
+            as="a"
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener"
+          >
             Install the Extension
           </Button>
         </ModalFooter>

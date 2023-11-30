@@ -14,11 +14,11 @@ export function useQRCodeUri() {
   const [wcUri, setWcUri] = useState<string>('');
 
   useEffect(() => {
-    const { walletConnectConnector: connector } = getGlobalData();
+    const connector = getGlobalData().walletConnectConnector;
     if (isConnected || !connector) return;
 
     const onUpdateWcUri = ({ type, data }: any) => {
-      if (type === 'display_uri') {
+      if (type === 'display_uri' && !getGlobalData().walletConnectModalIsOpen) {
         setWcUri(data);
       }
     };
