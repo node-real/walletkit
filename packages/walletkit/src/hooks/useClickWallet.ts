@@ -21,8 +21,8 @@ export function useClickWallet() {
       const pass = options.onClickWallet?.(connector, e);
       if (pass === false) return;
 
-      log('[click wallet] connector', connector);
-      log('[click wallet] ethereum', window.ethereum);
+      log('[click wallet]', `connector:`, connector);
+      log('[click wallet]', `ethereum:`, window.ethereum);
 
       const gotoQRcodePage = () => {
         setSelectedConnector(connector);

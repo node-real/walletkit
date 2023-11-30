@@ -104,7 +104,7 @@ export function ConnectingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  log('[Connect]', status, selectedConnector?.name);
+  log('[connecting page]', `name: ${selectedConnector?.name}, status: ${status}`);
 
   const isError = [states.FAILED, states.NOTCONNECTED, states.REJECTED].includes(status);
   const isLoading = status === states.CONNECTING;
