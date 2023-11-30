@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.2
+
+### Patch Changes
+
+- 52e9976: Fixed trustwallet losing account status after refreshing
+
 ## 1.0.7-alpha.1
 
 ### Patch Changes
