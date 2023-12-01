@@ -7,5 +7,10 @@
     "@totejs/walletkit": "1.0.7-alpha.2",
     "website": "0.0.1"
   },
-  "changesets": ["lovely-months-argue"]
+  "changesets": [
+    "happy-hounds-complain",
+    "late-birds-compare",
+    "lovely-months-argue",
+    "modern-comics-smell"
+  ]
 }
