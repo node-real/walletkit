@@ -4,11 +4,8 @@
 
 ### Patch Changes
 
-- e418a56: refactor: update the `installed` field that detect whether wallet is installed to a
+- e418a56: Update the `installed` field that detect whether wallet is installed to a
   function
-- e418a56: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
-  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
-  automatically connect.
 - e418a56: Fixed conflict issue between trustwallet and metaMask.
 
 ## 1.0.7-alpha.2
@@ -22,7 +19,8 @@
 ### Patch Changes
 
 - 3dd2578: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
-  WalletConnect
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
 
 ## 1.0.6
 

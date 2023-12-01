@@ -205,6 +205,28 @@ const config = createConfig(
 );
 ```
 
+## Notice!!! Tests for adding new wallet
+
+Before merging the PR to main branch, we hope you complete the following tests, otherwise the PR may
+not be approved and cannot be merged.
+
+In general, wallet is available at several different platforms, such as PC browser extension,
+Android, iOS and WalletConnect. If your wallet supports the corresponding platform, please make sure
+your wallet is worked, can it be connected, can it switch networks, and can it support testnet?
+
+|test case|steps|support?|connected?|switch networks?|support testnet?|
+|-|-|-|-|-|-|
+|PC, browser extension|<ol><li>Open dapp in PC browser</li><li>Select your wallet, check the functions</li><ol>|yes|yes|yes|yes|
+|Android, in system browser|<ol><li>Open dapp in Android system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|yes|yes|yes|yes|
+|Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select your wallet, check the functions</li><ol>|yes|yes|yes|yes|
+|iOS, in system browser|<ol><li>Open dapp in iOS system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|yes|yes|yes|yes|
+|iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser </li><li>Select your wallet, check the functions</li></ol>|yes|yes|yes|yes|
+|WalletConnect, PC|<ol><li>Scan the QR code of WalletConnect using your wallet app</li><li>You will see a popup on the wallet app that asks you to connect WalletConnect</li><li>Check the functions</li></ol>|yes|yes|yes|yes|
+|WalletConnect, Android, in system browser|<ol><li>Open dapp in Android system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|yes|yes|yes|yes|
+|WalletConnect, Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|yes|yes|yes|yes|
+|WalletConnect, iOS, in system browser|<ol><li>Open dapp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|yes|yes|yes|yes|
+|WalletConnect, iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|yes|yes|yes|yes|
+
 ## Release notes
 
 A complete development workflow like following:
