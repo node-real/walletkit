@@ -21,7 +21,7 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
     },
     showQRCode: false,
     spinnerColor: undefined,
-    installed: isMathWallet(),
+    isInstalled: isMathWallet,
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
         id: MATH_WALLET_ID,

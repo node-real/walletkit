@@ -28,7 +28,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
     },
     spinnerColor: '#F0B90B',
     showQRCode: false,
-    installed: isMetaMask(),
+    isInstalled: isMetaMask,
     createConnector: (chains: Chain[]) => {
       return new MetaMaskConnector({
         chains,

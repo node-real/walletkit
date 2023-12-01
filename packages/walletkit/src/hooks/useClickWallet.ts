@@ -23,6 +23,7 @@ export function useClickWallet() {
 
       log('[click wallet]', `connector:`, connector);
       log('[click wallet]', `ethereum:`, window.ethereum);
+      log('[click wallet]', `installed:`, connector._wallet.isInstalled());
 
       const gotoQRcodePage = () => {
         setSelectedConnector(connector);
@@ -44,7 +45,7 @@ export function useClickWallet() {
           } else {
             onOpenWcModal();
           }
-        } else if (!connector._wallet.installed) {
+        } else if (!connector._wallet.isInstalled()) {
           if (mobile) {
             const deepLink = connector._wallet.getDeepLink?.();
             if (deepLink) {

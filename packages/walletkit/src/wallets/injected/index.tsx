@@ -26,7 +26,7 @@ export function injected(props: InjectedProps = {}): WalletProps {
       default: undefined,
     },
     showQRCode: false,
-    installed: isInjected(),
+    isInstalled: isInjected,
     createConnector: (chains: Chain[]) => {
       return new InjectedConnector({
         chains,
