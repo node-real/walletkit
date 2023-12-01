@@ -30,7 +30,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    installed: isCoinbaseWallet(),
+    isInstalled: isCoinbaseWallet,
     createConnector: (chains: Chain[]) => {
       const { appName } = getGlobalData();
 

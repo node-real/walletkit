@@ -117,7 +117,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
       default: 'https://trustwallet.com/',
     },
     spinnerColor: '#1098FC',
-    installed: isTrustWallet(),
+    isInstalled: isTrustWallet,
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({
         chains,
@@ -163,7 +163,7 @@ export interface WalletProps {
   };
   spinnerColor?: string;
   showQRCode?: boolean;
-  installed: boolean | undefined;
+  isInstalled: () => boolean | undefined;
   createConnector: (chains: Chain[]) => Connector;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;

@@ -29,7 +29,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
       default: undefined,
     },
     showQRCode: isMobile() ? false : !connectorOptions?.showQrModal,
-    installed: undefined,
+    isInstalled: () => false,
     createConnector: (chains: Chain[]) => {
       const { walletConnectProjectId, appName, appIcon, appDescription, appUrl } = getGlobalData();
 
