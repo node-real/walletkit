@@ -207,13 +207,9 @@ const config = createConfig(
 
 ## Notice!!! Test cases for adding a new wallet
 
-Before merging the PR to main branch, we hope you complete the following tests, and fill the test results into the PR template, otherwise the PR may
-not be approved.
+Before merging the PR to main branch, we hope you complete the following tests, and fill the test results into the PR template, otherwise the PR may not be approved.
 
-In general, wallet is available at several different platforms, such as PC browser extension,
-Android, iOS and WalletConnect. If your wallet supports the corresponding platform, please make sure
-your wallet is worked, can it be connected, can it switch networks, and can it support testnet?
-
+In general, wallet is available at several different platforms, such as PC browser extension, Android, iOS and WalletConnect. If your wallet supports the corresponding platform, please make sure your wallet is worked, can it be connected, can it switch networks, and can it support testnet?
 
 
 |test case|steps|support?|connected?|switch networks?|support testnet?|
