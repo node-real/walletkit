@@ -6,6 +6,7 @@ export * from './components/WalletKitButton';
 export * from './components/WalletKitProvider';
 export * from './components/WalletKitProvider/context';
 export * from './components/SwitchNetworkModal';
+export * from './components/EthereumScript';
 export { useModal } from './components/ModalProvider/context';
 export { type ThemeMode, type ThemeVariant } from './components/ThemeProvider';
 
