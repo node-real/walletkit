@@ -8,7 +8,11 @@
     "website": "0.0.1"
   },
   "changesets": [
+    "famous-drinks-behave",
+    "happy-hounds-complain",
+    "honest-numbers-hug",
     "late-birds-compare",
-    "lovely-months-argue"
+    "lovely-months-argue",
+    "modern-comics-smell"
   ]
 }

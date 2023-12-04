@@ -1,5 +1,15 @@
 # @totejs/walletkit
 
+## 0.2.6-alpha.2
+
+### Patch Changes
+
+- Fixed TrustWallet will automatically reconnect after reloading the page.
+- 204e807: refactor: update the `installed` field that detect whether wallet is installed to a
+  function
+- 26d87fb: Fixed multiple wallets conficts resulting in undetectable issues.
+- c47f3a6: Fixed conflict issue between trustwallet and metaMask.
+
 ## 0.2.6-alpha.1
 
 ### Patch Changes
