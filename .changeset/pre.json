@@ -7,5 +7,8 @@
     "@totejs/walletkit": "0.2.6.alpha.1",
     "website": "0.0.1"
   },
-  "changesets": ["late-birds-compare"]
+  "changesets": [
+    "late-birds-compare",
+    "lovely-months-argue"
+  ]
 }
