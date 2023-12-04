@@ -32,7 +32,11 @@ export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
           getProvider() {
             if (typeof window === 'undefined') return;
 
-            const provider = getInjectedProvider('isTokenPocket') ?? window.tokenpocket;
+            const provider =
+              getInjectedProvider('isTokenPocket') ??
+              window.tokenpocket?.ethereum ??
+              window.tokenpocket;
+
             return provider;
           },
           ...connectorOptions,
@@ -55,5 +59,5 @@ export function tokenPocket(props: PartialCustomProps = {}): WalletProps {
 export function isTokenPocket() {
   if (typeof window === 'undefined') return false;
 
-  return hasInjectedProvider('isTokenPocket') || window.tokenpocket;
+  return hasInjectedProvider('isTokenPocket') || window.tokenpocket?.ethereum || window.tokenpocket;
 }
