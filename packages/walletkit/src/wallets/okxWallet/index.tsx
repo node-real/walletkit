@@ -22,7 +22,7 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    installed: isOkxWallet(),
+    isInstalled: isOkxWallet,
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
         id: OKX_WALLET_ID,
@@ -60,5 +60,5 @@ export function isOkxWallet() {
     return !!(window.ethereum || window.okexchain);
   }
 
-  return !!(hasInjectedProvider('isOkxWallet') || window.okexchain?.isOkxWallet);
+  return hasInjectedProvider('isOkxWallet') || window.okexchain?.isOkxWallet;
 }

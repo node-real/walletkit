@@ -42,7 +42,7 @@ export function useWalletConnectModal() {
         try {
           await connectAsync({ connector });
         } catch (err) {
-          log('WalletConnect', err);
+          log('[open walletconnect modal]', err);
         }
 
         setIsOpen(false);

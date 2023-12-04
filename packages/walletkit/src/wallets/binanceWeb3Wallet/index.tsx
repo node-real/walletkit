@@ -21,7 +21,7 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: true,
-    installed: isBinanceWeb3Wallet(),
+    isInstalled: isBinanceWeb3Wallet,
     createConnector: (chains: Chain[]) => {
       return new CustomConnector({
         id: BINANCE_WEB3_WALLET_ID,
@@ -52,10 +52,6 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
 
 export function isBinanceWeb3Wallet() {
   if (typeof window === 'undefined') return false;
-
-  if (isMobile()) {
-    return !!window.ethereum;
-  }
 
   return false;
 }

@@ -74,7 +74,7 @@ export const TokenPocketIcon = (props: SVGIconProps) => {
         </linearGradient>
       </defs>
       <g id="p1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g id="tokenpocket" fillRule="nonzero">
+        <g fillRule="nonzero">
           <polygon id="path" fill="#2980FE" points="27.9874275 0 0 0 0 28 27.9874275 28"></polygon>
           <g id="group" transform="translate(5.107577, 7.574219)">
             <path

@@ -2,7 +2,9 @@ import { commonErrorHandler } from '@/utils/common';
 import { useConnect } from 'wagmi';
 import { useWalletKitContext } from '..';
 
-export function useWalletKitConnect({ ...props }: any = {}): ReturnType<typeof useConnect> {
+export type UseWalletKitConnectProps = Parameters<typeof useConnect>[0];
+
+export function useWalletKitConnect(props?: UseWalletKitConnectProps) {
   const { log, options } = useWalletKitContext();
 
   const connectProps = {
@@ -11,13 +13,13 @@ export function useWalletKitConnect({ ...props }: any = {}): ReturnType<typeof u
 
   const { connect, connectAsync, connectors, ...rest } = useConnect({
     ...props,
-    onError(error: any) {
+    onError(error: Error, ...params) {
       commonErrorHandler({
         log,
         handler: options.onError,
         error,
       });
-      props?.onError?.(error);
+      props?.onError?.(error, ...params);
     },
   });
 

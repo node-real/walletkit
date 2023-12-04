@@ -34,7 +34,9 @@ export function ConnectingPage() {
   const logos = useWalletLogos(wallet.logos);
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
-  const [status, setStatus] = useState(!wallet.installed ? states.UNAVAILABLE : states.CONNECTING);
+  const [status, setStatus] = useState(
+    wallet.isInstalled() ? states.CONNECTING : states.UNAVAILABLE,
+  );
 
   const { connect } = useWalletKitConnect({
     onMutate: (connector?: any) => {
@@ -85,14 +87,14 @@ export function ConnectingPage() {
   });
 
   const runConnect = useCallback(() => {
-    if (!wallet.installed) return;
+    if (!wallet.isInstalled()) return;
 
     if (selectedConnector) {
       connect({ connector: selectedConnector });
     } else {
       setStatus(states.UNAVAILABLE);
     }
-  }, [connect, selectedConnector, wallet.installed]);
+  }, [connect, selectedConnector, wallet]);
 
   useEffect(() => {
     if (status === states.UNAVAILABLE) return;
@@ -104,7 +106,7 @@ export function ConnectingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  log('[Connect]', status, selectedConnector?.name);
+  log('[connecting page]', `name: ${selectedConnector?.name}, status: ${status}`);
 
   const isError = [states.FAILED, states.NOTCONNECTED, states.REJECTED].includes(status);
   const isLoading = status === states.CONNECTING;
