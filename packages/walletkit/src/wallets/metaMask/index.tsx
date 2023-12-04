@@ -1,7 +1,8 @@
 import { Chain, Connector } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { PartialWalletProps, WalletProps, isTokenPocket } from '..';
+import { PartialWalletProps, WalletProps } from '..';
 import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
+import { getInjectedProvider, hasInjectedProvider } from '../utils';
 
 export const META_MASK_ID = 'metaMask';
 
@@ -35,8 +36,11 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
         options: {
           shimDisconnect: true,
           UNSTABLE_shimOnConnectSelectAccount: false,
+          getProvider() {
+            return getInjectedProvider('isMetaMask');
+          },
           ...connectorOptions,
-        },
+        } as any,
       });
     },
     getDeepLink: () => {
@@ -51,11 +55,7 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
 }
 
 export function isMetaMask() {
-  if (typeof window === 'undefined') return false;
-
-  if (isTokenPocket()) return false;
-
-  return window?.ethereum?.isMetaMask;
+  return hasInjectedProvider('isMetaMask');
 }
 
 export function isMetaMaskConnector(connector?: Connector) {
