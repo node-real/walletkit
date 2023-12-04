@@ -1,11 +1,16 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.4
+
+### Patch Changes
+
+- 78c9fc8: Fixed multiple wallets conficts resulting in undetectable issues.
+
 ## 1.0.7-alpha.3
 
 ### Patch Changes
 
-- e418a56: Update the `installed` field that detect whether wallet is installed to a
-  function
+- e418a56: Update the `installed` field that detect whether wallet is installed to a function
 - e418a56: Fixed conflict issue between trustwallet and metaMask.
 
 ## 1.0.7-alpha.2
