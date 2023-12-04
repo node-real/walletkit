@@ -45,7 +45,7 @@ function getProvider() {
 
   const provider = getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
 
-  if (provider && !provider.removeListener === undefined) {
+  if (provider && provider.removeListener === undefined) {
     provider.removeListener = provider.off;
   }
 
