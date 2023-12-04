@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.5
+
+### Patch Changes
+
+- f851750: Fixed TrustWallet will automatically reconnect after reloading the page.
+
 ## 1.0.7-alpha.4
 
 ### Patch Changes
