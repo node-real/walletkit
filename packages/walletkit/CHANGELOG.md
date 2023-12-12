@@ -1,5 +1,12 @@
 # @totejs/walletkit
 
+## 1.0.7-alpha.6
+
+### Patch Changes
+
+- c431545: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
 ## 1.0.7-alpha.5
 
 ### Patch Changes
