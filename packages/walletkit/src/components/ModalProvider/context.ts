@@ -1,7 +1,12 @@
 import React, { useContext } from 'react';
+import { Action } from '../WalletKitProvider/context';
 
 export interface OpenSwitchNetworkOptions {
   isClosable?: boolean;
+}
+
+export interface OpenOptions {
+  action?: Action;
 }
 
 export interface ModalContextProps {
@@ -10,7 +15,7 @@ export interface ModalContextProps {
   closeOnOverlayClick?: boolean;
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
+  onOpen: (options?: OpenOptions) => void;
   onOpenProfile: () => void;
   onOpenSwitchNetwork: (options?: OpenSwitchNetworkOptions) => void;
 }

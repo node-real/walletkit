@@ -9,7 +9,7 @@ import { ModalProvider } from '../ModalProvider';
 import { RouteProvider } from '../RouteProvider';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
 import { WalletKitModal } from '../WalletKitModal';
-import { WalletKitOptions, ConnectRole, WalletKitContextProps, WalletKitContext } from './context';
+import { WalletKitOptions, WalletKitContextProps, WalletKitContext, Action } from './context';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -30,7 +30,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     customTheme,
   } = props;
 
-  const [connectRole, setConnectRole] = useState<ConnectRole>('default');
+  const [action, setAction] = useState<Action>();
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
 
   const chains = useChains();
@@ -44,13 +44,13 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
       log: debugMode ? console.log : () => {},
       options: finalOptions,
       supportedChains: finalChains,
-      connectRole,
-      setConnectRole,
+      action,
+      setAction,
       selectedConnector,
       setSelectedConnector,
     };
     return finalValue;
-  }, [options, chains, connectRole, selectedConnector, debugMode]);
+  }, [options, chains, debugMode, action, selectedConnector]);
 
   return (
     <WalletKitContext.Provider value={value}>
