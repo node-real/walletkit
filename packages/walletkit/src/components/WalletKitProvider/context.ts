@@ -2,7 +2,7 @@ import { ChainProps } from '@/chains/types';
 import { ReactNode, createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
 
-export type ConnectRole = 'add-network' | 'default';
+export type Action = 'add-network' | undefined;
 
 export type WalletErrorProps = {
   description?: string;
@@ -30,8 +30,8 @@ export interface WalletKitContextProps {
   options: WalletKitOptions;
   supportedChains: ChainProps[];
 
-  connectRole: ConnectRole;
-  setConnectRole: (role: ConnectRole) => void;
+  action: Action;
+  setAction: (action: Action) => void;
 
   selectedConnector: Connector;
   setSelectedConnector: (connector: Connector) => void;

@@ -28,7 +28,7 @@ export const states = {
 };
 
 export function ConnectingPage() {
-  const { selectedConnector, options, connectRole, log } = useWalletKitContext();
+  const { selectedConnector, options, action, log } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
   const logos = useWalletLogos(wallet.logos);
@@ -78,7 +78,7 @@ export function ConnectingPage() {
         if (
           options.initialChainId &&
           data.chain.id === options.initialChainId &&
-          connectRole === 'add-network'
+          action === 'add-network'
         ) {
           options.onChainAlreadyAdded?.(selectedConnector, options.initialChainId);
         }
