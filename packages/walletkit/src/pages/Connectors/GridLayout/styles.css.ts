@@ -21,10 +21,10 @@ export const clsNoWalletButton = style({
   borderRadius: cssVar('noWalletButton', 'radii'),
   background: cssVar('noWalletButtonBackground'),
   borderColor: cssVar('noWalletButtonBorder'),
-  color: cssVar('noWalletButtonBackgroundText'),
+  color: cssVar('noWalletButtonText'),
   '@media': hover({
     background: cssVar('noWalletButtonBackgroundHover'),
-    color: cssVar('noWalletButtonBackgroundTextHover'),
+    color: cssVar('noWalletButtonTextHover'),
     borderColor: cssVar('noWalletButtonBorderHover'),
   }),
 });
