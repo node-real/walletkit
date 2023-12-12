@@ -167,7 +167,8 @@ const client = createClient(
 
 ## Customizing ConnectButton
 
-`WalletKitButton.Custom`
+Note that `show()` will open the `connected page` instead of the `connectors page` once the wallet
+is connected.
 
 ```tsx live=false
 <WalletKitButton.Custom>
@@ -416,7 +417,7 @@ interface WalletKitOptions {
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
 
   // !!! Notice
-  // This callback takes effect only if WalletKitButton's connectRole='add-network'
+  // This callback takes effect only if WalletKitButton's action='add-network'
   // will be called if network has already added to the wallet
   onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
 
