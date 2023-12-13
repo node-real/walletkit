@@ -8,7 +8,7 @@ import { useWalletConfig } from '@/hooks/useWalletConfig';
 import { useWalletDownloadUrl } from '@/hooks/useWalletDownloadUrl';
 import { useWalletKitConnect } from '@/hooks/useWalletKitConnect';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
-import { useWalletKitContext } from '@/index';
+import { cx, useWalletKitContext } from '@/index';
 import { useState, useCallback, useEffect } from 'react';
 import { ConnectSpinner } from './ConnectSpinner';
 import { Content } from './Content';
@@ -28,13 +28,15 @@ export const states = {
 };
 
 export function ConnectingPage() {
-  const { selectedConnector, options, connectRole, log } = useWalletKitContext();
+  const { selectedConnector, options, action, log } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
   const logos = useWalletLogos(wallet.logos);
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
-  const [status, setStatus] = useState(!wallet.installed ? states.UNAVAILABLE : states.CONNECTING);
+  const [status, setStatus] = useState(
+    wallet.isInstalled() ? states.CONNECTING : states.UNAVAILABLE,
+  );
 
   const { connect } = useWalletKitConnect({
     onMutate: (connector?: any) => {
@@ -76,7 +78,7 @@ export function ConnectingPage() {
         if (
           options.initialChainId &&
           data.chain.id === options.initialChainId &&
-          connectRole === 'add-network'
+          action === 'add-network'
         ) {
           options.onChainAlreadyAdded?.(selectedConnector, options.initialChainId);
         }
@@ -85,14 +87,14 @@ export function ConnectingPage() {
   });
 
   const runConnect = useCallback(() => {
-    if (!wallet.installed) return;
+    if (!wallet.isInstalled()) return;
 
     if (selectedConnector) {
       connect({ connector: selectedConnector });
     } else {
       setStatus(states.UNAVAILABLE);
     }
-  }, [connect, selectedConnector, wallet.installed]);
+  }, [connect, selectedConnector, wallet]);
 
   useEffect(() => {
     if (status === states.UNAVAILABLE) return;
@@ -104,7 +106,7 @@ export function ConnectingPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  log('[Connect]', status, selectedConnector?.name);
+  log('[connecting page]', `name: ${selectedConnector?.name}, status: ${status}`);
 
   const isError = [states.FAILED, states.NOTCONNECTED, states.REJECTED].includes(status);
   const isLoading = status === states.CONNECTING;
@@ -167,7 +169,7 @@ export function ConnectingPage() {
 
       {(status === states.FAILED || status === states.REJECTED) && (
         <ModalFooter className={clsFooter}>
-          <Button className={clsButton} onClick={runConnect}>
+          <Button className={cx('wk-retry-button', clsButton)} onClick={runConnect}>
             Try Again
           </Button>
         </ModalFooter>
@@ -175,7 +177,13 @@ export function ConnectingPage() {
 
       {status === states.UNAVAILABLE && (
         <ModalFooter className={clsFooter}>
-          <Button className={clsButton} as="a" href={downloadUrl} target="_blank" rel="noopener">
+          <Button
+            className={cx('wk-download-button', clsButton)}
+            as="a"
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener"
+          >
             Install the Extension
           </Button>
         </ModalFooter>

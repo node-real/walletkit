@@ -13,11 +13,11 @@ new VConsole();
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
+      <Layout>
+        <Routes>
           <Route path="*" element={<DocsPage components={MDXComponents} />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </Layout>
     </ThemeProvider>
   );
 }

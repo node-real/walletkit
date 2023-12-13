@@ -18,12 +18,14 @@ import {
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 
 export function SwitchNetworkPage() {
-  const { supportedChains } = useWalletKitContext();
+  const { supportedChains, log } = useWalletKitContext();
   const { isLoading, switchNetwork, pendingChainId } = useWalletKitSwitchNetwork();
   const { chain } = useNetwork();
   const { isClosable } = useModal();
 
   const onSwitchNetwork = (chainId: number) => {
+    log('[switch network page]', 'switchNetwork:', switchNetwork, ', isLoading:', isLoading);
+
     if (switchNetwork && !isLoading) {
       switchNetwork(chainId);
     }
@@ -54,7 +56,7 @@ export function SwitchNetworkPage() {
             );
           })}
         </Box>
-        <Box className={clsOrSeparator}>or</Box>
+        <Box className={cx('wk-or-separator', clsOrSeparator)}>or</Box>
       </ModalBody>
 
       <ModalFooter className={clsFooter}>

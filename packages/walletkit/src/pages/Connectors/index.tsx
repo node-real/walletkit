@@ -14,7 +14,8 @@ export function ConnectorsPage() {
   const { options } = useWalletKitContext();
 
   const { isMobileLayout } = useResponsive();
-  const useGridLayout = connectors.length > LIST_LAYOUT_THRESHOLD || isMobileLayout;
+  const visibleConnectors = connectors.filter((c) => !!c._wallet);
+  const useGridLayout = visibleConnectors.length > LIST_LAYOUT_THRESHOLD || isMobileLayout;
 
   return (
     <>
@@ -25,7 +26,11 @@ export function ConnectorsPage() {
         <Box className={cx('wk-disclaimer', clsDisclaimer)}>{options.disclaimer}</Box>
       )}
 
-      {useGridLayout ? <GridLayout /> : <ListLayout />}
+      {useGridLayout ? (
+        <GridLayout connectors={visibleConnectors} />
+      ) : (
+        <ListLayout connectors={visibleConnectors} />
+      )}
     </>
   );
 }

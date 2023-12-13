@@ -14,7 +14,7 @@ export interface WalletProps {
   };
   spinnerColor?: string;
   showQRCode?: boolean;
-  installed: boolean | undefined;
+  isInstalled: () => boolean | undefined;
   createConnector: (chains: Chain[]) => Connector;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;

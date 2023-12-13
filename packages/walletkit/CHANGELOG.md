@@ -1,35 +1,96 @@
 # @totejs/walletkit
 
+## 1.0.7
+
+### Patch Changes
+
+- 084a397: Fixed theme configuration naming error issue
+- 084a397: Fixed TrustWallet will automatically reconnect after reloading the page.
+- 084a397: refactor: update the `installed` field that detect whether wallet is installed to a
+  function
+- 084a397: Fixed multiple wallets conficts resulting in undetectable issues.
+- 084a397: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
+- 084a397: Fixed trustwallet losing account status after refreshing
+- 084a397: Fixed conflict issue between trustwallet and metaMask.
+- 084a397: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
+## 1.0.7-alpha.6
+
+### Patch Changes
+
+- c431545: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
+## 1.0.7-alpha.5
+
+### Patch Changes
+
+- f851750: Fixed TrustWallet will automatically reconnect after reloading the page.
+
+## 1.0.7-alpha.4
+
+### Patch Changes
+
+- 78c9fc8: Fixed multiple wallets conficts resulting in undetectable issues.
+
+## 1.0.7-alpha.3
+
+### Patch Changes
+
+- e418a56: Update the `installed` field that detect whether wallet is installed to a function
+- e418a56: Fixed conflict issue between trustwallet and metaMask.
+
+## 1.0.7-alpha.2
+
+### Patch Changes
+
+- 52e9976: Fixed trustwallet losing account status after refreshing
+
+## 1.0.7-alpha.1
+
+### Patch Changes
+
+- 3dd2578: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
+
 ## 1.0.6
 
 ### Patch Changes
 
-- 9fd73b8: Add chains type declaration for dev example
-- 9fd73b8: Fixed typescript declaration files export path error, remove `dev` in tsconfig.json
-  includes field
+- 9fd73b8:
+  - Add chains type declaration for `dev example`
+- 9fd73b8:
+  - Fixed typescript declaration files export path error, remove `dev` from tsconfig.json includes
+    field
 
 ## 1.0.5
 
 ### Patch Changes
 
-- d3aaaf9: Add chains type declaration for dev example
-- 12ebee8: Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
+- 12ebee8:
 
-  Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
-  not installed.
+  - Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
 
-  UI adapted to mobile end and multiple wallets.
+  - Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
+    not installed.
 
-  Fixed the hover effect did not disappear after clicking button on the mobile end.
+  - UI adapted to mobile end and multiple wallets.
 
-  Fixed walletConnect popup and QR code display being very slow issue.
+  - Fixed the hover effect did not disappear after clicking button on the mobile end.
 
-  Disabled page scrolling when opening walletkit modal.
+  - Fixed walletConnect popup and QR code display being very slow issue.
 
-  For a smoother development experience, remove `examples/test` and create a dev demo in
-  `packages/walletkit`.
+  - Disabled page scrolling when opening walletkit modal.
 
-  Update walletConnect `relayUrl` to `wss://relay.walletconnect.org`.
+  - For a smoother development experience, remove `examples/test` and create a dev demo in
+    `packages/walletkit`.
 
-- 4a88b07: Remove default `initialChainId` to support the case only connecting a wallet and not
-  switching a network.
+  - Update walletConnect `relayUrl` to `wss://relay.walletconnect.org`.
+
+- 4a88b07:
+  - Remove default `initialChainId` to support the case only connecting a wallet and not switching a
+    network.

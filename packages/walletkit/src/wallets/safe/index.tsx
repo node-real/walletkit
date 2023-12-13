@@ -28,7 +28,7 @@ export function safe(props: SafeProps = {}): WalletProps {
       default: undefined,
     },
     showQRCode: false,
-    installed: isSafe(),
+    isInstalled: isSafe,
     createConnector: (chains: Chain[]) => {
       return new SafeConnector({
         chains,

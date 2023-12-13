@@ -21,8 +21,9 @@ export function useClickWallet() {
       const pass = options.onClickWallet?.(connector, e);
       if (pass === false) return;
 
-      log('[click wallet] connector', connector);
-      log('[click wallet] ethereum', window.ethereum);
+      log('[click wallet]', `connector:`, connector);
+      log('[click wallet]', `ethereum:`, window.ethereum);
+      log('[click wallet]', `installed:`, connector._wallet.isInstalled());
 
       const gotoQRcodePage = () => {
         setSelectedConnector(connector);
@@ -39,12 +40,12 @@ export function useClickWallet() {
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         if (isWalletConnectConnector(connector)) {
-          if (connector.options.showQrModal) {
-            onOpenWcModal();
-          } else {
+          if (connector._wallet.showQRCode) {
             gotoQRcodePage();
+          } else {
+            onOpenWcModal();
           }
-        } else if (!connector._wallet.installed) {
+        } else if (!connector._wallet.isInstalled()) {
           if (mobile) {
             const deepLink = connector._wallet.getDeepLink?.();
             if (deepLink) {

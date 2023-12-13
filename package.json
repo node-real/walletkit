@@ -9,12 +9,17 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "dev": "pnpm --filter @totejs/walletkit dev",
-    "ci:version": "pnpm changeset version && pnpm install && cp README.md packages/walletkit/README.md",
-    "ci:publish": "pnpm publish -r"
+    "dev": "pnpm --F @totejs/walletkit dev",
+    "build": "pnpm --F @totejs/walletkit build",
+    "dev:docs": "pnpm --F @totejs/walletkit build:watch & pnpm --F website dev",
+    "build:docs": "pnpm --F @totejs/walletkit build && pnpm --F website build",
+    "pre:enter": "pnpm changeset pre enter alpha",
+    "pre:exit": "pnpm changeset pre exit",
+    "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
+    "ci:publish": "pnpm changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.2",
+    "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

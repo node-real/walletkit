@@ -40,7 +40,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
     },
     spinnerColor: '#1098FC',
     showQRCode: false,
-    installed: isTrustWallet(),
+    isInstalled: isTrustWallet,
     createConnector: (chains: Chain[]) => {
       return new TrustWalletConnector({
         chains,
@@ -66,9 +66,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
 export function isTrustWallet() {
   if (typeof window === 'undefined') return false;
 
-  return !!(
-    hasInjectedProvider('isTrust') ||
-    window?.trustwallet?.isTrust ||
-    window?.trustWallet?.isTrust
+  return (
+    hasInjectedProvider('isTrust') || window?.trustwallet?.isTrust || window?.trustWallet?.isTrust
   );
 }

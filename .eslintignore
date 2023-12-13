@@ -1,4 +1,3 @@
 .next
 dist
-CHANGELOG.md
-build.cjs
+**/*.md

@@ -6,7 +6,12 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   root: './dev',
-  plugins: [react(), vanillaExtractPlugin()],
+  plugins: [
+    react(),
+    vanillaExtractPlugin({
+      identifiers: ({ hash }) => `wk_${hash}`,
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../src'),

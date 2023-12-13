@@ -69,8 +69,8 @@ export const base = {
       qrCodeDot: 'var(--wk-colors-text)',
       qrCodeBorder: 'var(--wk-colors-border)',
 
-      noWalletButtonBackgroundText: 'var(--wk-colors-text)',
-      noWalletButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      noWalletButtonText: 'var(--wk-colors-text)',
+      noWalletButtonTextHover: 'var(--wk-colors-text)',
       noWalletButtonBackground: 'transparent',
       noWalletButtonBackgroundHover: 'var(--wk-colors-border)',
       noWalletButtonBorder: 'var(--wk-colors-border)',
@@ -136,8 +136,8 @@ export const base = {
       qrCodeDot: 'var(--wk-colors-text)',
       qrCodeBorder: 'var(--wk-colors-border)',
 
-      noWalletButtonBackgroundText: 'var(--wk-colors-text)',
-      noWalletButtonBackgroundTextHover: 'var(--wk-colors-text)',
+      noWalletButtonText: 'var(--wk-colors-text)',
+      noWalletButtonTextHover: 'var(--wk-colors-text)',
       noWalletButtonBackground: 'transparent',
       noWalletButtonBackgroundHover: 'var(--wk-colors-border)',
       noWalletButtonBorder: 'var(--wk-colors-border)',
