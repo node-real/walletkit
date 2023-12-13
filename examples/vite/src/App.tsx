@@ -25,7 +25,7 @@ const config = createConfig(
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  initialChainId: 1,
 };
 
 export default function App() {

@@ -1,0 +1,25 @@
+name: 'setup'
+description: Prepare the environment
+
+runs:
+  using: composite
+  steps:
+    - name: Setup node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      id: pnpm-install
+      with:
+        version: 8
+        run_install: false
+
+    - name: Setup pnpm config
+      shell: bash
+      run: pnpm config set store-dir .pnpm-store
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install

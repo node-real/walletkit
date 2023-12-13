@@ -134,10 +134,21 @@ export function MetaMaskIcon(props: SVGIconProps) {
     >
       <g clipPath="url(#clip0_6070_1947)">
         <rect width="68" height="68" rx="16" fill="#3375BB" />
-        <rect x="-5.6665" y="-3.40039" width="79.3333" height="74.8" fill="url(#pattern0)" />
+        <rect
+          x="-5.6665"
+          y="-3.40039"
+          width="79.3333"
+          height="74.8"
+          fill="url(#pattern0_metamask)"
+        />
       </g>
       <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <pattern
+          id="pattern0_metamask"
+          patternContentUnits="objectBoundingBox"
+          width="1"
+          height="1"
+        >
           <use
             xlinkHref="#image0_6070_1947"
             transform="matrix(0.00217391 0 0 0.00230567 0 -0.00724637)"

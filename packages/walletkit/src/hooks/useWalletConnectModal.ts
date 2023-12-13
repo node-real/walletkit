@@ -2,7 +2,7 @@ import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
 import { useEffect, useState } from 'react';
 import { useModal, useWalletKitContext } from '..';
 import { useWalletKitConnect } from './useWalletKitConnect';
-import { getGlobalData } from '@/globalData';
+import { getGlobalData, setGlobalData } from '@/globalData';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useWalletKitConnect();
@@ -21,17 +21,20 @@ export function useWalletConnectModal() {
         clearTimeout(timer);
       };
     }
+
+    setGlobalData({
+      walletConnectModalIsOpen: isOpen,
+    });
   }, [isOpen, onClose]);
 
   return {
     isOpenWcModal: isOpen,
     onOpenWcModal: async () => {
-      const w3mcss = document.createElement('style');
-      w3mcss.innerHTML = `#walletconnect-wrapper{z-index:2147483647;}`;
-      document.head.appendChild(w3mcss);
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const { modalWalletConnectConnector: connector } = getGlobalData();
+      const connector = getGlobalData().walletConnectConnector;
+      const provider = await connector?.getProvider();
+      provider.rpc.showQrModal = true;
 
       if (connector) {
         setIsOpen(true);
@@ -39,11 +42,10 @@ export function useWalletConnectModal() {
         try {
           await connectAsync({ connector });
         } catch (err) {
-          log('WalletConnect', err);
+          log('[open walletconnect modal]', err);
         }
 
         setIsOpen(false);
-        document.head.removeChild(w3mcss);
       }
     },
   };

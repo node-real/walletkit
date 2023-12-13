@@ -30,10 +30,9 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    installed: isCoinbaseWallet(),
+    isInstalled: isCoinbaseWallet,
     createConnector: (chains: Chain[]) => {
-      const { walletConnectDefaultOptions } = getGlobalData();
-      const { appName } = walletConnectDefaultOptions;
+      const { appName } = getGlobalData();
 
       return new CoinbaseWalletConnector({
         chains,
@@ -57,5 +56,5 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
 export function isCoinbaseWallet() {
   if (typeof window === 'undefined') return false;
 
-  return hasInjectedProvider('isCoinbaseWallet');
+  return hasInjectedProvider('isCoinbaseWallet') || !!window.coinbaseWalletExtension;
 }
