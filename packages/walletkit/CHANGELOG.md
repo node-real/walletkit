@@ -1,38 +1,30 @@
 # @totejs/walletkit
 
-## 1.0.7-alpha.6
+=======
+## 0.2.6-alpha.3
 
 ### Patch Changes
 
-- c431545: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+- 57d9f7f: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
   adding network.
 
-## 1.0.7-alpha.5
+## 0.2.6-alpha.2
 
 ### Patch Changes
 
-- f851750: Fixed TrustWallet will automatically reconnect after reloading the page.
+- Fixed TrustWallet will automatically reconnect after reloading the page.
+- 204e807: refactor: update the `installed` field that detect whether wallet is installed to a
+  function
+- 26d87fb: Fixed multiple wallets conficts resulting in undetectable issues.
+- c47f3a6: Fixed conflict issue between trustwallet and metaMask.
 
-## 1.0.7-alpha.4
-
-### Patch Changes
-
-- 78c9fc8: Fixed multiple wallets conficts resulting in undetectable issues.
-
-## 1.0.7-alpha.3
+## 0.2.6-alpha.1
 
 ### Patch Changes
 
-- e418a56: Update the `installed` field that detect whether wallet is installed to a function
-- e418a56: Fixed conflict issue between trustwallet and metaMask.
+- 80e356d: Fixed trustwallet losing account status after refreshing
 
-## 1.0.7-alpha.2
-
-### Patch Changes
-
-- 52e9976: Fixed trustwallet losing account status after refreshing
-
-## 1.0.7-alpha.1
+## 0.2.6-alpha.0
 
 ### Patch Changes
 
@@ -40,40 +32,8 @@
   WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
   automatically connect.
 
-## 1.0.6
+## 0.2.4
 
 ### Patch Changes
 
-- 9fd73b8:
-  - Add chains type declaration for `dev example`
-- 9fd73b8:
-  - Fixed typescript declaration files export path error, remove `dev` from tsconfig.json includes
-    field
-
-## 1.0.5
-
-### Patch Changes
-
-- 12ebee8:
-
-  - Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
-
-  - Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
-    not installed.
-
-  - UI adapted to mobile end and multiple wallets.
-
-  - Fixed the hover effect did not disappear after clicking button on the mobile end.
-
-  - Fixed walletConnect popup and QR code display being very slow issue.
-
-  - Disabled page scrolling when opening walletkit modal.
-
-  - For a smoother development experience, remove `examples/test` and create a dev demo in
-    `packages/walletkit`.
-
-  - Update walletConnect `relayUrl` to `wss://relay.walletconnect.org`.
-
-- 4a88b07:
-  - Remove default `initialChainId` to support the case only connecting a wallet and not switching a
-    network.
+- 0fa8683: Add walletConnect recommanded wallets.

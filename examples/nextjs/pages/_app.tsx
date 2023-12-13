@@ -2,7 +2,7 @@ import '@totejs/walletkit/styles.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { chains } from './chains';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createClient } from 'wagmi';
 import {
   SwitchNetworkModal,
   WalletKitButton,
@@ -12,7 +12,7 @@ import {
 } from '@totejs/walletkit';
 import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
@@ -32,7 +32,7 @@ const options: WalletKitOptions = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig client={client}>
       <WalletKitProvider options={options} mode="light">
         <WalletKitButton />
         <Component {...pageProps} />

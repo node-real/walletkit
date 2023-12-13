@@ -1,6 +1,5 @@
 import { chains } from './chains';
-import { WagmiConfig, createConfig } from 'wagmi';
-import VConsole from 'vconsole';
+import { WagmiConfig, createClient } from 'wagmi';
 import {
   SwitchNetworkModal,
   ThemeMode,
@@ -23,10 +22,11 @@ import {
   walletConnect,
 } from '../src/wallets';
 import React from 'react';
+import VConsole from 'vconsole';
 
 new VConsole();
 
-const config = createConfig(
+const client = createClient(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
@@ -58,7 +58,7 @@ export default function App() {
   const nextMode = mode === 'light' ? 'dark' : 'light';
 
   return (
-    <WagmiConfig config={config}>
+    <WagmiConfig client={client}>
       <div>mode: {mode} </div>
       <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
       <div style={{ height: 20 }} />

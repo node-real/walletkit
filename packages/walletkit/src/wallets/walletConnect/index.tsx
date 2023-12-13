@@ -1,9 +1,9 @@
 import { getGlobalData } from '@/globalData';
 import { isMobile } from '@/index';
 import { Chain, Connector } from 'wagmi';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { PartialWalletProps, WalletProps } from '..';
 import { WalletConnectIcon, WalletConnectTransparentIcon } from './icon';
+import { WalletConnectConnector } from './connector';
 
 export const WALLET_CONNECT_ID = 'walletConnect';
 

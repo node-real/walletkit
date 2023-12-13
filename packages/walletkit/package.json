@@ -1,6 +1,6 @@
 {
   "name": "@totejs/walletkit",
-  "version": "1.0.7-alpha.6",
+  "version": "0.2.6-alpha.3",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -35,10 +35,10 @@
     "build": "vite build"
   },
   "peerDependencies": {
+    "ethers": "^5",
     "react": ">=17",
     "react-dom": ">=17",
-    "viem": "^1.0.0",
-    "wagmi": "^1.0.0"
+    "wagmi": "^0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -48,6 +48,7 @@
     "@vanilla-extract/css": "^1.14.0",
     "@vanilla-extract/vite-plugin": "^3.9.2",
     "@vitejs/plugin-react": "^4.2.0",
+    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -55,8 +56,8 @@
     "vconsole": "^3.15.1",
     "viem": "^1.19.9",
     "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.3",
-    "wagmi": "^1.4.7"
+    "vite-plugin-dts": "^3.6.4",
+    "wagmi": "^0.12.19"
   },
   "dependencies": {
     "qrcode": "^1.5.3"

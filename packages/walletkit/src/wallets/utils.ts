@@ -1,16 +1,14 @@
-import type { InjectedProviderFlags, WindowProvider } from 'wagmi/window';
-
-export function getInjectedProvider(flag: keyof InjectedProviderFlags): WindowProvider | undefined {
+export function getInjectedProvider(flag: any): any {
   if (typeof window === 'undefined' || typeof window.ethereum === 'undefined') return;
   const providers = window.ethereum.providers;
 
   return providers
-    ? providers.find((provider: WindowProvider) => provider[flag])
-    : window.ethereum[flag]
+    ? providers.find((provider: any) => provider[flag])
+    : (window.ethereum as any)[flag]
       ? window.ethereum
       : undefined;
 }
 
-export function hasInjectedProvider(flag: keyof InjectedProviderFlags): boolean {
+export function hasInjectedProvider(flag: any): boolean {
   return Boolean(getInjectedProvider(flag));
 }
