@@ -1,5 +1,22 @@
 # @totejs/walletkit
 
+## 1.0.7
+
+### Patch Changes
+
+- 084a397: Fixed theme configuration naming error issue
+- 084a397: Fixed TrustWallet will automatically reconnect after reloading the page.
+- 084a397: refactor: update the `installed` field that detect whether wallet is installed to a
+  function
+- 084a397: Fixed multiple wallets conficts resulting in undetectable issues.
+- 084a397: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
+- 084a397: Fixed trustwallet losing account status after refreshing
+- 084a397: Fixed conflict issue between trustwallet and metaMask.
+- 084a397: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
 ## 1.0.7-alpha.6
 
 ### Patch Changes
