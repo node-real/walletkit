@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.8
+
+### Patch Changes
+
+- ebae213: Fixed modal flickering issue in grid layout.
+
 ## 1.0.7
 
 ### Patch Changes
