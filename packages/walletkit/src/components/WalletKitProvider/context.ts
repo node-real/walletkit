@@ -29,6 +29,7 @@ export interface WalletKitOptions {
 export interface WalletKitContextProps {
   options: WalletKitOptions;
   supportedChains: ChainProps[];
+  isMobileLayout: boolean;
 
   action: Action;
   setAction: (action: Action) => void;

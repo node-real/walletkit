@@ -17,8 +17,6 @@
 - 57d9f7f: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
   adding network.
 
-=======
-
 ## 0.2.6-alpha.3
 
 ### Patch Changes
