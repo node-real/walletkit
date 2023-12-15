@@ -10,6 +10,7 @@ import { RouteProvider } from '../RouteProvider';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
 import { WalletKitModal } from '../WalletKitModal';
 import { WalletKitOptions, WalletKitContextProps, WalletKitContext, Action } from './context';
+import { useResponsive } from '@/base/hooks/useResponsive';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -34,6 +35,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
 
   const chains = useChains();
+  const { isMobileLayout } = useResponsive();
 
   const value = useMemo(() => {
     const finalOptions = getDefaultProviderOptions(options);
@@ -44,13 +46,14 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
       log: debugMode ? console.log : () => {},
       options: finalOptions,
       supportedChains: finalChains,
+      isMobileLayout,
       action,
       setAction,
       selectedConnector,
       setSelectedConnector,
     };
     return finalValue;
-  }, [options, chains, debugMode, action, selectedConnector]);
+  }, [options, chains, debugMode, isMobileLayout, action, selectedConnector]);
 
   return (
     <WalletKitContext.Provider value={value}>
