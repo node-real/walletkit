@@ -1,5 +1,23 @@
 # @totejs/walletkit
 
+## 1.0.8
+
+### Patch Changes
+
+- ebae213: Fixed theme configuration naming error issue
+- ebae213: Fixed modal flickering issue in grid layout.
+- ebae213: Fixed TrustWallet will automatically reconnect after reloading the page.
+- ebae213: refactor: update the `installed` field that detect whether wallet is installed to a
+  function
+- ebae213: Fixed multiple wallets conficts resulting in undetectable issues.
+- ebae213: Fixed `WalletConnect` automatic connection issue in the follow scenario: connect the
+  WalletConnect -> close browser -> reopen browser -> disconnect -> select WalletConnect, will
+  automatically connect.
+- ebae213: Fixed trustwallet losing account status after refreshing
+- ebae213: Fixed conflict issue between trustwallet and metaMask.
+- ebae213: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
 ## 1.0.7
 
 ### Patch Changes
