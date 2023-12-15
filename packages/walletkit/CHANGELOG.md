@@ -1,5 +1,14 @@
 # @totejs/walletkit
 
+## 0.2.7
+
+### Patch Changes
+
+- 2864f90: Fixed theme configuration naming error issue
+- c32a465: Fixed modal flickering issue in grid layout.
+- b91e401: Add `action` prop to WalletKitButton & WalletKitButton.Custom to support the case of
+  adding network.
+
 ## 0.2.6
 
 ### Patch Changes
