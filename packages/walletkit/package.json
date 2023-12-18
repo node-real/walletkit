@@ -54,7 +54,6 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.3.2",
     "vconsole": "^3.15.1",
-    "viem": "^1.19.9",
     "vite": "^4.5.0",
     "vite-plugin-dts": "^3.6.4",
     "wagmi": "^0.12.19"

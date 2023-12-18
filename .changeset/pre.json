@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@totejs/walletkit": "0.2.7",
+    "website": "0.0.1"
+  },
+  "changesets": ["stale-pumas-float"]
+}

@@ -31,7 +31,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'viem', 'wagmi', 'qrcode'],
+      external: ['react', 'react-dom', 'ethers', 'wagmi', 'qrcode'],
       plugins: [peerDepsExternal(), nodeResolve()],
       output: {
         chunkFileNames: 'common.js',
