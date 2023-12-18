@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 0.2.8-alpha.0
+
+### Patch Changes
+
+- 53b65ec: Fixed switching network failure in coinbaseWallet.
+
 ## 0.2.7
 
 ### Patch Changes
