@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 0.2.8-alpha.2
+
+### Patch Changes
+
+- d8eddbc: Add `closeModalAfterSwitchingNetwork`.
+
 ## 0.2.8-alpha.1
 
 ### Patch Changes
