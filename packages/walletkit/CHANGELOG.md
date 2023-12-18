@@ -1,5 +1,17 @@
 # @totejs/walletkit
 
+## 1.0.9-alpha.1
+
+### Patch Changes
+
+- f3ebc1b: Setting `reloadOnDisconnect` = false in default for CoinbaseWallet.
+
+## 1.0.9-alpha.0
+
+### Patch Changes
+
+- 53b65ec: Fixed switching network failure in coinbaseWallet.
+
 ## 1.0.8
 
 ### Patch Changes
