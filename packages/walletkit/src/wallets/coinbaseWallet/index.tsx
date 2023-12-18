@@ -7,9 +7,9 @@ import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
 
 export const COINBASE_WALLET_ID = 'coinbaseWallet';
 
-export type CoinbaseWalletConnectorOptions = Required<
-  ConstructorParameters<typeof CoinbaseWalletConnector>
->[0]['options'];
+export type CoinbaseWalletConnectorOptions = Partial<
+  Required<ConstructorParameters<typeof CoinbaseWalletConnector>>[0]['options']
+>;
 
 export interface CoinbaseWalletProps extends PartialWalletProps {
   connectorOptions?: CoinbaseWalletConnectorOptions;
@@ -39,6 +39,7 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
         options: {
           appName,
           headlessMode: true,
+          reloadOnDisconnect: false,
           ...connectorOptions,
         },
       });
