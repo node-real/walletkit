@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
+    "blue-mayflies-fold",
     "stale-pumas-float"
   ]
 }
