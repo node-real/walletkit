@@ -1,6 +1,6 @@
 import { getGlobalData } from '@/globalData';
 import { Chain } from 'wagmi';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { CoinbaseWalletConnector } from './connector';
 import { PartialWalletProps, WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
