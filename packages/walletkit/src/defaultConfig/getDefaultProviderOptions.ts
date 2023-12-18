@@ -11,6 +11,7 @@ export function getDefaultProviderOptions(options: WalletKitOptions) {
     hideNoWalletCTA: false,
     hideOfficialWalletConnectCTA: false,
 
+    closeModalAfterSwitchingNetwork: false,
     closeModalAfterConnected: true,
     closeModalOnEsc: true,
     closeModalOnOverlayClick: true,

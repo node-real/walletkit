@@ -16,6 +16,7 @@ export interface WalletKitOptions {
   hideOfficialWalletConnectCTA?: boolean;
 
   closeModalAfterConnected?: boolean;
+  closeModalAfterSwitchingNetwork?: boolean;
   closeModalOnEsc?: boolean;
   closeModalOnOverlayClick?: boolean;
 
