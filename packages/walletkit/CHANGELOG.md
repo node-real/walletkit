@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.9-alpha.2
+
+### Patch Changes
+
+- a6de228: Add `closeModalAfterSwitchingNetwork`.
+
 ## 1.0.9-alpha.1
 
 ### Patch Changes
