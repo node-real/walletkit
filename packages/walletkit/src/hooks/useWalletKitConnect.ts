@@ -3,8 +3,11 @@ import { useConnect } from 'wagmi';
 import { useWalletKitContext } from '..';
 
 export type UseWalletKitConnectProps = Parameters<typeof useConnect>[0];
+export type UseWalletKitConnectReturnType = ReturnType<typeof useConnect>;
 
-export function useWalletKitConnect(props?: UseWalletKitConnectProps) {
+export function useWalletKitConnect(
+  props?: UseWalletKitConnectProps,
+): UseWalletKitConnectReturnType {
   const { log, options } = useWalletKitContext();
 
   const connectProps = {

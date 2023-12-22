@@ -1,9 +1,9 @@
 import { CoinbaseWalletConnector as WagmiCoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { hexValue } from 'ethers/lib/utils.js';
-import { ProviderRpcError, SwitchChainError, UserRejectedRequestError } from 'wagmi';
+import { Chain, ProviderRpcError, SwitchChainError, UserRejectedRequestError } from 'wagmi';
 
 export class CoinbaseWalletConnector extends WagmiCoinbaseWalletConnector {
-  async switchChain(chainId: number) {
+  async switchChain(chainId: number): Promise<Chain> {
     const provider = await this.getProvider();
     const id = hexValue(chainId);
 

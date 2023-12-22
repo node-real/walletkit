@@ -3,8 +3,11 @@ import { useSwitchNetwork } from 'wagmi';
 import { useWalletKitContext } from '..';
 
 export type UseWalletKitSwitchNetworkProps = Parameters<typeof useSwitchNetwork>[0];
+export type UseWalletKitSwitchNetworkType = ReturnType<typeof useSwitchNetwork>;
 
-export function useWalletKitSwitchNetwork(props?: UseWalletKitSwitchNetworkProps) {
+export function useWalletKitSwitchNetwork(
+  props?: UseWalletKitSwitchNetworkProps,
+): UseWalletKitSwitchNetworkType {
   const { log, options } = useWalletKitContext();
 
   const result = useSwitchNetwork({
