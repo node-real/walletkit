@@ -19,5 +19,5 @@ export default defineConfig({
       strict: false,
     },
   },
-  plugins: [react(), mdx(mdxOptions)],
+  plugins: [react(), mdx(mdxOptions) as any],
 });
