@@ -44,7 +44,7 @@ export interface ConnectWalletClientProps {
   webSocketPublicClient?: WebSocketPublicClient;
 }
 
-const defaultChains = [mainnet];
+const defaultChains: Chain[] = [mainnet];
 
 export const getDefaultConfig = (props: DefaultConfigProps) => {
   const {
