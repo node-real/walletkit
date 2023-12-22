@@ -134,7 +134,7 @@ export class ParticleConnector extends Connector<ParticleProvider, ParticleConne
     return this.provider;
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([this.getProvider(), this.getAccount()]);
     const chain = this.chains.find((x) => x.id === chainId);
 
