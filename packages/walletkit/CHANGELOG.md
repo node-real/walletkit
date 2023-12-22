@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.9-alpha.3
+
+### Patch Changes
+
+- a9a34af: Add particle wallet
+
 ## 1.0.9-alpha.2
 
 ### Patch Changes
