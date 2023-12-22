@@ -15,7 +15,6 @@ import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
 import { isWalletConnectConnector, walletConnect } from '@/wallets';
-import { Config, ParticleNetwork } from '@particle-network/auth';
 
 export interface DefaultConfigProps {
   appName: string;
@@ -36,8 +35,6 @@ export interface DefaultConfigProps {
   webSocketPublicClient?: any;
   enableWebSocketPublicClient?: boolean;
   stallTimeout?: number;
-
-  particleNetworkConfig?: Config;
 }
 
 export interface ConnectWalletClientProps {
@@ -68,8 +65,6 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
     webSocketPublicClient,
     enableWebSocketPublicClient,
     stallTimeout,
-
-    particleNetworkConfig,
   } = props;
 
   setGlobalData({
@@ -109,7 +104,6 @@ export const getDefaultConfig = (props: DefaultConfigProps) => {
   const configuredConnectors = createConnectors(wallets, configuredChains);
 
   createGlobalWalletConnect(configuredConnectors, configuredChains);
-  createParticleNetwork(particleNetworkConfig);
 
   return {
     autoConnect,
@@ -144,10 +138,4 @@ function createGlobalWalletConnect(connectors: Connector[], chains: Chain[]) {
   setGlobalData({
     walletConnectConnector: wc,
   });
-}
-
-async function createParticleNetwork(config?: Config) {
-  if (config && typeof window !== undefined && !window.particle) {
-    new ParticleNetwork(config);
-  }
 }

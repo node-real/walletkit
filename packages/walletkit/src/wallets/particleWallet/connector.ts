@@ -128,6 +128,7 @@ export class ParticleConnector extends Connector<ParticleProvider, ParticleConne
       throw new Error('Please init Particle first');
     }
     if (!this.provider) {
+      const { ParticleProvider } = await import('@particle-network/provider');
       this.provider = new ParticleProvider(this.options.auth);
     }
     return this.provider;
