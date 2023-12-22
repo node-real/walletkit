@@ -1,5 +1,11 @@
 # @totejs/walletkit
 
+## 1.0.9-alpha.4
+
+### Patch Changes
+
+- e06d4b3: refactor: Add env variables.
+
 ## 1.0.9-alpha.3
 
 ### Patch Changes
