@@ -39,7 +39,6 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
         options: {
           appName,
           headlessMode: true,
-          // reloadOnDisconnect: false,
           ...connectorOptions,
         },
       });
