@@ -1,12 +1,10 @@
 import * as UIKit from '@totejs/uikit';
 
 import CodeBlock from '../CodeBlock';
-import PropsTable from '../PropsTable';
-import WalletKitExample from '../WalletKit';
+import Playground from '../../playground';
 
 export const MDXComponents = {
-  PropsTable,
-  WalletKitExample,
+  Playground,
   h1: (props: any) => <UIKit.Heading fontSize="t1" fontWeight="semibold" py={12} {...props} />,
   h2: (props: any) => {
     const { children, ...restProps } = props;
