@@ -57,8 +57,7 @@
     "viem": "^1.19.9",
     "vite": "^4.5.0",
     "vite-plugin-dts": "^3.6.3",
-    "wagmi": "^1.4.7",
-    "@particle-network/auth": "^1.2.2"
+    "wagmi": "^1.4.7"
   },
   "dependencies": {
     "@particle-network/provider": "^1.2.1",
