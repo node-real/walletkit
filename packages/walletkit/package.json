@@ -1,6 +1,6 @@
 {
-  "name": "@totejs/walletkit",
-  "version": "1.0.9-alpha.3",
+  "name": "@node-real/walletkit",
+  "version": "1.0.8",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",

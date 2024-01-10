@@ -16,5 +16,3 @@ export * from './base/utils/css';
 
 // types
 export * from './types';
-
-// test

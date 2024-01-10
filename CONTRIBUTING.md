@@ -9,7 +9,7 @@ This project relies on [nodejs](https://nodejs.org/en), and uses [`pnpm`](https:
 package manager, make sure you have them installed:
 
 - [node.js](https://nodejs.org/en/) v16 or higher
-- [npm](https://pnpm.io) v8 or higher
+- [pnpm](https://pnpm.io) v8 or higher
 
 Then simply clone the repository and enter the directory:
 
@@ -183,7 +183,7 @@ import {
   trustWallet, // import new wallet
   metaMask,
   walletConnect,
-} from '@totejs/walletkit/wallets';
+} from '@node-real/walletkit/wallets';
 import { useState } from 'react';
 
 const config = createConfig(

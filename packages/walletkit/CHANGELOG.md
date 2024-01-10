@@ -1,4 +1,4 @@
-# @totejs/walletkit
+# @node-real/walletkit
 
 ## 1.0.9-alpha.3
 

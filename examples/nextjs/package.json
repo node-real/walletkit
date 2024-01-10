@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@totejs/walletkit": "workspace:*",
+    "@node-real/walletkit": "workspace:*",
     "next": "^13.5.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

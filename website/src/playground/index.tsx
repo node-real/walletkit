@@ -6,7 +6,7 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
+} from '@node-real/walletkit';
 import {
   binanceWeb3Wallet,
   coinbaseWallet,
@@ -16,27 +16,27 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-  particleWallet,
-} from '@totejs/walletkit/wallets';
-import { ParticleNetwork } from '@particle-network/auth';
+  // particleWallet,
+} from '@node-real/walletkit/wallets';
+// import { ParticleNetwork } from '@particle-network/auth';
 
 import { chains } from './chains';
 import { Box, useColorMode } from '@totejs/uikit';
 
-const { VITE_PARTICLE_APP_PROJECT_ID, VITE_PARTICLE_APP_CLIENT_KEY, VITE_PARTICLE_APP_APP_ID } =
-  import.meta.env;
+// const { VITE_PARTICLE_APP_PROJECT_ID, VITE_PARTICLE_APP_CLIENT_KEY, VITE_PARTICLE_APP_APP_ID } =
+//   import.meta.env;
 
-const particle = new ParticleNetwork({
-  projectId: VITE_PARTICLE_APP_PROJECT_ID,
-  clientKey: VITE_PARTICLE_APP_CLIENT_KEY,
-  appId: VITE_PARTICLE_APP_APP_ID,
-  wallet: { displayWalletEntry: true },
-});
+// const particle = new ParticleNetwork({
+//   projectId: VITE_PARTICLE_APP_PROJECT_ID,
+//   clientKey: VITE_PARTICLE_APP_CLIENT_KEY,
+//   appId: VITE_PARTICLE_APP_APP_ID,
+//   wallet: { displayWalletEntry: true },
+// });
 
-particle.setERC4337({
-  name: 'BICONOMY',
-  version: '2.0.0',
-});
+// particle.setERC4337({
+//   name: 'BICONOMY',
+//   version: '2.0.0',
+// });
 
 const config = createConfig(
   getDefaultConfig({
@@ -51,7 +51,7 @@ const config = createConfig(
       coinbaseWallet(),
       // mathWallet(),
       tokenPocket(),
-      particleWallet(),
+      // particleWallet(),
       walletConnect(),
     ],
   }),
