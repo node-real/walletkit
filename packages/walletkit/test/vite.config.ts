@@ -6,7 +6,7 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   envDir: './',
-  root: './dev',
+  root: './test',
   plugins: [
     react(),
     vanillaExtractPlugin({

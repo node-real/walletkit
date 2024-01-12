@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { chains } from './chains';
 import { WagmiConfig, createConfig } from 'wagmi';
 import VConsole from 'vconsole';
@@ -21,27 +21,27 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-  particleWallet,
-} from '../src/wallets';
-import { ParticleNetwork } from '@particle-network/auth';
+  // particleWallet,
+} from '@/wallets';
+// import { ParticleNetwork } from '@particle-network/auth';
 
 new VConsole();
 
-const env = (import.meta as any).env;
+// const env = (import.meta as any).env;
 
-const particle = new ParticleNetwork({
-  projectId: env.VITE_PARTICLE_APP_PROJECT_ID,
-  clientKey: env.VITE_PARTICLE_APP_CLIENT_KEY,
-  appId: env.VITE_PARTICLE_APP_APP_ID,
-  wallet: { displayWalletEntry: true },
-  chainId: 204,
-  chainName: 'opBNB',
-});
+// const particle = new ParticleNetwork({
+//   projectId: env.VITE_PARTICLE_APP_PROJECT_ID,
+//   clientKey: env.VITE_PARTICLE_APP_CLIENT_KEY,
+//   appId: env.VITE_PARTICLE_APP_APP_ID,
+//   wallet: { displayWalletEntry: true },
+//   chainId: 204,
+//   chainName: 'opBNB',
+// });
 
-particle.setERC4337({
-  name: 'BICONOMY',
-  version: '2.0.0',
-});
+// particle.setERC4337({
+//   name: 'BICONOMY',
+//   version: '2.0.0',
+// });
 
 const config = createConfig(
   getDefaultConfig({
@@ -56,7 +56,7 @@ const config = createConfig(
       binanceWeb3Wallet(),
       coinbaseWallet(),
       tokenPocket(),
-      particleWallet(),
+      // particleWallet(),
       walletConnect(),
     ],
   }),
