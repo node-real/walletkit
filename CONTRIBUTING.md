@@ -27,8 +27,7 @@ pnpm install
 pnpm dev
 ```
 
-In default, this will run a [vite example](./packages/walletkit/dev), you can use this example for
-development and debugging. Any changes in `packages/walletkit` will trigger a refresh.
+In default, this will run a [test example](./packages/walletkit/test) under walletkit package, you can use this example for development and debugging. Any changes in `packages/walletkit` will trigger a refresh.
 
 ## Coding standards
 
