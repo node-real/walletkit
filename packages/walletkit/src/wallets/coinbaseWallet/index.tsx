@@ -1,15 +1,15 @@
 import { getGlobalData } from '@/globalData';
 import { Chain } from 'wagmi';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { CoinbaseWalletConnector } from './connector';
 import { PartialWalletProps, WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
 
 export const COINBASE_WALLET_ID = 'coinbaseWallet';
 
-export type CoinbaseWalletConnectorOptions = Required<
-  ConstructorParameters<typeof CoinbaseWalletConnector>
->[0]['options'];
+export type CoinbaseWalletConnectorOptions = Partial<
+  Required<ConstructorParameters<typeof CoinbaseWalletConnector>>[0]['options']
+>;
 
 export interface CoinbaseWalletProps extends PartialWalletProps {
   connectorOptions?: CoinbaseWalletConnectorOptions;

@@ -6,45 +6,62 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
+} from '@node-real/walletkit';
 import {
-  // binanceWeb3Wallet,
-  // coinbaseWallet,
+  binanceWeb3Wallet,
+  coinbaseWallet,
   // mathWallet,
   metaMask,
-  // okxWallet,
-  // tokenPocket,
+  okxWallet,
+  tokenPocket,
   trustWallet,
   walletConnect,
-} from '@totejs/walletkit/wallets';
+  // particleWallet,
+} from '@node-real/walletkit/wallets';
+// import { ParticleNetwork } from '@particle-network/auth';
 
 import { chains } from './chains';
 import { Box, useColorMode } from '@totejs/uikit';
+
+// const { VITE_PARTICLE_APP_PROJECT_ID, VITE_PARTICLE_APP_CLIENT_KEY, VITE_PARTICLE_APP_APP_ID } =
+//   import.meta.env;
+
+// const particle = new ParticleNetwork({
+//   projectId: VITE_PARTICLE_APP_PROJECT_ID,
+//   clientKey: VITE_PARTICLE_APP_CLIENT_KEY,
+//   appId: VITE_PARTICLE_APP_APP_ID,
+//   wallet: { displayWalletEntry: true },
+// });
+
+// particle.setERC4337({
+//   name: 'BICONOMY',
+//   version: '2.0.0',
+// });
 
 const config = createConfig(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', //
     autoConnect: false,
     connectors: [
       trustWallet(),
       metaMask(),
-      // binanceWeb3Wallet(),
-      // okxWallet(),
-      // coinbaseWallet(),
+      binanceWeb3Wallet(),
+      okxWallet(),
+      coinbaseWallet(),
       // mathWallet(),
-      // tokenPocket(),
+      tokenPocket(),
+      // particleWallet(),
       walletConnect(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 1, // Once connected to the wallet, which chain you want to use
+  initialChainId: 1,
 };
 
-export default function App() {
+export default function Playground() {
   const { colorMode } = useColorMode();
 
   return (

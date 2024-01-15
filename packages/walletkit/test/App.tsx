@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { chains } from './chains';
 import { WagmiConfig, createConfig } from 'wagmi';
 import VConsole from 'vconsole';
@@ -11,7 +12,6 @@ import {
   useModal,
 } from '../src/index';
 
-import { useState } from 'react';
 import {
   binanceWeb3Wallet,
   coinbaseWallet,
@@ -21,20 +21,32 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '../src/wallets';
-import React from 'react';
+  // particleWallet,
+} from '@/wallets';
+// import { ParticleNetwork } from '@particle-network/auth';
 
 new VConsole();
+
+// const env = (import.meta as any).env;
+
+// const particle = new ParticleNetwork({
+//   projectId: env.VITE_PARTICLE_APP_PROJECT_ID,
+//   clientKey: env.VITE_PARTICLE_APP_CLIENT_KEY,
+//   appId: env.VITE_PARTICLE_APP_APP_ID,
+//   wallet: { displayWalletEntry: true },
+//   chainId: 204,
+//   chainName: 'opBNB',
+// });
+
+// particle.setERC4337({
+//   name: 'BICONOMY',
+//   version: '2.0.0',
+// });
 
 const config = createConfig(
   getDefaultConfig({
     autoConnect: true,
     appName: 'WalletKit',
-
-    // WalletConnect 2.0 requires a projectId which you can create quickly
-    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-
     chains,
     connectors: [
       trustWallet(),
@@ -44,13 +56,14 @@ const config = createConfig(
       binanceWeb3Wallet(),
       coinbaseWallet(),
       tokenPocket(),
+      // particleWallet(),
       walletConnect(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  // initialChainId: 204,
+  initialChainId: 204,
 };
 
 export default function App() {

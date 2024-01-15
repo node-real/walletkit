@@ -18,10 +18,18 @@ import {
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 
 export function SwitchNetworkPage() {
-  const { supportedChains, log } = useWalletKitContext();
-  const { isLoading, switchNetwork, pendingChainId } = useWalletKitSwitchNetwork();
+  const { supportedChains, log, options } = useWalletKitContext();
+
   const { chain } = useNetwork();
-  const { isClosable } = useModal();
+  const { isClosable, onClose } = useModal();
+
+  const { isLoading, switchNetwork, pendingChainId } = useWalletKitSwitchNetwork({
+    onSuccess() {
+      if (options.closeModalAfterSwitchingNetwork) {
+        onClose();
+      }
+    },
+  });
 
   const onSwitchNetwork = (chainId: number) => {
     log('[switch network page]', 'switchNetwork:', switchNetwork, ', isLoading:', isLoading);
