@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm i @totejs/walletkit^0 wagmi^0 ethers@^5
+npm i @node-real/walletkit^0 wagmi^0 ethers@^5
 ```
 
 ## Examples
@@ -13,7 +13,7 @@ npm i @totejs/walletkit^0 wagmi^0 ethers@^5
 
 ## Playground
 
-<WalletKitExample />
+<Playground />
 
 ## How to use
 
@@ -21,7 +21,7 @@ npm i @totejs/walletkit^0 wagmi^0 ethers@^5
 
 ```tsx live=false
 // 👇 Import walletkit styles here.
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 
 import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
@@ -64,7 +64,7 @@ export const chains: Chain[] = [
 
 ```tsx live=false
 // 👇 Import walletkit styles here.
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
@@ -73,8 +73,8 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+} from '@node-real/walletkit';
+import { metaMask, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
 
 const client = createClient(
   getDefaultConfig({
@@ -121,7 +121,7 @@ Use hook `useModal` to show/dismiss the specific modal. Must be used within a `<
 - `onOpenSwitchNetwork`: open the switch network modal
 
 ```tsx live=false
-import { useModal } from '@totejs/walletkit';
+import { useModal } from '@node-real/walletkit';
 
 const { isOpen, onOpen, onClose, onOpenProfile, onOpenSwitchNetwork } = useModal();
 
@@ -133,7 +133,7 @@ const { isOpen, onOpen, onClose, onOpenProfile, onOpenSwitchNetwork } = useModal
 ## Customizing wallets
 
 ```tsx live=false
-import { metaMask, tokenPocket, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+import { metaMask, tokenPocket, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
 
 const client = createClient(
   getDefaultConfig({
@@ -226,7 +226,7 @@ const config = createConfig(
 `useModal`
 
 ```tsx live=false
-import { useModal } from '@totejs/walletkit';
+import { useModal } from '@node-real/walletkit';
 
 const { isOpen, onOpen, onClose } = useModal();
 <button onClick={onOpen}>connect</button>;

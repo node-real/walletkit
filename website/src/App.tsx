@@ -1,4 +1,4 @@
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 import { ThemeProvider } from '@totejs/uikit';
 import { Routes, Route } from 'react-router-dom';
 import VConsole from 'vconsole';

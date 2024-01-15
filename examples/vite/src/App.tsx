@@ -1,4 +1,4 @@
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
@@ -7,8 +7,8 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
-import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
+} from '@node-real/walletkit';
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
 
 const client = createClient(
   getDefaultConfig({

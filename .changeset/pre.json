@@ -1,15 +1,11 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
     "example-nextjs": "0.0.1",
     "example-vite": "0.0.1",
-    "@totejs/walletkit": "0.2.7",
+    "@node-real/walletkit": "0.2.7",
     "website": "0.0.1"
   },
-  "changesets": [
-    "blue-mayflies-fold",
-    "fifty-fans-ring",
-    "stale-pumas-float"
-  ]
+  "changesets": ["blue-mayflies-fold", "fifty-fans-ring", "stale-pumas-float"]
 }

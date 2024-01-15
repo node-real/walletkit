@@ -3,6 +3,7 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { TRUST_WALLET_ID } from '.';
 import { getInjectedProvider } from '../utils';
 import { sleep } from '@/utils/common';
+import { WindowProvider } from 'wagmi/window';
 
 export type TrustWalletConnectorOptions = {
   shimDisconnect?: boolean;
@@ -36,7 +37,7 @@ export class TrustWalletConnector extends MetaMaskConnector {
     if (typeof window !== 'undefined' && !window.trustwallet?.request) {
       await sleep();
     }
-    return this.options.getProvider();
+    return this.options.getProvider() as WindowProvider;
   }
 }
 

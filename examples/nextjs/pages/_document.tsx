@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { EthereumScript } from '@totejs/walletkit';
+import { EthereumScript } from '@node-real/walletkit';
 
 export default function Document() {
   return (

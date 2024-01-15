@@ -1,4 +1,22 @@
-# @totejs/walletkit
+# @node-real/walletkit
+
+## 1.0.9-alpha.4
+
+### Patch Changes
+
+- e06d4b3: refactor: Add env variables.
+
+## 1.0.9-alpha.3
+
+### Patch Changes
+
+- a9a34af: Add particle wallet
+
+## 1.0.9-alpha.2
+
+### Patch Changes
+
+- a6de228: Add `closeModalAfterSwitchingNetwork`.
 
 ## 0.2.8-alpha.2
 

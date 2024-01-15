@@ -9,10 +9,10 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "dev": "pnpm --F @totejs/walletkit dev",
-    "build": "pnpm --F @totejs/walletkit build",
-    "dev:docs": "pnpm --F @totejs/walletkit build:watch & pnpm --F website dev",
-    "build:docs": "pnpm --F @totejs/walletkit build && pnpm --F website build",
+    "dev": "pnpm --F @node-real/walletkit dev",
+    "build": "pnpm --F @node-real/walletkit build",
+    "dev:docs": "pnpm --F @node-real/walletkit build:watch & pnpm --F website dev",
+    "build:docs": "pnpm build && pnpm --F website build",
     "pre:enter": "pnpm changeset pre enter alpha",
     "pre:exit": "pnpm changeset pre exit",
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
@@ -20,15 +20,15 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3",
+    "@commitlint/cli": "^18.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.5",
     "husky": "^8.0.3",
-    "lint-staged": "^15.1.0",
-    "prettier": "^3.1.0"
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1"
   }
 }

@@ -6,7 +6,7 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
+} from '@node-real/walletkit';
 import {
   binanceWeb3Wallet,
   coinbaseWallet,
@@ -16,36 +16,32 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-  particleWallet,
-} from '@totejs/walletkit/wallets';
-import { ParticleNetwork } from '@particle-network/auth';
+  // particleWallet,
+} from '@node-real/walletkit/wallets';
+// import { ParticleNetwork } from '@particle-network/auth';
 
 import { chains } from './chains';
 import { Box, useColorMode } from '@totejs/uikit';
 
-//!!! environment variables for testing, use directly
-const PARTICLE_APP_APP_ID = '9f8f0969-f7b3-474b-ae93-8773231e6c05';
-const PARTICLE_APP_PROJECT_ID = '33eea7b2-d76b-4b5a-978f-4413a6b70e82';
-const PARTICLE_APP_CLIENT_KEY = 'clprc7kown00uAKQrWsMOAwzXXiWxYDMq9bpfTta';
-const WALLET_CONNECT_PROJECT_ID = 'e68a1816d39726c2afabf05661a32767';
+// const { VITE_PARTICLE_APP_PROJECT_ID, VITE_PARTICLE_APP_CLIENT_KEY, VITE_PARTICLE_APP_APP_ID } =
+//   import.meta.env;
 
-const particle = new ParticleNetwork({
-  projectId: PARTICLE_APP_PROJECT_ID as string,
-  clientKey: PARTICLE_APP_CLIENT_KEY as string,
-  appId: PARTICLE_APP_APP_ID as string,
-  wallet: { displayWalletEntry: true },
-});
+// const particle = new ParticleNetwork({
+//   projectId: VITE_PARTICLE_APP_PROJECT_ID,
+//   clientKey: VITE_PARTICLE_APP_CLIENT_KEY,
+//   appId: VITE_PARTICLE_APP_APP_ID,
+//   wallet: { displayWalletEntry: true },
+// });
 
-particle.setERC4337({
-  name: 'BICONOMY',
-  version: '2.0.0',
-});
+// particle.setERC4337({
+//   name: 'BICONOMY',
+//   version: '2.0.0',
+// });
 
 const client = createClient(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
-    walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
     autoConnect: false,
     connectors: [
       trustWallet(),
@@ -55,17 +51,17 @@ const client = createClient(
       coinbaseWallet(),
       // mathWallet(),
       tokenPocket(),
-      particleWallet(),
+      // particleWallet(),
       walletConnect(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
-  initialChainId: 1, // Once connected to the wallet, which chain you want to use
+  initialChainId: 1,
 };
 
-export default function App() {
+export default function Playground() {
   const { colorMode } = useColorMode();
 
   return (

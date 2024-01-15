@@ -22,14 +22,14 @@ The following examples are provided in the [examples](./examples/) folder of thi
 ## Installation
 
 ```bash
-npm i @totejs/walletkit^0 wagmi^0 ethers@^5
+npm i @node-real/walletkit^0 wagmi^0 ethers@^5
 
 ```
 
 ## Usage
 
 ```tsx
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 import { WagmiConfig, createClient } from 'wagmi';
 import { chains } from './chains';
 import {
@@ -38,8 +38,8 @@ import {
   getDefaultConfig,
   WalletKitOptions,
   SwitchNetworkModal,
-} from '@totejs/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@totejs/walletkit/wallets';
+} from '@node-real/walletkit';
+import { metaMask, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
 
 const client = createClient(
   getDefaultConfig({

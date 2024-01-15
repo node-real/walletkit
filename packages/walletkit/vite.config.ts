@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import dts from 'vite-plugin-dts';
-import nodeResolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import path from 'path';
 
@@ -13,7 +12,9 @@ export default defineConfig({
     vanillaExtractPlugin({
       identifiers: ({ hash }) => `wk_${hash}`,
     }),
-    dts(),
+    dts({
+      include: 'src',
+    }),
   ],
   resolve: {
     alias: {
@@ -31,8 +32,11 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'ethers', 'wagmi', 'qrcode'],
-      plugins: [peerDepsExternal(), nodeResolve()],
+      plugins: [
+        peerDepsExternal({
+          includeDependencies: true,
+        }),
+      ],
       output: {
         chunkFileNames: 'common.js',
       },

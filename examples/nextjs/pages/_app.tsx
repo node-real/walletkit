@@ -1,4 +1,4 @@
-import '@totejs/walletkit/styles.css';
+import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { chains } from './chains';
@@ -9,8 +9,8 @@ import {
   WalletKitOptions,
   WalletKitProvider,
   getDefaultConfig,
-} from '@totejs/walletkit';
-import { trustWallet, metaMask, walletConnect } from '@totejs/walletkit/wallets';
+} from '@node-real/walletkit';
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
 
 const client = createClient(
   getDefaultConfig({
