@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.8
+
+### Patch Changes
+
+- 331c8ea: Modify walletkit scope.
+
 ## 1.0.9-alpha.4
 
 ### Patch Changes
