@@ -32,6 +32,16 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Enter pre mode
+        if: github.ref_name == 'alpha' || github.ref_name == '0.x-alpha'
+        run: |
+          pnpm ci:enter | exit 0
+
+      - name: Exit pre mode
+        if: github.ref_name == 'main' || github.ref_name == '0.x'
+        run: |
+          pnpm ci:exit | exit 0
+
       - name: Create and publish versions
         uses: changesets/action@v1
         with:

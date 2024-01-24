@@ -13,8 +13,8 @@
     "build": "pnpm --F @node-real/walletkit build",
     "dev:docs": "pnpm --F @node-real/walletkit build:watch & pnpm --F website dev",
     "build:docs": "pnpm build && pnpm --F website build",
-    "pre:enter": "pnpm changeset pre enter alpha",
-    "pre:exit": "pnpm changeset pre exit",
+    "ci:enter": "pnpm changeset pre enter alpha",
+    "ci:exit": "pnpm changeset pre exit",
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
     "ci:publish": "pnpm changeset publish"
   },
