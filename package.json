@@ -13,10 +13,12 @@
     "build": "pnpm --F @node-real/walletkit build",
     "dev:docs": "pnpm --F @node-real/walletkit build:watch & pnpm --F website dev",
     "build:docs": "pnpm build && pnpm --F website build",
-    "ci:enter": "pnpm changeset pre enter alpha",
-    "ci:exit": "pnpm changeset pre exit",
+    "ci:enter": "pnpm changeset pre enter alpha || true",
+    "ci:exit": "pnpm changeset pre exit || true",
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
-    "ci:publish": "pnpm changeset publish"
+    "ci:publish": "pnpm changeset publish",
+    "ci:alpha-version": "pnpm ci:enter && pnpm ci:version",
+    "ci:stable-version": "pnpm ci:exit && pnpm ci:version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

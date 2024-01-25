@@ -1,16 +1,14 @@
-name: Release
+name: Stable Release
 on:
   push:
     branches:
       - main
-      - alpha
       - 0.x
-      - 0.x-alpha
 
 jobs:
   release:
     name: release
-    if: github.repository == 'node-real/walletkit'
+    if: github.repository == 'node-real/uikit'
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -20,32 +18,20 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/actions/setup
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Build packages
-        run: pnpm build
-
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Enter pre mode
-        if: github.ref_name == 'alpha' || github.ref_name == '0.x-alpha'
-        run: |
-          pnpm ci:enter | exit 0
+        run: pnpm build:uikit
 
       - name: Exit pre mode
-        if: github.ref_name == 'main' || github.ref_name == '0.x'
-        run: |
-          pnpm ci:exit | exit 0
+        if: github.event.commits[0].author.username != 'github-actions[bot]'
+        run: pnpm ci:exit
 
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
-          version: pnpm ci:version
+          version: pnpm ci:stable-version
           publish: pnpm ci:publish
           commit: 'chore: update versions'
           title: 'chore: update versions'
