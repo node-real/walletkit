@@ -42,8 +42,8 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
       });
     },
     getDeepLink: () => {
-      const { http } = getDeepLink(window.location.href);
-      return http;
+      const { bnc } = getDeepLink(window.location.href);
+      return bnc;
     },
     getQRCodeUri(uri) {
       return uri;
