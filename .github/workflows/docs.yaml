@@ -9,7 +9,9 @@ on:
 jobs:
   release:
     name: deploy docs
-    if: github.repository == 'node-real/uikit'
+    if: |
+      github.repository == 'node-real/walletkit' &&
+      github.event.commits[0].author.username != 'github-actions[bot]'
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:

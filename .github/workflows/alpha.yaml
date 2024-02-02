@@ -8,7 +8,7 @@ on:
 jobs:
   release:
     name: release
-    if: github.repository == 'node-real/uikit'
+    if: github.repository == 'node-real/walletkit'
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Build packages
-        run: pnpm build:uikit
+        run: pnpm build
 
       - name: Enter pre mode
         if: github.event.commits[0].author.username != 'github-actions[bot]'
