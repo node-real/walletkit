@@ -1,6 +1,11 @@
 name: 'setup'
 description: Prepare the environment
 
+inputs:
+  npm_token:
+    description: 'npm token'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -23,3 +28,12 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install
+
+    - name: Creating .npmrc
+      shell: bash
+      run: |
+        cat << EOF > "$HOME/.npmrc"
+          //registry.npmjs.org/:_authToken=$NPM_TOKEN
+        EOF
+      env:
+        NPM_TOKEN: ${{ inputs.npm_token }}
