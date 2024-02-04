@@ -35,10 +35,10 @@ export function bitgetWallet(props: PartialCustomProps = {}): WalletProps {
             if (typeof window === 'undefined') return;
 
             if (isMobile()) {
-              return window.ethereum || window.bitkeep;
+              return window.ethereum || window.bitkeep.ethereum;
             }
 
-            return getInjectedProvider('isBitgetWallet') ?? window.bitkeep;
+            return getInjectedProvider('isBitgetWallet') ?? window.bitkeep.ethereum;
           },
           ...connectorOptions,
         },
