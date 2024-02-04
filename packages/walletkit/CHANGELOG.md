@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.10-alpha.0
+
+### Patch Changes
+
+- c33fbda: Support binance web3 wallet on mobile
+
 ## 0.2.9
 
 ### Patch Changes
