@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 1.0.10-alpha.1
+
+### Patch Changes
+
+- d86926f: Add bitget wallet
+
 ## 1.0.10-alpha.0
 
 ### Patch Changes

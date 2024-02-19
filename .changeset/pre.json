@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
-    "nice-hats-explain"
+    "nice-hats-explain",
+    "popular-peas-grin"
   ]
 }
