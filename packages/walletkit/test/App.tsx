@@ -14,6 +14,7 @@ import {
 
 import {
   binanceWeb3Wallet,
+  bitgetWallet,
   coinbaseWallet,
   mathWallet,
   metaMask,
@@ -49,6 +50,7 @@ const config = createConfig(
     appName: 'WalletKit',
     chains,
     connectors: [
+      bitgetWallet(),
       trustWallet(),
       metaMask(),
       okxWallet(),

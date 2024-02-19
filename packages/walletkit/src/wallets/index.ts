@@ -15,5 +15,6 @@ export * from './mathWallet';
 export * from './binanceWeb3Wallet';
 export * from './coinbaseWallet';
 export * from './coinbaseWallet/connector';
+export * from './bitgetWallet';
 // export * from './particleWallet';
 // export * from './particleWallet/connector';
