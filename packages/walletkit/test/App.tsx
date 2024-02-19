@@ -13,6 +13,7 @@ import {
 
 import {
   binanceWeb3Wallet,
+  bitgetWallet,
   coinbaseWallet,
   mathWallet,
   metaMask,
@@ -46,6 +47,7 @@ const client = createClient(
     appName: 'WalletKit',
     chains,
     connectors: [
+      bitgetWallet(),
       trustWallet(),
       metaMask(),
       okxWallet(),

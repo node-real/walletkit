@@ -11,6 +11,7 @@ declare global {
     trustwallet: any;
     tokenpocket: any;
     okexchain: any;
+    bitkeep: any;
   }
 }
 
