@@ -229,6 +229,7 @@ In general, wallet is available at several different platforms, such as PC brows
 |WalletConnect, iOS, in system browser|<ol><li>Open dapp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
 |WalletConnect, iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
 
+
 ## Release notes
 
 A complete development workflow like following:

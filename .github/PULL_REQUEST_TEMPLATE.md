@@ -48,4 +48,3 @@ Please fill out the form below if you are adding a new wallet, for more detail, 
 |WalletConnect, Android, in wallet dapp browser| | | |
 |WalletConnect, iOS, in system browser| | | |
 |WalletConnect, iOS, in wallet dapp browser| | | |
-
