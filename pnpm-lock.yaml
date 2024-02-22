@@ -118,6 +118,12 @@ importers:
       '@particle-network/provider':
         specifier: ^1.2.1
         version: 1.2.1(@particle-network/auth@1.2.2)
+      '@wagmi/core':
+        specifier: ^0
+        version: 0.10.17(@types/react@18.2.47)(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)
+      '@walletconnect/ethereum-provider':
+        specifier: ^2.9.0
+        version: 2.9.0(@walletconnect/modal@2.6.2)
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
