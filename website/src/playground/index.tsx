@@ -43,7 +43,7 @@ const config = createConfig(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
-    autoConnect: true,
+    autoConnect: false,
     connectors: [
       binanceWeb3Wallet(),
       bitgetWallet(),
