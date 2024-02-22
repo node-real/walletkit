@@ -9,6 +9,7 @@ import {
 } from '@node-real/walletkit';
 import {
   binanceWeb3Wallet,
+  bitgetWallet,
   coinbaseWallet,
   // mathWallet,
   metaMask,
@@ -44,15 +45,16 @@ const config = createConfig(
     chains,
     autoConnect: false,
     connectors: [
-      trustWallet(),
-      metaMask(),
       binanceWeb3Wallet(),
-      okxWallet(),
+      bitgetWallet(),
       coinbaseWallet(),
-      // mathWallet(),
+      metaMask(),
+      okxWallet(),
       tokenPocket(),
-      // particleWallet(),
+      trustWallet(),
       walletConnect(),
+      // mathWallet(),
+      // particleWallet(),
     ],
   }),
 );
