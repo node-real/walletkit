@@ -1,5 +1,16 @@
 # @node-real/walletkit
 
+## 0.2.10-alpha.2
+
+### Patch Changes
+
+- 6092b05: Fixed automatic disconnection issue caused by WalletConnect.
+- b9d9a06: <<<<<<<< HEAD:.changeset/popular-peas-grin.md
+  Add bitget wallet
+  ========
+  Update docs
+  > > > > > > > > dev:.changeset/loud-waves-switch.md
+
 ## 0.2.10-alpha.1
 
 ### Patch Changes
