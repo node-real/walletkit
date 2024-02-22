@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 1.0.10-alpha.2
+
+### Patch Changes
+
+- d24d147: Fixed automatic disconnection issue caused by WalletConnect.
+- d24d147: Update docs
+
 ## 1.0.10-alpha.1
 
 ### Patch Changes
