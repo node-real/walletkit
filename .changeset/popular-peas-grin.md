@@ -3,3 +3,5 @@
 ---
 
 Add bitget wallet
+
+Update docs

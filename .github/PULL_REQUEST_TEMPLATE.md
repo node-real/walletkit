@@ -33,19 +33,18 @@
 
 ## For adding a new wallet
 
-For more detail, please click [here](../CONTRIBUTING.md#notice-test-cases-for-adding-a-new-wallet)
+Please fill out the form below if you are adding a new wallet, for more detail, please click [here](../CONTRIBUTING.md#notice-test-cases-for-adding-a-new-wallet)
 
 <!--- If you are adding a new wallet, we hope you can complete the following tests before the code is merged into the alpha branch -->
-|test case|supported?|connected?|switch networks?|support testnet?|
-|-|-|-|-|-|
-|PC, browser extension| ✔️ | ✔️ | ❌ | ❌ |
-|Android, in system browser| | | | |
-|Android, in wallet dapp browser| | | | |
-|iOS, in system browser| | | | |
-|iOS, in wallet dapp browser| | | | |
-|WalletConnect, PC| | | | |
-|WalletConnect, Android, in system browser| | | | |
-|WalletConnect, Android, in wallet dapp browser| | | | |
-|WalletConnect, iOS, in system browser| | | | |
-|WalletConnect, iOS, in wallet dapp browser| | | | |
-
+|test case|Does the wallet support connecting by this way?|Does the wallet support switching networks?|Does the wallet support testnet?|
+|-|-|-|-|
+|PC, browser extension| ✔️ | ✔️ | ❌ |
+|Android, in system browser| | | |
+|Android, in wallet dapp browser| | | |
+|iOS, in system browser| | | |
+|iOS, in wallet dapp browser| | | |
+|WalletConnect, PC| | | |
+|WalletConnect, Android, in system browser| | | |
+|WalletConnect, Android, in wallet dapp browser| | | |
+|WalletConnect, iOS, in system browser| | | |
+|WalletConnect, iOS, in wallet dapp browser| | | |
