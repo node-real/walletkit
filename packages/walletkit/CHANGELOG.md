@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.10-alpha.3
+
+### Patch Changes
+
+- c3a68fa: Remove js private properties and methods.
+
 ## 0.2.10-alpha.2
 
 ### Patch Changes
