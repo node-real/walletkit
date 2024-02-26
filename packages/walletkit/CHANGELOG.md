@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 1.0.10-alpha.3
+
+### Patch Changes
+
+- 83d9533: Add upgrade tips for binance web3 wallet.
+
 ## 1.0.10-alpha.2
 
 ### Patch Changes
