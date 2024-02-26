@@ -95,15 +95,15 @@ export class WalletConnectConnector extends Connector<
   readonly name = 'WalletConnect';
   readonly ready = true;
 
-  #provider?: WalletConnectProvider;
-  #initProviderPromise?: Promise<void>;
+  _provider?: WalletConnectProvider;
+  _initProviderPromise?: Promise<void>;
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super({
       ...config,
       options: { isNewChainsStale: true, ...config.options },
     });
-    this.#createProvider();
+    this._createProvider();
   }
 
   async connect({ chainId, pairingTopic }: ConnectConfig = {}) {
@@ -118,9 +118,9 @@ export class WalletConnectConnector extends Connector<
       if (!targetChainId) throw new Error('No chains found on connector.');
 
       const provider = await this.getProvider();
-      this.#setupListeners();
+      this._setupListeners();
 
-      const isChainsStale = this.#isChainsStale();
+      const isChainsStale = this._isChainsStale();
 
       // If there is an active session with stale chains, disconnect the current session.
       if (provider.session && isChainsStale) await provider.disconnect();
@@ -139,7 +139,7 @@ export class WalletConnectConnector extends Connector<
           optionalChains,
         });
 
-        this.#setRequestedChainsIds(this.chains.map(({ id }) => id));
+        this._setRequestedChainsIds(this.chains.map(({ id }) => id));
       }
 
       // If session exists and chains are authorized, enable provider for required chain
@@ -168,8 +168,8 @@ export class WalletConnectConnector extends Connector<
     } catch (error) {
       if (!/No matching key/i.test((error as Error).message)) throw error;
     } finally {
-      this.#removeListeners();
-      this.#setRequestedChainsIds([]);
+      this._removeListeners();
+      this._setRequestedChainsIds([]);
     }
   }
 
@@ -184,9 +184,9 @@ export class WalletConnectConnector extends Connector<
   }
 
   async getProvider({ chainId }: { chainId?: number } = {}) {
-    if (!this.#provider) await this.#createProvider();
+    if (!this._provider) await this._createProvider();
     if (chainId) await this.switchChain(chainId);
-    return this.#provider!;
+    return this._provider!;
   }
 
   async getSigner({ chainId }: { chainId?: number } = {}) {
@@ -197,7 +197,7 @@ export class WalletConnectConnector extends Connector<
   async isAuthorized() {
     try {
       const [account, provider] = await Promise.all([this.getAccount(), this.getProvider()]);
-      const isChainsStale = this.#isChainsStale();
+      const isChainsStale = this._isChainsStale();
 
       // If an account does not exist on the session, then the connector is unauthorized.
       if (!account) return false;
@@ -222,8 +222,8 @@ export class WalletConnectConnector extends Connector<
 
     try {
       const provider = await this.getProvider();
-      const namespaceChains = this.#getNamespaceChainsIds();
-      const namespaceMethods = this.#getNamespaceMethods();
+      const namespaceChains = this._getNamespaceChainsIds();
+      const namespaceMethods = this._getNamespaceMethods();
       const isChainApproved = namespaceChains.includes(chainId);
 
       if (!isChainApproved && namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) {
@@ -239,9 +239,9 @@ export class WalletConnectConnector extends Connector<
             },
           ],
         });
-        const requestedChains = this.#getRequestedChainsIds();
+        const requestedChains = this._getRequestedChainsIds();
         requestedChains.push(chainId);
-        this.#setRequestedChainsIds(requestedChains);
+        this._setRequestedChainsIds(requestedChains);
       }
       await provider.request({
         method: 'wallet_switchEthereumChain',
@@ -258,14 +258,14 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
-  async #createProvider() {
-    if (!this.#initProviderPromise && typeof window !== 'undefined') {
-      this.#initProviderPromise = this.#initProvider();
+  async _createProvider() {
+    if (!this._initProviderPromise && typeof window !== 'undefined') {
+      this._initProviderPromise = this._initProvider();
     }
-    return this.#initProviderPromise;
+    return this._initProviderPromise;
   }
 
-  async #initProvider() {
+  async _initProvider() {
     const {
       default: EthereumProvider,
       OPTIONAL_EVENTS,
@@ -274,7 +274,7 @@ export class WalletConnectConnector extends Connector<
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id);
     if (defaultChain) {
       const { projectId, showQrModal = true, qrModalOptions, relayUrl } = this.options;
-      this.#provider = await EthereumProvider.init({
+      this._provider = await EthereumProvider.init({
         showQrModal,
         qrModalOptions,
         projectId,
@@ -312,14 +312,14 @@ export class WalletConnectConnector extends Connector<
    *
    * Also check that dapp supports at least 1 chain from previously approved session.
    */
-  #isChainsStale() {
-    const namespaceMethods = this.#getNamespaceMethods();
+  _isChainsStale() {
+    const namespaceMethods = this._getNamespaceMethods();
     if (namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) return false;
     if (!this.options.isNewChainsStale) return false;
 
-    const requestedChains = this.#getRequestedChainsIds();
+    const requestedChains = this._getRequestedChainsIds();
     const connectorChains = this.chains.map(({ id }) => id);
-    const namespaceChains = this.#getNamespaceChainsIds();
+    const namespaceChains = this._getNamespaceChainsIds();
 
     if (namespaceChains.length && !namespaceChains.some((id) => connectorChains.includes(id)))
       return false;
@@ -327,47 +327,47 @@ export class WalletConnectConnector extends Connector<
     return !connectorChains.every((id) => requestedChains.includes(id));
   }
 
-  #setupListeners() {
-    if (!this.#provider) return;
-    this.#removeListeners();
-    this.#provider.on('accountsChanged', this.onAccountsChanged);
-    this.#provider.on('chainChanged', this.onChainChanged);
-    this.#provider.on('disconnect', this.onDisconnect);
-    this.#provider.on('session_delete', this.onDisconnect);
-    this.#provider.on('display_uri', this.onDisplayUri);
-    this.#provider.on('connect', this.onConnect);
+  _setupListeners() {
+    if (!this._provider) return;
+    this._removeListeners();
+    this._provider.on('accountsChanged', this.onAccountsChanged);
+    this._provider.on('chainChanged', this.onChainChanged);
+    this._provider.on('disconnect', this.onDisconnect);
+    this._provider.on('session_delete', this.onDisconnect);
+    this._provider.on('display_uri', this.onDisplayUri);
+    this._provider.on('connect', this.onConnect);
   }
 
-  #removeListeners() {
-    if (!this.#provider) return;
-    this.#provider.removeListener('accountsChanged', this.onAccountsChanged);
-    this.#provider.removeListener('chainChanged', this.onChainChanged);
-    this.#provider.removeListener('disconnect', this.onDisconnect);
-    this.#provider.removeListener('session_delete', this.onDisconnect);
-    this.#provider.removeListener('display_uri', this.onDisplayUri);
-    this.#provider.removeListener('connect', this.onConnect);
+  _removeListeners() {
+    if (!this._provider) return;
+    this._provider.removeListener('accountsChanged', this.onAccountsChanged);
+    this._provider.removeListener('chainChanged', this.onChainChanged);
+    this._provider.removeListener('disconnect', this.onDisconnect);
+    this._provider.removeListener('session_delete', this.onDisconnect);
+    this._provider.removeListener('display_uri', this.onDisplayUri);
+    this._provider.removeListener('connect', this.onConnect);
   }
 
-  #setRequestedChainsIds(chains: number[]) {
+  _setRequestedChainsIds(chains: number[]) {
     localStorage.setItem(REQUESTED_CHAINS_KEY, JSON.stringify(chains));
   }
 
-  #getRequestedChainsIds(): number[] {
+  _getRequestedChainsIds(): number[] {
     const data = localStorage.getItem(REQUESTED_CHAINS_KEY);
     return data ? JSON.parse(data) : [];
   }
 
-  #getNamespaceChainsIds() {
-    if (!this.#provider) return [];
-    const chainIds = this.#provider.session?.namespaces[NAMESPACE]?.chains?.map((chain) =>
+  _getNamespaceChainsIds() {
+    if (!this._provider) return [];
+    const chainIds = this._provider.session?.namespaces[NAMESPACE]?.chains?.map((chain) =>
       parseInt(chain.split(':')[1] || ''),
     );
     return chainIds ?? [];
   }
 
-  #getNamespaceMethods() {
-    if (!this.#provider) return [];
-    const methods = this.#provider.session?.namespaces[NAMESPACE]?.methods;
+  _getNamespaceMethods() {
+    if (!this._provider) return [];
+    const methods = this._provider.session?.namespaces[NAMESPACE]?.methods;
     return methods ?? [];
   }
 
@@ -383,7 +383,7 @@ export class WalletConnectConnector extends Connector<
   };
 
   protected onDisconnect = () => {
-    this.#setRequestedChainsIds([]);
+    this._setRequestedChainsIds([]);
     this.emit('disconnect');
   };
 
@@ -392,6 +392,6 @@ export class WalletConnectConnector extends Connector<
   };
 
   protected onConnect = () => {
-    this.emit('connect', { provider: this.#provider });
+    this.emit('connect', { provider: this._provider });
   };
 }
