@@ -1,5 +1,5 @@
 import { isIOS } from '@/base/utils/mobile';
-import { isTrustWallet } from '@/wallets';
+import { isBinanceWeb3Wallet, isTrustWallet } from '@/wallets';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
@@ -41,6 +41,15 @@ export function commonErrorHandler(props: { log: any; handler: any; error: any }
     let description = text || error.cause?.message || error.message;
     if (description?.includes('Connection request reset')) {
       description = undefined;
+    }
+
+    if (isBinanceWeb3Wallet()) {
+      if (
+        description?.includes('Request failed: The JSON sent is not a valid Request object.') ||
+        description?.includes('Adaptor not found: eip155')
+      ) {
+        description = 'Please update to the latest version of the Binance app and try again later.';
+      }
     }
 
     log('[wallet error]', error);
