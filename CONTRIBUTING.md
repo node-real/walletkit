@@ -56,10 +56,10 @@ Before adding a new wallet, you need to collect some information:
 | ------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------- | -------- |
 | wallet name        | -                                                                                                   | Trust Wallet                        | ✔️      |
 | short name         | If display space is insufficient, the short name will be displayed.                                 | Trust                               | optional |
-| wallet logo        | logo in svg format.                                                                                 | -                                   | ✔️      |
+| wallet logo        | Logo in svg format. It should be noted that WalletKit supports both dark and light modes, for better presentation, you can provide logos in the two modes respectively. | -                                   | ✔️      |
 | download url       | -                                                                                                   | https://trustwallet.com/download    | ✔️      |
 | deeplink           | After clicking deeplink in the system browser, we can directly open dapp in the app's dapp browser. | trust://open_url?coin_id=60&url=xxx | ✔️      |
-| WalletConnect link | If your app supports WalletConnect, please provides the WalletConnect uri.                          | trust://wc?uri=xxx                  | optional |
+| WalletConnect uri | If your app supports WalletConnect, please provides the WalletConnect uri.                           | trust://wc?uri=xxx                  | optional |
 
 Then you can add it to project by following steps:
 
@@ -132,6 +132,9 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
       )}`;
       return dappPath;
     },
+    getQRCodeUri(uri) {
+      return `trust://wc?uri=${encodeURIComponent(uri)}`;
+    },
     ...restProps,
   };
 }
@@ -175,14 +178,14 @@ export interface WalletProps {
 export * from './trustWallet';
 ```
 
-5. Open `examples/test/pages/_app.tsx` to test the new wallet
+5. Open `packages/walletkit/test/App.tsx` to test the new wallet
 
 ```tsx
 import {
   trustWallet, // import new wallet
   metaMask,
   walletConnect,
-} from '@node-real/walletkit/wallets';
+} from '@/wallets';
 import { useState } from 'react';
 
 const config = createConfig(
@@ -204,25 +207,28 @@ const config = createConfig(
 );
 ```
 
+6. Once the tests pass, the code can be merged into the `alpha` branch
+
 ## Notice!!! Test cases for adding a new wallet
 
 Before merging the PR to main branch, we hope you complete the following tests, and fill the test results into the PR template, otherwise the PR may not be approved.
 
-In general, wallet is available at several different platforms, such as PC browser extension, Android, iOS and WalletConnect. If your wallet supports the corresponding platform, please make sure your wallet is worked, can it be connected, can it switch networks, and can it support testnet?
+In general, wallet is available at several different platforms, such as PC browser extension, Android, iOS and WalletConnect. If your wallet supports the corresponding platform, please make sure your wallet is worked.
 
 
-|test case|steps|support?|connected?|switch networks?|support testnet?|
-|-|-|-|-|-|-|
-|PC, browser extension|<ol><li>Open dapp in PC browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|✔️|
-|Android, in system browser|<ol><li>Open dapp in Android system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|✔️|
-|Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|✔️|
-|iOS, in system browser|<ol><li>Open dapp in iOS system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|✔️|❌|
-|iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser </li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|✔️|❌|
-|WalletConnect, PC|<ol><li>Scan the QR code of WalletConnect using your wallet app</li><li>You will see a popup on the wallet app that asks you to connect WalletConnect</li><li>Check the functions</li></ol>|✔️|✔️|✔️|✔️|
-|WalletConnect, Android, in system browser|<ol><li>Open dapp in Android system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|✔️|
-|WalletConnect, Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|✔️|
-|WalletConnect, iOS, in system browser|<ol><li>Open dapp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|✔️|
-|WalletConnect, iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|✔️|
+|test case|steps|Does the wallet support connecting by this way?|Does the wallet support switching networks?|Does the wallet support testnet?|
+|-|-|-|-|-|
+|PC, browser extension|<ol><li>Open dapp in PC browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
+|Android, in system browser|<ol><li>Open dapp in Android system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|❌|✔️|
+|Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
+|iOS, in system browser|<ol><li>Open dapp in iOS system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
+|iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser </li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
+|WalletConnect, PC|<ol><li>Scan the QR code of WalletConnect using your wallet app</li><li>You will see a popup on the wallet app that asks you to connect WalletConnect</li><li>Check the functions</li></ol>|✔️|✔️|✔️|
+|WalletConnect, Android, in system browser|<ol><li>Open dapp in Android system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
+|WalletConnect, Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
+|WalletConnect, iOS, in system browser|<ol><li>Open dapp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
+|WalletConnect, iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
+
 
 ## Release notes
 
@@ -231,7 +237,7 @@ A complete development workflow like following:
 1. Create a new branch out of `main` branch
 2. Make some changes, fix bugs or add new features
 3. Run `pnpm changeset` to create a new changeset
-4. Commit the code, code review is required, after code review, we can merge the code to `main`
+4. Commit the code, code review is required, after code review, we can merge the code to `alpha`
    branch
 5. Then [github action](https://github.com/node-real/walletkit/actions) will automatically execute
    and create a new [release PR](https://github.com/node-real/walletkit/pulls), merge this PR, a new

@@ -1,5 +1,7 @@
 import { Connector as WagmiConnector } from 'wagmi';
 
+import type { InjectedProviderFlags as WagmiInjectedProviderFlags } from 'wagmi/window';
+
 import { WalletProps } from './wallets/types';
 
 declare global {
@@ -9,6 +11,7 @@ declare global {
     trustwallet: any;
     tokenpocket: any;
     okexchain: any;
+    bitkeep: any;
   }
 }
 
@@ -16,4 +19,10 @@ declare module 'wagmi' {
   export interface Connector extends WagmiConnector {
     _wallet: WalletProps;
   }
+}
+
+declare module 'wagmi/window' {
+  type InjectedProviderFlags = WagmiInjectedProviderFlags & {
+    isBinance?: string | undefined;
+  };
 }
