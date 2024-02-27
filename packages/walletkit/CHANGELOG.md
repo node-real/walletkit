@@ -1,5 +1,26 @@
 # @node-real/walletkit
 
+## 0.2.10
+
+### Patch Changes
+
+- b71618d: Fixed automatic disconnection issue caused by WalletConnect.
+- b71618d: <<<<<<<< HEAD:.changeset/popular-peas-grin.md
+  Add bitget wallet
+  ========
+  Update docs
+  > > > > > > > > dev:.changeset/loud-waves-switch.md
+- b71618d: Support binance web3 wallet on mobile
+
+  Add bitget wallet
+
+- b71618d: Add bitget wallet
+
+  Update docs
+
+- b71618d: Add upgrade tips for binance web3 wallet.
+- b71618d: Remove js private properties and methods.
+
 ## 0.2.10-alpha.4
 
 ### Patch Changes
