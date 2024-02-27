@@ -15,6 +15,19 @@ npm i @node-real/walletkit^0 wagmi^0 ethers@^5
 
 <Playground />
 
+## Supported wallets
+
+| wallet              | mainnet | testnet |
+| ------------------- | ------- | ------- |
+| binanceWeb3Wallet() | ✅      | ❌      |
+| bitgetWallet()      | ✅      | ❌      |
+| coinbaseWallet()    | ✅      | ✅      |
+| metaMask()          | ✅      | ✅      |
+| okxWallet()         | ✅      | ✅      |
+| tokenPocket()       | ✅      | ✅      |
+| trustWallet()       | ✅      | ✅      |
+| walletConnect()     | -       | -       |
+
 ## How to use
 
 ### 1. Import walletkit styles
@@ -288,8 +301,8 @@ type ThemeVariant = 'base';
 </WalletKitProvider>;
 ```
 
-An exmaple for custom theme as follows, or you can configure themes in both light and dark modes,
-for more details, please click
+An exmaple for customizing theme as follows, or you can configure themes in both light and dark
+modes, for more details, please click
 [here](https://github.com/node-real/walletkit/blob/main/packages/walletkit/src/themes/base.ts).
 
 ```tsx live=false
@@ -398,7 +411,7 @@ export interface WalletKitProviderProps {
 
 ```tsx live=false
 interface WalletKitOptions {
-  // Once connected to the wallet, which chainId you want to switch
+  // Once connected to the wallet, which network you want to use.
   initialChainId?: number;
 
   // Provide a disclaimer for things like terms and conditions that will be displayed to users when they're not yet connected.
@@ -419,7 +432,7 @@ interface WalletKitOptions {
 
   // !!! Notice
   // This callback takes effect only if WalletKitButton's action='add-network'
-  // will be called if network has already added to the wallet
+  // and will be called if network has already added to the wallet
   onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
 
   // handle wallet errors by yourself
