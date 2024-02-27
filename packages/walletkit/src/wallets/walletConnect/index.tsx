@@ -43,7 +43,7 @@ export function walletConnect(props: WalletConnectProps = {}): WalletProps {
         chains,
         options: {
           // https://github.com/WalletConnect/walletconnect-monorepo/issues/2830
-          // relayUrl: 'wss://relay.walletconnect.org',
+          relayUrl: 'wss://relay.walletconnect.org',
           projectId: walletConnectProjectId,
           metadata: hasAllAppData
             ? {
