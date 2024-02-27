@@ -1,5 +1,15 @@
 # @node-real/walletkit
 
+## 1.0.10
+
+### Patch Changes
+
+- 792d346: Fixed automatic disconnection issue caused by WalletConnect.
+- 792d346: Update docs
+- 792d346: Support binance web3 wallet on mobile
+- 792d346: Add bitget wallet
+- 792d346: Add upgrade tips for binance web3 wallet.
+
 ## 1.0.10-alpha.3
 
 ### Patch Changes
