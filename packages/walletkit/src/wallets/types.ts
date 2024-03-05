@@ -1,6 +1,15 @@
 import { ColorMode } from '@/components/ThemeProvider/context';
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { Chain, Connector } from 'wagmi';
+
+export interface WalletRenderProps {
+  layout: 'list' | 'grid';
+  colorMode: ColorMode;
+  id: string;
+  name: string;
+  logo: ReactElement;
+  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
+}
 
 export interface WalletProps {
   id: string;
@@ -18,6 +27,7 @@ export interface WalletProps {
   createConnector: (chains: Chain[]) => Connector;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;
+  render?: (props: WalletRenderProps) => ReactNode;
 }
 
 export type PartialWalletProps = Partial<WalletProps>;

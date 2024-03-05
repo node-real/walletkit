@@ -181,6 +181,25 @@ const config = createConfig(
 );
 ```
 
+## Using `render` to customize the content of each option
+
+It should be noted that if your app supports small screens or light/dark mode, you may need to write
+different content for different scenarios. The `render` callback function will pass the
+`layout`(list/grid) and `colorMode`(light/dark) to tell you the current situation.
+
+```tsx live=false
+metaMask({
+  render({ name, id, logo, colorMode, layout, onClick }) {
+    return (
+      <div onClick={onClick}>
+        <div>{name}</div>
+        <div>{logo}</div>
+      </div>
+    );
+  },
+});
+```
+
 ## Customizing ConnectButton
 
 Note that `show()` will open the `connected page` instead of the `connectors page` once the wallet
@@ -200,13 +219,13 @@ is connected.
 </WalletKitButton.Custom>
 ```
 
-## Customizing walletConnect recommended wallets
+## Customizing WalletConnect recommended wallets
 
-Sometimes, we need to customize walletConnect's wallets, which we can configure as follows. The
-wallet id can be obtained from [walletConnect explorer](https://walletconnect.com/explorer).
+Sometimes, we need to customize WalletConnect's wallets, which we can configure as follows. The
+wallet id can be obtained from [WalletConnect explorer](https://walletconnect.com/explorer).
 
 Other supported configurations are also available from
-[walletConnect's official documentation](https://docs.walletconnect.com/advanced/walletconnectmodal/options).
+[WalletConnect's official documentation](https://docs.walletconnect.com/advanced/walletconnectmodal/options).
 
 ```tsx live=false
 const config = createConfig(
@@ -224,7 +243,7 @@ const config = createConfig(
       metaMask(),
       walletConnect({
         connectorOptions: {
-          showQrModal: true, // Open walletConnect's modal directly rather than displaying the QR code.
+          showQrModal: true, // Open WalletConnect's modal directly rather than displaying the QR code.
           qrModalOptions: {
             explorerRecommendedWalletIds: [
               '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
@@ -420,6 +439,9 @@ interface WalletKitOptions {
   // Provide a disclaimer for things like terms and conditions that will be displayed to users when they're not yet connected.
   disclaimer?: ReactNode;
 
+  // When the amount of wallets exceeds or equals this value, switch to the grid layout.
+  gridLayoutThreshold?: number;
+
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
 
@@ -476,5 +498,37 @@ export interface DefaultConfigProps {
   webSocketPublicClient?: any;
   enableWebSocketPublicClient?: boolean;
   stallTimeout?: number;
+}
+```
+
+### 4. WalletProps
+
+```tsx live=false
+export interface WalletRenderProps {
+  layout: 'list' | 'grid';
+  colorMode: ColorMode;
+  id: string;
+  name: string;
+  logo: ReactElement;
+  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
+}
+
+export interface WalletProps {
+  id: string;
+  name: string;
+  logos: {
+    default: ReactElement | { [x in ColorMode]: ReactElement };
+    transparent?: ReactElement | { [x in ColorMode]: ReactElement };
+  };
+  downloadUrls: {
+    default: string | undefined;
+  };
+  spinnerColor?: string;
+  showQRCode?: boolean;
+  isInstalled: () => boolean | undefined;
+  createConnector: (chains: Chain[]) => Connector;
+  getDeepLink: () => string | undefined;
+  getQRCodeUri?: (uri: string) => string;
+  render?: (props: WalletRenderProps) => ReactNode;
 }
 ```

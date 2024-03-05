@@ -58,14 +58,14 @@ const config = createConfig(
       tokenPocket(),
       trustWallet(),
       walletConnect(),
-      // mathWallet(),
-      // particleWallet(),
+      mathWallet(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
   initialChainId: 204,
+  gridLayoutThreshold: 4,
 };
 
 export default function App() {

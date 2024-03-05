@@ -14,6 +14,7 @@ export interface WalletKitOptions {
   disclaimer?: ReactNode;
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
+  gridLayoutThreshold?: number;
 
   closeModalAfterConnected?: boolean;
   closeModalAfterSwitchingNetwork?: boolean;
