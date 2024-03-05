@@ -17,9 +17,12 @@ export function useWalletRender(connector: Connector, layout: WalletRenderProps[
     return {
       layout,
       colorMode,
-      id: wallet.id,
-      name: wallet.name,
-      logo: layout === 'grid' ? logos.default : logos.transparent,
+      wallet: {
+        id: wallet.id,
+        name: wallet.name,
+        logo: layout === 'grid' ? logos.default : logos.transparent,
+        isDisabled: wallet.isDisabled,
+      },
       onClick(e: React.MouseEvent<Element, MouseEvent>) {
         onClickWallet(connector, e);
       },

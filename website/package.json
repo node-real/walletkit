@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.11.0",
     "@mdx-js/mdx": "~2.1.5",
     "@mdx-js/react": "~2.2.1",
-    "@particle-network/auth": "^1.2.2",
     "@totejs/icons": "^2.19.0",
     "@totejs/uikit": "^2.54.5",
     "@node-real/walletkit": "workspace:*",

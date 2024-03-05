@@ -59,3 +59,11 @@ globalStyle(`${clsWalletOptionIcon} > *`, {
   width: '100%',
   height: '100%',
 });
+
+export const clsWalletOptionDisabled = style({
+  cursor: 'not-allowed',
+  opacity: 0.3,
+  '@media': hover({
+    background: 'inherit',
+  }),
+});

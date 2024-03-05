@@ -189,7 +189,9 @@ different content for different scenarios. The `render` callback function will p
 
 ```tsx live=false
 metaMask({
-  render({ name, id, logo, colorMode, layout, onClick }) {
+  render({ wallet, colorMode, layout, onClick }) {
+    const { id, name, logo, isDisabled } = wallet;
+
     return (
       <div onClick={onClick}>
         <div>{name}</div>
@@ -507,9 +509,12 @@ export interface DefaultConfigProps {
 export interface WalletRenderProps {
   layout: 'list' | 'grid';
   colorMode: ColorMode;
-  id: string;
-  name: string;
-  logo: ReactElement;
+  wallet: {
+    id: string;
+    name: string;
+    logo: ReactElement;
+    isDisabled?: boolean;
+  };
   onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
@@ -526,6 +531,7 @@ export interface WalletProps {
   spinnerColor?: string;
   showQRCode?: boolean;
   isInstalled: () => boolean | undefined;
+  isDisabled?: boolean;
   createConnector: (chains: Chain[]) => Connector;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;

@@ -32,3 +32,11 @@ export const clsWalletOptionIcon = style({
   borderRadius: cssVar('walletOptionIcon', 'radii'),
   overflow: 'hidden',
 });
+
+export const clsWalletOptionDisabled = style({
+  cursor: 'not-allowed',
+  opacity: 0.3,
+  '@media': hover({
+    background: 'inherit',
+  }),
+});
