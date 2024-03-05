@@ -118,7 +118,7 @@ export default function App() {
 
         {/*
           👇 Here's the SwitchNetworkModal
-          If the user switches to a network that is not supported by our dapp,
+          If the user switches to a network that is not supported by our dApp,
           this modal will be displayed to remind the user to switch to our supported networks.
         */}
         <SwitchNetworkModal />
@@ -183,12 +183,19 @@ const config = createConfig(
 
 ## Using `render` to customize the content of each option
 
-It should be noted that if your app supports small screens or light/dark mode, you may need to write
-different content for different scenarios. The `render` callback function will pass the
-`layout`(list/grid) and `colorMode`(light/dark) to tell you the current situation.
+It should be noted that if your dApp supports small screens or light/dark mode, you may need to
+write different content for the corresponding scenarios. The `render` callback function will pass
+the `layout`(list/grid) and `colorMode`(light/dark) to tell you the current state.
 
 ```tsx live=false
 metaMask({
+  name: 'MetaMask',
+  logos: {
+    default: <MetaMaskLogo />,
+  },
+  // Disabling a wallet will cut off the connection between the dApp and the wallet,
+  // the existing caches will be cleaned up, preventing automatically connect to the wallet.
+  isDisabled: true,
   render({ wallet, colorMode, layout, onClick }) {
     const { id, name, logo, isDisabled } = wallet;
 
