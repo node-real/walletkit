@@ -1,5 +1,19 @@
 # @node-real/walletkit
 
+## 1.0.11
+
+### Patch Changes
+
+- 3279ead: Add a new wallet option `render` to support customize the content of each option.
+- 3279ead: feat: Add `isDisabled` option to wallet.
+
+## 1.0.11-alpha.0
+
+### Patch Changes
+
+- 06ecbd6: Add a new wallet option `render` to support customize the content of each option.
+- 06ecbd6: feat: Add `isDisabled` option to wallet.
+
 ## 1.0.10
 
 ### Patch Changes
