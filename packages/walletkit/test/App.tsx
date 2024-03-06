@@ -22,27 +22,9 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-  // particleWallet,
 } from '@/wallets';
-// import { ParticleNetwork } from '@particle-network/auth';
 
 new VConsole();
-
-// const env = (import.meta as any).env;
-
-// const particle = new ParticleNetwork({
-//   projectId: env.VITE_PARTICLE_APP_PROJECT_ID,
-//   clientKey: env.VITE_PARTICLE_APP_CLIENT_KEY,
-//   appId: env.VITE_PARTICLE_APP_APP_ID,
-//   wallet: { displayWalletEntry: true },
-//   chainId: 204,
-//   chainName: 'opBNB',
-// });
-
-// particle.setERC4337({
-//   name: 'BICONOMY',
-//   version: '2.0.0',
-// });
 
 const config = createConfig(
   getDefaultConfig({
@@ -55,17 +37,19 @@ const config = createConfig(
       coinbaseWallet(),
       metaMask(),
       okxWallet(),
-      tokenPocket(),
+      tokenPocket({
+        isDisabled: true,
+      }),
       trustWallet(),
       walletConnect(),
-      // mathWallet(),
-      // particleWallet(),
+      mathWallet(),
     ],
   }),
 );
 
 const options: WalletKitOptions = {
   initialChainId: 204,
+  gridLayoutThreshold: 4,
 };
 
 export default function App() {

@@ -40,11 +40,11 @@ Please fill out the form below if you are adding a new wallet, for more detail, 
 |-|-|-|-|
 |PC, browser extension| ✔️ | ✔️ | ❌ |
 |Android, in system browser| | | |
-|Android, in wallet dapp browser| | | |
+|Android, in wallet dApp browser| | | |
 |iOS, in system browser| | | |
-|iOS, in wallet dapp browser| | | |
+|iOS, in wallet dApp browser| | | |
 |WalletConnect, PC| | | |
 |WalletConnect, Android, in system browser| | | |
-|WalletConnect, Android, in wallet dapp browser| | | |
+|WalletConnect, Android, in wallet dApp browser| | | |
 |WalletConnect, iOS, in system browser| | | |
-|WalletConnect, iOS, in wallet dapp browser| | | |
+|WalletConnect, iOS, in wallet dApp browser| | | |
