@@ -113,6 +113,13 @@ function createConnectors(wallets: WalletProps[], chains: Chain[]) {
   const connectors = wallets.map((w) => {
     const c = w.createConnector(chains);
     c._wallet = w;
+
+    // If we disable a wallet but still let it show up in the list,
+    // we should clear the cache to prevent `autoConnect` from automatically connecting to the wallet.
+    if (w.isDisabled && typeof window !== 'undefined') {
+      localStorage.removeItem(`wagmi.${w.id}.shimDisconnect`);
+    }
+
     return c;
   });
   return connectors;

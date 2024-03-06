@@ -6,14 +6,14 @@ import { useConnect } from 'wagmi';
 import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
-import { LIST_LAYOUT_THRESHOLD } from '@/constants/common';
 
 export function ConnectorsPage() {
   const { connectors } = useConnect();
   const { options, isMobileLayout } = useWalletKitContext();
 
   const visibleConnectors = connectors.filter((c) => !!c._wallet);
-  const useGridLayout = visibleConnectors.length > LIST_LAYOUT_THRESHOLD || isMobileLayout;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const useGridLayout = visibleConnectors.length > options.gridLayoutThreshold! || isMobileLayout;
 
   return (
     <>

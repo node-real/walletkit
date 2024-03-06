@@ -35,7 +35,7 @@ export default function App() {
         <WalletKitButton />
         {/*
           👇 Here's the SwitchNetworkModal
-          If the user switches to a network that is not supported by our dapp,
+          If the user switches to a network that is not supported by our dApp,
           this modal will be displayed to remind the user to switch to our supported networks.
         */}
         <SwitchNetworkModal />
