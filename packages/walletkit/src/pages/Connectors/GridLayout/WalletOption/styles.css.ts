@@ -64,6 +64,6 @@ export const clsWalletOptionDisabled = style({
   cursor: 'not-allowed',
   opacity: 0.3,
   '@media': hover({
-    background: 'inherit',
+    background: 'transparent',
   }),
 });

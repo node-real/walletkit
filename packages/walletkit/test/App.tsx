@@ -37,7 +37,9 @@ const config = createConfig(
       coinbaseWallet(),
       metaMask(),
       okxWallet(),
-      tokenPocket(),
+      tokenPocket({
+        isDisabled: true,
+      }),
       trustWallet(),
       walletConnect(),
       mathWallet(),
