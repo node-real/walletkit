@@ -1,5 +1,5 @@
 import '@node-real/walletkit/styles.css';
-import { ThemeProvider } from '@totejs/uikit';
+import { ThemeProvider } from '@node-real/uikit';
 import { Routes, Route } from 'react-router-dom';
 import VConsole from 'vconsole';
 

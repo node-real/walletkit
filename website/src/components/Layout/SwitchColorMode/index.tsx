@@ -1,5 +1,5 @@
-import { MoonIcon, SunIcon } from '@totejs/icons';
-import { Circle, Flex, useColorMode } from '@totejs/uikit';
+import { MoonIcon, SunIcon } from '@node-real/icons';
+import { Circle, Flex, useColorMode } from '@node-real/uikit';
 
 export function SwitchColorMode() {
   const { colorMode, toggleColorMode } = useColorMode();

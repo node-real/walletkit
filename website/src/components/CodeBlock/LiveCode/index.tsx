@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { Language, PrismTheme } from 'prism-react-renderer';
-import { Box } from '@totejs/uikit';
+import { Box } from '@node-real/uikit';
 
 import scope from './scope';
 import { EditorStyles, PreviewStyles } from '../styles';

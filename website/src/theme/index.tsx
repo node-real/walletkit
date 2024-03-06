@@ -1,4 +1,4 @@
-import { Theme } from '@totejs/uikit';
+import { Theme } from '@node-real/uikit';
 
 export const theme: Theme = {
   config: {

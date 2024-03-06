@@ -20,7 +20,7 @@ import {
 } from '@node-real/walletkit/wallets';
 
 import { chains } from './chains';
-import { Box, useColorMode } from '@totejs/uikit';
+import { Box, useColorMode } from '@node-real/uikit';
 
 const config = createConfig(
   getDefaultConfig({

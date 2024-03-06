@@ -1,4 +1,4 @@
-import { Flex, HStack, Heading, IconButton, Link } from '@totejs/uikit';
+import { Flex, HStack, Heading, IconButton, Link } from '@node-real/uikit';
 
 import { GitHubIcon } from '../../SvgIcon/GitHubIcon';
 import { SwitchColorMode } from '../SwitchColorMode';
