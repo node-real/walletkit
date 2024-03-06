@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "0.2.10",
+  "version": "0.2.11-alpha.0",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -59,8 +59,6 @@
     "wagmi": "^0.12.19"
   },
   "dependencies": {
-    "@particle-network/auth": "^1.2.2",
-    "@particle-network/provider": "^1.2.1",
     "qrcode": "^1.5.3",
     "@wagmi/core": "^0",
     "@walletconnect/ethereum-provider": "^2.9.0"

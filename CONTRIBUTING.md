@@ -58,7 +58,7 @@ Before adding a new wallet, you need to collect some information:
 | short name         | If display space is insufficient, the short name will be displayed.                                 | Trust                               | optional |
 | wallet logo        | Logo in svg format. It should be noted that WalletKit supports both dark and light modes, for better presentation, you can provide logos in the two modes respectively. | -                                   | ✔️      |
 | download url       | -                                                                                                   | https://trustwallet.com/download    | ✔️      |
-| deeplink           | After clicking deeplink in the system browser, we can directly open dapp in the app's dapp browser. | trust://open_url?coin_id=60&url=xxx | ✔️      |
+| deeplink           | After clicking deeplink in the system browser, we can directly open dApp in the app's dApp browser. | trust://open_url?coin_id=60&url=xxx | ✔️      |
 | WalletConnect uri | If your app supports WalletConnect, please provides the WalletConnect uri.                           | trust://wc?uri=xxx                  | optional |
 
 Then you can add it to project by following steps:
@@ -218,16 +218,16 @@ In general, wallet is available at several different platforms, such as PC brows
 
 |test case|steps|Does the wallet support connecting by this way?|Does the wallet support switching networks?|Does the wallet support testnet?|
 |-|-|-|-|-|
-|PC, browser extension|<ol><li>Open dapp in PC browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
-|Android, in system browser|<ol><li>Open dapp in Android system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|❌|✔️|
-|Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
-|iOS, in system browser|<ol><li>Open dapp in iOS system browser, select your wallet</li><li>The wallet app will be evoked, and the dapp will be open in the wallet dapp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
-|iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser </li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
+|PC, browser extension|<ol><li>Open dApp in PC browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
+|Android, in system browser|<ol><li>Open dApp in Android system browser, select your wallet</li><li>The wallet app will be evoked, and the dApp will be open in the wallet dApp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|❌|✔️|
+|Android, in wallet dApp browser|<ol><li>Open dApp in the wallet dApp browser</li><li>Select your wallet, check the functions</li><ol>|✔️|✔️|✔️|
+|iOS, in system browser|<ol><li>Open dApp in iOS system browser, select your wallet</li><li>The wallet app will be evoked, and the dApp will be open in the wallet dApp browser</li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
+|iOS, in wallet dApp browser|<ol><li>Open dApp in the wallet dApp browser </li><li>Select your wallet, check the functions</li></ol>|✔️|✔️|❌|
 |WalletConnect, PC|<ol><li>Scan the QR code of WalletConnect using your wallet app</li><li>You will see a popup on the wallet app that asks you to connect WalletConnect</li><li>Check the functions</li></ol>|✔️|✔️|✔️|
-|WalletConnect, Android, in system browser|<ol><li>Open dapp in Android system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
-|WalletConnect, Android, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
-|WalletConnect, iOS, in system browser|<ol><li>Open dapp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
-|WalletConnect, iOS, in wallet dapp browser|<ol><li>Open dapp in the wallet dapp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
+|WalletConnect, Android, in system browser|<ol><li>Open dApp in Android system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
+|WalletConnect, Android, in wallet dApp browser|<ol><li>Open dApp in the wallet dApp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
+|WalletConnect, iOS, in system browser|<ol><li>Open dApp in iOS system browser, select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>The wallet app will be evoked, a popup for applying to connect WalletConnect will be displayed. </li><li>Check the functions</li></ol>|✔️|✔️|✔️|
+|WalletConnect, iOS, in wallet dApp browser|<ol><li>Open dApp in the wallet dApp browser</li><li>Select WalletConnect, choose your wallet in WalletConnect wallet list</li><li>A popup for applying to connect WalletConnect will be displayed</li><li>Check the functions</li><ol>|✔️|✔️|✔️|
 
 
 ## Release notes

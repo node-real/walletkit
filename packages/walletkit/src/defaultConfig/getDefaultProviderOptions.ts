@@ -7,6 +7,7 @@ export function getDefaultProviderOptions(options: WalletKitOptions) {
   const mergedOptions: WalletKitOptions = {
     disclaimer: undefined,
     chainsConfig: undefined,
+    gridLayoutThreshold: 6,
 
     hideNoWalletCTA: false,
     hideOfficialWalletConnectCTA: false,

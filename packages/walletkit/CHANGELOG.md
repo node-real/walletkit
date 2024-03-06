@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.11-alpha.0
+
+### Patch Changes
+
+- Add `isDisabled` & `render` to support disabling a wallet and customizing list item content.
+
 ## 0.2.10
 
 ### Patch Changes
@@ -28,11 +34,7 @@
 ### Patch Changes
 
 - 6092b05: Fixed automatic disconnection issue caused by WalletConnect.
-- b9d9a06: <<<<<<<< HEAD:.changeset/popular-peas-grin.md
-  Add bitget wallet
-  ========
-  Update docs
-  > > > > > > > > dev:.changeset/loud-waves-switch.md
+- b9d9a06: Add bitget wallet
 
 ## 0.2.10-alpha.1
 
