@@ -184,8 +184,10 @@ const config = createConfig(
 ## Using `render` to customize the content of each option
 
 It should be noted that if your dApp supports small screens or light/dark mode, you may need to
-write different content for the corresponding scenarios. The `render` callback function will pass
-the `layout`(list/grid) and `colorMode`(light/dark) to tell you the current state.
+write different content for different states.
+
+You can get the current rendering state from the callback parameters `layout`(list/grid) and
+`colorMode`(light/dark) of the render function.
 
 ```tsx live=false
 metaMask({
