@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.11-alpha.0
+
+### Patch Changes
+
+- Add `isDisabled` & `render` to support disabling a wallet and customizing list item content.
+
 ## 0.2.10
 
 ### Patch Changes
