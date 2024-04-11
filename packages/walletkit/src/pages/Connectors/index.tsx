@@ -13,7 +13,7 @@ export function ConnectorsPage() {
 
   const visibleConnectors = connectors.filter((c) => !!c._wallet);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const useGridLayout = visibleConnectors.length > options.gridLayoutThreshold! || isMobileLayout;
+  const useGridLayout = visibleConnectors.length >= options.gridLayoutThreshold! || isMobileLayout;
 
   return (
     <>
