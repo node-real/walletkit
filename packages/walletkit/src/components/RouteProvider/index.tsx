@@ -1,17 +1,13 @@
-import { ConnectWithQRCodePage } from '@/pages/ConnectWithQRCode';
-import { ConnectedPage } from '@/pages/Connected';
-import { ConnectingPage } from '@/pages/Connecting';
-import { ConnectorsPage } from '@/pages/Connectors';
-import { SwitchNetworkPage } from '@/pages/SwitchNetwork';
 import { useState, useRef, useMemo, useCallback } from 'react';
 import { RouteContext } from './context';
+import { Connecting } from '../WalletKitModal/Connecting';
+import { Connectors } from '../WalletKitModal/Connectors';
+import { ConnectWithQRCode } from '../WalletKitModal/ConnectWithQRCode';
 
 export const routes = {
   CONNECTING: 'Connecting',
   CONNECTORS: 'Connectors',
   CONNECT_WITH_QRCODE: 'ConnectWithQRCode',
-  CONNECTED: 'Connected',
-  SWITCH_NETWORK: 'SwitchNetwork',
 };
 
 export interface RouteProviderProps {
@@ -27,15 +23,11 @@ export function RouteProvider(props: RouteProviderProps) {
   const page = useMemo(() => {
     switch (route) {
       case routes.CONNECTING:
-        return <ConnectingPage />;
+        return <Connecting />;
       case routes.CONNECTORS:
-        return <ConnectorsPage />;
+        return <Connectors />;
       case routes.CONNECT_WITH_QRCODE:
-        return <ConnectWithQRCodePage />;
-      case routes.CONNECTED:
-        return <ConnectedPage />;
-      case routes.SWITCH_NETWORK:
-        return <SwitchNetworkPage />;
+        return <ConnectWithQRCode />;
     }
     return null;
   }, [route]);
@@ -80,8 +72,9 @@ export function RouteProvider(props: RouteProviderProps) {
       push,
       replace,
       reset,
+      history,
     };
-  }, [back, page, push, replace, reset, route]);
+  }, [back, history, page, push, replace, reset, route]);
 
   return <RouteContext.Provider value={value}>{children}</RouteContext.Provider>;
 }

@@ -1,6 +1,6 @@
-import { routes } from '@/components/RouteProvider';
-import { useRouter } from '@/components/RouteProvider/context';
-import { Action, useModal } from '@/index';
+import { useProfileModal } from '@/components/ProfileModal/ProfileModalProvider/context';
+import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
+import { Action } from '@/components/WalletKitProvider/context';
 import { truncateAddress } from '@/utils/account';
 import { useCallback } from 'react';
 import { Chain, useAccount, useEnsName, useNetwork } from 'wagmi';
@@ -25,9 +25,10 @@ export interface ConnectButtonRendererProps {
 
 export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
   const { action, children } = props;
-  const { isOpen, onOpen, onClose, onOpenProfile } = useModal();
 
-  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useWalletKitModal();
+  const { onOpen: onOpenProfileModal } = useProfileModal();
+
   const { chain } = useNetwork();
   const { address, isConnected } = useAccount();
 
@@ -44,17 +45,15 @@ export function ConnectButtonRenderer(props: ConnectButtonRendererProps) {
 
   if (!children) return null;
 
-  const isConnecting = [routes.CONNECTORS, routes.CONNECTING].includes(router.route) && isOpen;
-
   return (
     <>
       {children({
-        show: isConnected ? onOpenProfile : onOpenModal,
+        show: isConnected ? onOpenProfileModal : onOpenModal,
         hide: onClose,
         chain: chain,
         unsupported: !!chain?.unsupported,
         isConnected: !!address,
-        isConnecting: isConnecting, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
+        isConnecting: isOpen, // Using `open` to determine if connecting as wagmi isConnecting only is set to true when an active connector is awaiting connection
         address: address,
         truncatedAddress: address ? truncateAddress(address) : undefined,
         ensName: ensName?.toString(),

@@ -1,4 +1,4 @@
-import { Box } from '@totejs/uikit';
+import { Box } from '@node-real/uikit';
 import BaseHighlight, { Language, defaultProps, PrismTheme } from 'prism-react-renderer';
 
 import CopyButton from '../CopyButton';

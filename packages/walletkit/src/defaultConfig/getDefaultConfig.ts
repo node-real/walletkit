@@ -1,10 +1,4 @@
-import {
-  ChainProviderFn,
-  Connector,
-  PublicClient,
-  WebSocketPublicClient,
-  configureChains,
-} from 'wagmi';
+import { ChainProviderFn, Connector, configureChains } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
@@ -35,13 +29,6 @@ export interface DefaultConfigProps {
   webSocketPublicClient?: any;
   enableWebSocketPublicClient?: boolean;
   stallTimeout?: number;
-}
-
-export interface ConnectWalletClientProps {
-  autoConnect?: boolean;
-  connectors?: Connector[];
-  publicClient: PublicClient;
-  webSocketPublicClient?: WebSocketPublicClient;
 }
 
 const defaultChains: Chain[] = [mainnet];

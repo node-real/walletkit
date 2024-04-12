@@ -1,4 +1,4 @@
-import { Box, Flex } from '@totejs/uikit';
+import { Box, Flex } from '@node-real/uikit';
 import { Header } from './Header';
 
 export function Layout(props: React.PropsWithChildren) {

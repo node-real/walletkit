@@ -1,23 +1,23 @@
-import * as UIKit from '@totejs/uikit';
+import * as UIKit from '@node-real/uikit';
 
 import CodeBlock from '../CodeBlock';
-import Playground from '../../playground';
+import * as Examples from '../../playground/example';
 
 export const MDXComponents = {
-  Playground,
-  h1: (props: any) => <UIKit.Heading fontSize="t1" fontWeight="semibold" py={12} {...props} />,
+  ...Examples,
+  h1: (props: any) => <UIKit.Heading fontSize="24" fontWeight="semibold" py={12} {...props} />,
   h2: (props: any) => {
     const { children, ...restProps } = props;
 
     return (
-      <UIKit.Heading fontSize="t2" py={12} position="relative" {...restProps}>
+      <UIKit.Heading fontSize="20" py={12} position="relative" {...restProps}>
         <UIKit.Box as="span" id={children} position="absolute" top={-68}></UIKit.Box>
         {children}
       </UIKit.Heading>
     );
   },
-  h3: (props: any) => <UIKit.Heading fontSize="b" py={12} {...props} />,
-  h4: (props: any) => <UIKit.Heading fontSize="b2" py={12} {...props} />,
+  h3: (props: any) => <UIKit.Heading fontSize="16" py={12} {...props} />,
+  h4: (props: any) => <UIKit.Heading fontSize="14" py={12} {...props} />,
   code: (props: any) => {
     if (props.className) {
       return <CodeBlock {...props} />;

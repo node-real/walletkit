@@ -1,4 +1,4 @@
-import { Button, useClipboard } from '@totejs/uikit';
+import { Button, useClipboard } from '@node-real/uikit';
 
 interface CopyButtonProps {
   code: string;

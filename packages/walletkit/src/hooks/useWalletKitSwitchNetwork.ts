@@ -1,6 +1,6 @@
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 import { commonErrorHandler } from '@/utils/common';
 import { useSwitchNetwork } from 'wagmi';
-import { useWalletKitContext } from '..';
 
 export type UseWalletKitSwitchNetworkProps = Parameters<typeof useSwitchNetwork>[0];
 export type UseWalletKitSwitchNetworkReturnType = ReturnType<typeof useSwitchNetwork>;

@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { ColorModeScript } from '@totejs/uikit';
+import { ColorModeScript } from '@node-real/uikit';
 import { HashRouter } from 'react-router-dom';
 
 import App from './App';
