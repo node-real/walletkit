@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 1.0.12-alpha.1
+
+### Patch Changes
+
+- 3a9e8f0: Fixed ssr issue
+
 ## 1.0.12-alpha.0
 
 ### Patch Changes
