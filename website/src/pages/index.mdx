@@ -137,19 +137,22 @@ export default function App() {
 ## Embed modal into page
 
 ```jsx live=false
+import { WalletKitEmbeddedModal } from '@node-real/walletkit';
+
 <WagmiConfig config={config}>
   <WalletKitProvider
     mode={colorMode}
     options={{
       initialChainId: 1,
-      // Hide the inner WalletkitModal so that you can embed the modal into the page.
+      
+      // Hide the inner modal so that you can embed the modal into the page.
       hideInnerModal: true,
     }}
   >
     <WalletKitEmbeddedModal />
   </WalletKitProvider>
 </WagmiConfig>
-```
+
 
 ## useModal, useProfileModal, useSwitchNetworkModal
 
