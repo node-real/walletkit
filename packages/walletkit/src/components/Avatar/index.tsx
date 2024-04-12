@@ -1,10 +1,10 @@
 import { BoxProps, Box } from '@/base/components/Box';
 import { cx } from '@/index';
-import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
+import { Address, useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { clsAvatar, clsAvatarImg, clsAvatarDefault } from './styles.css';
 
 export interface AvatarProps extends BoxProps {
-  address?: `0x${string}`;
+  address?: Address;
   name?: string | undefined;
 }
 

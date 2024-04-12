@@ -1,24 +1,24 @@
 import { Modal } from '@/base/components/Modal';
-import { useIsMounted } from '@/base/hooks/useIsMounted';
-import { useModal } from '../ModalProvider/context';
 import { useRouter } from '../RouteProvider/context';
+import { useWalletKitModal } from './WalletKitModalProvider/context';
+import { useWalletKitContext } from '../WalletKitProvider/context';
+import { Navbar } from '../Navbar';
 
 export function WalletKitModal() {
-  const { isOpen, onClose, closeOnEsc, closeOnOverlayClick } = useModal();
-  const { page } = useRouter();
-  const isMounted = useIsMounted();
-  const { isClosable } = useModal();
+  const { options } = useWalletKitContext();
+  const { isOpen, onClose } = useWalletKitModal();
 
-  if (!isMounted) return null;
+  const { page } = useRouter();
 
   return (
     <Modal
       className="wk-connect-modal"
       isOpen={isOpen}
       onClose={onClose}
-      closeOnEsc={isClosable ? closeOnEsc : false}
-      closeOnOverlayClick={isClosable ? closeOnOverlayClick : false}
+      closeOnEsc={options.closeModalOnEsc}
+      closeOnOverlayClick={options.closeModalOnOverlayClick}
     >
+      <Navbar onClose={onClose} />
       {page}
     </Modal>
   );

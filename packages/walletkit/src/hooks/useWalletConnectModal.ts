@@ -1,12 +1,13 @@
 import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
 import { useEffect, useState } from 'react';
-import { useModal, useWalletKitContext } from '..';
 import { useWalletKitConnect } from './useWalletKitConnect';
 import { getGlobalData, setGlobalData } from '@/globalData';
+import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useWalletKitConnect();
-  const { onClose } = useModal();
+  const { onClose } = useWalletKitModal();
   const { log } = useWalletKitContext();
 
   const [isOpen, setIsOpen] = useState(false);

@@ -1,10 +1,10 @@
 import * as UIKit from '@node-real/uikit';
 
 import CodeBlock from '../CodeBlock';
-import Playground from '../../playground';
+import * as Examples from '../../playground/example';
 
 export const MDXComponents = {
-  Playground,
+  ...Examples,
   h1: (props: any) => <UIKit.Heading fontSize="24" fontWeight="semibold" py={12} {...props} />,
   h2: (props: any) => {
     const { children, ...restProps } = props;

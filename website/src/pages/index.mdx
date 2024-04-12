@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm i @node-real/walletkit wagmi viem
+npm i @node-real/walletkit@^1 wagmi@^1 viem@^1
 ```
 
 - wagmi > 1.0.0
@@ -13,10 +13,6 @@ npm i @node-real/walletkit wagmi viem
 
 - [nextjs](https://github.com/node-real/walletkit/blob/main/examples/nextjs/pages/_app.tsx)
 - [vite](https://github.com/node-real/walletkit/blob/main/examples/vite/src/App.tsx)
-
-## Playground
-
-<Playground />
 
 ## Supported wallets
 
@@ -30,6 +26,16 @@ npm i @node-real/walletkit wagmi viem
 | tokenPocket()       | ✅      | ✅      |
 | trustWallet()       | ✅      | ✅      |
 | walletConnect()     | -       | -       |
+
+## Playground
+
+### Basic Usage
+
+<BaseExample />
+
+### Embedded Modal
+
+<EmbeddedExample />
 
 ## How to use
 
@@ -128,22 +134,42 @@ export default function App() {
 }
 ```
 
-## useModal
+## Embed modal into page
 
-Use hook `useModal` to show/dismiss the specific modal. Must be used within a `<WalletKitProvider>`.
+```jsx live=false
+<WagmiConfig config={config}>
+  <WalletKitProvider
+    mode={colorMode}
+    options={{
+      initialChainId: 1,
+      // Hide the inner WalletkitModal so that you can embed the modal into the page.
+      hideInnerModal: true,
+    }}
+  >
+    <WalletKitEmbeddedModal />
+  </WalletKitProvider>
+</WagmiConfig>
+```
 
-- `onOpen`: open the connect wallet modal
-- `onOpenProfile`: open the connected modal
-- `onOpenSwitchNetwork`: open the switch network modal
+## useModal, useProfileModal, useSwitchNetworkModal
+
+Use hooks `useModal`, `useProfileModal`, `useSwitchNetworkModal` to show/dismiss the specific modal.
+Must be used within a `<WalletKitProvider>`.
 
 ```tsx live=false
-import { useModal } from '@node-real/walletkit';
+import { useModal, useProfileModal, useSwitchNetworkModal } from '@node-real/walletkit';
 
-const { isOpen, onOpen, onClose, onOpenProfile, onOpenSwitchNetwork } = useModal();
+// useModal
+const { isOpen, onOpen, onClose } = useModal();
+<button onClick={() => onOpen()}>Open Connect Modal</button>;
 
-<button onClick={() => onOpen()}>Open Connect Modal</button>
-<button onClick={() => onOpenProfile()}>Open Connected Modal</button>
-<button onClick={() => onOpenSwitchNetwork()}>Open SwitchNetwork Modal</button>
+// useProfileModal
+const { isOpen, onOpen, onClose } = useProfileModal();
+<button onClick={() => onOpen()}>Open Connected Modal</button>;
+
+// useSwitchNetworkModal
+const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
+<button onClick={() => onOpen()}>Open SwitchNetwork Modal</button>;
 ```
 
 ## Customizing wallets
@@ -213,8 +239,8 @@ metaMask({
 
 ## Customizing ConnectButton
 
-Note that `show()` will open the `connected page` instead of the `connectors page` once the wallet
-is connected.
+Note that `show()` will open the `ProfileModal` instead of the `ConnectorsModal` once the wallet is
+connected.
 
 ```tsx live=false
 <WalletKitButton.Custom>
@@ -228,6 +254,15 @@ is connected.
     }
   }}
 </WalletKitButton.Custom>
+```
+
+Or using the hook `useModal`
+
+```tsx live=false
+import { useModal } from '@node-real/walletkit';
+
+const { isOpen, onOpen, onClose } = useModal();
+<button onClick={onOpen}>connect</button>;
 ```
 
 ## Customizing WalletConnect recommended wallets
@@ -267,15 +302,6 @@ const config = createConfig(
     ],
   }),
 );
-```
-
-`useModal`
-
-```tsx live=false
-import { useModal } from '@node-real/walletkit';
-
-const { isOpen, onOpen, onClose } = useModal();
-<button onClick={onOpen}>connect</button>;
 ```
 
 ## Customizing chains
@@ -450,11 +476,20 @@ interface WalletKitOptions {
   // Provide a disclaimer for things like terms and conditions that will be displayed to users when they're not yet connected.
   disclaimer?: ReactNode;
 
+  // Modal title
+  title?: ReactNode;
+
   // When the amount of wallets exceeds or equals this value, switch to the grid layout.
   gridLayoutThreshold?: number;
 
+  // Whether to use grid layout on mobile devices.
+  useGridLayoutOnMobile: boolean;
+
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
+
+  // Hide the inner modal so that you can embed the modal into the page.
+  hideInnerModal?: boolean;
 
   closeModalAfterConnected?: boolean;
   closeModalAfterSwitchingNetwork?: boolean;

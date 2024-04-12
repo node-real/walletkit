@@ -35,6 +35,7 @@ export function useWalletRender(connector: Connector, layout: WalletRenderProps[
     logos.transparent,
     onClickWallet,
     wallet.id,
+    wallet.isDisabled,
     wallet.name,
   ]);
 

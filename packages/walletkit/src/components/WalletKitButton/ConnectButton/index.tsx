@@ -1,10 +1,12 @@
 import { ButtonProps, Button } from '@/base/components/Button';
 import { useIsMounted } from '@/base/hooks/useIsMounted';
-import { useModal, cx, Action } from '@/index';
+import { cx } from '@/index';
 import React, { useCallback } from 'react';
 import { useAccount } from 'wagmi';
 import { ConnectedInfo } from './ConnectedInfo';
 import { clsWalletkitButton } from './styles.css';
+import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
+import { Action } from '@/components/WalletKitProvider/context';
 
 export interface ConnectButtonProps extends ButtonProps {
   action?: Action;
@@ -13,7 +15,7 @@ export interface ConnectButtonProps extends ButtonProps {
 export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: any) => {
   const { className, action, onClick, ...restProps } = props;
 
-  const { onOpen } = useModal();
+  const { onOpen } = useWalletKitModal();
   const { isConnected } = useAccount();
   const isMounted = useIsMounted();
 
