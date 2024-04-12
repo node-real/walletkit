@@ -29,10 +29,12 @@ export const ConnectButton = React.forwardRef((props: ConnectButtonProps, ref: a
     [action, onClick, onOpen],
   );
 
-  if (!isMounted) return null;
-
   if (isConnected) {
-    return <ConnectedInfo />;
+    if (isMounted) {
+      return <ConnectedInfo />;
+    } else {
+      return null;
+    }
   }
 
   return (
