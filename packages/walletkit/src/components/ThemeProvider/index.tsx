@@ -65,20 +65,6 @@ export function ThemeProvider(props: ThemeProviderProps) {
     return '';
   }, [customTheme, mode, variant]);
 
-  useEffect(() => {
-    const id = 'wk-cssvars';
-
-    let styleElement = document.getElementById(id);
-    if (!styleElement) {
-      styleElement = document.createElement('style');
-
-      styleElement.id = id;
-      document.head.appendChild(styleElement);
-    }
-
-    styleElement.textContent = styleContent;
-  }, [styleContent]);
-
   const [colorMode, setColorMode] = useState<ColorMode>('light');
 
   useEffect(() => {
@@ -106,7 +92,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
     };
   }, [colorMode]);
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>
+      <style>{styleContent}</style>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 function createCssVars(theme: Record<string, string>, prefix = '') {
