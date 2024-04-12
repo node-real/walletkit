@@ -1,0 +1,14 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "1.0.11",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "eight-bulldogs-heal",
+    "olive-brooms-lie"
+  ]
+}
