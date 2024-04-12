@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
-    "eight-bulldogs-heal"
+    "eight-bulldogs-heal",
+    "olive-brooms-lie"
   ]
 }
