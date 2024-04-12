@@ -136,7 +136,7 @@ export default function App() {
 
 ## Embed modal into page
 
-```jsx live=false
+````jsx live=false
 import { WalletKitEmbeddedModal } from '@node-real/walletkit';
 
 <WagmiConfig config={config}>
@@ -144,15 +144,13 @@ import { WalletKitEmbeddedModal } from '@node-real/walletkit';
     mode={colorMode}
     options={{
       initialChainId: 1,
-      
-      // Hide the inner modal so that you can embed the modal into the page.
-      hideInnerModal: true,
+      hideInnerModal: true, // Hide the inner modal so that you can embed the modal into the page.
     }}
   >
     <WalletKitEmbeddedModal />
   </WalletKitProvider>
 </WagmiConfig>
-
+```jsx
 
 ## useModal, useProfileModal, useSwitchNetworkModal
 
@@ -173,7 +171,7 @@ const { isOpen, onOpen, onClose } = useProfileModal();
 // useSwitchNetworkModal
 const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
 <button onClick={() => onOpen()}>Open SwitchNetwork Modal</button>;
-```
+````
 
 ## Customizing wallets
 
