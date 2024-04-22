@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 0.2.11
+
+### Patch Changes
+
+- Add `isDisabled` & `render` to support disabling a wallet and customizing list item content.
+- feat: Support embedding modal into page.
+
 ## 0.2.11-alpha.1
 
 ### Patch Changes
