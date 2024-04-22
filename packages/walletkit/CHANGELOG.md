@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.2.11-alpha.1
+
+### Patch Changes
+
+- feat: Support embedding modal into page.
+
 ## 0.2.11-alpha.0
 
 ### Patch Changes

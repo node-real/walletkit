@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
-    "real-doors-thank"
+    "real-doors-thank",
+    "silver-pianos-hear"
   ]
 }
