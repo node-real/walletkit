@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 1.0.12
+
+### Patch Changes
+
+- f81777b: Support embedding modal into page.
+- f81777b: Fixed ssr issue
+
 ## 1.0.12-alpha.1
 
 ### Patch Changes
