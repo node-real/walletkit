@@ -1,4 +1,4 @@
-import { Icon, IconProps } from '@totejs/icons';
+import { Icon, IconProps } from '@node-real/icons';
 
 export const GitHubIcon = (props: IconProps) => (
   <Icon viewBox="0 0 20 20" fill="currentColor" {...props}>

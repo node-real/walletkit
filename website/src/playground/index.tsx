@@ -1,12 +1,6 @@
 import { WagmiConfig, createClient } from 'wagmi';
 
-import {
-  WalletKitButton,
-  WalletKitProvider,
-  getDefaultConfig,
-  WalletKitOptions,
-  SwitchNetworkModal,
-} from '@node-real/walletkit';
+import { WalletKitProvider, getDefaultConfig } from '@node-real/walletkit';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
@@ -20,7 +14,7 @@ import {
 } from '@node-real/walletkit/wallets';
 
 import { chains } from './chains';
-import { Box, useColorMode } from '@totejs/uikit';
+import { useColorMode } from '@node-real/uikit';
 
 const client = createClient(
   getDefaultConfig({
@@ -41,21 +35,20 @@ const client = createClient(
   }),
 );
 
-const options: WalletKitOptions = {
-  initialChainId: 1,
-};
-
-export default function Playground() {
+export function Playground(props: React.PropsWithChildren) {
   const { colorMode } = useColorMode();
 
   return (
-    <Box borderRadius={8} border="1px solid readable.border" p={16}>
-      <WagmiConfig client={client}>
-        <WalletKitProvider options={options} mode={colorMode}>
-          <WalletKitButton />
-          <SwitchNetworkModal />
-        </WalletKitProvider>
-      </WagmiConfig>
-    </Box>
+    <WagmiConfig client={client}>
+      <WalletKitProvider
+        mode={colorMode}
+        options={{
+          initialChainId: 1,
+          hideInnerModal: true,
+        }}
+      >
+        {props.children}
+      </WalletKitProvider>
+    </WagmiConfig>
   );
 }

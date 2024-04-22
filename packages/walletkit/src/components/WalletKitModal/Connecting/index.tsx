@@ -3,12 +3,11 @@ import { Button } from '@/base/components/Button';
 import { ModalBody } from '@/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { ModalHeader } from '@/base/components/Modal/ModalHeader';
-import { Navbar } from '@/components/Navbar';
 import { useWalletConfig } from '@/hooks/useWalletConfig';
 import { useWalletDownloadUrl } from '@/hooks/useWalletDownloadUrl';
 import { useWalletKitConnect } from '@/hooks/useWalletKitConnect';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
-import { cx, useWalletKitContext } from '@/index';
+import { cx } from '@/index';
 import { useState, useCallback, useEffect } from 'react';
 import { ConnectSpinner } from './ConnectSpinner';
 import { Content } from './Content';
@@ -17,6 +16,7 @@ import { ErrorTitle } from './Content/ErrorTitle';
 import { InfoTitle } from './Content/InfoTitle';
 import { UnsupportedContent } from './UnsupportedContent';
 import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 
 export const states = {
   CONNECTED: 'connected',
@@ -27,7 +27,7 @@ export const states = {
   UNAVAILABLE: 'unavailable',
 };
 
-export function ConnectingPage() {
+export function Connecting() {
   const { selectedConnector, options, action, log } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
@@ -113,7 +113,6 @@ export function ConnectingPage() {
 
   return (
     <>
-      <Navbar showBack={true} />
       <ModalHeader>{wallet?.name}</ModalHeader>
 
       <ModalBody className={clsContent}>

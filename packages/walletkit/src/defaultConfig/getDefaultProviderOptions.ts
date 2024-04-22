@@ -5,12 +5,16 @@ export function getDefaultProviderOptions(options: WalletKitOptions) {
   const { ...restOptions } = options;
 
   const mergedOptions: WalletKitOptions = {
-    disclaimer: undefined,
     chainsConfig: undefined,
+
+    title: 'Connect Wallet',
+    disclaimer: undefined,
     gridLayoutThreshold: 6,
+    useGridLayoutOnMobile: true,
 
     hideNoWalletCTA: false,
     hideOfficialWalletConnectCTA: false,
+    hideInnerModal: false,
 
     closeModalAfterSwitchingNetwork: false,
     closeModalAfterConnected: true,

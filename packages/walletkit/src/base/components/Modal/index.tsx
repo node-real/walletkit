@@ -3,9 +3,10 @@ import { cx } from '@/base/utils/css';
 import { BoxProps, Box } from '../Box';
 import { Portal } from '../Portal';
 import { Transition } from '../Transition';
-import { clsModal, clsModalOverlay, clsModalContent } from './styles.css';
+import { clsModal, clsModalOverlay } from './styles.css';
 import { useScrollLock } from '@/base/hooks/useScrollLock';
 import { useResponsive } from '@/base/hooks/useResponsive';
+import { ModalContent } from './ModalContent';
 
 export interface ModalProps extends BoxProps {
   isOpen: boolean;
@@ -49,9 +50,7 @@ export function Modal(props: ModalProps) {
             onClick={() => closeOnOverlayClick && onClose()}
           />
           <Transition in={isOpen} variant={isMobileLayout ? 'modal-slide' : undefined}>
-            <Box className={cx('wk-modal-content', clsModalContent, contentClassName)}>
-              {children}
-            </Box>
+            <ModalContent className={contentClassName}>{children}</ModalContent>
           </Transition>
         </Box>
       </Transition>

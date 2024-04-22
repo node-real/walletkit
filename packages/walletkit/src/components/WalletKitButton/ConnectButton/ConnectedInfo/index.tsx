@@ -4,7 +4,7 @@ import { Button } from '@/base/components/Button';
 import { DownArrowIcon } from '@/base/icons/DownArrowIcon';
 import { Avatar } from '@/components/Avatar';
 import { useChainConfig } from '@/hooks/useChainConfig';
-import { useModal, cx } from '@/index';
+import { cx } from '@/index';
 import { truncateENSName, formatBalance, truncateAddress } from '@/utils/account';
 import { useAccount, useBalance, useEnsName, useNetwork } from 'wagmi';
 import { clsWalletkitButton } from '../styles.css';
@@ -18,11 +18,14 @@ import {
   clsSeparator,
   clsAddress,
 } from './styles.css';
+import { useSwitchNetworkModal } from '@/components/SwitchNetworkModal/SwitchNetworkProvider/context';
+import { useProfileModal } from '@/components/ProfileModal/ProfileModalProvider/context';
 
 export function ConnectedInfo() {
   const { address } = useAccount();
 
-  const { onOpenProfile, onOpenSwitchNetwork } = useModal();
+  const { onOpen: onOpenSwitchNetworkModal } = useSwitchNetworkModal();
+  const { onOpen: onOpenProfileModal } = useProfileModal();
 
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -41,7 +44,7 @@ export function ConnectedInfo() {
       {chain?.unsupported ? (
         <Button
           className={cx('wk-wrong-network-button', clsWalletkitButton, clsWrongButton)}
-          onClick={() => onOpenSwitchNetwork()}
+          onClick={() => onOpenSwitchNetworkModal()}
         >
           Wrong network
           <DownArrowIcon />
@@ -50,7 +53,7 @@ export function ConnectedInfo() {
         <>
           <Button
             className={cx('wk-chain-button', clsWalletkitButton, clsChainButton)}
-            onClick={() => onOpenSwitchNetwork()}
+            onClick={() => onOpenSwitchNetworkModal()}
           >
             <Box className={clsChainLogo}>{chainConfig?.logo}</Box>
             <Box title={chainConfig.name}>{truncateENSName(chainConfig.name)}</Box>
@@ -59,7 +62,7 @@ export function ConnectedInfo() {
 
           <Button
             className={cx('wk-account-button', clsWalletkitButton, clsAccountButton)}
-            onClick={onOpenProfile}
+            onClick={onOpenProfileModal}
           >
             {balance && (
               <>

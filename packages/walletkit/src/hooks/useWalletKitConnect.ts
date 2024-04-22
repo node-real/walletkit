@@ -1,6 +1,6 @@
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 import { commonErrorHandler } from '@/utils/common';
 import { useConnect } from 'wagmi';
-import { useWalletKitContext } from '..';
 
 export type UseWalletKitConnectProps = Parameters<typeof useConnect>[0];
 export type UseWalletKitConnectReturnType = ReturnType<typeof useConnect>;

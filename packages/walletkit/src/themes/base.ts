@@ -1,4 +1,5 @@
-import { rgba, DeepPartial } from '..';
+import { DeepPartial } from '@/types';
+import { rgba } from '..';
 
 const radii = {
   common: '8px',
@@ -84,6 +85,7 @@ export const base = {
       disconnectButtonBorderHover: 'var(--wk-colors-border)',
     },
     shadows: {
+      normal: '0px 4px 20px 0px rgba(0, 0, 0, 0.04)',
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     radii,
@@ -151,6 +153,7 @@ export const base = {
       disconnectButtonBorderHover: 'var(--wk-colors-border)',
     },
     shadows: {
+      normal: '0px 4px 20px 0px rgba(0, 0, 0, 0.04)',
       toast: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     radii,

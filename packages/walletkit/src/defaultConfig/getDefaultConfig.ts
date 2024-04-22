@@ -31,13 +31,6 @@ export interface DefaultConfigProps {
   stallTimeout?: number;
 }
 
-export interface ConnectWalletClientProps {
-  autoConnect?: boolean;
-  connectors?: Connector[];
-  provider: any;
-  webSocketProvider?: any;
-}
-
 const defaultChains: Chain[] = [mainnet];
 
 export const getDefaultConfig = (props: DefaultConfigProps) => {

@@ -1,7 +1,7 @@
 import { ChainProps } from '@/chains/types';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 import { useMemo } from 'react';
 import { Chain } from 'wagmi';
-import { useWalletKitContext } from '..';
 
 export function useChainConfig(chain?: Chain) {
   const { supportedChains } = useWalletKitContext();

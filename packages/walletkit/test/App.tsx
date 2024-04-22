@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { chains } from './chains';
 import { WagmiConfig, createClient } from 'wagmi';
 import {
-  SwitchNetworkModal,
   ThemeMode,
   WalletKitButton,
   WalletKitOptions,
   WalletKitProvider,
   getDefaultConfig,
   useModal,
+  useProfileModal,
+  useSwitchNetworkModal,
 } from '../src/index';
 
 import {
@@ -22,10 +23,12 @@ import {
   trustWallet,
   walletConnect,
 } from '@/wallets';
+import { SwitchNetworkModal } from '@/components/SwitchNetworkModal';
+import { WalletKitEmbeddedModal } from '@/components/WalletKitEmbeddedModal';
 
 const client = createClient(
   getDefaultConfig({
-    autoConnect: true,
+    autoConnect: false,
     appName: 'WalletKit',
     chains,
     connectors: [
@@ -46,7 +49,7 @@ const client = createClient(
 
 const options: WalletKitOptions = {
   initialChainId: 204,
-  gridLayoutThreshold: 4,
+  hideInnerModal: true,
 };
 
 export default function App() {
@@ -62,21 +65,23 @@ export default function App() {
       <WalletKitProvider options={options} mode={mode} debugMode={true}>
         <WalletKitButton />
         <Example />
-        <div style={{ height: 2000 }}></div>
         <SwitchNetworkModal />
+        <WalletKitEmbeddedModal />
       </WalletKitProvider>
     </WagmiConfig>
   );
 }
 
 function Example() {
-  const { onOpen, onOpenProfile, onOpenSwitchNetwork } = useModal();
+  const modal = useModal();
+  const profileModal = useProfileModal();
+  const switchNetworkModal = useSwitchNetworkModal();
 
   return (
     <>
-      <button onClick={() => onOpen()}>Open Connect Modal</button>
-      <button onClick={() => onOpenProfile()}>Open Profile Modal</button>
-      <button onClick={() => onOpenSwitchNetwork()}>Open SwitchNetwork Modal</button>
+      <button onClick={() => modal.onOpen()}>Open Connect Modal</button>
+      <button onClick={() => profileModal.onOpen()}>Open Profile Modal</button>
+      <button onClick={() => switchNetworkModal.onOpen()}>Open SwitchNetwork Modal</button>
     </>
   );
 }

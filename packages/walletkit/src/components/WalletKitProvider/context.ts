@@ -11,10 +11,14 @@ export type WalletErrorProps = {
 
 export interface WalletKitOptions {
   initialChainId?: number;
+  title?: ReactNode;
   disclaimer?: ReactNode;
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
+  hideInnerModal?: boolean;
+
   gridLayoutThreshold?: number;
+  useGridLayoutOnMobile?: boolean;
 
   closeModalAfterConnected?: boolean;
   closeModalAfterSwitchingNetwork?: boolean;
@@ -45,6 +49,5 @@ export interface WalletKitContextProps {
 export const WalletKitContext = createContext({} as WalletKitContextProps);
 
 export function useWalletKitContext() {
-  const context = useContext(WalletKitContext);
-  return context;
+  return useContext(WalletKitContext);
 }

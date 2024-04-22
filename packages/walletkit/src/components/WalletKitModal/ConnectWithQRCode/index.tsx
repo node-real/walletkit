@@ -4,16 +4,16 @@ import { ModalFooter } from '@/base/components/Modal/ModalFooter';
 import { ModalHeader } from '@/base/components/Modal/ModalHeader';
 import { ForwardIcon } from '@/base/icons/ForwardIcon';
 import { CustomQRCode } from '@/components/CustomQRCode';
-import { Navbar } from '@/components/Navbar';
 import { useWalletConfig } from '@/hooks/useWalletConfig';
 import { useWalletConnectModal } from '@/hooks/useWalletConnectModal';
 import { useWalletLogos } from '@/hooks/useWalletLogos';
-import { useWalletKitContext, cx } from '@/index';
+import { cx } from '@/index';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { isWalletConnectConnector } from '@/wallets';
 import { useQRCodeUri } from '@/hooks/useQRCodeUri';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 
-export function ConnectWithQRCodePage() {
+export function ConnectWithQRCode() {
   const { selectedConnector, options } = useWalletKitContext();
 
   const wallet = useWalletConfig(selectedConnector);
@@ -26,7 +26,6 @@ export function ConnectWithQRCodePage() {
 
   return (
     <>
-      <Navbar showBack />
       <ModalHeader>Scan with your phone</ModalHeader>
 
       <ModalBody className={cx('wk-scan-qrcode', clsContainer)}>
