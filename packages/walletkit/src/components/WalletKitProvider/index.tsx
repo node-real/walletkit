@@ -5,12 +5,15 @@ import { useChains } from '@/hooks/useChains';
 import { CustomTheme } from '@/themes/base';
 import { useMemo, useState } from 'react';
 import { Connector } from 'wagmi';
-import { ModalProvider } from '../ModalProvider';
-import { RouteProvider } from '../RouteProvider';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
-import { WalletKitModal } from '../WalletKitModal';
 import { WalletKitOptions, WalletKitContextProps, WalletKitContext, Action } from './context';
 import { useResponsive } from '@/base/hooks/useResponsive';
+import { SwitchNetworkProvider } from '../SwitchNetworkModal/SwitchNetworkProvider';
+import { ProfileModalProvider } from '../ProfileModal/ProfileModalProvider';
+import { WalletKitModalProvider } from '../WalletKitModal/WalletKitModalProvider';
+import { RouteProvider } from '../RouteProvider';
+import { WalletKitModal } from '../WalletKitModal';
+import { ProfileModal } from '../ProfileModal';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -37,7 +40,7 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const chains = useChains();
   const { isMobileLayout } = useResponsive();
 
-  const value = useMemo(() => {
+  const context = useMemo(() => {
     const finalOptions = getDefaultProviderOptions(options);
     const finalChains = getDefaultSupportedChains(options, chains);
 
@@ -56,18 +59,21 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   }, [options, chains, debugMode, isMobileLayout, action, selectedConnector]);
 
   return (
-    <WalletKitContext.Provider value={value}>
-      {/* <WalletConnectUriProvider> */}
+    <WalletKitContext.Provider value={context}>
       <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
+        <ToastProvider />
         <RouteProvider>
-          <ModalProvider>
-            {children}
-            <WalletKitModal />
-            <ToastProvider />
-          </ModalProvider>
+          <SwitchNetworkProvider>
+            <ProfileModalProvider>
+              <WalletKitModalProvider>
+                {children}
+                {!context.options.hideInnerModal && <WalletKitModal />}
+                {!context.options.hideInnerModal && <ProfileModal />}
+              </WalletKitModalProvider>
+            </ProfileModalProvider>
+          </SwitchNetworkProvider>
         </RouteProvider>
       </ThemeProvider>
-      {/* </WalletConnectUriProvider> */}
     </WalletKitContext.Provider>
   );
 };

@@ -1,4 +1,4 @@
-import { useWalletKitContext } from '@/index';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 import { isMetaMaskConnector } from '@/wallets';
 import { Content } from '../Content';
 import { Description } from '../Content/Description';

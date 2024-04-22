@@ -9,9 +9,14 @@ import { truncateENSName, truncateAddress, formatBalance } from '@/utils/account
 import { useAccount, useBalance, useEnsName } from 'wagmi';
 import { clsAvatar, clsInfo, clsBalance, clsFooter } from './styles.css';
 import { ModalFooter } from '@/base/components/Modal/ModalFooter';
+import { Modal } from '@/base/components/Modal';
+import { useProfileModal } from './ProfileModalProvider/context';
+import { useWalletKitContext } from '../WalletKitProvider/context';
 
-export function ConnectedPage() {
+export function ProfileModal() {
   const { address } = useAccount();
+  const { options } = useWalletKitContext();
+  const { isOpen, onClose } = useProfileModal();
 
   const { data: ensName } = useEnsName({
     chainId: 1,
@@ -23,8 +28,13 @@ export function ConnectedPage() {
   });
 
   return (
-    <>
-      <Navbar />
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      closeOnEsc={options.closeModalOnEsc}
+      closeOnOverlayClick={options.closeModalOnOverlayClick}
+    >
+      <Navbar onClose={onClose} />
       <ModalHeader>Connected</ModalHeader>
       <ModalBody>
         <Avatar className={clsAvatar} address={address} />
@@ -43,6 +53,6 @@ export function ConnectedPage() {
       <ModalFooter className={clsFooter}>
         <DisconnectButton />
       </ModalFooter>
-    </>
+    </Modal>
   );
 }

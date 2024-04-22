@@ -3,13 +3,16 @@ import { useRouter } from '@/components/RouteProvider/context';
 import { isWalletConnectConnector } from '@/wallets';
 import { useCallback, useRef } from 'react';
 import { Connector, useDisconnect } from 'wagmi';
-import { useWalletKitContext, isMobile } from '..';
+import { isMobile } from '..';
 import { useWalletConnectModal } from './useWalletConnectModal';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
+import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
 
 export function useClickWallet() {
   const router = useRouter();
   const { options, log, setSelectedConnector } = useWalletKitContext();
 
+  const { onOpen: onOpenWKModal } = useWalletKitModal();
   const { disconnect } = useDisconnect();
   const { onOpenWcModal } = useWalletConnectModal();
 
@@ -25,14 +28,23 @@ export function useClickWallet() {
       log('[click wallet]', `ethereum:`, window.ethereum);
       log('[click wallet]', `installed:`, connector._wallet.isInstalled());
 
-      const gotoQRcodePage = () => {
+      const jumpTo = (route: string) => {
         setSelectedConnector(connector);
-        router.push(routes.CONNECT_WITH_QRCODE);
+        if (options.hideInnerModal) {
+          onOpenWKModal({
+            route,
+          });
+        } else {
+          router.push(route);
+        }
+      };
+
+      const gotoQRcodePage = () => {
+        jumpTo(routes.CONNECT_WITH_QRCODE);
       };
 
       const gotoConnectingPage = () => {
-        setSelectedConnector(connector);
-        router.push(routes.CONNECTING);
+        jumpTo(routes.CONNECTING);
       };
 
       disconnect();
@@ -63,7 +75,7 @@ export function useClickWallet() {
         }
       }, 300);
     },
-    [disconnect, log, mobile, onOpenWcModal, options, router, setSelectedConnector],
+    [disconnect, log, mobile, onOpenWKModal, onOpenWcModal, options, router, setSelectedConnector],
   );
 
   return onClickWallet;

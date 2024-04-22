@@ -9,6 +9,5 @@ export interface ThemeContextProps {
 export const ThemeContext = React.createContext({} as ThemeContextProps);
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  return context;
+  return useContext(ThemeContext);
 }

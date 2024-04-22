@@ -28,21 +28,3 @@ export const clsModalOverlay = style({
   height: '100%',
   backgroundColor: cssVar('modalOverlay'),
 });
-
-export const clsModalContent = style({
-  position: 'absolute',
-  background: cssVar('modalBackground'),
-  padding: '48px 24px',
-  width: 'calc(100% - 32px)',
-  maxWidth: 484,
-  borderRadius: cssVar('modal', 'radii'),
-  '@media': mobile({
-    width: '100%',
-    maxWidth: '100vw',
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    paddingBottom: 40,
-    left: 0,
-    bottom: 0,
-  }),
-});

@@ -2,8 +2,10 @@ import { ButtonProps, Button } from '@/base/components/Button';
 import { ExitIcon } from '@/base/icons/ExitIcon';
 import { cx } from '@/index';
 import { useConnect, useDisconnect } from 'wagmi';
-import { useModal } from '../ModalProvider/context';
 import { clsContainer } from './styles.css';
+import { useProfileModal } from '@/components/ProfileModal/ProfileModalProvider/context';
+import { useSwitchNetworkModal } from '@/components/SwitchNetworkModal/SwitchNetworkProvider/context';
+import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
 
 export type DisconnectButtonProps = ButtonProps;
 
@@ -12,10 +14,10 @@ export function DisconnectButton(props: DisconnectButtonProps) {
 
   const { reset } = useConnect();
   const { disconnect } = useDisconnect();
-  const { onClose } = useModal();
+  const { onCloseAllModals } = useCloseAllModals();
 
   const onDisconnect = () => {
-    onClose();
+    onCloseAllModals();
     setTimeout(() => {
       disconnect();
       reset();
@@ -32,4 +34,18 @@ export function DisconnectButton(props: DisconnectButtonProps) {
       Disconnect
     </Button>
   );
+}
+
+function useCloseAllModals() {
+  const walletkitModal = useWalletKitModal();
+  const switchNetworkModal = useSwitchNetworkModal();
+  const profileModal = useProfileModal();
+
+  return {
+    onCloseAllModals() {
+      walletkitModal.onClose();
+      switchNetworkModal.onClose();
+      profileModal.onClose();
+    },
+  };
 }
