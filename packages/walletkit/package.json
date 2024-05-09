@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
