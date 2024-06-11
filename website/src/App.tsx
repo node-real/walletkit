@@ -11,6 +11,18 @@ import { Playground } from './playground';
 
 new VConsole();
 
+const provider = (window as any).ethereum;
+
+console.log('provider', provider);
+
+// This will print 'undefined'
+console.log(provider.request);
+setTimeout(() => {
+  // This is normal
+  console.log('provider---', provider);
+  console.log(provider.request);
+}, 3000);
+
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
