@@ -12,6 +12,9 @@ import { Playground } from './playground';
 new VConsole();
 
 const provider = (window as any).ethereum;
+
+console.log(provider?.enable, '========= enabled');
+provider?.enable?.();
 provider
   ?.request?.({
     method: 'eth_requestAccounts',
