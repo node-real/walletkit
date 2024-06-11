@@ -1,4 +1,3 @@
-import { sleep } from '@/utils/common';
 import { Chain } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
@@ -29,9 +28,6 @@ export class CustomConnector extends InjectedConnector {
   }
 
   public async getProvider() {
-    console.log('============== sleep');
-    await sleep(5000);
-    console.log('============== after sleep');
     return this.options.getProvider();
   }
 }
