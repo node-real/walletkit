@@ -34,7 +34,7 @@ export class BinanceWeb3WalletConnector extends InjectedConnector {
   }
 
   public async getProvider() {
-    await sleep(3000);
+    await sleep(4000);
     return this.options.getProvider();
   }
 }
