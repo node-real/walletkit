@@ -27,7 +27,9 @@ export class BinanceWeb3WalletConnector extends InjectedConnector {
       ..._options,
     };
 
-    (window.ethereum as any)?.enable?.();
+    if (typeof window !== 'undefined') {
+      (window.ethereum as any)?.enable?.();
+    }
 
     super({
       chains,
@@ -36,9 +38,7 @@ export class BinanceWeb3WalletConnector extends InjectedConnector {
   }
 
   public async getProvider() {
-    console.log('=========== before sleep');
-    await sleep(2000);
-    console.log('=========== after sleep');
+    await sleep();
     return this.options.getProvider();
   }
 }
