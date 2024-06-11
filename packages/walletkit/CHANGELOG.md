@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 1.0.13-alpha.0
+
+### Patch Changes
+
+- 237726b: Fixed binance web3 wallet disconnect after refresh page.
+
 ## 1.0.12
 
 ### Patch Changes
