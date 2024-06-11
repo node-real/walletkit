@@ -17,10 +17,10 @@ provider
     method: 'eth_requestAccounts',
   })
   .then((res: any) => {
-    console.log('res: ', res);
+    console.log('============= res: ', res);
   });
 
-console.log('provider', provider);
+console.log('============= provider', provider);
 
 // This will print 'undefined'
 console.log(provider?.request);
@@ -30,10 +30,10 @@ setTimeout(() => {
       method: 'eth_requestAccounts',
     })
     .then((res: any) => {
-      console.log('after res:', res);
+      console.log('============= after res:', res);
     });
   // This is normal
-  console.log('after provider:', provider);
+  console.log('============= after provider:', provider);
   console.log(provider?.request);
 }, 3000);
 
