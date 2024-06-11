@@ -12,14 +12,28 @@ import { Playground } from './playground';
 new VConsole();
 
 const provider = (window as any).ethereum;
+provider
+  ?.request?.({
+    method: 'eth_requestAccounts',
+  })
+  .then((res: any) => {
+    console.log('res: ', res);
+  });
 
 console.log('provider', provider);
 
 // This will print 'undefined'
 console.log(provider?.request);
 setTimeout(() => {
+  provider
+    ?.request?.({
+      method: 'eth_requestAccounts',
+    })
+    .then((res: any) => {
+      console.log('after res:', res);
+    });
   // This is normal
-  console.log('provider---', provider);
+  console.log('after provider:', provider);
   console.log(provider?.request);
 }, 3000);
 
