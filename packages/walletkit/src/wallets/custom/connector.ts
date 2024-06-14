@@ -26,4 +26,8 @@ export class CustomConnector extends InjectedConnector {
     this.id = id;
     this.shimDisconnectKey = `${this.id}.shimDisconnect`;
   }
+
+  public async getProvider() {
+    return this.options.getProvider();
+  }
 }
