@@ -1,5 +1,5 @@
 import { sleep } from '@/utils/common';
-import { Chain } from 'wagmi';
+import { Chain, WindowProvider } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { BINANCE_WEB3_WALLET_ID, BINANCE_WEB3_WALLET_NAME } from '.';
 import { isMobile } from '@/base/utils/mobile';
@@ -37,7 +37,7 @@ export class BinanceWeb3WalletConnector extends InjectedConnector {
     });
   }
 
-  public async getProvider() {
+  public async getProvider(): Promise<WindowProvider | undefined> {
     await sleep();
     return this.options.getProvider();
   }
