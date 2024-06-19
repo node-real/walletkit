@@ -20,7 +20,7 @@ const client = createClient(
   getDefaultConfig({
     appName: 'WalletKit',
     chains,
-    autoConnect: true,
+    autoConnect: false,
     connectors: [
       binanceWeb3Wallet(),
       bitgetWallet(),
