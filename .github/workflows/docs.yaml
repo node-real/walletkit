@@ -22,27 +22,8 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Creating .env
-        run: |
-          cat << EOF > "./website/.env"
-            VITE_PARTICLE_APP_APP_ID=$PARTICLE_APP_APP_ID
-            VITE_PARTICLE_APP_PROJECT_ID=$PARTICLE_APP_PROJECT_ID
-            VITE_PARTICLE_APP_CLIENT_KEY=$PARTICLE_APP_CLIENT_KEY
-          EOF
-        env:
-          PARTICLE_APP_APP_ID: ${{ secrets.PARTICLE_APP_APP_ID }}
-          PARTICLE_APP_PROJECT_ID: ${{ secrets.PARTICLE_APP_PROJECT_ID }}
-          PARTICLE_APP_CLIENT_KEY: ${{ secrets.PARTICLE_APP_CLIENT_KEY }}
-
       - name: Build docs
         run: pnpm build:docs
-
-      - name: Redirect
-        run: |
-          mkdir -p ./website/dist/website/dist
-          cat << EOF > "./website/dist/website/dist/index.html"
-            <script>window.location.href='https://node-real.github.io/walletkit'</script>
-          EOF
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@v4
