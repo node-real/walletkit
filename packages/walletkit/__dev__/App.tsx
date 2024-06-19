@@ -11,7 +11,7 @@ import {
   useModal,
   useProfileModal,
   useSwitchNetworkModal,
-} from '../src/index';
+} from '@/index';
 
 import {
   binanceWeb3Wallet,

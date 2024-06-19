@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "1.0.13-alpha.0",
+  "version": "1.1.0",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -30,7 +30,7 @@
     "./wallets": "./dist/wallets/index.js"
   },
   "scripts": {
-    "dev": "vite test --config ./test/vite.config.ts --port 3010 --host 0.0.0.0",
+    "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
     "build:watch": "vite build --watch --emptyOutDir=false",
     "build": "vite build"
   },
