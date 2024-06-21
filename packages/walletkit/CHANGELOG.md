@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 0.3.2
+
+### Patch Changes
+
+- 36affe5: Add `openModalOnWrongNetwork` option to customize whether display SwitchNetworkModal if
+  on the wrong network
+
 ## 0.3.1
 
 ### Patch Changes
