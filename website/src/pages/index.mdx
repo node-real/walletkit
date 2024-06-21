@@ -494,6 +494,9 @@ interface WalletKitOptions {
   closeModalOnEsc?: boolean;
   closeModalOnOverlayClick?: boolean;
 
+  // Display SwitchNetworkModal if on the wrong network
+  openModalOnWrongNetwork?: boolean;
+
   walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
 

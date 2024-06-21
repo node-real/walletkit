@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
 import { SwitchNetworkModalContext, SwitchNetworkModalOpenOptions } from './context';
 import { toast } from '@/base/components/toast';
+import { useWalletKitContext } from '@/components/WalletKitProvider/context';
 
 export interface SwitchNetworkProviderProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ export function SwitchNetworkProvider(props: SwitchNetworkProviderProps) {
 
   const { chain } = useNetwork();
   const { isConnected } = useAccount();
+  const { options } = useWalletKitContext();
 
   const value = useMemo(() => {
     return {
@@ -42,7 +44,7 @@ export function SwitchNetworkProvider(props: SwitchNetworkProviderProps) {
   }, [isClosable, isConnected, isOpen, onClose, onOpen]);
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && options.openModalOnWrongNetwork) {
       const timer = setTimeout(() => {
         if (chain?.unsupported) {
           value.onOpen({

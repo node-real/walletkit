@@ -21,6 +21,8 @@ export function getDefaultProviderOptions(options: WalletKitOptions) {
     closeModalOnEsc: true,
     closeModalOnOverlayClick: true,
 
+    openModalOnWrongNetwork: true,
+
     walletDownloadUrl: `https://trustwallet.com/`,
     onError,
     ...restOptions,
