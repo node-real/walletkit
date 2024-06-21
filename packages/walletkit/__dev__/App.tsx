@@ -52,7 +52,7 @@ const config = createConfig(
 
 const options: WalletKitOptions = {
   initialChainId: 204,
-  hideInnerModal: true,
+  closeModalAfterSwitchingNetwork: true,
 };
 
 export default function App() {
@@ -69,7 +69,6 @@ export default function App() {
         <WalletKitButton />
         <Example />
         <SwitchNetworkModal />
-        <WalletKitEmbeddedModal />
       </WalletKitProvider>
     </WagmiConfig>
   );
