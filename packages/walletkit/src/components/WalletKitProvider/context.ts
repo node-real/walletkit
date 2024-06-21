@@ -25,6 +25,8 @@ export interface WalletKitOptions {
   closeModalOnEsc?: boolean;
   closeModalOnOverlayClick?: boolean;
 
+  openModalOnWrongNetwork?: boolean;
+
   walletDownloadUrl?: string;
   chainsConfig?: ChainProps[];
   onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
