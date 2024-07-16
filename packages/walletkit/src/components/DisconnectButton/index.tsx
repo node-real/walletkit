@@ -1,9 +1,9 @@
 import { ButtonProps, Button } from '@/base/components/Button';
 import { ExitIcon } from '@/base/icons/ExitIcon';
-import { cx, useProfileModal, useSwitchNetworkModal } from '@/index';
+import { cx } from '@/index';
 import { useConnect, useDisconnect } from 'wagmi';
 import { clsContainer } from './styles.css';
-import { useConnectModal } from '@/modals/ConnectModal/context';
+import { useCloseAllModals } from '@/hooks/useCloseAllModals';
 
 export type DisconnectButtonProps = ButtonProps;
 
@@ -32,18 +32,4 @@ export function DisconnectButton(props: DisconnectButtonProps) {
       Disconnect
     </Button>
   );
-}
-
-function useCloseAllModals() {
-  const connectModal = useConnectModal();
-  const switchNetworkModal = useSwitchNetworkModal();
-  const profileModal = useProfileModal();
-
-  return {
-    onCloseAllModals() {
-      connectModal.onClose();
-      switchNetworkModal.onClose();
-      profileModal.onClose();
-    },
-  };
 }

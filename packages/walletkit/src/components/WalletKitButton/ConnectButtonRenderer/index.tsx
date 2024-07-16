@@ -19,7 +19,6 @@ export interface ConnectButtonRendererProps {
     isConnecting: boolean;
     address?: string;
     truncatedAddress?: string;
-    ensName?: string;
   }) => React.ReactNode;
 }
 

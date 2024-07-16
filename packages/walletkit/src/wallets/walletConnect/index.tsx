@@ -3,7 +3,7 @@ import { isMobile } from '@/index';
 import { WalletProps } from '..';
 import { WalletConnectIcon, WalletConnectTransparentIcon } from './icon';
 import { walletConnect as wagmiWalletConnect, WalletConnectParameters } from 'wagmi/connectors';
-import { Connector } from '@wagmi/core';
+import { Connector } from 'wagmi';
 
 const WALLET_CONNECT_ID = 'walletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';

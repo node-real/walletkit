@@ -15,7 +15,7 @@ export function useWalletKitConnect(
     chainId: options?.initialChainId,
   };
 
-  const { connect, connectAsync, connectors, ...rest } = useConnect({
+  const { connect, connectAsync, connectors, ...restProps } = useConnect({
     ...props,
     mutation: {
       ...props?.mutation,
@@ -44,6 +44,6 @@ export function useWalletKitConnect(
       });
     },
     connectors,
-    ...rest,
+    ...restProps,
   };
 }

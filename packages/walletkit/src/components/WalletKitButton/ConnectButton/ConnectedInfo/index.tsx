@@ -6,7 +6,7 @@ import { Avatar } from '@/components/Avatar';
 import { useChainConfig } from '@/hooks/useChainConfig';
 import { cx, useProfileModal, useSwitchNetworkModal } from '@/index';
 import { formatBalance, truncateAddress, truncateName } from '@/utils/account';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { clsWalletkitButton } from '../styles.css';
 import {
   clsInfo,
@@ -19,6 +19,7 @@ import {
   clsAddress,
 } from './styles.css';
 import { useChainIsSupported } from '@/hooks/useChainIsSupported';
+import { useWalletKitBalance } from '@/hooks/useWalletKitBalance';
 
 export function ConnectedInfo() {
   const { address, chain } = useAccount();
@@ -26,10 +27,7 @@ export function ConnectedInfo() {
   const switchNetworkModal = useSwitchNetworkModal();
   const profileModal = useProfileModal();
 
-  const { data: balance } = useBalance({
-    address,
-  });
-
+  const { balance } = useWalletKitBalance(address);
   const chainConfig = useChainConfig(chain);
   const isSupported = useChainIsSupported();
 

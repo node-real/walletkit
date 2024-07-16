@@ -1,4 +1,4 @@
-import { isIOS } from '@/base/utils/mobile';
+import { isIOS, isMobile } from '@/base/utils/mobile';
 import { hasInjectedBinanceWeb3Wallet, hasInjectedTrustWallet } from '@/wallets';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
@@ -43,7 +43,7 @@ export function commonErrorHandler(props: { log: any; handler: any; error: any }
       description = undefined;
     }
 
-    if (hasInjectedBinanceWeb3Wallet()) {
+    if (isMobile() && hasInjectedBinanceWeb3Wallet()) {
       if (
         description?.includes('Request failed: The JSON sent is not a valid Request object.') ||
         description?.includes('Adaptor not found: eip155')

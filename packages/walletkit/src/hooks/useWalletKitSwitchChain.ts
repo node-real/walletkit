@@ -1,7 +1,7 @@
 import { useWalletKit } from '@/components/WalletKitProvider/context';
 import { commonErrorHandler } from '@/utils/common';
-import { SwitchChainErrorType } from '@wagmi/core';
 import { useSwitchChain } from 'wagmi';
+import { SwitchChainErrorType } from 'wagmi/actions';
 
 export type UseWalletKitSwitchChainProps = Parameters<typeof useSwitchChain>[0];
 

@@ -3,7 +3,7 @@ export * from './base/utils/mobile';
 export * from './base/utils/css';
 
 // config
-export * from './defaultConfig/getDefaultConfig';
+export * from './defaultConfig/defaultWagmiConfig';
 
 // components
 export * from './components/EthereumScript';

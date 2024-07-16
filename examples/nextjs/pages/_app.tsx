@@ -1,30 +1,32 @@
 import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { chains } from './chains';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { bsc, mainnet, opBNB } from 'wagmi/chains';
+
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
+  defaultWagmiConfig,
   SwitchNetworkModal,
   WalletKitButton,
   WalletKitOptions,
   WalletKitProvider,
-  getDefaultConfig,
+  ProfileModal,
+  ConnectModal,
 } from '@node-real/walletkit';
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { WagmiProvider } from 'wagmi';
 
-const config = createConfig(
-  getDefaultConfig({
-    autoConnect: true,
-    appName: 'WalletKit',
+const queryClient = new QueryClient();
 
-    // WalletConnect 2.0 requires a projectId which you can create quickly
-    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains: [bsc, mainnet, opBNB],
+  connectors: [trustWallet(), metaMask(), walletConnect()],
 
-    chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
-  }),
-);
+  // WalletConnect 2.0 requires a projectId which you can create quickly
+  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+  walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+});
 
 const options: WalletKitOptions = {
   initialChainId: 1,
@@ -32,12 +34,16 @@ const options: WalletKitOptions = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
-      <WalletKitProvider options={options} mode="light">
-        <WalletKitButton />
-        <Component {...pageProps} />
-        <SwitchNetworkModal />
-      </WalletKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config} reconnectOnMount={false}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider options={options} mode="light">
+          <Component {...pageProps} />
+          <WalletKitButton />
+          <ConnectModal />
+          <ProfileModal />
+          <SwitchNetworkModal />
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

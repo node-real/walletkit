@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider, createConfig } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import VConsole from 'vconsole';
 import {
   ConnectModal,
-  EmbeddedConnectModal,
   ProfileModal,
   SwitchNetworkModal,
   ThemeMode,
   WalletKitButton,
   WalletKitOptions,
   WalletKitProvider,
-  getDefaultConfig,
+  defaultWagmiConfig,
   useConnectModal,
   useProfileModal,
   useSwitchNetworkModal,
@@ -32,22 +31,20 @@ const queryClient = new QueryClient();
 
 new VConsole();
 
-const config = createConfig(
-  getDefaultConfig({
-    appName: 'WalletKit',
-    chains,
-    connectors: [
-      binanceWeb3Wallet(),
-      bitgetWallet(),
-      coinbaseWallet(),
-      metaMask(),
-      okxWallet(),
-      tokenPocket(),
-      trustWallet(),
-      walletConnect(),
-    ],
-  }),
-);
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains,
+  connectors: [
+    binanceWeb3Wallet(),
+    bitgetWallet(),
+    coinbaseWallet(),
+    metaMask(),
+    okxWallet(),
+    tokenPocket(),
+    trustWallet(),
+    walletConnect(),
+  ],
+});
 
 const options: WalletKitOptions = {
   initialChainId: 204,
@@ -64,8 +61,10 @@ export default function App() {
           <div>mode: {mode} </div>
           <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
           <div style={{ height: 20 }} />
+
           <WalletKitButton />
           <Example />
+
           <ConnectModal />
           {/* <EmbeddedConnectModal /> */}
           <SwitchNetworkModal />

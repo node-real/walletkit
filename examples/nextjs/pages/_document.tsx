@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>WalletKit Next.js Example</title>
         <EthereumScript />
       </Head>
       <body>

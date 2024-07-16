@@ -1,12 +1,18 @@
-import { Connector, http } from 'wagmi';
+import {
+  Connector,
+  http,
+  createConfig,
+  CreateConnectorFn,
+  type CreateConfigParameters,
+  Config,
+} from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
 import { isWalletConnectConnector, walletConnect, WalletProps } from '@/wallets';
-import { CreateConnectorFn, type CreateConfigParameters } from '@wagmi/core';
 
-export interface DefaultConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
+export interface DefaultWagmiConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
   appName: string;
   appIcon?: string;
   appDescription?: string;
@@ -19,7 +25,7 @@ export interface DefaultConfig extends Omit<CreateConfigParameters, 'chains' | '
   connectors?: WalletProps[];
 }
 
-export const getDefaultConfig = (params: DefaultConfig) => {
+export const defaultWagmiConfig = (params: DefaultWagmiConfig) => {
   const {
     appName = 'WalletKit',
     appIcon,
@@ -47,12 +53,15 @@ export const getDefaultConfig = (params: DefaultConfig) => {
 
   const fns = getCreateConnectorFns(wallets);
 
-  const config: CreateConfigParameters<any, any> = {
+  const config = createConfig({
     ...restProps,
     chains,
     connectors: fns,
     transports,
-  };
+  } as CreateConfigParameters<any, any>);
+
+  // hack
+  hack(config);
 
   return config;
 };
@@ -85,4 +94,9 @@ function createSingletonWalletConnect(wallets: WalletProps[], fns: CreateConnect
 
   const fn = walletConnect().getCreateConnectorFn();
   fns.push(fn);
+}
+
+function hack(config: Config<any, any>) {
+  // const { connectors } = config;
+  // connectors?.forEach((c) => {});
 }
