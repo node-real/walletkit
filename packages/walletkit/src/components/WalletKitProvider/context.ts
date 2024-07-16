@@ -1,4 +1,5 @@
 import { ChainProps } from '@/chains/types';
+import { WalletProps } from '@/wallets';
 import { ReactNode, createContext, useContext } from 'react';
 import { Connector } from 'wagmi';
 
@@ -15,7 +16,6 @@ export interface WalletKitOptions {
   disclaimer?: ReactNode;
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
-  hideInnerModal?: boolean;
 
   gridLayoutThreshold?: number;
   useGridLayoutOnMobile?: boolean;
@@ -36,7 +36,8 @@ export interface WalletKitOptions {
 
 export interface WalletKitContextProps {
   options: WalletKitOptions;
-  supportedChains: ChainProps[];
+  wallets: WalletProps[];
+  chainsConfig: ChainProps[];
   isMobileLayout: boolean;
 
   action: Action;
@@ -50,6 +51,6 @@ export interface WalletKitContextProps {
 
 export const WalletKitContext = createContext({} as WalletKitContextProps);
 
-export function useWalletKitContext() {
+export function useWalletKit() {
   return useContext(WalletKitContext);
 }

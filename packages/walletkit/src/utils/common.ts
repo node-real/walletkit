@@ -1,5 +1,5 @@
-import { isIOS } from '@/base/utils/mobile';
-import { isBinanceWeb3Wallet, isTrustWallet } from '@/wallets';
+import { isIOS, isMobile } from '@/base/utils/mobile';
+import { hasInjectedBinanceWeb3Wallet, hasInjectedTrustWallet } from '@/wallets';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
@@ -31,7 +31,7 @@ export function commonErrorHandler(props: { log: any; handler: any; error: any }
       switch (error.code) {
         case 4902:
           // TODO
-          if (isIOS() && isTrustWallet()) {
+          if (isIOS() && hasInjectedTrustWallet()) {
             text = 'Not supported chainId';
           }
           break;
@@ -43,7 +43,7 @@ export function commonErrorHandler(props: { log: any; handler: any; error: any }
       description = undefined;
     }
 
-    if (isBinanceWeb3Wallet()) {
+    if (isMobile() && hasInjectedBinanceWeb3Wallet()) {
       if (
         description?.includes('Request failed: The JSON sent is not a valid Request object.') ||
         description?.includes('Adaptor not found: eip155')

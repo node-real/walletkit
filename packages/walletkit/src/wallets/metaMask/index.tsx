@@ -1,25 +1,18 @@
-import { Chain, Connector } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { PartialWalletProps, WalletProps } from '..';
+import { Connector } from 'wagmi';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
-import { getInjectedProvider, hasInjectedProvider } from '../utils';
+import { hasInjectedProvider } from '../utils';
+import { injected } from '../injected';
 
-export const META_MASK_ID = 'metaMask';
+const META_MASK_ID = 'metaMask';
+const META_MASK_NAME = 'MetaMask';
 
-export type MetaMaskConnectorOptions = Required<
-  ConstructorParameters<typeof MetaMaskConnector>
->[0]['options'];
-
-export interface MetaMaskProps extends PartialWalletProps {
-  connectorOptions?: MetaMaskConnectorOptions;
-}
-
-export function metaMask(props: MetaMaskProps = {}): WalletProps {
+export function metaMask(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: META_MASK_ID,
-    name: 'MetaMask',
+    name: META_MASK_NAME,
     logos: {
       default: <MetaMaskIcon />,
       transparent: <MetaMaskTransparentIcon />,
@@ -29,32 +22,26 @@ export function metaMask(props: MetaMaskProps = {}): WalletProps {
     },
     spinnerColor: '#F0B90B',
     showQRCode: false,
-    isInstalled: isMetaMask,
-    createConnector: (chains: Chain[]) => {
-      return new MetaMaskConnector({
-        chains,
-        options: {
-          shimDisconnect: true,
-          UNSTABLE_shimOnConnectSelectAccount: false,
-          getProvider() {
-            return getInjectedProvider('isMetaMask');
-          },
-          ...connectorOptions,
-        } as any,
-      });
-    },
+    isInstalled: haInjectedMetaMask,
     getDeepLink: () => {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
       return `dapp://${dappPath}`;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return `metamask://wc?uri=${encodeURIComponent(uri)}`;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target: 'metaMask',
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isMetaMask() {
+export function haInjectedMetaMask() {
   return hasInjectedProvider('isMetaMask');
 }
 

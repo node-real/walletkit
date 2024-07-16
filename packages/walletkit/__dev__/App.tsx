@@ -1,58 +1,53 @@
 import { useState } from 'react';
-import { chains } from './chains';
-import { WagmiConfig, createConfig } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WagmiProvider } from 'wagmi';
 import VConsole from 'vconsole';
 import {
+  ConnectModal,
+  ProfileModal,
+  SwitchNetworkModal,
   ThemeMode,
   WalletKitButton,
   WalletKitOptions,
   WalletKitProvider,
-  getDefaultConfig,
-  useModal,
+  defaultWagmiConfig,
+  useConnectModal,
   useProfileModal,
   useSwitchNetworkModal,
 } from '@/index';
-
 import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
-  mathWallet,
   metaMask,
   okxWallet,
   tokenPocket,
   trustWallet,
   walletConnect,
 } from '@/wallets';
-import { SwitchNetworkModal } from '@/components/SwitchNetworkModal';
-import { WalletKitEmbeddedModal } from '@/components/WalletKitEmbeddedModal';
+import { chains } from './chains';
+
+const queryClient = new QueryClient();
 
 new VConsole();
 
-const config = createConfig(
-  getDefaultConfig({
-    autoConnect: false,
-    appName: 'WalletKit',
-    chains,
-    connectors: [
-      binanceWeb3Wallet(),
-      bitgetWallet(),
-      coinbaseWallet(),
-      metaMask(),
-      okxWallet(),
-      tokenPocket({
-        isDisabled: true,
-      }),
-      trustWallet(),
-      walletConnect(),
-      mathWallet(),
-    ],
-  }),
-);
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains,
+  connectors: [
+    binanceWeb3Wallet(),
+    bitgetWallet(),
+    coinbaseWallet(),
+    metaMask(),
+    okxWallet(),
+    tokenPocket(),
+    trustWallet(),
+    walletConnect(),
+  ],
+});
 
 const options: WalletKitOptions = {
   initialChainId: 204,
-  closeModalAfterSwitchingNetwork: true,
 };
 
 export default function App() {
@@ -60,28 +55,33 @@ export default function App() {
   const nextMode = mode === 'light' ? 'dark' : 'light';
 
   return (
-    <WagmiConfig config={config}>
-      <div>mode: {mode} </div>
-      <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
-      <div style={{ height: 20 }} />
+    <WagmiProvider config={config} reconnectOnMount={true}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider options={options} mode={mode} debugMode={true}>
+          <div>mode: {mode} </div>
+          <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
+          <div style={{ height: 20 }} />
 
-      <WalletKitProvider options={options} mode={mode} debugMode={true}>
-        <WalletKitButton />
-        <Example />
-        <SwitchNetworkModal />
-      </WalletKitProvider>
-    </WagmiConfig>
+          <WalletKitButton />
+          <Example />
+
+          <ConnectModal />
+          <SwitchNetworkModal />
+          <ProfileModal />
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
 function Example() {
-  const modal = useModal();
+  const connectModal = useConnectModal();
   const profileModal = useProfileModal();
   const switchNetworkModal = useSwitchNetworkModal();
 
   return (
     <>
-      <button onClick={() => modal.onOpen()}>Open Connect Modal</button>
+      <button onClick={() => connectModal.onOpen()}>Open Connect Modal</button>
       <button onClick={() => profileModal.onOpen()}>Open Profile Modal</button>
       <button onClick={() => switchNetworkModal.onOpen()}>Open SwitchNetwork Modal</button>
     </>

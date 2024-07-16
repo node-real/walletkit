@@ -1,26 +1,25 @@
 import { getGlobalData } from '@/globalData';
-import { Chain } from 'wagmi';
-import { CoinbaseWalletConnector } from './connector';
-import { PartialWalletProps, WalletProps } from '..';
+import { WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from './icon';
+import {
+  coinbaseWallet as wagmiCoinbaseWallet,
+  type CoinbaseWalletParameters,
+} from 'wagmi/connectors';
 
-export const COINBASE_WALLET_ID = 'coinbaseWallet';
+const COINBASE_WALLET_ID = 'coinbaseWalletSDK';
+const COINBASE_WALLET_NAME = 'Coinbase Wallet';
 
-export type CoinbaseWalletConnectorOptions = Partial<
-  Required<ConstructorParameters<typeof CoinbaseWalletConnector>>[0]['options']
->;
-
-export interface CoinbaseWalletProps extends PartialWalletProps {
-  connectorOptions?: CoinbaseWalletConnectorOptions;
+export interface CoinbaseWalletOptions extends Partial<WalletProps> {
+  connectorOptions?: CoinbaseWalletParameters;
 }
 
-export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
+export function coinbaseWallet(props: CoinbaseWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: COINBASE_WALLET_ID,
-    name: 'Coinbase Wallet',
+    name: COINBASE_WALLET_NAME,
     logos: {
       default: <CoinbaseWalletIcon />,
       transparent: <CoinbaseWalletTransparentIcon />,
@@ -30,30 +29,28 @@ export function coinbaseWallet(props: CoinbaseWalletProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    isInstalled: isCoinbaseWallet,
-    createConnector: (chains: Chain[]) => {
-      const { appName } = getGlobalData();
-
-      return new CoinbaseWalletConnector({
-        chains,
-        options: {
-          appName,
-          headlessMode: true,
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedCoinbaseWallet,
     getDeepLink: () => {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return uri;
+    },
+    getCreateConnectorFn: () => {
+      const { appName, appIcon } = getGlobalData();
+
+      return wagmiCoinbaseWallet({
+        appName,
+        headlessMode: true,
+        appLogoUrl: appIcon,
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isCoinbaseWallet() {
+export function hasInjectedCoinbaseWallet() {
   if (typeof window === 'undefined') return false;
 
   return hasInjectedProvider('isCoinbaseWallet') || !!window.coinbaseWalletExtension;

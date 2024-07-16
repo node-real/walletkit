@@ -1,30 +1,24 @@
-import { Chain } from 'wagmi';
-import {
-  PartialWalletProps,
-  TrustWalletConnectorOptions,
-  WalletProps,
-  TrustWalletConnector,
-} from '..';
-import { hasInjectedProvider } from '../utils';
+import { injected } from '../injected';
+import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import {
   TrustWalletLightIcon,
   TrustWalletDarkIcon,
   TrustWalletTransparentLightIcon,
   TrustWalletTransparentDarkIcon,
 } from './icon';
+import { InjectedWalletOptions, WalletProps } from '../types';
+import { Connector } from 'wagmi';
+import { sleep } from '@/utils/common';
 
-export const TRUST_WALLET_ID = 'trust';
+const TRUST_WALLET_ID = 'trust';
+const TRUST_WALLET_NAME = 'Trust Wallet';
 
-export interface TrustWalletProps extends PartialWalletProps {
-  connectorOptions?: TrustWalletConnectorOptions;
-}
-
-export function trustWallet(props: TrustWalletProps = {}): WalletProps {
+export function trustWallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: TRUST_WALLET_ID,
-    name: 'Trust Wallet',
+    name: TRUST_WALLET_NAME,
     logos: {
       default: {
         light: <TrustWalletLightIcon />,
@@ -40,33 +34,46 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
     },
     spinnerColor: '#1098FC',
     showQRCode: false,
-    isInstalled: isTrustWallet,
-    createConnector: (chains: Chain[]) => {
-      return new TrustWalletConnector({
-        chains,
-        options: {
-          shimDisconnect: true,
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedTrustWallet,
     getDeepLink: () => {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
       return dappPath;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return `trust://wc?uri=${encodeURIComponent(uri)}`;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target: {
+          id: TRUST_WALLET_ID,
+          name: TRUST_WALLET_NAME,
+          async setup() {
+            await sleep();
+          },
+          async provider() {
+            const provider =
+              getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
+            return provider;
+          },
+        },
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isTrustWallet() {
+export function hasInjectedTrustWallet() {
   if (typeof window === 'undefined') return false;
 
   return (
     hasInjectedProvider('isTrust') || window?.trustwallet?.isTrust || window?.trustWallet?.isTrust
   );
+}
+
+export function isTrustWalletConnector(connector?: Connector) {
+  return connector?.id === TRUST_WALLET_ID;
 }

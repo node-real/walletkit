@@ -1,5 +1,3 @@
-import { FetchBalanceResult } from 'wagmi/actions';
-
 const truncateRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 
 export function truncateAddress(address?: string, separator = '...') {
@@ -9,11 +7,11 @@ export function truncateAddress(address?: string, separator = '...') {
   return `${match[1]}${separator}${match[2]}`;
 }
 
-export function truncateENSName(ensName = '', maxLength = 20) {
-  if (ensName.length > maxLength) {
-    return ensName.replace('.eth', '').slice(0, maxLength) + '...';
+export function truncateName(name = '', maxLength = 20) {
+  if (name.length > maxLength) {
+    return name.slice(0, maxLength) + '...';
   } else {
-    return ensName;
+    return name;
   }
 }
 
@@ -25,7 +23,7 @@ export function toPrecision(number: number, precision = 1) {
     .replace(/\.$/, '');
 }
 
-export function formatBalance(balance: FetchBalanceResult): string {
+export function formatBalance(balance: any): string {
   let number = parseFloat(balance.formatted);
 
   let result = String(number);

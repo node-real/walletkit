@@ -1,21 +1,22 @@
 import { MODAL_AUTO_CLOSE_DELAY } from '@/constants/common';
 import { useEffect, useState } from 'react';
 import { useWalletKitConnect } from './useWalletKitConnect';
-import { getGlobalData, setGlobalData } from '@/globalData';
-import { useWalletKitModal } from '@/components/WalletKitModal/WalletKitModalProvider/context';
-import { useWalletKitContext } from '@/components/WalletKitProvider/context';
+import { setGlobalData } from '@/globalData';
+import { useWalletKit } from '@/components/WalletKitProvider/context';
+import { useConnectModal } from '@/modals/ConnectModal/context';
+import { useWalletConnectConnector } from './useWalletConnectConnector';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useWalletKitConnect();
-  const { onClose } = useWalletKitModal();
-  const { log } = useWalletKitContext();
+  const connectModal = useConnectModal();
+  const { log } = useWalletKit();
 
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
-        onClose();
+        connectModal.onClose();
       }, MODAL_AUTO_CLOSE_DELAY);
 
       return () => {
@@ -26,15 +27,16 @@ export function useWalletConnectModal() {
     setGlobalData({
       walletConnectModalIsOpen: isOpen,
     });
-  }, [isOpen, onClose]);
+  }, [connectModal, isOpen]);
+
+  const connector = useWalletConnectConnector();
 
   return {
-    isOpenWcModal: isOpen,
-    onOpenWcModal: async () => {
+    isOpen,
+    onOpen: async () => {
       document.body.style.setProperty('--wcm-z-index', '2147483647');
 
-      const connector = getGlobalData().walletConnectConnector;
-      const provider = await connector?.getProvider();
+      const provider: any = await connector?.getProvider();
       provider.rpc.showQrModal = true;
 
       if (connector) {

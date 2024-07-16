@@ -1,28 +1,31 @@
 import '@node-real/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
-import { chains } from './chains';
-import {
-  WalletKitButton,
-  WalletKitProvider,
-  getDefaultConfig,
-  WalletKitOptions,
-  SwitchNetworkModal,
-} from '@node-real/walletkit';
+import './global.css';
+import { bsc, mainnet, opBNB } from 'wagmi/chains';
+
 import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  ConnectModal,
+  defaultWagmiConfig,
+  ProfileModal,
+  SwitchNetworkModal,
+  WalletKitButton,
+  WalletKitOptions,
+  WalletKitProvider,
+} from '@node-real/walletkit';
+import { WagmiProvider } from 'wagmi';
 
-const config = createConfig(
-  getDefaultConfig({
-    autoConnect: true,
-    appName: 'WalletKit',
+const queryClient = new QueryClient();
 
-    // WalletConnect 2.0 requires a projectId which you can create quickly
-    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains: [mainnet, bsc, opBNB],
+  connectors: [trustWallet(), metaMask(), walletConnect()],
 
-    chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
-  }),
-);
+  // WalletConnect 2.0 requires a projectId which you can create quickly
+  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+  walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+});
 
 const options: WalletKitOptions = {
   initialChainId: 1,
@@ -30,16 +33,15 @@ const options: WalletKitOptions = {
 
 export default function App() {
   return (
-    <WagmiConfig config={config}>
-      <WalletKitProvider options={options} mode="light">
-        <WalletKitButton />
-        {/*
-          👇 Here's the SwitchNetworkModal
-          If the user switches to a network that is not supported by our dApp,
-          this modal will be displayed to remind the user to switch to our supported networks.
-        */}
-        <SwitchNetworkModal />
-      </WalletKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config} reconnectOnMount={false}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider options={options} mode="light">
+          <WalletKitButton />
+          <ConnectModal />
+          <ProfileModal />
+          <SwitchNetworkModal />
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

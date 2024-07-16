@@ -1,13 +1,15 @@
-import { Chain } from 'wagmi';
-import { PartialCustomProps, WalletProps } from '..';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
 import { hasInjectedProvider } from '../utils';
-import { BinanceWeb3WalletConnector } from './connector';
+import { isMobile } from '@/base/utils/mobile';
+import { Connector } from 'wagmi';
+import { injected } from '../injected';
+import { sleep } from '@/utils/common';
 
-export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
-export const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';
+const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
+const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';
 
-export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
+export function binanceWeb3Wallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -22,29 +24,47 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: true,
-    isInstalled: isBinanceWeb3Wallet,
-    createConnector: (chains: Chain[]) => {
-      return new BinanceWeb3WalletConnector({
-        chains,
-        options: {
-          shimDisconnect: true,
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedBinanceWeb3Wallet,
     getDeepLink: () => {
       const { bnc } = getDeepLink(window.location.href);
       return bnc;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return uri;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target: {
+          id: BINANCE_WEB3_WALLET_ID,
+          name: BINANCE_WEB3_WALLET_NAME,
+          async setup() {
+            if (isMobile()) {
+              if (typeof window !== 'undefined') {
+                (window.ethereum as any)?.enable?.();
+              }
+              await sleep();
+            }
+          },
+          async provider(window) {
+            if (isMobile()) {
+              return window?.ethereum;
+            }
+          },
+        },
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isBinanceWeb3Wallet() {
-  return hasInjectedProvider('isBinance' as any);
+export function hasInjectedBinanceWeb3Wallet() {
+  return hasInjectedProvider('isBinance');
+}
+
+export function isBinanceWeb3WalletConnector(connector?: Connector) {
+  return connector?.id === BINANCE_WEB3_WALLET_ID;
 }
 
 const getDeepLink = (url: string) => {

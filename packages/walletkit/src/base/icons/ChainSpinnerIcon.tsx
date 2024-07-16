@@ -1,4 +1,5 @@
-import { SVGIconProps, cssVar } from '../..';
+import { cssVar } from '@/index';
+import { SVGIconProps } from '@/types';
 
 export const ChainSpinnerIcon = (props: SVGIconProps) => {
   const stopColor = cssVar('primaryActive');

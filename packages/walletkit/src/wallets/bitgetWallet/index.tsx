@@ -1,14 +1,13 @@
-import { Chain } from 'wagmi';
-import { PartialCustomProps, WalletProps } from '..';
-import { CustomConnector } from '../custom/connector';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { BitgetWalletIcon, BitgetWalletTransparentIcon } from './icon';
 import { isMobile } from '@/index';
+import { injected } from '../injected';
 
-export const BITGET_WALLET_ID = 'bitgetWallet';
-export const BITGET_WALLET_NAME = 'Bitget Wallet';
+const BITGET_WALLET_ID = 'bitgetWallet';
+const BITGET_WALLET_NAME = 'Bitget Wallet';
 
-export function bitgetWallet(props: PartialCustomProps = {}): WalletProps {
+export function bitgetWallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -23,43 +22,40 @@ export function bitgetWallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    isInstalled: isBitgetWallet,
-    createConnector: (chains: Chain[]) => {
-      return new CustomConnector({
-        id: BITGET_WALLET_ID,
-        chains,
-        options: {
+    isInstalled: hasInjectedBitgetWallet,
+    getDeepLink: () => {
+      return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
+    },
+    getQRCodeUri: (uri) => {
+      return `bitkeep://bkconnect/wc?uri=${encodeURIComponent(uri)}`;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target: {
+          id: BITGET_WALLET_ID,
           name: BITGET_WALLET_NAME,
-          shimDisconnect: true,
-          getProvider() {
-            if (typeof window === 'undefined') return;
-
+          async provider() {
             if (isMobile()) {
               return window.ethereum || window.bitkeep?.ethereum;
             }
 
-            return getInjectedProvider('isBitgetWallet' as any) ?? window.bitkeep?.ethereum;
+            return getInjectedProvider('isBitgetWallet') ?? window.bitkeep?.ethereum;
           },
-          ...connectorOptions,
         },
+        ...connectorOptions,
       });
-    },
-    getDeepLink: () => {
-      return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
-    },
-    getQRCodeUri(uri) {
-      return `bitkeep://bkconnect/wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,
   };
 }
 
-export function isBitgetWallet() {
+export function hasInjectedBitgetWallet() {
   if (typeof window === 'undefined') return false;
 
   if (isMobile()) {
     return !!(window.ethereum || window.bitkeep);
   }
 
-  return hasInjectedProvider('isBitgetWallet' as any) || window.bitkeep;
+  return hasInjectedProvider('isBitgetWallet') || window.bitkeep;
 }

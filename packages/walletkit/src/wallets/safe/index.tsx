@@ -1,53 +1,42 @@
-import { SafeConnector } from 'wagmi/connectors/safe';
-import { Chain } from 'wagmi';
+import { SafeParameters, safe as wagmiSafe } from 'wagmi/connectors';
+import { WalletProps } from '../types';
+import { SafeIcon } from './icon';
 
-import { Connector } from 'wagmi/connectors';
-import { PartialWalletProps, WalletProps } from '..';
-import { InjectedIcon } from '../injected/icon';
+const SAFE_ID = 'safe';
+const SAFE_NAME = 'Safe Wallet';
 
-export const SAFE_ID = 'safe';
-
-export type SafeConnectorOptions = Required<
-  ConstructorParameters<typeof SafeConnector>
->[0]['options'];
-
-export interface SafeProps extends PartialWalletProps {
-  connectorOptions?: SafeConnectorOptions;
+export interface SafeOptions extends Partial<WalletProps> {
+  connectorOptions?: SafeParameters;
 }
 
-export function safe(props: SafeProps = {}): WalletProps {
+export function safe(props: SafeOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: SAFE_ID,
-    name: 'Safe Wallet',
+    name: SAFE_NAME,
     logos: {
-      default: <InjectedIcon />,
+      default: <SafeIcon />,
     },
     downloadUrls: {
       default: undefined,
     },
     showQRCode: false,
-    isInstalled: isSafe,
-    createConnector: (chains: Chain[]) => {
-      return new SafeConnector({
-        chains,
-        options: {
-          allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-          debug: false,
-          ...connectorOptions,
-        },
+    isInstalled: hasInjectedSafe,
+    getDeepLink: () => {
+      return undefined;
+    },
+    getCreateConnectorFn: () => {
+      return wagmiSafe({
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false,
+        ...connectorOptions,
       });
     },
-    getDeepLink: () => undefined,
     ...restProps,
   };
 }
 
-export function isSafe() {
+export function hasInjectedSafe() {
   return !(typeof window === 'undefined') && window?.parent !== window;
-}
-
-export function isSafeConnector(connector?: Connector) {
-  return connector?.id === SAFE_ID;
 }

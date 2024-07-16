@@ -1,22 +1,24 @@
-import { useWalletKitContext } from '@/components/WalletKitProvider/context';
+import { useWalletKit } from '@/components/WalletKitProvider/context';
 import { getGlobalData } from '@/globalData';
 import { commonErrorHandler } from '@/utils/common';
 import { useState, useEffect } from 'react';
-import { useAccount, useConnect } from 'wagmi';
+import { useConnect } from 'wagmi';
+import { useWalletConnectConnector } from './useWalletConnectConnector';
+import { useIsConnected } from './useIsConnected';
 
 let timer: any;
 
 export function useQRCodeUri() {
   const { connectAsync } = useConnect();
-  const { isConnected } = useAccount();
 
-  const { log, options } = useWalletKitContext();
+  const { log, options } = useWalletKit();
   const [wcUri, setWcUri] = useState<string>('');
 
-  useEffect(() => {
-    const connector = getGlobalData().walletConnectConnector;
-    if (isConnected || !connector) return;
+  const connector = useWalletConnectConnector();
+  const isConnected = useIsConnected();
 
+  useEffect(() => {
+    if (isConnected || !connector) return;
     const onUpdateWcUri = ({ type, data }: any) => {
       if (type === 'display_uri' && !getGlobalData().walletConnectModalIsOpen) {
         setWcUri(data);
@@ -26,7 +28,8 @@ export function useQRCodeUri() {
     const connectWallet = async () => {
       try {
         log('[qrcode uri]', 'connecting');
-        const provider = await connector?.getProvider();
+        const provider: any = await connector?.getProvider();
+
         provider.rpc.showQrModal = false;
 
         await connectAsync({ connector });
@@ -48,9 +51,9 @@ export function useQRCodeUri() {
 
     connectWallet();
 
-    connector.on('message', onUpdateWcUri);
+    connector.emitter.on('message', onUpdateWcUri);
     return () => {
-      connector?.off?.('message', onUpdateWcUri);
+      connector?.emitter.off?.('message', onUpdateWcUri);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);

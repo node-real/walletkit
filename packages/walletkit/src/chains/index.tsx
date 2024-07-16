@@ -1,8 +1,9 @@
 import { BscIcon } from './icons/BscIcon';
 import { ComboIcon } from './icons/ComboIcon';
 import { EthereumIcon } from './icons/EthereumIcon';
+import { ChainProps } from './types';
 
-const chainsConfig = [
+export const chainsConfig: ChainProps[] = [
   {
     id: 1,
     name: 'Ethereum',
@@ -44,7 +45,3 @@ const chainsConfig = [
     logo: <BscIcon width={24} height={24} />,
   },
 ];
-
-export function getSupportedChains() {
-  return chainsConfig;
-}

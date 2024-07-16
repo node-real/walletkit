@@ -1,44 +1,36 @@
 import { BoxProps, Box } from '@/base/components/Box';
 import { cx } from '@/index';
-import { Address, useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { clsAvatar, clsAvatarImg, clsAvatarDefault } from './styles.css';
+import { clsAvatar, clsAvatarDefault } from './styles.css';
+import { Address } from 'viem';
+import { useEffect, useRef } from 'react';
+import jazzicon from '@metamask/jazzicon';
 
 export interface AvatarProps extends BoxProps {
   address?: Address;
-  name?: string | undefined;
 }
 
 export function Avatar(props: AvatarProps) {
-  const { className, address, name, ...restProps } = props;
+  const { className, address, ...restProps } = props;
 
-  const { data: ensAddress } = useEnsAddress({
-    chainId: 1,
-    name,
-  });
+  const avatarRef = useRef<HTMLDivElement>(null);
 
-  const { data: ensName } = useEnsName({
-    chainId: 1,
-    address: address ?? ensAddress ?? undefined,
-  });
+  useEffect(() => {
+    const element = avatarRef.current;
+    if (element && address) {
+      const seed = parseInt(address.slice(2, 10), 16);
+      const icon = jazzicon(element.clientWidth, seed);
 
-  const { data: ensAvatar } = useEnsAvatar({
-    chainId: 1,
-    name: ensName,
-  });
+      if (element.firstChild) {
+        element.removeChild(element.firstChild);
+      }
 
-  const ens = {
-    address: ensAddress ?? address,
-    name: ensName ?? name,
-    avatar: ensAvatar ?? undefined,
-  };
+      element.appendChild(icon);
+    }
+  }, [address]);
 
   return (
-    <Box className={cx('wk-avatar', clsAvatar, className)} {...restProps}>
-      {ens.avatar ? (
-        <Box className={clsAvatarImg} as="img" src={ens.avatar} alt={ens.name} />
-      ) : (
-        <Box className={clsAvatarDefault} />
-      )}
+    <Box ref={avatarRef} className={cx('wk-avatar', clsAvatar, className)} {...restProps}>
+      <Box className={clsAvatarDefault} />
     </Box>
   );
 }
