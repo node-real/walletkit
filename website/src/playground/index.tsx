@@ -1,6 +1,6 @@
-import { WagmiConfig, createConfig } from 'wagmi';
-
-import { WalletKitProvider, getDefaultConfig } from '@node-real/walletkit';
+import { WagmiProvider } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { defaultWagmiConfig, WalletKitProvider } from '@node-real/walletkit';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
@@ -14,40 +14,40 @@ import {
 } from '@node-real/walletkit/wallets';
 
 import { useColorMode } from '@node-real/uikit';
+import { arbitrum, bsc, mainnet, opBNB, polygon } from 'viem/chains';
 
-const config = createConfig(
-  getDefaultConfig({
-    appName: 'WalletKit',
-    chains,
-    autoConnect: true,
-    connectors: [
-      binanceWeb3Wallet(),
-      bitgetWallet(),
-      coinbaseWallet(),
-      metaMask(),
-      okxWallet(),
-      tokenPocket(),
-      trustWallet(),
-      walletConnect(),
-      // mathWallet(),
-    ],
-  }),
-);
+const queryClient = new QueryClient();
+
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains: [mainnet, bsc, polygon, opBNB, arbitrum],
+  connectors: [
+    binanceWeb3Wallet(),
+    bitgetWallet(),
+    coinbaseWallet(),
+    metaMask(),
+    okxWallet(),
+    tokenPocket(),
+    trustWallet(),
+    walletConnect(),
+  ],
+});
 
 export function Playground(props: React.PropsWithChildren) {
   const { colorMode } = useColorMode();
 
   return (
-    <WagmiConfig config={config}>
-      <WalletKitProvider
-        mode={colorMode}
-        options={{
-          initialChainId: 1,
-          hideInnerModal: true,
-        }}
-      >
-        {props.children}
-      </WalletKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider
+          mode={colorMode}
+          options={{
+            initialChainId: 1,
+          }}
+        >
+          {props.children}
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

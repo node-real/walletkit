@@ -38,9 +38,22 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <WalletKitProvider options={options} mode="light">
           <Component {...pageProps} />
+
           <WalletKitButton />
+
           <ConnectModal />
+
+          {/* 
+            Profile modal shows some basic information about the current account,
+            If you don't need this modal, you can remove it.
+          */}
           <ProfileModal />
+
+          {/*
+            👇 Here's the SwitchNetworkModal
+            If the user switches to a network that is not supported by our dApp,
+            this modal will be displayed to remind the user to switch to our supported networks.
+          */}
           <SwitchNetworkModal />
         </WalletKitProvider>
       </QueryClientProvider>

@@ -3,16 +3,14 @@
 ## Installation
 
 ```bash
-npm i @node-real/walletkit@^1 wagmi@^1 viem@^1
+npm i @node-real/walletkit@^2 wagmi@^2 viem@^2 @tanstack/react-query@^5
 ```
-
-- wagmi > 1.0.0
-- viem > 1.0.0
 
 ## Examples
 
 - [nextjs](https://github.com/node-real/walletkit/blob/main/examples/nextjs/pages/_app.tsx)
 - [vite](https://github.com/node-real/walletkit/blob/main/examples/vite/src/App.tsx)
+- [react](https://github.com/node-real/walletkit/blob/main/packages/walletkit/__dev__/App.tsx)
 
 ## Supported wallets
 
@@ -45,21 +43,21 @@ npm i @node-real/walletkit@^1 wagmi@^1 viem@^1
 // 👇 Import walletkit styles here.
 import '@node-real/walletkit/styles.css';
 
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { chains } from './chains';
-// ...
 ```
 
 ### 2. Add chain configurations
 
 ```tsx live=false
-import { Chain } from 'wagmi';
+import { bsc, mainnet } from 'wagmi/chains';
 
-export const chains: Chain[] = [
+export const chains = [
+  mainnet,
+  bsc,
   {
     id: 204,
     name: 'opBNB Mainnet',
-    network: 'opBNB Mainnet',
     nativeCurrency: {
       name: 'tcBNB',
       symbol: 'tcBNB',
@@ -82,54 +80,110 @@ export const chains: Chain[] = [
 ];
 ```
 
-### 3. Add `WagmiConfig` and `WalletKitProvider` to your project
+### 3. Import `defaultWagmiConfig` and `wallets` to generate the configurations for wagmi
+
+```tsx
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { defaultWagmiConfig } from '@node-real/walletkit';
+import { chains } from './chains';
+
+const config = defaultWagmiConfig({
+  appName: 'WalletKit',
+  chains,
+  connectors: [trustWallet(), metaMask(), walletConnect()],
+
+  // WalletConnect 2.0 requires a projectId which you can create quickly
+  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+  walletConnectProjectId: 'xxx',
+});
+```
+
+### 4. Add related components
 
 ```tsx live=false
-// 👇 Import walletkit styles here.
-import '@node-real/walletkit/styles.css';
-import { WagmiConfig, createConfig } from 'wagmi';
-import { chains } from './chains';
-import {
-  WalletKitButton,
-  WalletKitProvider,
-  getDefaultConfig,
-  WalletKitOptions,
-  SwitchNetworkModal,
-} from '@node-real/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
-
-const config = createConfig(
-  getDefaultConfig({
-    autoConnect: true,
-    appName: 'WalletKit',
-
-    // WalletConnect 2.0 requires a projectId which you can create quickly
-    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-    walletConnectProjectId: 'xxx',
-
-    chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
-  }),
-);
-
 const options: WalletKitOptions = {
-  initialChainId: 56,
+  initialChainId: 1,
 };
 
-export default function App() {
-  return (
-    <WagmiConfig config={config}>
-      <WalletKitProvider options={options} mode="light">
-        <WalletKitButton />
+const queryClient = new QueryClient();
 
-        {/*
-          👇 Here's the SwitchNetworkModal
-          If the user switches to a network that is not supported by our dApp,
-          this modal will be displayed to remind the user to switch to our supported networks.
-        */}
-        <SwitchNetworkModal />
-      </WalletKitProvider>
-    </WagmiConfig>
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <WagmiProvider config={config} reconnectOnMount={true}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider options={options} mode="light">
+          <Component {...pageProps} />
+          <WalletKitButton />
+          <ConnectModal />
+          <ProfileModal />
+          <SwitchNetworkModal />
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
+  );
+}
+```
+
+### 5. The final code looks like below
+
+```tsx live=false
+import '@node-real/walletkit/styles.css';
+
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  defaultWagmiConfig,
+  SwitchNetworkModal,
+  WalletKitButton,
+  WalletKitOptions,
+  WalletKitProvider,
+  ProfileModal,
+  ConnectModal,
+} from '@node-real/walletkit';
+import { WagmiProvider } from 'wagmi';
+import { AppProps } from 'next/app';
+import { chains } from './chains';
+
+const queryClient = new QueryClient();
+
+const config = defaultWagmiConfig({
+  appName: '[Your app name]', // Your app name
+  chains,
+  connectors: [trustWallet(), metaMask(), walletConnect()],
+
+  // WalletConnect 2.0 requires a projectId which you can create quickly
+  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+  walletConnectProjectId: 'xxx',
+});
+
+const options: WalletKitOptions = {
+  initialChainId: 1,
+};
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <WagmiProvider config={config} reconnectOnMount={true}>
+      <QueryClientProvider client={queryClient}>
+        <WalletKitProvider options={options} mode="light">
+          <Component {...pageProps} />
+
+          <WalletKitButton />
+          <ConnectModal />
+
+          {/* 
+            Profile modal shows some basic information about the current account,
+            if you don't need this modal, you can remove it.
+          */}
+          <ProfileModal />
+
+          {/* 👇 Here's the SwitchNetworkModal
+            If the user switches to a network that is not supported by our dApp,
+            this modal will be displayed to remind the user to switch to our supported networks.
+          */}
+          <SwitchNetworkModal />
+        </WalletKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 ```
@@ -139,34 +193,27 @@ export default function App() {
 ```jsx live=false
 import { EmbeddedConnectModal } from '@node-real/walletkit';
 
-<WagmiConfig config={config}>
-  <WalletKitProvider
-    mode={colorMode}
-    options={{
-      initialChainId: 1,
-      hideInnerModal: true, // Hide the inner modal so that you can embed the modal into the page.
-    }}
-  >
-    <EmbeddedConnectModal />
-  </WalletKitProvider>
-</WagmiConfig>;
+<WalletKitProvider mode={colorMode} options={options}>
+  <EmbeddedConnectModal />
+  <SwitchNetworkModal />
+</WalletKitProvider>;
 ```
 
-## useModal, useProfileModal, useSwitchNetworkModal
+## useConnectModal, useProfileModal, useSwitchNetworkModal
 
-Use hooks `useModal`, `useProfileModal`, `useSwitchNetworkModal` to show/dismiss the specific modal.
-Must be used within a `<WalletKitProvider>`.
+Use hooks `useConnectModal`, `useProfileModal`, `useSwitchNetworkModal` to show/dismiss the specific
+modal. Must be used within a `<WalletKitProvider>`.
 
 ```tsx live=false
-import { useModal, useProfileModal, useSwitchNetworkModal } from '@node-real/walletkit';
+import { useConnectModal, useProfileModal, useSwitchNetworkModal } from '@node-real/walletkit';
 
-// useModal
-const { isOpen, onOpen, onClose } = useModal();
+// useConnectModal
+const { isOpen, onOpen, onClose } = useConnectModal();
 <button onClick={() => onOpen()}>Open Connect Modal</button>;
 
 // useProfileModal
 const { isOpen, onOpen, onClose } = useProfileModal();
-<button onClick={() => onOpen()}>Open Connected Modal</button>;
+<button onClick={() => onOpen()}>Open Profile Modal</button>;
 
 // useSwitchNetworkModal
 const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
@@ -178,34 +225,33 @@ const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
 ```tsx live=false
 import { metaMask, tokenPocket, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
 
-const config = createConfig(
-  getDefaultConfig({
-    appName: 'Test Connect Wallet',
-    chains,
-    walletConnectProjectId: 'xxx',
-    autoConnect: true,
-    connectors: [
-      metaMask({
-        name: 'MetaMask',
-        logos: {
-          default: <MetaMaskLogo />,
-        },
-        connectorOptions: {
-          shimDisconnect: false,
-        },
-      }),
-      trustWallet({
-        name: 'Trust Wallet',
-        logos: {
-          default: <TrustWalletLogo />,
-        },
-        connectorOptions: {
-          shimDisconnect: true,
-        },
-      }),
-    ],
-  }),
-);
+const config = defaultWagmiConfig({
+  appName: 'Connect Wallet',
+  chains,
+  walletConnectProjectId: 'xxx',
+  connectors: [
+    metaMask({
+      name: 'MetaMask',
+      logos: {
+        default: <MetaMaskLogo />,
+      },
+      connectorOptions: {
+        shimDisconnect: false,
+      },
+    }),
+    trustWallet({
+      name: 'Trust Wallet',
+      logos: {
+        default: <TrustWalletLogo />,
+      },
+      connectorOptions: {
+        shimDisconnect: true,
+      },
+    }),
+    tokenPocket(),
+    walletConnect(),
+  ],
+});
 ```
 
 ## Using `render` to customize the content of each option
@@ -240,7 +286,7 @@ metaMask({
 
 ## Customizing ConnectButton
 
-Note that `show()` will open the `ProfileModal` instead of the `ConnectorsModal` once the wallet is
+Note that `show()` will open the `ProfileModal` instead of the `ConnectModal` once the wallet is
 connected.
 
 ```tsx live=false
@@ -257,12 +303,12 @@ connected.
 </WalletKitButton.Custom>
 ```
 
-Or using the hook `useModal`
+Or using the hook `useConnectModal`
 
 ```tsx live=false
-import { useModal } from '@node-real/walletkit';
+import { useConnectModal } from '@node-real/walletkit';
 
-const { isOpen, onOpen, onClose } = useModal();
+const { isOpen, onOpen, onClose } = useConnectModal();
 <button onClick={onOpen}>connect</button>;
 ```
 
@@ -307,7 +353,7 @@ const config = createConfig(
 
 ## Customizing chains
 
-The chain's information will be displayed in the `switch network modal`
+The chain's information will be displayed in the `SwitchNetworkModal`
 
 ```tsx live=false
 <WalletKitProvider
@@ -459,7 +505,7 @@ const customTheme = {
 ```tsx live=false
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
-  children: any;
+  children: React.ReactNode;
   debugMode?: boolean;
   theme?: ThemeVariant;
   mode?: ThemeMode;
@@ -489,15 +535,12 @@ interface WalletKitOptions {
   hideNoWalletCTA?: boolean;
   hideOfficialWalletConnectCTA?: boolean;
 
-  // Hide the inner modal so that you can embed the modal into the page.
-  hideInnerModal?: boolean;
-
   closeModalAfterConnected?: boolean;
   closeModalAfterSwitchingNetwork?: boolean;
   closeModalOnEsc?: boolean;
   closeModalOnOverlayClick?: boolean;
 
-  // Display SwitchNetworkModal if on the wrong network
+  // Automatically display SwitchNetworkModal if on the wrong network
   openModalOnWrongNetwork?: boolean;
 
   walletDownloadUrl?: string;
@@ -513,59 +556,30 @@ interface WalletKitOptions {
   // handle wallet errors by yourself
   onError?: (error: any, description: string) => void;
 }
-
-// example
-const options = {
-  initialChainId: 5600,
-  walletDownloadUrl: 'https://metamask.io/download',
-  onClickWallet(connector) {},
-  onChainAlreadyAdded() {},
-  onError(error, description) {
-    console.log(error);
-  },
-};
 ```
 
-### 3. DefaultConfigProps
+### 3. DefaultWagmiConfig
+
+You can find more supported parameters from [here](https://wagmi.sh/react/api/createConfig).
 
 ```tsx live=false
-export interface DefaultConfigProps {
+export interface DefaultWagmiConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
   appName: string;
   appIcon?: string;
   appDescription?: string;
   appUrl?: string;
 
-  /* WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in) */
+  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
   walletConnectProjectId?: string;
-  alchemyId?: string;
-  infuraId?: string;
 
   chains?: Chain[];
   connectors?: WalletProps[];
-
-  autoConnect?: boolean;
-  publicClient?: any;
-  webSocketPublicClient?: any;
-  enableWebSocketPublicClient?: boolean;
-  stallTimeout?: number;
 }
 ```
 
 ### 4. WalletProps
 
 ```tsx live=false
-export interface WalletRenderProps {
-  layout: 'list' | 'grid';
-  colorMode: ColorMode;
-  wallet: {
-    id: string;
-    name: string;
-    logo: ReactElement;
-    isDisabled?: boolean;
-  };
-  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
-}
-
 export interface WalletProps {
   id: string;
   name: string;
@@ -580,9 +594,21 @@ export interface WalletProps {
   showQRCode?: boolean;
   isInstalled: () => boolean | undefined;
   isDisabled?: boolean;
-  createConnector: (chains: Chain[]) => Connector;
+  getCreateConnectorFn: () => CreateConnectorFn;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;
   render?: (props: WalletRenderProps) => ReactNode;
+}
+
+export interface WalletRenderProps {
+  layout: 'list' | 'grid';
+  colorMode: ColorMode;
+  wallet: {
+    id: string;
+    name: string;
+    logo: ReactElement;
+    isDisabled?: boolean;
+  };
+  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 ```

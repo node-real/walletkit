@@ -66,7 +66,6 @@ export default function App() {
           <Example />
 
           <ConnectModal />
-          {/* <EmbeddedConnectModal /> */}
           <SwitchNetworkModal />
           <ProfileModal />
         </WalletKitProvider>
