@@ -1,4 +1,4 @@
-import { injected } from 'wagmi/connectors';
+import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
@@ -33,17 +33,15 @@ export function mathWallet(props: InjectedWalletOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: MATH_WALLET_ID,
-            name: MATH_WALLET_NAME,
-            provider() {
-              if (typeof window === 'undefined') return;
+        target: {
+          id: MATH_WALLET_ID,
+          name: MATH_WALLET_NAME,
+          async provider() {
+            if (typeof window === 'undefined') return;
 
-              const provider = getInjectedProvider('isMathWallet');
-              return provider;
-            },
-          };
+            const provider = getInjectedProvider('isMathWallet');
+            return provider;
+          },
         },
         ...connectorOptions,
       });

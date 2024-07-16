@@ -1,4 +1,4 @@
-import { injected } from 'wagmi/connectors';
+import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '../types';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { TokenPocketIcon, TokenPocketTransparentIcon } from './icon';
@@ -34,19 +34,17 @@ export function tokenPocket(props: InjectedWalletOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: TOKEN_POCKET_ID,
-            name: TOKEN_POCKET_NAME,
-            provider() {
-              const provider =
-                getInjectedProvider('isTokenPocket') ??
-                window.tokenpocket?.ethereum ??
-                window.tokenpocket;
+        target: {
+          id: TOKEN_POCKET_ID,
+          name: TOKEN_POCKET_NAME,
+          async provider() {
+            const provider =
+              getInjectedProvider('isTokenPocket') ??
+              window.tokenpocket?.ethereum ??
+              window.tokenpocket;
 
-              return provider;
-            },
-          };
+            return provider;
+          },
         },
         ...connectorOptions,
       });

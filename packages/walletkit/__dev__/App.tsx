@@ -55,7 +55,7 @@ export default function App() {
   const nextMode = mode === 'light' ? 'dark' : 'light';
 
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={queryClient}>
         <WalletKitProvider options={options} mode={mode} debugMode={true}>
           <div>mode: {mode} </div>

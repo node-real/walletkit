@@ -4,7 +4,6 @@ import {
   createConfig,
   CreateConnectorFn,
   type CreateConfigParameters,
-  Config,
 } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants/common';
@@ -60,9 +59,6 @@ export const defaultWagmiConfig = (params: DefaultWagmiConfig) => {
     transports,
   } as CreateConfigParameters<any, any>);
 
-  // hack
-  hack(config);
-
   return config;
 };
 
@@ -94,9 +90,4 @@ function createSingletonWalletConnect(wallets: WalletProps[], fns: CreateConnect
 
   const fn = walletConnect().getCreateConnectorFn();
   fns.push(fn);
-}
-
-function hack(config: Config<any, any>) {
-  // const { connectors } = config;
-  // connectors?.forEach((c) => {});
 }

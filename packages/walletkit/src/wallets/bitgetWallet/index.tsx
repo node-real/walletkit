@@ -2,7 +2,7 @@ import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { BitgetWalletIcon, BitgetWalletTransparentIcon } from './icon';
 import { isMobile } from '@/index';
-import { injected } from 'wagmi/connectors';
+import { injected } from '../injected';
 
 const BITGET_WALLET_ID = 'bitgetWallet';
 const BITGET_WALLET_NAME = 'Bitget Wallet';
@@ -32,18 +32,16 @@ export function bitgetWallet(props: InjectedWalletOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: BITGET_WALLET_ID,
-            name: BITGET_WALLET_NAME,
-            provider() {
-              if (isMobile()) {
-                return window.ethereum || window.bitkeep?.ethereum;
-              }
+        target: {
+          id: BITGET_WALLET_ID,
+          name: BITGET_WALLET_NAME,
+          async provider() {
+            if (isMobile()) {
+              return window.ethereum || window.bitkeep?.ethereum;
+            }
 
-              return getInjectedProvider('isBitgetWallet') ?? window.bitkeep?.ethereum;
-            },
-          };
+            return getInjectedProvider('isBitgetWallet') ?? window.bitkeep?.ethereum;
+          },
         },
         ...connectorOptions,
       });

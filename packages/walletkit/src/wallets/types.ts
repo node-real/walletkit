@@ -1,7 +1,7 @@
 import { ColorMode } from '@/components/ThemeProvider/context';
 import { ReactElement, ReactNode } from 'react';
 import { CreateConnectorFn } from 'wagmi';
-import { InjectedParameters } from 'wagmi/connectors';
+import { InjectedParameters } from './injected';
 
 export interface WalletRenderProps {
   layout: 'list' | 'grid';

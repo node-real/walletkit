@@ -1,17 +1,13 @@
 import { Connector } from 'wagmi';
-import { WalletProps } from '..';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
-import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { injected, MetaMaskParameters } from 'wagmi/connectors';
+import { hasInjectedProvider } from '../utils';
+import { injected } from '../injected';
 
 const META_MASK_ID = 'metaMask';
 const META_MASK_NAME = 'MetaMask';
 
-export interface MetaMaskOptions extends Partial<WalletProps> {
-  connectorOptions?: MetaMaskParameters;
-}
-
-export function metaMask(props: MetaMaskOptions = {}): WalletProps {
+export function metaMask(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -37,15 +33,7 @@ export function metaMask(props: MetaMaskOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: META_MASK_ID,
-            name: META_MASK_NAME,
-            provider() {
-              return getInjectedProvider('isMetaMask') ?? window.ethereum;
-            },
-          };
-        },
+        target: 'metaMask',
         ...connectorOptions,
       });
     },

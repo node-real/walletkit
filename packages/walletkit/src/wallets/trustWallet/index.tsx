@@ -1,4 +1,4 @@
-import { injected } from 'wagmi/connectors';
+import { injected } from '../injected';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import {
   TrustWalletLightIcon,
@@ -7,6 +7,8 @@ import {
   TrustWalletTransparentDarkIcon,
 } from './icon';
 import { InjectedWalletOptions, WalletProps } from '../types';
+import { Connector } from 'wagmi';
+import { sleep } from '@/utils/common';
 
 const TRUST_WALLET_ID = 'trust';
 const TRUST_WALLET_NAME = 'Trust Wallet';
@@ -45,16 +47,17 @@ export function trustWallet(props: InjectedWalletOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: TRUST_WALLET_ID,
-            name: TRUST_WALLET_NAME,
-            provider() {
-              const provider =
-                getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
-              return provider;
-            },
-          };
+        target: {
+          id: TRUST_WALLET_ID,
+          name: TRUST_WALLET_NAME,
+          async setup() {
+            await sleep();
+          },
+          async provider() {
+            const provider =
+              getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
+            return provider;
+          },
         },
         ...connectorOptions,
       });
@@ -69,4 +72,8 @@ export function hasInjectedTrustWallet() {
   return (
     hasInjectedProvider('isTrust') || window?.trustwallet?.isTrust || window?.trustWallet?.isTrust
   );
+}
+
+export function isTrustWalletConnector(connector?: Connector) {
+  return connector?.id === TRUST_WALLET_ID;
 }

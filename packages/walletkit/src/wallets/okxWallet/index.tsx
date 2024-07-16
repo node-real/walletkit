@@ -1,4 +1,4 @@
-import { injected } from 'wagmi/connectors';
+import { injected } from '../injected';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
 import { isMobile } from '@/index';
@@ -32,17 +32,15 @@ export function okxWallet(props: InjectedWalletOptions = {}): WalletProps {
     getCreateConnectorFn: () => {
       return injected({
         shimDisconnect: true,
-        target() {
-          return {
-            id: OKX_WALLET_ID,
-            name: OKX_WALLET_NAME,
-            provider() {
-              if (isMobile()) {
-                return window.ethereum || window.okexchain;
-              }
-              return getInjectedProvider('isOkxWallet') ?? window.okexchain;
-            },
-          };
+        target: {
+          id: OKX_WALLET_ID,
+          name: OKX_WALLET_NAME,
+          async provider() {
+            if (isMobile()) {
+              return window.ethereum || window.okexchain;
+            }
+            return getInjectedProvider('isOkxWallet') ?? window.okexchain;
+          },
         },
         ...connectorOptions,
       });

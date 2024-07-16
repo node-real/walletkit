@@ -1,6 +1,5 @@
 import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
 import { bsc, mainnet, opBNB } from 'wagmi/chains';
 
 import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
@@ -15,6 +14,7 @@ import {
   ConnectModal,
 } from '@node-real/walletkit';
 import { WagmiProvider } from 'wagmi';
+import { AppProps } from 'next/app';
 
 const queryClient = new QueryClient();
 
@@ -34,7 +34,7 @@ const options: WalletKitOptions = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={queryClient}>
         <WalletKitProvider options={options} mode="light">
           <Component {...pageProps} />
