@@ -33,7 +33,7 @@ const options: WalletKitOptions = {
 
 export default function App() {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config} reconnectOnMount={false}>
       <QueryClientProvider client={queryClient}>
         <WalletKitProvider options={options} mode="light">
           <WalletKitButton />

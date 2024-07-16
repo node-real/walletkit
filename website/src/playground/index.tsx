@@ -13,7 +13,6 @@ import {
   walletConnect,
 } from '@node-real/walletkit/wallets';
 
-import { chains } from './chains';
 import { useColorMode } from '@node-real/uikit';
 
 const config = createConfig(
