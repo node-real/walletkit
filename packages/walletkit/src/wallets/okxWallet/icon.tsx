@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../..';
+import { SVGIconProps } from '@/types';
 
 export const OkxWalletTransparentIcon = (props: SVGIconProps) => {
   return <OkxWalletIcon width={34} height={34} {...props} />;

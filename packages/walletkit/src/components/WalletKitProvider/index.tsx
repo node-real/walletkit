@@ -1,19 +1,16 @@
 import { ToastProvider } from '@/base/components/toast/ToastProvider';
-import { getDefaultProviderOptions } from '@/defaultConfig/getDefaultProviderOptions';
-import { getDefaultSupportedChains } from '@/defaultConfig/getDefaultSupportedChains';
-import { useChains } from '@/hooks/useChains';
 import { CustomTheme } from '@/themes/base';
 import { useMemo, useState } from 'react';
-import { Connector } from 'wagmi';
+import { Connector, useConfig } from 'wagmi';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
 import { WalletKitOptions, WalletKitContextProps, WalletKitContext, Action } from './context';
 import { useResponsive } from '@/base/hooks/useResponsive';
-import { SwitchNetworkProvider } from '../SwitchNetworkModal/SwitchNetworkProvider';
-import { ProfileModalProvider } from '../ProfileModal/ProfileModalProvider';
-import { WalletKitModalProvider } from '../WalletKitModal/WalletKitModalProvider';
-import { RouteProvider } from '../RouteProvider';
-import { WalletKitModal } from '../WalletKitModal';
-import { ProfileModal } from '../ProfileModal';
+import { getDefaultWalletKitOptions } from '@/defaultConfig/getDefaultWalletKitOptions';
+import { getDefaultChainsConfig } from '@/defaultConfig/getDefaultChainsConfig';
+import { ConnectModalProvider } from '@/modals/ConnectModal/provider';
+import { getGlobalData } from '@/globalData';
+import { ProfileModalProvider } from '@/modals/ProfileModal/provider';
+import { SwitchNetworkModalProvider } from '@/modals/SwitchNetworkModal/provider';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -37,18 +34,19 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
   const [action, setAction] = useState<Action>();
   const [selectedConnector, setSelectedConnector] = useState<Connector>({} as Connector);
 
-  const chains = useChains();
+  const { chains } = useConfig();
   const { isMobileLayout } = useResponsive();
 
   const context = useMemo(() => {
-    const finalOptions = getDefaultProviderOptions(options);
-    const finalChains = getDefaultSupportedChains(options, chains);
+    const finalOptions = getDefaultWalletKitOptions(options);
+    const finalChainsConfig = getDefaultChainsConfig(options, chains);
 
     const finalValue: WalletKitContextProps = {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       log: debugMode ? console.log : () => {},
       options: finalOptions,
-      supportedChains: finalChains,
+      wallets: getGlobalData().wallets,
+      chainsConfig: finalChainsConfig,
       isMobileLayout,
       action,
       setAction,
@@ -62,17 +60,12 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
     <WalletKitContext.Provider value={context}>
       <ThemeProvider variant={theme} mode={mode} customTheme={customTheme}>
         <ToastProvider />
-        <RouteProvider>
-          <SwitchNetworkProvider>
-            <ProfileModalProvider>
-              <WalletKitModalProvider>
-                {children}
-                {!context.options.hideInnerModal && <WalletKitModal />}
-                {!context.options.hideInnerModal && <ProfileModal />}
-              </WalletKitModalProvider>
-            </ProfileModalProvider>
-          </SwitchNetworkProvider>
-        </RouteProvider>
+
+        <ConnectModalProvider>
+          <SwitchNetworkModalProvider>
+            <ProfileModalProvider>{children}</ProfileModalProvider>
+          </SwitchNetworkModalProvider>
+        </ConnectModalProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>
   );

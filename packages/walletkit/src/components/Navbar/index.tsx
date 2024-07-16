@@ -4,23 +4,20 @@ import { BackIcon } from '@/base/icons/BackIcon';
 import { CloseIcon } from '@/base/icons/CloseIcon';
 import { cx } from '@/index';
 import { clsNavbar } from './styles.css';
-import { useRouter } from '../RouteProvider/context';
 
 export interface NavbarProps extends BoxProps {
+  showBack?: boolean;
+  onBack?: () => void;
   onClose?: () => void;
 }
 
 export function Navbar(props: NavbarProps) {
-  const { className, onClose, ...restProps } = props;
-
-  const { history, back } = useRouter();
-
-  const showBack = history.length > 1;
+  const { className, showBack, onBack, onClose, ...restProps } = props;
 
   return (
     <Box className={cx('wk-navbar', clsNavbar, className)} {...restProps}>
       {showBack && (
-        <IconButton className="wk-navbar-back-button" icon={<BackIcon />} onClick={back} />
+        <IconButton className="wk-navbar-back-button" icon={<BackIcon />} onClick={onBack} />
       )}
       <Box style={{ flex: 1 }} />
       <IconButton className="wk-navbar-close-button" icon={<CloseIcon />} onClick={onClose} />

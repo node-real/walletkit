@@ -1,10 +1,9 @@
-import { Chain, bsc, mainnet } from 'wagmi/chains';
+import { bsc, mainnet } from 'wagmi/chains';
 
-export const chains: Chain[] = [
+export const chains = [
   {
     id: 204,
     name: 'opBNB Mainnet',
-    network: 'opBNB Mainnet',
     nativeCurrency: {
       name: 'tcBNB',
       symbol: 'tcBNB',
@@ -26,7 +25,6 @@ export const chains: Chain[] = [
   {
     id: 97,
     name: 'BSC Testnet',
-    network: 'BSC Testnet',
     nativeCurrency: {
       name: 'tBNB',
       symbol: 'tBNB',
@@ -48,7 +46,6 @@ export const chains: Chain[] = [
   {
     id: 1017,
     name: 'BNB Greenfield',
-    network: 'BNB Greenfield',
     nativeCurrency: {
       name: 'tBNB',
       symbol: 'tBNB',

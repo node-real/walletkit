@@ -12,13 +12,12 @@ export * from './components/WalletKitProvider';
 export type { WalletKitOptions } from './components/WalletKitProvider/context';
 export type { ThemeMode, ThemeVariant } from './components/ThemeProvider';
 
-export * from './components/WalletKitModal';
-export { useWalletKitModal as useModal } from './components/WalletKitModal/WalletKitModalProvider/context';
+export * from './modals/EmbeddedConnectModal';
+export { ConnectModal } from './modals/ConnectModal';
+export { useConnectModal } from './modals/ConnectModal/context';
 
-export * from './components/SwitchNetworkModal';
-export { useSwitchNetworkModal } from './components/SwitchNetworkModal/SwitchNetworkProvider/context';
+export { ProfileModal } from './modals/ProfileModal';
+export { useProfileModal } from './modals/ProfileModal/context';
 
-export * from './components/ProfileModal';
-export { useProfileModal } from './components/ProfileModal/ProfileModalProvider/context';
-
-export * from './components/WalletKitEmbeddedModal';
+export { SwitchNetworkModal } from './modals/SwitchNetworkModal';
+export { useSwitchNetworkModal } from './modals/SwitchNetworkModal/context';

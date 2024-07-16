@@ -1,17 +1,17 @@
-import { Chain } from 'wagmi';
-import { PartialCustomProps, WalletProps } from '..';
-import { CustomConnector } from '../custom/connector';
+import { injected } from 'wagmi/connectors';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
 
 export const MATH_WALLET_ID = 'mathWallet';
+export const MATH_WALLET_NAME = 'Math Wallet';
 
-export function mathWallet(props: PartialCustomProps = {}): WalletProps {
+export function mathWallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: MATH_WALLET_ID,
-    name: 'Math Wallet',
+    name: MATH_WALLET_NAME,
     logos: {
       default: <MathWalletIcon />,
       transparent: <MathWalletTransparentIcon />,
@@ -21,37 +21,38 @@ export function mathWallet(props: PartialCustomProps = {}): WalletProps {
     },
     showQRCode: false,
     spinnerColor: undefined,
-    isInstalled: isMathWallet,
-    createConnector: (chains: Chain[]) => {
-      return new CustomConnector({
-        id: MATH_WALLET_ID,
-        chains,
-        options: {
-          name: 'Math Wallet',
-          shimDisconnect: true,
-          getProvider() {
-            if (typeof window === 'undefined') return;
-
-            const provider = getInjectedProvider('isMathWallet');
-            return provider;
-          },
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedMathWallet,
     getDeepLink: () => {
       // return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
       // return `mathwallet://wc?uri=${encodeURIComponent(uri)}`;
       return undefined;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return uri;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target() {
+          return {
+            id: MATH_WALLET_ID,
+            name: MATH_WALLET_NAME,
+            provider() {
+              if (typeof window === 'undefined') return;
+
+              const provider = getInjectedProvider('isMathWallet');
+              return provider;
+            },
+          };
+        },
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isMathWallet() {
+export function hasInjectedMathWallet() {
   if (typeof window === 'undefined') return false;
 
   return hasInjectedProvider('isMathWallet');

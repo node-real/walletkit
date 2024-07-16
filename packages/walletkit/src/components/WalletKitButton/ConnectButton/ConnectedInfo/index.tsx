@@ -4,9 +4,9 @@ import { Button } from '@/base/components/Button';
 import { DownArrowIcon } from '@/base/icons/DownArrowIcon';
 import { Avatar } from '@/components/Avatar';
 import { useChainConfig } from '@/hooks/useChainConfig';
-import { cx } from '@/index';
-import { truncateENSName, formatBalance, truncateAddress } from '@/utils/account';
-import { useAccount, useBalance, useEnsName, useNetwork } from 'wagmi';
+import { cx, useProfileModal, useSwitchNetworkModal } from '@/index';
+import { formatBalance, truncateAddress, truncateName } from '@/utils/account';
+import { useAccount, useBalance } from 'wagmi';
 import { clsWalletkitButton } from '../styles.css';
 import {
   clsInfo,
@@ -18,33 +18,27 @@ import {
   clsSeparator,
   clsAddress,
 } from './styles.css';
-import { useSwitchNetworkModal } from '@/components/SwitchNetworkModal/SwitchNetworkProvider/context';
-import { useProfileModal } from '@/components/ProfileModal/ProfileModalProvider/context';
+import { useChainIsSupported } from '@/hooks/useChainIsSupported';
 
 export function ConnectedInfo() {
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
 
-  const { onOpen: onOpenSwitchNetworkModal } = useSwitchNetworkModal();
-  const { onOpen: onOpenProfileModal } = useProfileModal();
-
-  const { data: ensName } = useEnsName({
-    chainId: 1,
-    address: address,
-  });
+  const switchNetworkModal = useSwitchNetworkModal();
+  const profileModal = useProfileModal();
 
   const { data: balance } = useBalance({
     address,
   });
 
-  const { chain } = useNetwork();
   const chainConfig = useChainConfig(chain);
+  const isSupported = useChainIsSupported();
 
   return (
     <Box className={cx('wk-connected-button-group', clsInfo)}>
-      {chain?.unsupported ? (
+      {!isSupported ? (
         <Button
           className={cx('wk-wrong-network-button', clsWalletkitButton, clsWrongButton)}
-          onClick={() => onOpenSwitchNetworkModal()}
+          onClick={() => switchNetworkModal.onOpen()}
         >
           Wrong network
           <DownArrowIcon />
@@ -53,16 +47,16 @@ export function ConnectedInfo() {
         <>
           <Button
             className={cx('wk-chain-button', clsWalletkitButton, clsChainButton)}
-            onClick={() => onOpenSwitchNetworkModal()}
+            onClick={() => switchNetworkModal.onOpen()}
           >
             <Box className={clsChainLogo}>{chainConfig?.logo}</Box>
-            <Box title={chainConfig.name}>{truncateENSName(chainConfig.name)}</Box>
+            <Box title={chainConfig.name}>{truncateName(chainConfig.name)}</Box>
             <DownArrowIcon />
           </Button>
 
           <Button
             className={cx('wk-account-button', clsWalletkitButton, clsAccountButton)}
-            onClick={onOpenProfileModal}
+            onClick={() => profileModal.onOpen()}
           >
             {balance && (
               <>
@@ -72,7 +66,7 @@ export function ConnectedInfo() {
             )}
             <Box className={cx('wk-account-address', clsAddress)}>
               <Avatar address={address} />
-              <Text as="span">{ensName ? truncateENSName(ensName) : truncateAddress(address)}</Text>
+              <Text as="span">{truncateAddress(address)}</Text>
               <DownArrowIcon />
             </Box>
           </Button>

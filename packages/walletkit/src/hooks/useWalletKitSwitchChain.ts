@@ -1,0 +1,27 @@
+import { useWalletKit } from '@/components/WalletKitProvider/context';
+import { commonErrorHandler } from '@/utils/common';
+import { SwitchChainErrorType } from '@wagmi/core';
+import { useSwitchChain } from 'wagmi';
+
+export type UseWalletKitSwitchChainProps = Parameters<typeof useSwitchChain>[0];
+
+export function useWalletKitSwitchChain(props?: UseWalletKitSwitchChainProps) {
+  const { log, options } = useWalletKit();
+
+  const result = useSwitchChain({
+    ...props,
+    mutation: {
+      ...props?.mutation,
+      onError(error: SwitchChainErrorType, ...params) {
+        commonErrorHandler({
+          log,
+          handler: options.onError,
+          error,
+        });
+        props?.mutation?.onError?.(error, ...params);
+      },
+    },
+  });
+
+  return result;
+}

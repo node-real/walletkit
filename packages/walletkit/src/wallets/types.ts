@@ -1,6 +1,7 @@
 import { ColorMode } from '@/components/ThemeProvider/context';
 import { ReactElement, ReactNode } from 'react';
-import { Chain, Connector } from 'wagmi';
+import { CreateConnectorFn } from 'wagmi';
+import { InjectedParameters } from 'wagmi/connectors';
 
 export interface WalletRenderProps {
   layout: 'list' | 'grid';
@@ -28,10 +29,12 @@ export interface WalletProps {
   showQRCode?: boolean;
   isInstalled: () => boolean | undefined;
   isDisabled?: boolean;
-  createConnector: (chains: Chain[]) => Connector;
+  getCreateConnectorFn: () => CreateConnectorFn;
   getDeepLink: () => string | undefined;
   getQRCodeUri?: (uri: string) => string;
   render?: (props: WalletRenderProps) => ReactNode;
 }
 
-export type PartialWalletProps = Partial<WalletProps>;
+export interface InjectedWalletOptions extends Partial<WalletProps> {
+  connectorOptions?: InjectedParameters;
+}

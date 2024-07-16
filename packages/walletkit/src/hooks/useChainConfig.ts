@@ -1,15 +1,15 @@
 import { ChainProps } from '@/chains/types';
-import { useWalletKitContext } from '@/components/WalletKitProvider/context';
+import { useWalletKit } from '@/components/WalletKitProvider/context';
 import { useMemo } from 'react';
-import { Chain } from 'wagmi';
+import { Chain } from 'viem';
 
 export function useChainConfig(chain?: Chain) {
-  const { supportedChains } = useWalletKitContext();
+  const { chainsConfig } = useWalletKit();
 
   const config = useMemo(() => {
-    const target = supportedChains.find((item) => item.id === chain?.id) ?? {};
+    const target = chainsConfig.find((item) => item.id === chain?.id) ?? {};
     return target as ChainProps;
-  }, [chain?.id, supportedChains]);
+  }, [chain?.id, chainsConfig]);
 
   return config;
 }

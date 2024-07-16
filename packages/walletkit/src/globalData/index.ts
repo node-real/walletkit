@@ -1,4 +1,4 @@
-import { Connector } from 'wagmi/connectors';
+import { WalletProps } from '@/wallets';
 
 export interface GlobalDataType {
   appName: string;
@@ -6,12 +6,13 @@ export interface GlobalDataType {
   appDescription?: string;
   appUrl?: string;
   walletConnectProjectId?: string;
-  walletConnectConnector?: Connector;
   walletConnectModalIsOpen?: boolean;
+  wallets: WalletProps[];
 }
 
 let globalData: GlobalDataType = {
   appName: 'Connect Wallet',
+  wallets: [],
 };
 
 export const setGlobalData = (value: Partial<GlobalDataType>) => {

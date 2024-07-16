@@ -1,13 +1,13 @@
-import { Chain } from 'wagmi';
-import { PartialCustomProps, WalletProps } from '..';
+import { InjectedWalletOptions, WalletProps } from '..';
 import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
 import { hasInjectedProvider } from '../utils';
-import { BinanceWeb3WalletConnector } from './connector';
+import { injected } from 'wagmi/connectors';
+import { isMobile } from '@/base/utils/mobile';
 
-export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
-export const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';
+const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
+const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';
 
-export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
+export function binanceWeb3Wallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -22,29 +22,41 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: true,
-    isInstalled: isBinanceWeb3Wallet,
-    createConnector: (chains: Chain[]) => {
-      return new BinanceWeb3WalletConnector({
-        chains,
-        options: {
-          shimDisconnect: true,
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedBinanceWeb3Wallet,
     getDeepLink: () => {
       const { bnc } = getDeepLink(window.location.href);
       return bnc;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return uri;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target() {
+          if (typeof window !== 'undefined') {
+            window.ethereum?.enable?.();
+          }
+
+          return {
+            id: BINANCE_WEB3_WALLET_ID,
+            name: BINANCE_WEB3_WALLET_NAME,
+            provider(window) {
+              if (isMobile()) {
+                return window?.ethereum;
+              }
+            },
+          };
+        },
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isBinanceWeb3Wallet() {
-  return hasInjectedProvider('isBinance' as any);
+export function hasInjectedBinanceWeb3Wallet() {
+  return hasInjectedProvider('isBinance');
 }
 
 const getDeepLink = (url: string) => {

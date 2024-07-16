@@ -3,7 +3,7 @@ import {
   ProfileModal,
   SwitchNetworkModal,
   WalletKitButton,
-  WalletKitEmbeddedModal,
+  EmbeddedConnectModal,
 } from '@node-real/walletkit';
 
 export function BaseExample() {
@@ -18,7 +18,7 @@ export function BaseExample() {
 export function EmbeddedExample() {
   return (
     <Box borderRadius={8} border="1px solid readable.border" p={16}>
-      <WalletKitEmbeddedModal />
+      <EmbeddedConnectModal />
       <ProfileModal />
     </Box>
   );

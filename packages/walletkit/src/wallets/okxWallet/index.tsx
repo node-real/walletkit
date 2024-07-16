@@ -1,18 +1,18 @@
-import { Chain } from 'wagmi';
-import { PartialCustomProps, WalletProps } from '..';
-import { CustomConnector } from '../custom/connector';
+import { injected } from 'wagmi/connectors';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
 import { isMobile } from '@/index';
+import { InjectedWalletOptions, WalletProps } from '../types';
 
-export const OKX_WALLET_ID = 'okxWallet';
+const OKX_WALLET_ID = 'okxWallet';
+const OKX_WALLET_NAME = 'OKX Wallet';
 
-export function okxWallet(props: PartialCustomProps = {}): WalletProps {
+export function okxWallet(props: InjectedWalletOptions = {}): WalletProps {
   const { connectorOptions, ...restProps } = props;
 
   return {
     id: OKX_WALLET_ID,
-    name: 'OKX Wallet',
+    name: OKX_WALLET_NAME,
     logos: {
       default: <OkxWalletIcon />,
       transparent: <OkxWalletTransparentIcon />,
@@ -22,38 +22,36 @@ export function okxWallet(props: PartialCustomProps = {}): WalletProps {
     },
     spinnerColor: undefined,
     showQRCode: false,
-    isInstalled: isOkxWallet,
-    createConnector: (chains: Chain[]) => {
-      return new CustomConnector({
-        id: OKX_WALLET_ID,
-        chains,
-        options: {
-          name: 'OKX Wallet',
-          shimDisconnect: true,
-          getProvider() {
-            if (typeof window === 'undefined') return;
-
-            if (isMobile()) {
-              return window.ethereum || window.okexchain;
-            }
-
-            return getInjectedProvider('isOkxWallet') ?? window.okexchain;
-          },
-          ...connectorOptions,
-        },
-      });
-    },
+    isInstalled: hasInjectedOkxWallet,
     getDeepLink: () => {
       return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
     },
-    getQRCodeUri(uri) {
+    getQRCodeUri: (uri) => {
       return `okex://main/wc?uri=${encodeURIComponent(uri)}`;
+    },
+    getCreateConnectorFn: () => {
+      return injected({
+        shimDisconnect: true,
+        target() {
+          return {
+            id: OKX_WALLET_ID,
+            name: OKX_WALLET_NAME,
+            provider() {
+              if (isMobile()) {
+                return window.ethereum || window.okexchain;
+              }
+              return getInjectedProvider('isOkxWallet') ?? window.okexchain;
+            },
+          };
+        },
+        ...connectorOptions,
+      });
     },
     ...restProps,
   };
 }
 
-export function isOkxWallet() {
+export function hasInjectedOkxWallet() {
   if (typeof window === 'undefined') return false;
 
   if (isMobile()) {

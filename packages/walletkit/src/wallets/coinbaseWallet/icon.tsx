@@ -1,4 +1,4 @@
-import { SVGIconProps } from '../..';
+import { SVGIconProps } from '@/types';
 
 export const CoinbaseWalletTransparentIcon = (props: SVGIconProps) => {
   return <CoinbaseWalletIcon width={34} height={34} {...props} />;
