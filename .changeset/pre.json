@@ -1,0 +1,14 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "2.0.0",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "dirty-panthers-enjoy",
+    "quick-squids-rush"
+  ]
+}

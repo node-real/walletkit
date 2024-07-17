@@ -51,6 +51,7 @@ export function trustWallet(props: InjectedWalletOptions = {}): WalletProps {
           id: TRUST_WALLET_ID,
           name: TRUST_WALLET_NAME,
           async setup() {
+            if (typeof window === 'undefined') return;
             await sleep();
           },
           async provider() {
