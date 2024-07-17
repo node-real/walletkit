@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 2.0.2
+
+### Patch Changes
+
+- 1fed209: feat: Upgrade wagmi & viem to 2.x
+- 1fed209: fix: ssr no need to wait for the provider to be ready
+
 ## 2.0.2-alpha.0
 
 ### Patch Changes
