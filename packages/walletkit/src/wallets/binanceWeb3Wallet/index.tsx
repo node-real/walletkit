@@ -39,10 +39,8 @@ export function binanceWeb3Wallet(props: InjectedWalletOptions = {}): WalletProp
           id: BINANCE_WEB3_WALLET_ID,
           name: BINANCE_WEB3_WALLET_NAME,
           async setup() {
-            if (isMobile()) {
-              if (typeof window !== 'undefined') {
-                (window.ethereum as any)?.enable?.();
-              }
+            if (isMobile() && hasInjectedBinanceWeb3Wallet()) {
+              (window.ethereum as any)?.enable?.();
               await sleep();
             }
           },
