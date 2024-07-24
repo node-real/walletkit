@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 1.1.3
+
+### Patch Changes
+
+- 2b8aeb1: fix: Fixed multiple wallets pop up automatically
+
 ## 1.1.2
 
 ### Patch Changes
