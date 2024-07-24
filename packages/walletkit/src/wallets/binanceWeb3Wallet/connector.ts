@@ -1,7 +1,7 @@
 import { sleep } from '@/utils/common';
 import { Chain, WindowProvider } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { BINANCE_WEB3_WALLET_ID, BINANCE_WEB3_WALLET_NAME } from '.';
+import { BINANCE_WEB3_WALLET_ID, BINANCE_WEB3_WALLET_NAME, isBinanceWeb3Wallet } from '.';
 import { isMobile } from '@/base/utils/mobile';
 
 export type BinanceWeb3WalletConnectorOptions = Required<
@@ -27,7 +27,7 @@ export class BinanceWeb3WalletConnector extends InjectedConnector {
       ..._options,
     };
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && isMobile() && isBinanceWeb3Wallet()) {
       (window.ethereum as any)?.enable?.();
     }
 
