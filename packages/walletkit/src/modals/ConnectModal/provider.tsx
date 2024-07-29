@@ -44,7 +44,15 @@ function WithRouter(props: ConnectModalProviderProps) {
   }, [isOpen, onClose, onOpen, router, setAction]);
 
   useEffect(() => {
+    console.log(
+      'route: ',
+      router.route,
+      router.route !== routes.CONNECTORS,
+      isConnected,
+      options.closeModalAfterConnected,
+    );
     if (router.route !== routes.CONNECTORS && isConnected && options.closeModalAfterConnected) {
+      console.log('onClose: ', value?.onClose);
       value?.onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
