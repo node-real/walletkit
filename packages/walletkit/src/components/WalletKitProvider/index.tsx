@@ -1,9 +1,15 @@
 import { ToastProvider } from '@/base/components/toast/ToastProvider';
 import { CustomTheme } from '@/themes/base';
 import { useMemo, useState } from 'react';
-import { Connector, useConfig } from 'wagmi';
+import { Connector, useAccount, useConfig } from 'wagmi';
 import { ThemeVariant, ThemeMode, ThemeProvider } from '../ThemeProvider';
-import { WalletKitOptions, WalletKitContextProps, WalletKitContext, Action } from './context';
+import {
+  WalletKitOptions,
+  WalletKitContextProps,
+  WalletKitContext,
+  Action,
+  useWalletKit,
+} from './context';
 import { useResponsive } from '@/base/hooks/useResponsive';
 import { getDefaultWalletKitOptions } from '@/defaultConfig/getDefaultWalletKitOptions';
 import { getDefaultChainsConfig } from '@/defaultConfig/getDefaultChainsConfig';
@@ -11,6 +17,7 @@ import { ConnectModalProvider } from '@/modals/ConnectModal/provider';
 import { getGlobalData } from '@/globalData';
 import { ProfileModalProvider } from '@/modals/ProfileModal/provider';
 import { SwitchNetworkModalProvider } from '@/modals/SwitchNetworkModal/provider';
+import { useRouter } from '@/modals/ConnectModal/RouteProvider/context';
 
 export interface WalletKitProviderProps {
   options: WalletKitOptions;
@@ -63,10 +70,38 @@ export const WalletKitProvider = (props: WalletKitProviderProps) => {
 
         <ConnectModalProvider>
           <SwitchNetworkModalProvider>
-            <ProfileModalProvider>{children}</ProfileModalProvider>
+            <ProfileModalProvider>
+              {children}
+              <Log />
+            </ProfileModalProvider>
           </SwitchNetworkModalProvider>
         </ConnectModalProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>
   );
 };
+
+function Log() {
+  const { address, isConnected, isConnecting, isDisconnected, isReconnecting, connector, chainId } =
+    useAccount();
+
+  const { log, options, ...restProps } = useWalletKit();
+  const route = useRouter();
+
+  const logObj = {
+    address,
+    isConnected,
+    isConnecting,
+    isDisconnected,
+    isReconnecting,
+    chainId,
+    connectorId: connector?.id,
+    connectorName: connector?.name,
+    route: route.route,
+    _options: options,
+    _context: { ...restProps },
+  };
+  log(`[walletkit log]`, logObj);
+
+  return null;
+}
