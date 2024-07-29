@@ -4,6 +4,7 @@ on:
     branches:
       - alpha
       - 0.x-alpha
+      - 1.x-alpha
 
 jobs:
   release:
