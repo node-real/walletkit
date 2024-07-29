@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 2.0.3
+
+### Patch Changes
+
+- 5b7f3f6: test: Add log
+- 5b7f3f6: fix: ssr no need to wait for the provider to be ready
+
 ## 2.0.3-alpha.0
 
 ### Patch Changes
