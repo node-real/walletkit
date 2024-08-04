@@ -1,0 +1,16 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit-solana": "2.0.3",
+    "@node-real/walletkit-ui": "2.0.3",
+    "@node-real/walletkit-wagmi": "2.0.3",
+    "@node-real/walletkit": "2.0.3",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "popular-terms-retire"
+  ]
+}
