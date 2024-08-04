@@ -55,4 +55,4 @@ type WalletButtonType = typeof WalletButton & {
 (WalletButton as WalletButtonType).Custom = ConnectButtonRenderer;
 const ConnectButton = WalletButton as WalletButtonType;
 
-export { type WalletButtonProps as ConnectButtonProps, ConnectButton };
+export { type WalletButtonType as ConnectButtonProps, ConnectButton };

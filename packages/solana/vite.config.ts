@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import path from 'path';
@@ -9,9 +8,6 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    vanillaExtractPlugin({
-      identifiers: ({ hash }) => `wk_${hash}`,
-    }),
     dts({
       include: 'src',
     }),

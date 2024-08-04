@@ -40,13 +40,11 @@ export const defaultSolanaConfig = (params: DefaultSolanaConfig) => {
     rpcUrl,
   });
 
-  const adapters = wallets.map((w) => w.getAdapter());
+  const adapters = wallets.map((w) => w.getAdapter()) as any;
 
-  const config = {
+  return {
     adapters,
     rpcUrl,
     autoConnect,
   };
-
-  return config;
 };

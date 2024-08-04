@@ -1,5 +1,13 @@
 // ui
-export * from '@node-real/walletkit-ui';
+export {
+  ConnectModal,
+  useConnectModal,
+  ProfileModal,
+  useProfileModal,
+  EmbeddedConnectModal,
+  ConnectButton,
+  type ConnectButtonProps,
+} from '@node-real/walletkit-ui';
 
 // config
 export * from './defaultConfig/defaultSolanaConfig';
