@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit-wagmi",
-  "version": "2.0.3",
+  "version": "2.1.0-alpha.0",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
