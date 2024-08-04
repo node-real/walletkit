@@ -2,17 +2,17 @@ import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
 import { bsc, mainnet, opBNB } from 'wagmi/chains';
 
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wagmi/wallets';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   defaultWagmiConfig,
   SwitchNetworkModal,
-  WalletKitButton,
+  ConnectButton,
   WalletKitOptions,
   WalletKitProvider,
   ProfileModal,
   ConnectModal,
-} from '@node-real/walletkit';
+} from '@node-real/walletkit/wagmi';
 import { WagmiProvider } from 'wagmi';
 import { AppProps } from 'next/app';
 
@@ -21,7 +21,7 @@ const queryClient = new QueryClient();
 const config = defaultWagmiConfig({
   appName: 'WalletKit',
   chains: [bsc, mainnet, opBNB],
-  connectors: [trustWallet(), metaMask(), walletConnect()],
+  wallets: [trustWallet(), metaMask(), walletConnect()],
 
   // WalletConnect 2.0 requires a projectId which you can create quickly
   // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <WalletKitProvider options={options} mode="light">
           <Component {...pageProps} />
 
-          <WalletKitButton />
+          <ConnectButton />
 
           <ConnectModal />
 
