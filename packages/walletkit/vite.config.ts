@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import path from 'path';
@@ -9,9 +8,6 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    vanillaExtractPlugin({
-      identifiers: ({ hash }) => `wk_${hash}`,
-    }),
     dts({
       include: 'src',
     }),
@@ -27,8 +23,10 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        index: 'src/index.ts',
-        'wallets/index': 'src/wallets/index.ts',
+        'solana/index': 'src/solana/index.ts',
+        'solana/wallets': 'src/solana/wallets.ts',
+        'wagmi/index': 'src/wagmi/index.ts',
+        'wagmi/wallets': 'src/wagmi/wallets.ts',
       },
     },
     rollupOptions: {
@@ -37,9 +35,6 @@ export default defineConfig({
           includeDependencies: true,
         }),
       ],
-      output: {
-        chunkFileNames: 'common.js',
-      },
     },
   },
 });

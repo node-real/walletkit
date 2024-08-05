@@ -9,10 +9,9 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "dev": "pnpm --F @node-real/walletkit dev",
-    "build": "pnpm --F @node-real/walletkit build",
-    "dev:docs": "pnpm --F @node-real/walletkit build:watch & pnpm --F website dev",
+    "build": "pnpm --F @node-real/* build && pnpm cp:css",
     "build:docs": "pnpm build && pnpm --F website build",
+    "cp:css": "cat packages/wagmi/dist/style.css packages/solana/dist/style.css > packages/walletkit/dist/style.css",
     "ci:enter": "pnpm changeset pre enter alpha || true",
     "ci:exit": "pnpm changeset pre exit || true",
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
