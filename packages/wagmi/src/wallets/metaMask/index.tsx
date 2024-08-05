@@ -2,7 +2,7 @@ import { Connector } from 'wagmi';
 import { InjectedWalletOptions, WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import { injected } from '../injected';
-import { MetaMaskIcon, MetaMaskTransparentIcon } from '@node-real/walletkit-ui';
+import { MetaMaskIcon, MetaMaskTransparentIcon } from '@/ui/index';
 
 const META_MASK_ID = 'metaMask';
 const META_MASK_NAME = 'MetaMask';

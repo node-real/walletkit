@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "build": "pnpm --F @node-real/* build && cp packages/ui/dist/style.css packages/walletkit/dist/style.css",
+    "build": "pnpm --F @node-real/* build && cat packages/wagmi/dist/style.css packages/solana/dist/style.css > packages/walletkit/dist/style.css",
     "build:docs": "pnpm build && pnpm --F website build",
     "ci:enter": "pnpm changeset pre enter alpha || true",
     "ci:exit": "pnpm changeset pre exit || true",

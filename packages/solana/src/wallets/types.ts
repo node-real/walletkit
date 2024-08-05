@@ -1,4 +1,4 @@
-import { WalletConfig } from '@node-real/walletkit-ui';
+import { WalletConfig } from '@/ui/types';
 import { WalletProviderProps } from '@solana/wallet-adapter-react';
 
 export type Adapter = WalletProviderProps['wallets'][0];

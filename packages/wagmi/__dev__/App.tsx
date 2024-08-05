@@ -1,10 +1,20 @@
-import '@node-real/walletkit-ui/styles.css';
-
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import VConsole from 'vconsole';
-import { defaultWagmiConfig, WalletKitOptions, WalletKitProvider } from '@/index';
+import {
+  defaultWagmiConfig,
+  WalletKitOptions,
+  WalletKitProvider,
+  ConnectButton,
+  ConnectModal,
+  ProfileModal,
+  SwitchNetworkModal,
+  ThemeMode,
+  useConnectModal,
+  useProfileModal,
+  useSwitchNetworkModal,
+} from '@/index';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
@@ -14,18 +24,8 @@ import {
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '@/wallets';
+} from '@/wallets/index';
 import { chains } from './chains';
-import {
-  ConnectButton,
-  ConnectModal,
-  ProfileModal,
-  SwitchNetworkModal,
-  ThemeMode,
-  useConnectModal,
-  useProfileModal,
-  useSwitchNetworkModal,
-} from '@node-real/walletkit-ui';
 
 const queryClient = new QueryClient();
 

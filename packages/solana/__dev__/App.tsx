@@ -1,17 +1,17 @@
-import '@node-real/walletkit-ui/styles.css';
-
 import { useState } from 'react';
 import VConsole from 'vconsole';
-import { defaultSolanaConfig, WalletKitOptions, WalletKitProvider } from '@/index';
-import { phantomWallet, trustWallet, walletConnect } from '@/wallets';
 import {
+  defaultSolanaConfig,
+  WalletKitOptions,
+  WalletKitProvider,
   ConnectButton,
   ConnectModal,
   ProfileModal,
   ThemeMode,
   useConnectModal,
   useProfileModal,
-} from '@node-real/walletkit-ui';
+} from '@/index';
+import { phantomWallet, trustWallet, walletConnect } from '@/wallets/index';
 
 new VConsole();
 

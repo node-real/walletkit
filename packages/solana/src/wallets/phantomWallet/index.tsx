@@ -1,7 +1,7 @@
 import { InjectedWalletOptions, WalletProps } from '../types';
-import { PhantomWalletIcon, PhantomWalletTransparentIcon } from '@node-real/walletkit-ui';
 import { PhantomWalletAdapter, PhantomWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
 import { hasInjectedProvider } from '../utils';
+import { PhantomWalletIcon, PhantomWalletTransparentIcon } from '@/ui/index';
 
 const PHANTOM_WALLET_ID = 'Phantom';
 const PHANTOM_WALLET_NAME = 'Phantom';

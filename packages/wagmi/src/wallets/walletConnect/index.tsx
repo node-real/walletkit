@@ -1,8 +1,8 @@
-import { getGlobalData } from '@/globalData';
+import { getGlobalData } from '@/core/globalData';
 import { WalletProps } from '..';
 import { walletConnect as wagmiWalletConnect, WalletConnectParameters } from 'wagmi/connectors';
 import { Connector } from 'wagmi';
-import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@node-real/walletkit-ui';
+import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/index';
 
 const WALLET_CONNECT_ID = 'walletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';

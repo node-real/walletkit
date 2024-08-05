@@ -1,11 +1,11 @@
-import { getGlobalData } from '@/globalData';
+import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from '@/ui/index';
 import { WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import {
   coinbaseWallet as wagmiCoinbaseWallet,
   type CoinbaseWalletParameters,
 } from 'wagmi/connectors';
-import { CoinbaseWalletIcon, CoinbaseWalletTransparentIcon } from '@node-real/walletkit-ui';
+import { getGlobalData } from '@/core/globalData';
 
 const COINBASE_WALLET_ID = 'coinbaseWalletSDK';
 const COINBASE_WALLET_NAME = 'Coinbase Wallet';

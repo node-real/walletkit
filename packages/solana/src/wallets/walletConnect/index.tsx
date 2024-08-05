@@ -1,10 +1,10 @@
-import { getGlobalData } from '@/globalData';
+import { getGlobalData } from '@/core/globalData';
 import { WalletProps } from '..';
-import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@node-real/walletkit-ui';
 import {
   WalletConnectWalletAdapter,
   WalletConnectWalletAdapterConfig,
 } from '@walletconnect/solana-adapter';
+import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/index';
 
 const WALLET_CONNECT_ID = 'WalletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';

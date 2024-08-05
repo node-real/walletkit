@@ -1,4 +1,4 @@
-import { TokenPocketIcon, TokenPocketTransparentIcon } from '@node-real/walletkit-ui';
+import { TokenPocketIcon, TokenPocketTransparentIcon } from '@/ui/index';
 import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '../types';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';

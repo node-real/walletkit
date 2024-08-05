@@ -23,7 +23,6 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        index: 'src/index.ts',
         'solana/index': 'src/solana/index.ts',
         'solana/wallets': 'src/solana/wallets.ts',
         'wagmi/index': 'src/wagmi/index.ts',

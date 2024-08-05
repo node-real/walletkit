@@ -1,6 +1,6 @@
 import { CreateConnectorFn } from 'wagmi';
 import { InjectedParameters } from './injected';
-import { WalletConfig } from '@node-real/walletkit-ui';
+import { WalletConfig } from '@/ui/index';
 
 export interface WalletProps extends WalletConfig {
   getCreateConnectorFn: () => CreateConnectorFn;

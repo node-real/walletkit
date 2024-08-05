@@ -10,7 +10,7 @@ import {
   useProfileModal,
   SwitchNetworkModal,
   useSwitchNetworkModal,
-} from '@/wagmi';
+} from '@/wagmi/index';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
@@ -18,8 +18,9 @@ import {
   metaMask,
   walletConnect,
 } from '@/wagmi/wallets';
-
 import { chains } from '../chains';
+
+import { PropsWithChildren } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -33,13 +34,16 @@ const options = {
   initialChainId: 204,
 };
 
-export function WagmiExample() {
+export function WagmiExample(props: PropsWithChildren) {
+  const { children } = props;
+
   return (
     <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={queryClient}>
         <WalletKitProvider options={options} debugMode={true}>
           <ConnectButton />
           <Example />
+          {children}
 
           <ConnectModal />
           <SwitchNetworkModal />

@@ -3,13 +3,13 @@ import { getInjectedProvider, hasInjectedProvider } from '../utils';
 
 import { InjectedWalletOptions, WalletProps } from '../types';
 import { Connector } from 'wagmi';
-import { sleep } from '@/utils';
+import { sleep } from '@/core/utils';
 import {
   TrustWalletLightIcon,
   TrustWalletDarkIcon,
   TrustWalletTransparentLightIcon,
   TrustWalletTransparentDarkIcon,
-} from '@node-real/walletkit-ui';
+} from '@/ui/index';
 
 const TRUST_WALLET_ID = 'trust';
 const TRUST_WALLET_NAME = 'Trust Wallet';

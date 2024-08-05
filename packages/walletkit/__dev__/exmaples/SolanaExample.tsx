@@ -7,7 +7,7 @@ import {
   ProfileModal,
   useConnectModal,
   useProfileModal,
-} from '@/solana';
+} from '@/solana/index';
 import { phantomWallet, trustWallet, walletConnect } from '@/solana/wallets';
 
 const config = defaultSolanaConfig({
@@ -19,7 +19,7 @@ const config = defaultSolanaConfig({
 
 const options: WalletKitOptions = {};
 
-export default function App() {
+export function SolanaExample() {
   return (
     <WalletKitProvider config={config} options={options} debugMode={true}>
       <ConnectButton />

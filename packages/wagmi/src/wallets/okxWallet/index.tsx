@@ -1,7 +1,7 @@
 import { injected } from '../injected';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { InjectedWalletOptions, WalletProps } from '../types';
-import { isMobile, OkxWalletIcon, OkxWalletTransparentIcon } from '@node-real/walletkit-ui';
+import { isMobile, OkxWalletIcon, OkxWalletTransparentIcon } from '@/ui/index';
 
 const OKX_WALLET_ID = 'okxWallet';
 const OKX_WALLET_NAME = 'OKX Wallet';

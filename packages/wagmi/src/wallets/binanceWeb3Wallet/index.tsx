@@ -2,12 +2,12 @@ import { InjectedWalletOptions, WalletProps } from '..';
 import { hasInjectedProvider } from '../utils';
 import { Connector } from 'wagmi';
 import { injected } from '../injected';
-import { sleep } from '@/utils';
 import {
   BinanceWeb3WalletIcon,
   BinanceWeb3WalletTransparentIcon,
-  isMobile,
-} from '@node-real/walletkit-ui';
+} from '@/ui/components/icons/wallets';
+import { sleep } from '@/core/utils';
+import { isMobile } from '@/ui/base/utils/mobile';
 
 const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
 const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';

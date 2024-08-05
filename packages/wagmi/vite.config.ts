@@ -19,6 +19,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@/ui': path.resolve(__dirname, 'src/ui'),
+      '@/ui-data': path.resolve(__dirname, 'src/ui-data'),
+      '@/core': path.resolve(__dirname, 'src/core'),
+      '@/wallets': path.resolve(__dirname, 'src/wallets'),
     },
   },
   build: {
@@ -38,7 +42,7 @@ export default defineConfig({
         }),
       ],
       output: {
-        chunkFileNames: 'common.js',
+        chunkFileNames: 'chunk.js',
       },
     },
   },

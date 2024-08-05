@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import path from 'path';
@@ -8,6 +9,9 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
+    vanillaExtractPlugin({
+      identifiers: ({ hash }) => `wk_${hash}`,
+    }),
     dts({
       include: 'src',
     }),
@@ -15,6 +19,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@/ui': path.resolve(__dirname, 'src/ui'),
+      '@/ui-data': path.resolve(__dirname, 'src/ui-data'),
+      '@/core': path.resolve(__dirname, 'src/core'),
+      '@/wallets': path.resolve(__dirname, 'src/wallets'),
     },
   },
   build: {
@@ -34,7 +42,7 @@ export default defineConfig({
         }),
       ],
       output: {
-        chunkFileNames: 'common.js',
+        chunkFileNames: 'chunk.js',
       },
     },
   },

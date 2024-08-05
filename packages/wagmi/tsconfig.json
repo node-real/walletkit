@@ -22,7 +22,11 @@
 
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@/ui/*": ["src/ui/*"],
+      "@/ui-data/*": ["src/ui-data/*"],
+      "@/core/*": ["src/core/*"],
+      "@/wallets/*": ["src/wallets/*"]
     }
   },
   "include": ["src", "__dev__"],

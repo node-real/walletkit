@@ -1,7 +1,7 @@
 import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { injected } from '../injected';
-import { BitgetWalletIcon, BitgetWalletTransparentIcon, isMobile } from '@node-real/walletkit-ui';
+import { BitgetWalletIcon, BitgetWalletTransparentIcon, isMobile } from '@/ui/index';
 
 const BITGET_WALLET_ID = 'bitgetWallet';
 const BITGET_WALLET_NAME = 'Bitget Wallet';

@@ -1,7 +1,7 @@
 import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { MathWalletIcon, MathWalletTransparentIcon } from '@node-real/walletkit-ui';
+import { MathWalletIcon, MathWalletTransparentIcon } from '@/ui/index';
 
 export const MATH_WALLET_ID = 'mathWallet';
 export const MATH_WALLET_NAME = 'Math Wallet';

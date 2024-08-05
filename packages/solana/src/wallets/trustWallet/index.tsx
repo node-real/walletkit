@@ -1,14 +1,14 @@
 import { hasInjectedProvider } from '../utils';
 
 import { WalletProps } from '../types';
+
+import { TrustWalletAdapter, TrustWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
 import {
   TrustWalletLightIcon,
   TrustWalletDarkIcon,
   TrustWalletTransparentLightIcon,
   TrustWalletTransparentDarkIcon,
-} from '@node-real/walletkit-ui';
-
-import { TrustWalletAdapter, TrustWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
+} from '@/ui/index';
 
 const TRUST_WALLET_ID = 'Trust';
 const TRUST_WALLET_NAME = 'Trust Wallet';

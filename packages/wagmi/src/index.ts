@@ -1,20 +1,28 @@
-// ui
-export {
-  ConnectModal,
-  useConnectModal,
-  ProfileModal,
-  useProfileModal,
-  SwitchNetworkModal,
-  useSwitchNetworkModal,
-  EmbeddedConnectModal,
-  ConnectButton,
-  type ConnectButtonProps,
-} from '@node-real/walletkit-ui';
+// utils
+export * from '@/ui/base/utils/mobile';
+export * from '@/ui/base/utils/css';
 
 // config
-export * from './defaultConfig/defaultWagmiConfig';
+export * from '@/core/defaultConfig/defaultWagmiConfig';
 
 // components
-export * from './components/EthereumScript';
-export * from './components/WalletKitProvider';
-export type { WalletKitOptions } from './components/WalletKitProvider/context';
+export * from '@/core/components/EthereumScript';
+export * from '@/ui/components/ConnectButton';
+export * from '@/core/components/WalletKitProvider';
+export type { WalletKitOptions } from '@/core/components/WalletKitProvider/context';
+
+export type { ThemeMode, ThemeVariant } from '@/ui/components/ThemeProvider';
+export type { ColorMode } from '@/ui/components/ThemeProvider/context';
+export * from '@/ui/themes/base';
+
+// modals
+export { EmbeddedConnectModal } from '@/ui/modals/EmbeddedConnectModal';
+
+export { ConnectModal } from '@/ui/modals/ConnectModal';
+export { useConnectModal } from '@/ui/modals/ConnectModal/context';
+
+export { ProfileModal } from '@/ui/modals/ProfileModal';
+export { useProfileModal } from '@/ui/modals/ProfileModal/context';
+
+export { SwitchNetworkModal } from '@/ui/modals/SwitchNetworkModal';
+export { useSwitchNetworkModal } from '@/ui/modals/SwitchNetworkModal/context';
