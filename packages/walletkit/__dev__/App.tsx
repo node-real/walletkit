@@ -1,6 +1,4 @@
-import '@node-real/walletkit-wagmi/styles.css';
-// import '@node-real/walletkit-solana/styles.css';
-
+import './style.css';
 import VConsole from 'vconsole';
 import { WagmiExample } from './exmaples/WagmiExample';
 import { SolanaExample } from './exmaples/SolanaExample';

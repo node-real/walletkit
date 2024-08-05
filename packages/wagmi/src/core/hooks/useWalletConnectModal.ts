@@ -1,9 +1,9 @@
-import { useConnectModal } from '@/ui/index';
 import { useState, useEffect } from 'react';
 import { useWalletKit } from '../components/WalletKitProvider/context';
 import { setGlobalData } from '../globalData';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
 import { useWalletKitConnect } from './useWalletKitConnect';
+import { useConnectModal } from '@/ui/modals/ConnectModal/context';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useWalletKitConnect();

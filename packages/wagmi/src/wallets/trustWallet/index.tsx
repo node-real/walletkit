@@ -5,11 +5,11 @@ import { InjectedWalletOptions, WalletProps } from '../types';
 import { Connector } from 'wagmi';
 import { sleep } from '@/core/utils';
 import {
-  TrustWalletLightIcon,
   TrustWalletDarkIcon,
-  TrustWalletTransparentLightIcon,
+  TrustWalletLightIcon,
   TrustWalletTransparentDarkIcon,
-} from '@/ui/index';
+  TrustWalletTransparentLightIcon,
+} from '@/ui/components/icons/wallets';
 
 const TRUST_WALLET_ID = 'trust';
 const TRUST_WALLET_NAME = 'Trust Wallet';

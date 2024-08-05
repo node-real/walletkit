@@ -1,6 +1,6 @@
 import React from 'react';
-import { cx } from '@/ui/index';
 import { clsBox } from './styles.css';
+import { cx } from '../../utils/css';
 
 type HTMLProperties<T = HTMLElement> = Omit<React.AllHTMLAttributes<T>, 'as'>;
 

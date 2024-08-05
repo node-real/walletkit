@@ -11,7 +11,10 @@ import { getGlobalData } from '@/core/globalData';
 import { defaultSolanaConfig } from '@/core/defaultConfig/defaultSolanaConfig';
 import { WalletProps } from '@/wallets';
 import { EventEmitter } from '@/core/utils/eventEmitter';
-import { ThemeVariant, ThemeMode, CustomTheme, Action, DataSourceProvider } from '@/ui/index';
+import { DataSourceProvider } from '@/ui/components/DataSourceProvider';
+import { ThemeVariant, ThemeMode } from '@/ui/components/ThemeProvider';
+import { CustomTheme } from '@/ui/themes/base';
+import { Action } from '@/ui/types';
 
 export interface WalletKitProviderProps {
   options?: WalletKitOptions;

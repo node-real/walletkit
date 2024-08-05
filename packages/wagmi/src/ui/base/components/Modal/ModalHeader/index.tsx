@@ -1,6 +1,6 @@
 import { clsModalHeader } from './styles.css';
 import { Box, BoxProps } from '../../Box';
-import { cx } from '@/ui/index';
+import { cx } from '@/ui/base/utils/css';
 
 export type ModalHeaderProps = BoxProps;
 

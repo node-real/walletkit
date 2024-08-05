@@ -1,6 +1,6 @@
 import { SafeParameters, safe as wagmiSafe } from 'wagmi/connectors';
 import { WalletProps } from '../types';
-import { SafeIcon } from '@/ui/index';
+import { SafeIcon } from '@/ui/components/icons/wallets';
 
 const SAFE_ID = 'safe';
 const SAFE_NAME = 'Safe Wallet';

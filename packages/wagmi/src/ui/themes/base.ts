@@ -1,4 +1,4 @@
-import { rgba } from '..';
+import { rgba } from '../base/utils/css';
 
 const radii = {
   common: '8px',

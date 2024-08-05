@@ -1,4 +1,5 @@
-import { BscIcon, ChainConfig, ComboIcon, EthereumIcon } from '@/ui/index';
+import { EthereumIcon, BscIcon, ComboIcon } from '@/ui/components/icons/chains';
+import { ChainConfig } from '@/ui/types';
 
 export const chainsConfig: ChainConfig[] = [
   {

@@ -5,7 +5,7 @@ import { ToastManager } from './ToastManager';
 import { ToastOptions } from '.';
 import { ToastComponent } from './ToastComponent';
 import { clsToastRoot } from './styles.css';
-import { cx } from '@/ui/index';
+import { cx } from '../../utils/css';
 
 export const ToastProvider = () => {
   const [toastList, setToastList] = useState<ToastOptions[]>([]);

@@ -4,7 +4,8 @@ import {
   WalletConnectWalletAdapter,
   WalletConnectWalletAdapterConfig,
 } from '@walletconnect/solana-adapter';
-import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/index';
+import { WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/components/icons/wallets';
+import { isMobile } from '@/ui/base/utils/mobile';
 
 const WALLET_CONNECT_ID = 'WalletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';

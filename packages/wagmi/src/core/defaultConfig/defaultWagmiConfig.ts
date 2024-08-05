@@ -9,7 +9,7 @@ import { Chain, mainnet } from 'wagmi/chains';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
 import { isWalletConnectConnector, walletConnect, WalletProps } from '@/wallets/index';
-import { WALLET_CONNECT_PROJECT_ID } from '@/ui/index';
+import { WALLET_CONNECT_PROJECT_ID } from '@/ui/constants';
 
 export interface DefaultWagmiConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
   appName: string;

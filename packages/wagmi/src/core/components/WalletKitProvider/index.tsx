@@ -1,11 +1,13 @@
 import { getDefaultChainsConfig } from '@/core/defaultConfig/getDefaultChainsConfig';
 import { getDefaultWalletKitOptions } from '@/core/defaultConfig/getDefaultWalletKitOptions';
 import { getGlobalData } from '@/core/globalData';
-import { ThemeVariant, ThemeMode, CustomTheme, DataSourceProvider } from '@/ui/index';
 import { Action } from '@/ui/types';
 import { useState, useMemo } from 'react';
 import { Connector, useConfig } from 'wagmi';
 import { WalletKitOptions, WalletKitContextProps, WalletKitContext } from './context';
+import { DataSourceProvider } from '@/ui/components/DataSourceProvider';
+import { ThemeVariant, ThemeMode } from '@/ui/components/ThemeProvider';
+import { CustomTheme } from '@/ui/themes/base';
 
 export interface WalletKitProviderProps {
   options?: WalletKitOptions;

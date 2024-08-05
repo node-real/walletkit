@@ -1,4 +1,4 @@
-import { cssVar } from '@/ui/index';
+import { cssVar } from '@/ui/base/utils/css';
 import { style } from '@vanilla-extract/css';
 
 export const clsDisclaimer = style({

@@ -1,4 +1,4 @@
-import { DEFAULT_OPTIONS } from '@/ui/index';
+import { DEFAULT_OPTIONS } from '@/ui/constants';
 import { WalletKitOptions } from '../components/WalletKitProvider/context';
 
 export function getDefaultWalletKitOptions(options: WalletKitOptions) {

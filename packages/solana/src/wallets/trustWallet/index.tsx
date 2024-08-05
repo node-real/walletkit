@@ -8,7 +8,7 @@ import {
   TrustWalletDarkIcon,
   TrustWalletTransparentLightIcon,
   TrustWalletTransparentDarkIcon,
-} from '@/ui/index';
+} from '@/ui/components/icons/wallets';
 
 const TRUST_WALLET_ID = 'Trust';
 const TRUST_WALLET_NAME = 'Trust Wallet';

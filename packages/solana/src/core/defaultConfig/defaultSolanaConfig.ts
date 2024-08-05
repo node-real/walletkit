@@ -1,4 +1,4 @@
-import { WALLET_CONNECT_PROJECT_ID } from '@/ui/index';
+import { WALLET_CONNECT_PROJECT_ID } from '@/ui/constants';
 import { setGlobalData } from '../globalData';
 import { getDefaultWallets } from './getDefaultWallets';
 import { WalletProps } from '@/wallets';

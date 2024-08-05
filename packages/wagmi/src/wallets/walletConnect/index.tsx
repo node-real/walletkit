@@ -2,7 +2,8 @@ import { getGlobalData } from '@/core/globalData';
 import { WalletProps } from '..';
 import { walletConnect as wagmiWalletConnect, WalletConnectParameters } from 'wagmi/connectors';
 import { Connector } from 'wagmi';
-import { isMobile, WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/index';
+import { WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/components/icons/wallets';
+import { isMobile } from '@/ui/base/utils/mobile';
 
 const WALLET_CONNECT_ID = 'walletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';

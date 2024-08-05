@@ -42,8 +42,8 @@
     }
   },
   "scripts": {
-    "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
-    "build:watch": "vite build --watch --emptyOutDir=false",
+    "dev": "pnpm cp:css && vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
+    "cp:css": "cat ../wagmi/dist/style.css ../solana/dist/style.css > __dev__/style.css",
     "build": "vite build"
   },
   "devDependencies": {

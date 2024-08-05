@@ -1,6 +1,9 @@
 import { useUIAccountInfo } from '@/ui-data/useUIAccountInfo';
 import { useUIChainInfo } from '@/ui-data/useUIChainInfo';
-import { Action, truncateAddress, useConnectModal, useProfileModal } from '@/ui/index';
+import { useConnectModal } from '@/ui/modals/ConnectModal/context';
+import { useProfileModal } from '@/ui/modals/ProfileModal/context';
+import { Action } from '@/ui/types';
+import { truncateAddress } from '@/ui/utils/account';
 import { useCallback } from 'react';
 
 export interface ConnectButtonRendererProps {

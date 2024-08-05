@@ -1,7 +1,7 @@
 import React from 'react';
 import { clsIconButton } from './styles.css';
 import { ButtonProps, Button } from '../Button';
-import { cx } from '@/ui/index';
+import { cx } from '../../utils/css';
 
 export interface IconButtonProps extends ButtonProps {
   icon: React.ReactElement;

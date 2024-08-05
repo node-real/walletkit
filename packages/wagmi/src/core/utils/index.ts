@@ -1,4 +1,4 @@
-import { isIOS, isMobile } from '@/ui/index';
+import { isIOS, isMobile } from '@/ui/base/utils/mobile';
 import { hasInjectedBinanceWeb3Wallet, hasInjectedTrustWallet } from '@/wallets/index';
 
 export function commonErrorHandler(props: { log: any; handler: any; error: any }) {

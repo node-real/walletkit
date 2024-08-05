@@ -1,6 +1,6 @@
 import { clsModalContent } from './style.css';
-import { cx } from '@/ui/index';
 import { Box, BoxProps } from '../../Box';
+import { cx } from '@/ui/base/utils/css';
 
 export type ModalContentProps = BoxProps;
 

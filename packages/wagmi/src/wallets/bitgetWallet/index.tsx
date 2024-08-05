@@ -1,7 +1,8 @@
 import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { injected } from '../injected';
-import { BitgetWalletIcon, BitgetWalletTransparentIcon, isMobile } from '@/ui/index';
+import { BitgetWalletIcon, BitgetWalletTransparentIcon } from '@/ui/components/icons/wallets';
+import { isMobile } from '@/ui/base/utils/mobile';
 
 const BITGET_WALLET_ID = 'bitgetWallet';
 const BITGET_WALLET_NAME = 'Bitget Wallet';

@@ -1,5 +1,5 @@
-import { cssVar } from '@/ui/index';
 import { style } from '@vanilla-extract/css';
+import { cssVar } from '../../utils/css';
 
 export const clsToastRoot = style({
   position: 'fixed',

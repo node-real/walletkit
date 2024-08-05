@@ -1,7 +1,7 @@
 import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '..';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
-import { MathWalletIcon, MathWalletTransparentIcon } from '@/ui/index';
+import { MathWalletIcon, MathWalletTransparentIcon } from '@/ui/components/icons/wallets';
 
 export const MATH_WALLET_ID = 'mathWallet';
 export const MATH_WALLET_NAME = 'Math Wallet';

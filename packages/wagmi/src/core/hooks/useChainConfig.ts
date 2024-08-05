@@ -1,7 +1,7 @@
-import { ChainConfig } from '@/ui/index';
 import { useMemo } from 'react';
 import { Chain } from 'viem';
 import { useWalletKit } from '../components/WalletKitProvider/context';
+import { ChainConfig } from '@/ui/types';
 
 export function useChainConfig(chain?: Chain) {
   const { chainsConfig } = useWalletKit();

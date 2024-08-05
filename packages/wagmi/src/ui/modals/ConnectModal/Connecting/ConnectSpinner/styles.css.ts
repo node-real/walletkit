@@ -1,4 +1,4 @@
-import { cssVar } from '@/ui/index';
+import { cssVar } from '@/ui/base/utils/css';
 import { globalStyle, keyframes, style } from '@vanilla-extract/css';
 
 export const clsContainer = style({

@@ -1,4 +1,4 @@
-import { Action, ChainConfig, DataSource } from '@/ui/index';
+import { DataSource, ChainConfig, Action } from '@/ui/types';
 import { WalletProps } from '@/wallets/index';
 import { createContext, useContext } from 'react';
 import { Connector } from 'wagmi';

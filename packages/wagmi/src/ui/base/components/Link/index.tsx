@@ -1,5 +1,5 @@
 import { clsLink } from './styles.css';
-import { cx } from '@/ui/index';
+import { cx } from '../../utils/css';
 import { Box, BoxProps } from '../Box';
 
 export type LinkProps = BoxProps;

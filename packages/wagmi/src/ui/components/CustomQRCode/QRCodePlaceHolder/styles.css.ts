@@ -1,5 +1,5 @@
+import { cssVar } from '@/ui/base/utils/css';
 import { style, keyframes } from '@vanilla-extract/css';
-import { cssVar } from '../../..';
 
 const flicker = keyframes({
   '0%': {

@@ -1,7 +1,8 @@
 import { Chain } from 'viem';
 import { WalletKitOptions } from '../components/WalletKitProvider/context';
-import { mergeList, UnknownChainIcon } from '@/ui/index';
 import { chainsConfig } from '../chains';
+import { mergeList } from '@/ui/utils/common';
+import { UnknownChainIcon } from '@/ui/components/icons/chains';
 
 export function getDefaultChainsConfig(
   options: WalletKitOptions,

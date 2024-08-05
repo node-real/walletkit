@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { clsFadeIn, clsFadeOut } from './fade.css';
 import { clsToastSlideIn, clsToastSlideOut } from './toastSlide.css';
 import { clsModalSlideIn, clsModalSlideOut } from './modalSlide.css';
-import { cx } from '@/ui/index';
+import { cx } from '../../utils/css';
 
 const animationMap = {
   fade: [clsFadeOut, clsFadeIn],

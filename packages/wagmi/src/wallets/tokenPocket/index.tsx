@@ -1,4 +1,4 @@
-import { TokenPocketIcon, TokenPocketTransparentIcon } from '@/ui/index';
+import { TokenPocketIcon, TokenPocketTransparentIcon } from '@/ui/components/icons/wallets';
 import { injected } from '../injected';
 import { InjectedWalletOptions, WalletProps } from '../types';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';

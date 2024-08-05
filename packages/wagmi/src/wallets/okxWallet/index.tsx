@@ -1,7 +1,8 @@
 import { injected } from '../injected';
 import { getInjectedProvider, hasInjectedProvider } from '../utils';
 import { InjectedWalletOptions, WalletProps } from '../types';
-import { isMobile, OkxWalletIcon, OkxWalletTransparentIcon } from '@/ui/index';
+import { OkxWalletIcon, OkxWalletTransparentIcon } from '@/ui/components/icons/wallets';
+import { isMobile } from '@/ui/base/utils/mobile';
 
 const OKX_WALLET_ID = 'okxWallet';
 const OKX_WALLET_NAME = 'OKX Wallet';
