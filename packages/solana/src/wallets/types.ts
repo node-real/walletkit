@@ -4,6 +4,7 @@ import { WalletProviderProps } from '@solana/wallet-adapter-react';
 export type Adapter = WalletProviderProps['wallets'][0];
 
 export interface WalletProps extends WalletConfig {
+  adapterName: string;
   getAdapter: () => Adapter;
 }
 

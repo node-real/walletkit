@@ -7,8 +7,9 @@ import {
 import { WalletConnectIcon, WalletConnectTransparentIcon } from '@/ui/components/icons/wallets';
 import { isMobile } from '@/ui/base/utils/mobile';
 
-const WALLET_CONNECT_ID = 'WalletConnect';
+const WALLET_CONNECT_ID = 'walletConnect';
 const WALLET_CONNECT_NAME = 'WalletConnect';
+const WALLET_CONNECT_ADAPTER_NAME = 'WalletConnect';
 
 export interface WalletConnectOptions extends Partial<WalletProps> {
   adapterOptions?: Partial<WalletConnectWalletAdapterConfig>;
@@ -20,6 +21,7 @@ export function walletConnect(props: WalletConnectOptions = {}): WalletProps {
   return {
     id: WALLET_CONNECT_ID,
     name: WALLET_CONNECT_NAME,
+    adapterName: WALLET_CONNECT_ADAPTER_NAME,
     logos: {
       default: <WalletConnectIcon />,
       transparent: <WalletConnectTransparentIcon />,

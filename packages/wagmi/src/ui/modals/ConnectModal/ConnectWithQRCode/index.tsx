@@ -8,14 +8,14 @@ import { cx } from '@/ui/base/utils/css';
 import { CustomQRCode } from '@/ui/components/CustomQRCode';
 import { useWalletLogos } from '@/ui/hooks/useWalletLogos';
 import { clsContainer, clsOfficialButton } from './styles.css';
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 import { useUIConnectWithQRCodeView } from '@/ui-data/useUIConnectWithQRCodeView';
 import { useWalletKit } from '@/core/components/WalletKitProvider/context';
 
 export function ConnectWithQRCode() {
   const { options } = useWalletKit();
   const { qrCodeUri, onClickOpenWcModal } = useUIConnectWithQRCodeView();
-  const { walletId } = useUIProviderConfig();
+  const { walletId } = useUIProvider();
 
   const wallet = useWalletConfig(walletId);
   const logos = useWalletLogos(wallet?.logos);

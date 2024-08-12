@@ -2,7 +2,7 @@ import { useWalletKit } from '@/core/components/WalletKitProvider/context';
 import { DataSource } from '@/ui/types';
 import { useWallet } from '@solana/wallet-adapter-react';
 
-export function useUIProviderConfig(): ReturnType<DataSource['useProvider']> {
+export function useUIProvider(): ReturnType<DataSource['useProvider']> {
   const { selectedWallet } = useWalletKit();
   const { connected } = useWallet();
 

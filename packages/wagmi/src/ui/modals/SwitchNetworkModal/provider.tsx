@@ -1,6 +1,6 @@
 import { useWalletKit } from '@/core/components/WalletKitProvider/context';
 import { useUIChainInfo } from '@/ui-data/useUIChainInfo';
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 import { toast } from '@/ui/base/components/toast';
 import { useDisclosure } from '@/ui/base/hooks/useDisclosure';
 import { useState, useMemo, useEffect } from 'react';
@@ -18,7 +18,7 @@ export function SwitchNetworkModalProvider(props: SwitchNetworkModalProviderProp
 
   const { options } = useWalletKit();
   const { isSupported } = useUIChainInfo();
-  const { isConnected } = useUIProviderConfig();
+  const { isConnected } = useUIProvider();
 
   const value = useMemo(() => {
     return {

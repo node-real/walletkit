@@ -1,7 +1,7 @@
 import { useUIConnectorsView } from '@/ui-data/useUIConnectorsView';
 import { useTheme } from '../components/ThemeProvider/context';
 import { useConnectModal } from '../modals/ConnectModal/context';
-import { routes } from '../modals/ConnectModal/RouteProvider';
+import { ViewRoutes } from '../modals/ConnectModal/RouteProvider';
 import { useRouter } from '../modals/ConnectModal/RouteProvider/context';
 import { WalletConfig, WalletRenderProps } from '../types';
 import { useWalletLogos } from './useWalletLogos';
@@ -25,22 +25,22 @@ export function useWalletRender(wallet: WalletConfig, layout: WalletRenderProps[
       isDisabled: wallet.isDisabled,
     },
     onClick(e: React.MouseEvent<Element, MouseEvent>) {
-      const jumpTo = (route: string) => {
+      const jumpTo = (viewRoute: ViewRoutes) => {
         if (connectModal.isOpen) {
-          router.push(route);
+          router.push(viewRoute);
         } else {
           connectModal.onOpen({
-            route,
+            viewRoute,
           });
         }
       };
 
       const gotoQRCodeView = () => {
-        jumpTo(routes.CONNECT_WITH_QRCODE);
+        jumpTo(ViewRoutes.CONNECT_WITH_QRCODE);
       };
 
       const gotoConnectingView = () => {
-        jumpTo(routes.CONNECTING);
+        jumpTo(ViewRoutes.CONNECTING);
       };
 
       onClickWallet({

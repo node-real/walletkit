@@ -10,8 +10,9 @@ import {
   TrustWalletTransparentDarkIcon,
 } from '@/ui/components/icons/wallets';
 
-const TRUST_WALLET_ID = 'Trust';
+const TRUST_WALLET_ID = 'trustWallet';
 const TRUST_WALLET_NAME = 'Trust Wallet';
+const TRUST_ADAPTER_NAME = 'Trust';
 
 export interface TrustWalletOptions extends Partial<WalletProps> {
   adapterOptions?: Partial<TrustWalletAdapterConfig>;
@@ -23,6 +24,7 @@ export function trustWallet(props: TrustWalletOptions = {}): WalletProps {
   return {
     id: TRUST_WALLET_ID,
     name: TRUST_WALLET_NAME,
+    adapterName: TRUST_ADAPTER_NAME,
     logos: {
       default: {
         light: <TrustWalletLightIcon />,

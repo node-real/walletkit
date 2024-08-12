@@ -3,8 +3,9 @@ import { PhantomWalletAdapter, PhantomWalletAdapterConfig } from '@solana/wallet
 import { hasInjectedProvider } from '../utils';
 import { PhantomWalletIcon, PhantomWalletTransparentIcon } from '@/ui/components/icons/wallets';
 
-const PHANTOM_WALLET_ID = 'Phantom';
+const PHANTOM_WALLET_ID = 'phantom';
 const PHANTOM_WALLET_NAME = 'Phantom';
+const PHANTOM_ADAPTER_NAME = 'Phantom';
 
 export interface PhantomOptions extends Partial<WalletProps> {
   adapterOptions?: Partial<PhantomWalletAdapterConfig>;
@@ -16,6 +17,7 @@ export function phantomWallet(props: InjectedWalletOptions = {}): WalletProps {
   return {
     id: PHANTOM_WALLET_ID,
     name: PHANTOM_WALLET_NAME,
+    adapterName: PHANTOM_ADAPTER_NAME,
     logos: {
       default: <PhantomWalletIcon />,
       transparent: <PhantomWalletTransparentIcon />,

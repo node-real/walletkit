@@ -1,10 +1,10 @@
 import { useDisclosure } from '@/ui/base/hooks/useDisclosure';
 import { useMemo, useEffect } from 'react';
 import { ConnectModalOpenParams, ConnectModalContext } from './context';
-import { RouteProvider, routes } from './RouteProvider';
+import { RouteProvider, ViewRoutes } from './RouteProvider';
 import { useRouter } from './RouteProvider/context';
 import { useWalletKit } from '@/core/components/WalletKitProvider/context';
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 
 export interface ConnectModalProviderProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
   const { options, setAction } = useWalletKit();
-  const { isConnected } = useUIProviderConfig();
+  const { isConnected } = useUIProvider();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
@@ -37,7 +37,7 @@ function WithRouter(props: ConnectModalProviderProps) {
         }, 300);
       },
       onOpen(params: ConnectModalOpenParams = {}) {
-        router.push(params.route ?? routes.CONNECTORS);
+        router.push(params.viewRoute ?? ViewRoutes.CONNECTORS);
         setAction?.(params.action);
         onOpen();
       },
@@ -45,7 +45,7 @@ function WithRouter(props: ConnectModalProviderProps) {
   }, [isOpen, onClose, onOpen, router, setAction]);
 
   useEffect(() => {
-    if (router.route !== routes.CONNECTORS && isConnected && options.closeModalAfterConnected) {
+    if (router.route !== ViewRoutes.CONNECTORS && isConnected && options.closeModalAfterConnected) {
       value?.onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

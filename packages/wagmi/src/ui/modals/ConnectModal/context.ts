@@ -1,9 +1,10 @@
 import { Action } from '@/ui/types';
 import React, { useContext } from 'react';
+import { ViewRoutes } from './RouteProvider';
 
 export interface ConnectModalOpenParams {
   action?: Action;
-  route?: string;
+  viewRoute?: ViewRoutes;
 }
 
 export interface ConnectModalContextProps {

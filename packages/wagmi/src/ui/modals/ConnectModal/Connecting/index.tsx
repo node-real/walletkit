@@ -1,6 +1,6 @@
 import { useWalletConfig } from '@/core/hooks/useWalletConfig';
 import { useUIConnectingView } from '@/ui-data/useUIConnectingView';
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 import { Box } from '@/ui/base/components/Box';
 import { Button } from '@/ui/base/components/Button';
 import { ModalBody } from '@/ui/base/components/Modal/ModalBody';
@@ -22,7 +22,7 @@ import { useWalletKit } from '@/core/components/WalletKitProvider/context';
 
 export function Connecting() {
   const { status, runConnect, onClickTryAgain } = useUIConnectingView();
-  const { walletId } = useUIProviderConfig();
+  const { walletId } = useUIProvider();
 
   const { log } = useWalletKit();
 

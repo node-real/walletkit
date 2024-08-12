@@ -3,11 +3,11 @@ import { Content } from '../Content';
 import { Description } from '../Content/Description';
 import { InfoTitle } from '../Content/InfoTitle';
 import { useUIConnectingView } from '@/ui-data/useUIConnectingView';
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 
 export function UnsupportedContent() {
   const { isWalletConflict } = useUIConnectingView();
-  const { walletId } = useUIProviderConfig();
+  const { walletId } = useUIProvider();
 
   const wallet = useWalletConfig(walletId);
 

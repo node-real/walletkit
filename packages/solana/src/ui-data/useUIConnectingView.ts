@@ -11,9 +11,8 @@ type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 export function useUIConnectingView(): ReturnType<DataSource['useConnectingView']> {
   const { selectedWallet, log, options, autoConnect } = useWalletKit();
 
-  const wallet = selectedWallet;
   const [status, setStatus] = useState(
-    wallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
+    selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
 
   const { select, wallets: adapters } = useWallet();
@@ -45,17 +44,19 @@ export function useUIConnectingView(): ReturnType<DataSource['useConnectingView'
   }, [log, options.onError]);
 
   const runConnect = useCallback(async () => {
-    if (!wallet.isInstalled()) return;
+    if (!selectedWallet.isInstalled()) return;
 
-    select(wallet.id as any);
+    select(selectedWallet.adapterName as any);
 
     if (!autoConnect) {
-      const adapter = adapters.find((item) => item.adapter.name === wallet.id)?.adapter;
+      const adapter = adapters.find(
+        (item) => item.adapter.name === selectedWallet.adapterName,
+      )?.adapter;
       if (adapter) {
         await adapter.connect();
       }
     }
-  }, [adapters, autoConnect, select, wallet]);
+  }, [adapters, autoConnect, select, selectedWallet]);
 
   return {
     isWalletConflict: false,

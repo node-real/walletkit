@@ -1,4 +1,4 @@
-import { useUIProviderConfig } from '@/ui-data/useUIProviderConfig';
+import { useUIProvider } from '@/ui-data/useUIProvider';
 import { toast } from '@/ui/base/components/toast';
 import { useDisclosure } from '@/ui/base/hooks/useDisclosure';
 import { useMemo } from 'react';
@@ -11,7 +11,7 @@ export interface ProfileModalProviderProps {
 export function ProfileModalProvider(props: ProfileModalProviderProps) {
   const { children } = props;
 
-  const { isConnected } = useUIProviderConfig();
+  const { isConnected } = useUIProvider();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 

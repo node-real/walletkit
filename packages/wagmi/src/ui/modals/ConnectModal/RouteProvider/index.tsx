@@ -4,11 +4,11 @@ import { Connecting } from '../Connecting';
 import { Connectors } from '../Connectors';
 import { ConnectWithQRCode } from '../ConnectWithQRCode';
 
-export const routes = {
-  CONNECTING: 'Connecting',
-  CONNECTORS: 'Connectors',
-  CONNECT_WITH_QRCODE: 'ConnectWithQRCode',
-};
+export enum ViewRoutes {
+  CONNECTING = 'Connecting',
+  CONNECTORS = 'Connectors',
+  CONNECT_WITH_QRCODE = 'ConnectWithQRCode',
+}
 
 export interface RouteProviderProps {
   children: React.ReactNode;
@@ -22,11 +22,11 @@ export function RouteProvider(props: RouteProviderProps) {
 
   const view = useMemo(() => {
     switch (route) {
-      case routes.CONNECTING:
+      case ViewRoutes.CONNECTING:
         return <Connecting />;
-      case routes.CONNECTORS:
+      case ViewRoutes.CONNECTORS:
         return <Connectors />;
-      case routes.CONNECT_WITH_QRCODE:
+      case ViewRoutes.CONNECT_WITH_QRCODE:
         return <ConnectWithQRCode />;
     }
     return null;
