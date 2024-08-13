@@ -12,7 +12,6 @@ export function ProfileModalProvider(props: ProfileModalProviderProps) {
   const { children } = props;
 
   const { isConnected } = useUIProvider();
-
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const value = useMemo(() => {

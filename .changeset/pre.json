@@ -1,0 +1,15 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit-solana": "2.2.0",
+    "@node-real/walletkit-wagmi": "2.2.0",
+    "@node-real/walletkit": "2.2.0",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "eleven-chicken-walk"
+  ]
+}
