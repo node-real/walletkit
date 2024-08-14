@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "2.2.1-alpha.0",
+  "version": "2.2.2",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -24,21 +24,13 @@
   "exports": {
     ".": "./dist/index.js",
     "./styles.css": "./dist/style.css",
-    "./wagmi": {
-      "types": "./dist/wagmi/index.d.ts",
-      "default": "./dist/wagmi/index.js"
-    },
-    "./wagmi/wallets": {
-      "types": "./dist/wagmi/wallets.d.ts",
-      "default": "./dist/wagmi/wallets.js"
+    "./evm": {
+      "types": "./dist/evm/wallets/index.d.ts",
+      "default": "./dist/evm/wallets/index.js"
     },
     "./solana": {
-      "types": "./dist/solana/index.d.ts",
-      "default": "./dist/solana/index.js"
-    },
-    "./solana/wallets": {
-      "types": "./dist/solana/wallets.d.ts",
-      "default": "./dist/solana/wallets.js"
+      "types": "./dist/solana/wallets/index.d.ts",
+      "default": "./dist/solana/wallets/index.js"
     }
   },
   "scripts": {

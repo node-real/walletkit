@@ -2,12 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    vanillaExtractPlugin({
+      identifiers: ({ hash }) => `wk_${hash}`,
+    }),
     dts({
       include: 'src',
     }),
@@ -23,10 +27,9 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        'solana/index': 'src/solana/index.ts',
-        'solana/wallets': 'src/solana/wallets.ts',
-        'wagmi/index': 'src/wagmi/index.ts',
-        'wagmi/wallets': 'src/wagmi/wallets.ts',
+        index: 'src/core/index.ts',
+        'solana/wallets/index': 'src/solana/wallets/index.ts',
+        'evm/wallets/index': 'src/evm/wallets/index.ts',
       },
     },
     rollupOptions: {
@@ -35,6 +38,9 @@ export default defineConfig({
           includeDependencies: true,
         }),
       ],
+      output: {
+        chunkFileNames: 'chunk.js',
+      },
     },
   },
 });
