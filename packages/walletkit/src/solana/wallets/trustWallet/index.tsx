@@ -12,6 +12,7 @@ export function trustWallet(props: TrustWalletOptions = {}): SolanaWallet {
 
   return {
     ...trustWalletConfig,
+    walletType: 'solana',
     adapterName: 'Trust',
     showQRCode: false,
     isInstalled: () => {

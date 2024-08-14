@@ -8,6 +8,7 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...tokenPocketConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

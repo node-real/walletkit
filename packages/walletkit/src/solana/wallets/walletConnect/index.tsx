@@ -16,6 +16,7 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
 
   return {
     ...walletConnectConfig,
+    walletType: 'solana',
     adapterName: 'WalletConnect',
     showQRCode: isMobile() ? false : true,
     isInstalled: () => false,

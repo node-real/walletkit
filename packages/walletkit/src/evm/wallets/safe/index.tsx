@@ -11,6 +11,7 @@ export function safe(props: SafeOptions = {}): EvmWallet {
 
   return {
     ...safeConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       return !(typeof window === 'undefined') && window?.parent !== window;

@@ -8,6 +8,7 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...mathWalletConfig,
+    walletType: 'evm',
     spinnerColor: undefined,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

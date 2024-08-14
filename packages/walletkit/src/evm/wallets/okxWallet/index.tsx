@@ -9,6 +9,7 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...okxWalletConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

@@ -1,4 +1,4 @@
-import { useWalletConfig } from '@/core/providers/WalletKitProvider/context';
+import { useWalletSetting } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { getSolanaConfig } from '@/solana/utils/getSolanaConfig';
 import {
@@ -15,11 +15,10 @@ export interface SolanaWalletProviderProps {
 export function SolanaWalletProvider(props: SolanaWalletProviderProps) {
   const { children } = props;
 
-  const { autoConnect, solana } = useWalletConfig();
+  const { autoConnect, solana } = useWalletSetting();
 
   const config = useMemo(() => {
     if (!solana) return;
-
     return getSolanaConfig(solana);
   }, [solana]);
 

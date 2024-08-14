@@ -1,7 +1,6 @@
 import { WalletKitConfig } from '../providers/WalletKitProvider/context';
 import { toast } from '@/core/base/components/toast';
 import { setGlobalData } from '@/core/globalData';
-import { mainnet } from 'viem/chains';
 
 export function getDefaultConfig(config: WalletKitConfig) {
   const finalConfig: WalletKitConfig = {
@@ -17,18 +16,17 @@ export function getDefaultConfig(config: WalletKitConfig) {
       hideNoWalletCTA: false,
       hideOfficialWalletConnectCTA: false,
 
-      closeModalAfterSwitchingNetwork: false,
-      closeModalAfterConnected: true,
-      closeModalOnEsc: true,
-      closeModalOnOverlayClick: true,
-
-      openModalOnWrongNetwork: false,
-
       walletDownloadUrl: `https://trustwallet.com/`,
 
       ...config.appearance,
     },
-    eventHandlers: {
+    events: {
+      closeModalAfterSwitchingNetwork: false,
+      closeModalAfterConnected: true,
+      closeModalOnEsc: true,
+      closeModalOnOverlayClick: true,
+      openModalOnWrongNetwork: false,
+
       onError(_err: any, description: string) {
         if (description) {
           toast.error({
@@ -36,31 +34,25 @@ export function getDefaultConfig(config: WalletKitConfig) {
           });
         }
       },
-      ...config.eventHandlers,
+      ...config.events,
     },
-    wallet: {
+    walletSetting: {
       autoConnect: true,
       walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', // TODO
-      ...config.wallet,
+      ...config.walletSetting,
       metadata: {
         name: 'Connect Wallet',
-        ...config.wallet.metadata,
+        ...config.walletSetting?.metadata,
       },
-      evm: {
-        initialChainId: undefined,
-        ...config.wallet.evm,
-
-        chains: config.wallet.evm.chains ?? [mainnet],
-        wallets: config.wallet.evm.wallets ?? [],
-      },
-      solana: config.wallet.solana,
+      evm: config.walletSetting?.evm,
+      solana: config.walletSetting?.solana,
     },
   };
 
   setGlobalData({
-    metadata: finalConfig.wallet.metadata,
-    walletConnectProjectId: finalConfig.wallet.walletConnectProjectId,
-    solanaRpcUrl: finalConfig.wallet.solana?.rpcUrl,
+    metadata: finalConfig.walletSetting?.metadata,
+    walletConnectProjectId: finalConfig.walletSetting?.walletConnectProjectId,
+    solanaRpcUrl: finalConfig.walletSetting?.solana?.rpcUrl,
   });
 
   return finalConfig;

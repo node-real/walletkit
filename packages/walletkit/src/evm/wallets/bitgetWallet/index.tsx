@@ -9,6 +9,7 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...bitgetWalletConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

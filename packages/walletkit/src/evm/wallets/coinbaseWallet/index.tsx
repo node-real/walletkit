@@ -16,6 +16,7 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
 
   return {
     ...coinbaseWalletConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

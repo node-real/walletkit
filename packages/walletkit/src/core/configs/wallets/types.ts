@@ -1,5 +1,7 @@
 import { ColorMode } from '@/core/providers/ThemeProvider/context';
 
+export type WalletType = 'evm' | 'solana';
+
 export interface WalletConfig {
   id: string;
   name: string;
@@ -14,6 +16,7 @@ export interface WalletConfig {
 }
 
 export interface BaseWallet extends WalletConfig {
+  walletType: WalletType;
   isDisabled?: boolean;
   render?: (props: WalletRenderProps) => React.ReactNode;
   showQRCode?: boolean;
@@ -28,6 +31,7 @@ export interface WalletRenderProps {
     name: string;
     logo: React.ReactElement;
     isDisabled?: boolean;
+    walletType: WalletType;
   };
   onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }

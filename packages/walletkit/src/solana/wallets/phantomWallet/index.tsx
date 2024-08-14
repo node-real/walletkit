@@ -12,6 +12,7 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
 
   return {
     ...phantomWalletConfig,
+    walletType: 'solana',
     adapterName: 'Phantom',
     showQRCode: false,
     isInstalled: () => {

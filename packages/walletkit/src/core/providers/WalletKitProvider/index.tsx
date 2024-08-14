@@ -5,6 +5,7 @@ import { SolanaWalletProvider } from '@/solana/components/SolanaWalletProvider';
 import { Action, WalletKitConfig, WalletKitContext } from './context';
 import { getDefaultConfig } from '../../configs/getDefaultConfig';
 import { BaseWallet } from '@/core/configs/wallets/types';
+import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -31,9 +32,11 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
 
   return (
     <WalletKitContext.Provider value={value}>
-      <ThemeProvider mode={value.config.appearance.mode} theme={value.config.appearance.theme}>
+      <ThemeProvider mode={value.config.appearance!.mode} theme={value.config.appearance!.theme}>
         <EvmWalletProvider>
-          <SolanaWalletProvider>{children}</SolanaWalletProvider>
+          <SolanaWalletProvider>
+            <ConnectModalProvider>{children}</ConnectModalProvider>
+          </SolanaWalletProvider>
         </EvmWalletProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>

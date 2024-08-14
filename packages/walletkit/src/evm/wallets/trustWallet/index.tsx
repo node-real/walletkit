@@ -9,6 +9,7 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...trustWalletConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       if (typeof window === 'undefined') return false;

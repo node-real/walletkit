@@ -13,6 +13,7 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
 
   return {
     ...walletConnectConfig,
+    walletType: 'evm',
     showQRCode: isMobile() ? false : !connectorOptions?.showQrModal,
     isInstalled: () => false,
     getDeepLink: () => undefined,

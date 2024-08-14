@@ -10,6 +10,7 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
 
   return {
     ...binanceWeb3WalletConfig,
+    walletType: 'evm',
     showQRCode: true,
     isInstalled: () => {
       return hasInjectedEvmProvider('isBinance');

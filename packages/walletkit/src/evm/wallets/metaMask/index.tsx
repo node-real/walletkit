@@ -8,6 +8,7 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...metaMaskConfig,
+    walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
       return hasInjectedEvmProvider('isMetaMask');

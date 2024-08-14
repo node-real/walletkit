@@ -7,7 +7,17 @@ import { BaseWallet } from '@/core/configs/wallets/types';
 export type Action = 'add-network' | undefined;
 
 export interface WalletKitConfig {
-  appearance: {
+  walletSetting?: {
+    autoConnect?: boolean;
+    metadata?: { name: string; icon?: string; description?: string; url?: string };
+    walletConnectProjectId?: string;
+    evm?: {
+      initialChainId?: number;
+    } & EvmConfig;
+    solana?: SolanaConfig;
+  };
+
+  appearance?: {
     mode?: ThemeProviderProps['mode'];
     theme?: ThemeProviderProps['theme'];
 
@@ -20,28 +30,19 @@ export interface WalletKitConfig {
     hideNoWalletCTA?: boolean;
     hideOfficialWalletConnectCTA?: boolean;
 
+    walletDownloadUrl?: string;
+  };
+
+  events: {
     closeModalAfterSwitchingNetwork?: boolean;
     closeModalAfterConnected?: boolean;
     closeModalOnEsc?: boolean;
     closeModalOnOverlayClick?: boolean;
-
     openModalOnWrongNetwork?: boolean;
 
-    walletDownloadUrl?: string;
-  };
-  eventHandlers?: {
     onClickWallet?: (wallet: BaseWallet, e?: React.MouseEvent) => undefined | boolean;
     onChainAlreadyAdded?: (wallet: BaseWallet, chainId: number) => void;
     onError?: (err: any, description: string) => void;
-  };
-  wallet: {
-    autoConnect?: boolean;
-    metadata?: { name: string; icon?: string; description?: string; url?: string };
-    walletConnectProjectId?: string;
-    evm: {
-      initialChainId?: number;
-    } & EvmConfig;
-    solana?: SolanaConfig;
   };
 }
 
@@ -63,34 +64,14 @@ export interface WalletKitContextProps {
 
 export const WalletKitContext = React.createContext({} as WalletKitContextProps);
 
-export function useLogger() {
-  return useContext(WalletKitContext).log;
-}
-
-export function useAction() {
-  const { action, setAction } = useContext(WalletKitContext);
-  return {
-    action,
-    setAction,
-  };
-}
-
-export function useSelectedWallet() {
-  const { selectedWallet, setSelectedWallet } = useContext(WalletKitContext);
-  return {
-    selectedWallet,
-    setSelectedWallet,
-  };
+export function useWalletKit() {
+  return useContext(WalletKitContext);
 }
 
 export function useConfig() {
-  return useContext(WalletKitContext).config;
+  return useContext(WalletKitContext).config as Required<WalletKitConfig>;
 }
 
-export function useWalletConfig() {
-  return useContext(WalletKitContext).config.wallet;
-}
-
-export function useAppearanceConfig() {
-  return useContext(WalletKitContext).config.appearance;
+export function useWalletSetting() {
+  return useConfig().walletSetting as Required<WalletKitConfig>['walletSetting'];
 }
