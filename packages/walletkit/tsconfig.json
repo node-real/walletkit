@@ -22,9 +22,9 @@
 
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/solana/*": ["src/solana/*"],
-      "@/wagmi/*": ["src/wagmi/*"]
+      "@/core/*": ["src/core/*"],
+      "@/evm/*": ["src/evm/*"],
+      "@/solana/*": ["src/solana/*"]
     }
   },
   "include": ["src", "__dev__"],
