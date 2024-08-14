@@ -1,7 +1,7 @@
 import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
-import { metaMask, trustWallet } from '@/evm/wallets';
+import { metaMask, trustWallet, walletConnect } from '@/evm/wallets';
 import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
@@ -18,7 +18,7 @@ const config: WalletKitConfig = {
     autoConnect: true,
     evm: {
       initialChainId: 1,
-      wallets: [metaMask(), trustWallet()],
+      wallets: [metaMask(), trustWallet(), walletConnect()],
       chains: [mainnet],
     },
     solana: {

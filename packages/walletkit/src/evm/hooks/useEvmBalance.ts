@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Address } from 'viem';
 import { useBalance, useBlockNumber } from 'wagmi';
 
-export function useWalletKitBalance(address?: Address) {
+export function useEvmBalance(address?: Address) {
   const queryClient = useQueryClient();
 
   const { data: blockNumber } = useBlockNumber({

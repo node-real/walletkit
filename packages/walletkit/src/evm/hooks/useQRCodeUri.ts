@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
 import { useIsConnected } from './useIsConnected';
-import { useWalletKit } from '../components/WalletKitProvider/context';
-import { getGlobalData } from '../globalData';
-import { commonErrorHandler } from '../utils';
+import { useConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
+import { getGlobalData } from '@/core/globalData';
+import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 
 let timer: any;
 
 export function useQRCodeUri() {
   const { connectAsync } = useConnect();
 
-  const { log, options } = useWalletKit();
+  const config = useConfig();
+  const log = useLogger();
   const [wcUri, setWcUri] = useState<string>('');
 
   const connector = useWalletConnectConnector();
@@ -38,10 +39,10 @@ export function useQRCodeUri() {
 
         timer = setTimeout(() => {
           if (error?.code === 4001) {
-            commonErrorHandler({
+            evmCommonErrorHandler({
               log,
               error,
-              handler: options.onError,
+              handler: config.events.onError,
             });
             connectWallet(); // refresh qr code
           }

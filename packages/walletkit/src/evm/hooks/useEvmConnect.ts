@@ -1,15 +1,14 @@
-import { useWalletKit, useWalletSetting } from '@/core/providers/WalletKitProvider/context';
+import { useConfig, useLogger, useWalletSetting } from '@/core/providers/WalletKitProvider/context';
 import { useConnect } from 'wagmi';
 import { ConnectErrorType } from 'wagmi/actions';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 
-export type UseWalletKitConnectProps = Parameters<typeof useConnect>[0];
-export type UseWalletKitConnectReturnType = ReturnType<typeof useConnect>;
+export type UseEvmConnectProps = Parameters<typeof useConnect>[0];
+export type UseEvmConnectReturnType = ReturnType<typeof useConnect>;
 
-export function useWalletKitConnect(
-  props?: UseWalletKitConnectProps,
-): UseWalletKitConnectReturnType {
-  const { log, config } = useWalletKit();
+export function useEvmConnect(props?: UseEvmConnectProps): UseEvmConnectReturnType {
+  const config = useConfig();
+  const log = useLogger();
   const { evm } = useWalletSetting();
 
   const connectProps = {

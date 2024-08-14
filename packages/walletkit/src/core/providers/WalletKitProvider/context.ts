@@ -7,7 +7,7 @@ import { BaseWallet } from '@/core/configs/wallets/types';
 export type Action = 'add-network' | undefined;
 
 export interface WalletKitConfig {
-  walletSetting?: {
+  walletSetting: {
     autoConnect?: boolean;
     metadata?: { name: string; icon?: string; description?: string; url?: string };
     walletConnectProjectId?: string;
@@ -52,7 +52,7 @@ export type WalletErrorProps = {
 };
 
 export interface WalletKitContextProps {
-  log: (...param: any) => void;
+  logger: (...param: any) => void;
   config: WalletKitConfig;
 
   action: Action;
@@ -64,8 +64,24 @@ export interface WalletKitContextProps {
 
 export const WalletKitContext = React.createContext({} as WalletKitContextProps);
 
-export function useWalletKit() {
-  return useContext(WalletKitContext);
+export function useLogger() {
+  return useContext(WalletKitContext).logger;
+}
+
+export function useAction() {
+  const { action, setAction } = useContext(WalletKitContext);
+  return {
+    action,
+    setAction,
+  };
+}
+
+export function useSelectedWallet() {
+  const { selectedWallet, setSelectedWallet } = useContext(WalletKitContext);
+  return {
+    selectedWallet,
+    setSelectedWallet,
+  };
 }
 
 export function useConfig() {

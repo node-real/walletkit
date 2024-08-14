@@ -1,7 +1,7 @@
 import { WalletKitConfig } from '../providers/WalletKitProvider/context';
 
 export interface GlobalDataType {
-  metadata?: WalletKitConfig['wallet']['metadata'];
+  metadata?: WalletKitConfig['walletSetting']['metadata'];
   walletConnectProjectId?: string;
   walletConnectModalIsOpen?: boolean;
   solanaRpcUrl?: string;

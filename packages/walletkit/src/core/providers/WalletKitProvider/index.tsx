@@ -6,6 +6,7 @@ import { Action, WalletKitConfig, WalletKitContext } from './context';
 import { getDefaultConfig } from '../../configs/getDefaultConfig';
 import { BaseWallet } from '@/core/configs/wallets/types';
 import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
+import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -22,7 +23,7 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
   const value = useMemo(() => {
     return {
       config: getDefaultConfig(config),
-      log: debug ? console.log : () => undefined,
+      logger: debug ? console.log : () => undefined,
       action,
       setAction,
       selectedWallet,
@@ -32,6 +33,8 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
 
   return (
     <WalletKitContext.Provider value={value}>
+      <ToastProvider />
+
       <ThemeProvider mode={value.config.appearance!.mode} theme={value.config.appearance!.theme}>
         <EvmWalletProvider>
           <SolanaWalletProvider>

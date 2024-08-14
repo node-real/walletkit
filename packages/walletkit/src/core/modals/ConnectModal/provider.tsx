@@ -1,4 +1,4 @@
-import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { useAction } from '@/core/providers/WalletKitProvider/context';
 import { RouteProvider, ViewRoutes } from './RouteProvider';
 import { useMemo } from 'react';
 import { ConnectModalContext, ConnectModalOpenParams } from './context';
@@ -22,7 +22,7 @@ export function ConnectModalProvider(props: ConnectModalProviderProps) {
 function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
-  const { setAction } = useWalletKit();
+  const { setAction } = useAction();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
 
