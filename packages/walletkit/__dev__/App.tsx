@@ -1,89 +1,110 @@
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import VConsole from 'vconsole';
 import {
+  BaseWallet,
   ConnectModal,
-  ProfileModal,
-  SwitchNetworkModal,
-  ThemeMode,
-  WalletKitButton,
-  WalletKitOptions,
-  WalletKitProvider,
-  defaultWagmiConfig,
   useConnectModal,
-  useProfileModal,
-  useSwitchNetworkModal,
-} from '@/index';
+  useWallets,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
+import './style.css';
+import VConsole from 'vconsole';
+import { metaMask, trustWallet, walletConnect } from '@/evm/index';
 import {
-  binanceWeb3Wallet,
-  bitgetWallet,
-  coinbaseWallet,
-  metaMask,
-  okxWallet,
-  tokenPocket,
-  trustWallet,
-  walletConnect,
-} from '@/wallets';
-import { chains } from './chains';
-
-const queryClient = new QueryClient();
+  trustWallet as solanaTrustWallet,
+  phantomWallet as solanaPhantomWallet,
+} from '@/solana/index';
+import { mainnet } from 'viem/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 new VConsole();
 
-const config = defaultWagmiConfig({
-  appName: 'WalletKit',
-  chains,
-  connectors: [
-    binanceWeb3Wallet(),
-    bitgetWallet(),
-    coinbaseWallet(),
-    metaMask(),
-    okxWallet(),
-    tokenPocket(),
-    trustWallet(),
-    walletConnect(),
-  ],
-});
+const queryClient = new QueryClient();
 
-const options: WalletKitOptions = {
-  initialChainId: 204,
+const config: WalletKitConfig = {
+  walletSetting: {
+    autoConnect: true,
+    evm: {
+      initialChainId: 1,
+      wallets: [metaMask(), trustWallet(), walletConnect()],
+      chains: [mainnet],
+    },
+    solana: {
+      rpcUrl: 'https://solana-rpc.debridge.finance',
+      wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+    },
+  },
+  appearance: {},
+  events: {
+    closeModalOnEsc: false,
+    closeModalOnOverlayClick: false,
+    closeModalAfterConnected: true,
+  },
 };
 
 export default function App() {
-  const [mode, setMode] = useState<ThemeMode>('light');
-  const nextMode = mode === 'light' ? 'dark' : 'light';
-
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
+    <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode={mode} debugMode={true}>
-          <div>mode: {mode} </div>
-          <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
-          <div style={{ height: 20 }} />
-
-          <WalletKitButton />
-          <Example />
-
-          <ConnectModal />
-          <SwitchNetworkModal />
-          <ProfileModal />
-        </WalletKitProvider>
+        <ConnectButton />
+        <ConnectModal />
       </QueryClientProvider>
-    </WagmiProvider>
+    </WalletKitProvider>
   );
 }
 
-function Example() {
-  const connectModal = useConnectModal();
-  const profileModal = useProfileModal();
-  const switchNetworkModal = useSwitchNetworkModal();
+function selectWallets(wallets: BaseWallet[], include: string, exclude: string) {
+  const newWallets: BaseWallet[] = [];
+  wallets.forEach((item) => {
+    if (item.walletType === include) {
+      newWallets.push({ ...item });
+    } else if (item.walletType === exclude) {
+      newWallets.push({
+        ...item,
+        render: ({ wallet, onClick }) => {
+          return <button onClick={onClick}>{wallet.name}</button>;
+        },
+      });
+    }
+  });
+
+  newWallets.forEach((item) => {
+    if (
+      newWallets.find(
+        (e) => e.walletType === include && item.walletType === exclude && e.id === item.id,
+      )
+    ) {
+      item.isVisible = false;
+    }
+  });
+
+  newWallets.sort((a, b) => {
+    if (a.walletType === b.walletType) return 0;
+    if (a.walletType === include) return -1;
+    return 0;
+  });
+
+  return newWallets;
+}
+
+function ConnectButton() {
+  const { onOpen } = useConnectModal();
+  const { wallets, setWallets } = useWallets();
+
+  const onEvm = () => {
+    const newWallets = selectWallets(wallets, 'evm', 'solana');
+    setWallets(newWallets);
+  };
+
+  const onSolana = () => {
+    const newWallets = selectWallets(wallets, 'solana', 'evm');
+    setWallets(newWallets);
+  };
 
   return (
     <>
-      <button onClick={() => connectModal.onOpen()}>Open Connect Modal</button>
-      <button onClick={() => profileModal.onOpen()}>Open Profile Modal</button>
-      <button onClick={() => switchNetworkModal.onOpen()}>Open SwitchNetwork Modal</button>
+      <button onClick={() => onOpen()}>connect</button>
+      <button onClick={() => onEvm()}>evm</button>
+      <button onClick={() => onSolana()}>solana</button>
     </>
   );
 }
