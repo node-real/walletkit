@@ -49,7 +49,6 @@ export function ConnectingView(props: ConnectingViewProps) {
     CONNECT_STATUS.NOTCONNECTED,
     CONNECT_STATUS.REJECTED,
   ].includes(status);
-
   const isLoading = status === CONNECT_STATUS.CONNECTING;
 
   useAutoCloseConnectModal(isConnected);
