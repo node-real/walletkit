@@ -1,4 +1,4 @@
-import { safeConfig } from '@/core/configs/wallets/safe';
+import { safeConfig } from '@/core/configs/safe';
 import { SafeParameters, safe as wagmiSafe } from 'wagmi/connectors';
 import { EvmWallet } from '../types';
 
@@ -11,6 +11,7 @@ export function safe(props: SafeOptions = {}): EvmWallet {
 
   return {
     ...safeConfig,
+    id: 'safe',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {

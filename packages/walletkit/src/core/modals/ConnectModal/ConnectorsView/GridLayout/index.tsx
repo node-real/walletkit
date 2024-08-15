@@ -4,20 +4,18 @@ import { ModalFooter } from '@/core/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/core/base/icons/WalletIcon';
 import { cx } from '@/core/base/utils/css';
 import { WalletOption } from './WalletOption';
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet } from '@/core/configs/types';
 import { useConfig } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletButton } from './styles.css';
 
-export function GridLayout(props: { wallets: BaseWallet[] }) {
-  const { wallets } = props;
+export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
+  const { visibleWallets } = props;
   const { appearance } = useConfig();
 
   return (
     <>
       <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="grid">
-        {wallets?.map(
-          (w, index) => w.isVisible !== false && <WalletOption key={index} wallet={w} />,
-        )}
+        {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
       {!appearance.hideNoWalletCTA && (

@@ -1,4 +1,4 @@
-import { metaMaskConfig } from '@/core/configs/wallets/metaMask';
+import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasInjectedEvmProvider } from '../utils';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
@@ -8,6 +8,7 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...metaMaskConfig,
+    id: 'metaMask',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {

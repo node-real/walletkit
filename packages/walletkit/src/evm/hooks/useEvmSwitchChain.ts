@@ -6,7 +6,7 @@ import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 export type UseEvmSwitchChainProps = Parameters<typeof useSwitchChain>[0];
 
 export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
-  const config = useConfig();
+  const { eventConfig } = useConfig();
   const log = useLogger();
 
   const result = useSwitchChain({
@@ -16,7 +16,7 @@ export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
       onError(error: SwitchChainErrorType, ...params) {
         evmCommonErrorHandler({
           log,
-          handler: config.events.onError,
+          handler: eventConfig.onError,
           error,
         });
         props?.mutation?.onError?.(error, ...params);

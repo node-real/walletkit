@@ -3,7 +3,7 @@ import {
   type CoinbaseWalletParameters,
 } from 'wagmi/connectors';
 import { getGlobalData } from '@/core/globalData';
-import { coinbaseWalletConfig } from '@/core/configs/wallets/coinbaseWallet';
+import { coinbaseWalletConfig } from '@/core/configs/coinbaseWallet';
 import { EvmWallet } from '../types';
 import { hasInjectedEvmProvider } from '../utils';
 
@@ -16,6 +16,7 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
 
   return {
     ...coinbaseWalletConfig,
+    id: 'coinbaseWalletSDK',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {

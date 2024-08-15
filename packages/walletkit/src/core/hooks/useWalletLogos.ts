@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
-import { BaseWallet } from '../configs/wallets/types';
+import { BaseWallet } from '../configs/types';
 import { useTheme } from '../providers/ThemeProvider/context';
 
-type LogosType = BaseWallet['logos'];
-
-export function useWalletLogos(walletLogos: LogosType) {
+export function useWalletLogos(walletLogos: BaseWallet['logos']) {
   const { colorMode } = useTheme();
 
   const logos = useMemo(() => {

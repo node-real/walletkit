@@ -10,7 +10,7 @@ import { Text } from '@/core/base/components/Text';
 import { Button } from '@/core/base/components/Button';
 import { cx } from '@/core/base/utils/css';
 import { useWalletRender } from '@/core/hooks/useWalletRender';
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet } from '@/core/configs/types';
 import { useRef } from 'react';
 import { SetWalletClickRef } from '../../SetWalletClickRef';
 
@@ -18,7 +18,7 @@ export function WalletOption(props: { wallet: BaseWallet }) {
   const { wallet } = props;
 
   const clickRef = useRef<any>();
-  const render = useWalletRender({
+  const component = useWalletRender({
     wallet,
     layout: 'list',
     clickRef,
@@ -45,7 +45,7 @@ export function WalletOption(props: { wallet: BaseWallet }) {
   return (
     <>
       <SetWalletClickRef wallet={wallet} clickRef={clickRef} />
-      {render()}
+      {component}
     </>
   );
 }

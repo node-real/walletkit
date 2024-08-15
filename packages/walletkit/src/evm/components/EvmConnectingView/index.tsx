@@ -4,7 +4,7 @@ import {
   useAction,
   useConfig,
   useSelectedWallet,
-  useWalletSetting,
+  useWalletConfig,
 } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
 import { useWalletConnector } from '@/evm/hooks/useWalletConnector';
@@ -12,17 +12,17 @@ import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useState, useCallback } from 'react';
 
 export function EvmConnectingView() {
-  const config = useConfig();
+  const { eventConfig } = useConfig();
+  const { evmConfig } = useWalletConfig();
   const { action } = useAction();
   const { selectedWallet } = useSelectedWallet();
-  const { evm } = useWalletSetting();
+
+  const isConnected = useIsConnected();
+  const selectedConnector = useWalletConnector(selectedWallet.id);
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
-
-  const isConnected = useIsConnected();
-  const selectedConnector = useWalletConnector(selectedWallet.id);
 
   const { connect } = useEvmConnect({
     mutation: {
@@ -63,11 +63,11 @@ export function EvmConnectingView() {
           }
         } else if (data) {
           if (
-            evm?.initialChainId &&
-            data.chainId === evm.initialChainId &&
+            evmConfig?.initialChainId &&
+            data.chainId === evmConfig.initialChainId &&
             action === 'add-network'
           ) {
-            config.events.onChainAlreadyAdded?.(selectedWallet, evm.initialChainId);
+            eventConfig.onChainAlreadyAdded?.(selectedWallet, evmConfig.initialChainId);
           }
         }
       },

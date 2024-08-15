@@ -11,7 +11,7 @@ let timer: any;
 export function useQRCodeUri() {
   const { connectAsync } = useConnect();
 
-  const config = useConfig();
+  const { eventConfig } = useConfig();
   const log = useLogger();
   const [wcUri, setWcUri] = useState<string>('');
 
@@ -42,7 +42,7 @@ export function useQRCodeUri() {
             evmCommonErrorHandler({
               log,
               error,
-              handler: config.events.onError,
+              handler: eventConfig.onError,
             });
             connectWallet(); // refresh qr code
           }

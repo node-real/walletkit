@@ -6,18 +6,16 @@ import { cx } from '@/core/base/utils/css';
 import { useConfig } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletLink } from './styles.css';
 import { WalletOption } from './WalletOption';
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet } from '@/core/configs/types';
 
-export function ListLayout(props: { wallets: BaseWallet[] }) {
-  const { wallets } = props;
+export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
+  const { visibleWallets } = props;
   const { appearance } = useConfig();
 
   return (
     <>
       <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="list">
-        {wallets?.map(
-          (w, index) => w.isVisible !== false && <WalletOption key={index} wallet={w} />,
-        )}
+        {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
       {!appearance.hideNoWalletCTA && (

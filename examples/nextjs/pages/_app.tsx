@@ -11,30 +11,22 @@ import {
   WalletKitConfig,
 } from '@node-real/walletkit';
 import { AppProps } from 'next/app';
-import {
-  trustWallet as solanaTrustWallet,
-  phantomWallet as solanaPhantomWallet,
-} from '@node-real/walletkit/solana';
 
 const queryClient = new QueryClient();
 
 const config: WalletKitConfig = {
-  walletSetting: {
+  walletConfig: {
     autoConnect: true,
-    evm: {
+    evmConfig: {
       initialChainId: 1,
       wallets: [metaMask(), trustWallet(), walletConnect()],
       chains: [mainnet] as any[],
-    },
-    solana: {
-      rpcUrl: 'https://solana-rpc.debridge.finance',
-      wallets: [solanaTrustWallet(), solanaPhantomWallet()],
     },
   },
   appearance: {
     mode: 'light',
   },
-  events: {
+  eventConfig: {
     closeModalOnEsc: false,
     closeModalOnOverlayClick: false,
     closeModalAfterConnected: true,

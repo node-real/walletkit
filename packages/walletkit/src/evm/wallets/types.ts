@@ -1,6 +1,6 @@
 import { CreateConnectorFn } from 'wagmi';
 import { InjectedParameters } from './injected';
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet } from '@/core/configs/types';
 
 export interface EvmWallet extends BaseWallet {
   getCreateConnectorFn: () => CreateConnectorFn;

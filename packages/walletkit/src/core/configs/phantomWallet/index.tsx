@@ -2,7 +2,6 @@ import { WalletConfig } from '../types';
 import { PhantomWalletIcon, PhantomWalletTransparentIcon } from './icon';
 
 export const phantomWalletConfig: WalletConfig = {
-  id: 'phantom',
   name: 'Phantom',
   logos: {
     default: <PhantomWalletIcon />,

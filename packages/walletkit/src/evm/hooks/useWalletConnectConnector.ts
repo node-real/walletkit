@@ -1,7 +1,7 @@
 import { useConnectors } from 'wagmi';
-import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
+import { isWalletConnect } from '../wallets/walletConnect';
 
 export function useWalletConnectConnector() {
   const connectors = useConnectors();
-  return connectors.find((item) => item.id === walletConnectConfig.id);
+  return connectors.find((item) => isWalletConnect(item.id));
 }

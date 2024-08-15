@@ -1,4 +1,4 @@
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet } from '@/core/configs/types';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { SetEvmWalletClickRef } from '@/evm/components/SetEvmWalletClickRef';
 import { SetSolanaWalletClickRef } from '@/solana/components/SetSolanaWalletClickRef';

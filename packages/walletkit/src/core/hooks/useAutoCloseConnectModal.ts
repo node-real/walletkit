@@ -5,15 +5,19 @@ import { useConnectModal } from '../modals/ConnectModal/context';
 import { useRouter } from '../modals/ConnectModal/RouteProvider/context';
 
 export function useAutoCloseConnectModal(isConnected: boolean) {
-  const { events } = useConfig();
+  const { eventConfig } = useConfig();
 
   const router = useRouter();
   const { onClose } = useConnectModal();
 
   useEffect(() => {
-    if (router.route !== ViewRoutes.CONNECTORS && isConnected && events.closeModalAfterConnected) {
+    if (
+      router.route !== ViewRoutes.CONNECTORS &&
+      isConnected &&
+      eventConfig.closeModalAfterConnected
+    ) {
       onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, router.route, events.closeModalAfterConnected]);
+  }, [isConnected, router.route, eventConfig.closeModalAfterConnected]);
 }

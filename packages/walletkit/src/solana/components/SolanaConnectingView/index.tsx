@@ -4,7 +4,7 @@ import {
   useConfig,
   useLogger,
   useSelectedWallet,
-  useWalletSetting,
+  useWalletConfig,
 } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
@@ -17,15 +17,14 @@ type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 export function SolanaConnectingView() {
   const log = useLogger();
   const { selectedWallet } = useSelectedWallet();
-  const config = useConfig();
-
-  const { autoConnect } = useWalletSetting();
+  const { eventConfig } = useConfig();
+  const { autoConnect } = useWalletConfig();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
 
-  const { select, wallets: adapters, connected: isConnected } = useWallet();
+  const { select, wallets: adapters, connected } = useWallet();
 
   useEffect(() => {
     const onError = (error: WalletError) => {
@@ -43,18 +42,18 @@ export function SolanaConnectingView() {
 
       solanaCommonErrorHandler({
         log,
-        handler: config.events.onError,
+        handler: eventConfig.onError,
         error: {
           message,
         },
       });
     };
 
-    EventEmitter.on(EventEmitter.WalletError, onError);
+    EventEmitter.on(EventEmitter.SolanaWalletError, onError);
     return () => {
-      EventEmitter.off(EventEmitter.WalletError, onError);
+      EventEmitter.off(EventEmitter.SolanaWalletError, onError);
     };
-  }, [config.events.onError, log]);
+  }, [eventConfig.onError, log]);
 
   const runConnect = useCallback(async () => {
     if (!selectedWallet.isInstalled()) return;
@@ -76,7 +75,7 @@ export function SolanaConnectingView() {
       status={status}
       runConnect={runConnect}
       wallet={selectedWallet}
-      isConnected={isConnected}
+      isConnected={connected}
     />
   );
 }

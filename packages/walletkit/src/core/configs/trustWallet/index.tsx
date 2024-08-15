@@ -7,7 +7,6 @@ import {
 } from './icon';
 
 export const trustWalletConfig: WalletConfig = {
-  id: 'trust',
   name: 'Trust Wallet',
   logos: {
     default: {

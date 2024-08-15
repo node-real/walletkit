@@ -5,7 +5,7 @@ import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
 
 export function ConnectModal() {
-  const config = useConfig();
+  const { eventConfig } = useConfig();
   const { isOpen, onClose } = useConnectModal();
   const { view, history, back } = useRouter();
 
@@ -16,8 +16,8 @@ export function ConnectModal() {
       className="wk-connect-modal"
       isOpen={isOpen}
       onClose={onClose}
-      closeOnEsc={config.events?.closeModalOnEsc}
-      closeOnOverlayClick={config.events?.closeModalOnOverlayClick}
+      closeOnEsc={eventConfig?.closeModalOnEsc}
+      closeOnOverlayClick={eventConfig?.closeModalOnOverlayClick}
     >
       <Navbar showBack={showBack} onBack={back} onClose={onClose} />
       {view}

@@ -2,7 +2,6 @@ import { WalletConfig } from '../types';
 import { MetaMaskIcon, MetaMaskTransparentIcon } from './icon';
 
 export const metaMaskConfig: WalletConfig = {
-  id: 'metaMask',
   name: 'MetaMask',
   logos: {
     default: <MetaMaskIcon />,

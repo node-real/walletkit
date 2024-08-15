@@ -4,7 +4,7 @@ import {
 } from '@solana/wallet-adapter-wallets';
 import { SolanaWallet } from '../types';
 import { isMobile } from '@/core/base/utils/mobile';
-import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
+import { walletConnectConfig } from '@/core/configs/walletConnect';
 import { getGlobalData } from '@/core/globalData';
 
 interface WalletConnectOptions extends Partial<SolanaWallet> {
@@ -16,6 +16,7 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
 
   return {
     ...walletConnectConfig,
+    id: 'solana:walletConnect',
     walletType: 'solana',
     adapterName: 'WalletConnect',
     showQRCode: isMobile() ? false : true,
@@ -49,4 +50,8 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
     },
     ...restProps,
   };
+}
+
+export function isWalletConnect(id: string) {
+  return id === walletConnect().id;
 }

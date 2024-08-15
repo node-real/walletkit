@@ -10,11 +10,11 @@ import { useConfig, useWallets } from '@/core/providers/WalletKitProvider/contex
 export function ConnectorsView() {
   const { appearance } = useConfig();
   const { wallets } = useWallets();
-
   const { isMobileLayout } = useResponsive();
 
+  const visibleWallets = wallets.filter((item) => item.isVisible !== false);
   const useGridLayout =
-    wallets.length >= appearance.gridLayoutThreshold! ||
+    visibleWallets.length >= appearance.gridLayoutThreshold! ||
     (isMobileLayout && appearance.useGridLayoutOnMobile);
 
   return (
@@ -25,7 +25,11 @@ export function ConnectorsView() {
         <Box className={cx('wk-disclaimer', clsDisclaimer)}>{appearance.disclaimer}</Box>
       )}
 
-      {useGridLayout ? <GridLayout wallets={wallets} /> : <ListLayout wallets={wallets} />}
+      {useGridLayout ? (
+        <GridLayout visibleWallets={visibleWallets} />
+      ) : (
+        <ListLayout visibleWallets={visibleWallets} />
+      )}
     </>
   );
 }

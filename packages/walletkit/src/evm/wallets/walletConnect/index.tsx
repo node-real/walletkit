@@ -2,7 +2,7 @@ import { getGlobalData } from '@/core/globalData';
 import { WalletConnectParameters, walletConnect as wagmiWalletConnect } from 'wagmi/connectors';
 import { EvmWallet } from '../types';
 import { isMobile } from '@/core/base/utils/mobile';
-import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
+import { walletConnectConfig } from '@/core/configs/walletConnect';
 
 interface WalletConnectOptions extends Partial<EvmWallet> {
   connectorOptions?: Partial<WalletConnectParameters>;
@@ -13,6 +13,7 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
 
   return {
     ...walletConnectConfig,
+    id: 'walletConnect',
     walletType: 'evm',
     showQRCode: isMobile() ? false : !connectorOptions?.showQrModal,
     isInstalled: () => false,
@@ -51,4 +52,8 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
     },
     ...restProps,
   };
+}
+
+export function isWalletConnect(id?: string) {
+  return id === walletConnect().id;
 }

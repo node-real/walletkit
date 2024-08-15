@@ -3,7 +3,7 @@ import { useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
 import { useQRCodeUri } from '@/evm/hooks/useQRCodeUri';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { EvmWallet } from '@/evm/wallets';
+import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 
 export function EvmConnectWithQRCodeView() {
   const { selectedWallet } = useSelectedWallet();
@@ -19,6 +19,7 @@ export function EvmConnectWithQRCodeView() {
       qrCodeUri={qrCodeUri}
       onClickOpenWcModal={wcModal.onOpen}
       isConnected={isConnected}
+      isWalletConnect={isWalletConnect(selectedWallet.id)}
     />
   );
 }

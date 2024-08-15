@@ -9,7 +9,6 @@ import { Content } from '@/core/components/Content';
 import { Description } from '@/core/components/Content/Description';
 import { ErrorTitle } from '@/core/components/Content/ErrorTitle';
 import { InfoTitle } from '@/core/components/Content/InfoTitle';
-import { BaseWallet } from '@/core/configs/wallets/types';
 import { CONNECT_STATUS } from '@/core/constants';
 import { useWalletDownloadUrl } from '@/core/hooks/useWalletDownloadUrl';
 import { useWalletLogos } from '@/core/hooks/useWalletLogos';
@@ -17,6 +16,7 @@ import { useLogger } from '@/core/providers/WalletKitProvider/context';
 import { useEffect } from 'react';
 import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
+import { BaseWallet } from '@/core/configs/types';
 
 interface ConnectingViewProps {
   status: CONNECT_STATUS;
@@ -29,7 +29,6 @@ export function ConnectingView(props: ConnectingViewProps) {
   const { status, runConnect, wallet, isConnected } = props;
 
   const log = useLogger();
-
   const logos = useWalletLogos(wallet.logos);
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
@@ -50,6 +49,7 @@ export function ConnectingView(props: ConnectingViewProps) {
     CONNECT_STATUS.NOTCONNECTED,
     CONNECT_STATUS.REJECTED,
   ].includes(status);
+
   const isLoading = status === CONNECT_STATUS.CONNECTING;
 
   useAutoCloseConnectModal(isConnected);

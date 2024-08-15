@@ -1,4 +1,3 @@
-import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { isMobile } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
@@ -11,7 +10,7 @@ import {
   useWallets,
 } from '@/core/providers/WalletKitProvider/context';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { EvmWallet } from '@/evm/wallets';
+import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
 
@@ -22,7 +21,7 @@ interface SetEvmWalletClickRefProps {
 export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const { clickRef } = props;
 
-  const config = useConfig();
+  const { eventConfig } = useConfig();
   const log = useLogger();
   const { setSelectedWallet } = useSelectedWallet();
 
@@ -35,13 +34,13 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const timerRef = useRef<any>();
   const mobile = isMobile();
-  const { wallets } = useWallets('evm');
+  const { wallets } = useWallets();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const connector = connectors.find((item) => item.id === walletId)!;
     const wallet = wallets.find((item) => item.id === walletId)! as EvmWallet;
 
-    const pass = config.events.onClickWallet?.(wallet, e);
+    const pass = eventConfig.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[click wallet]', `connector:`, connector);
@@ -72,7 +71,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (connector.id === walletConnectConfig.id) {
+      if (isWalletConnect(connector.id)) {
         if (wallet.showQRCode) {
           jumpToQRCodeView();
         } else {
@@ -84,7 +83,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
           if (deepLink) {
             window.open(deepLink, '_self', 'noopener noreferrer');
           } else {
-            config.events.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
+            eventConfig.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
           }
         } else if (wallet.showQRCode) {
           jumpToQRCodeView();

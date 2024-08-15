@@ -1,4 +1,4 @@
-import { BaseWallet, WalletRenderProps } from '../configs/wallets/types';
+import { BaseWallet, WalletRenderProps } from '../configs/types';
 import { useTheme } from '../providers/ThemeProvider/context';
 import { useWalletLogos } from './useWalletLogos';
 
@@ -26,6 +26,7 @@ export function useWalletRender(props: UseWalletRenderProps) {
       name: wallet.name,
       logo: layout === 'grid' ? logos.default : logos.transparent,
       isDisabled: wallet.isDisabled,
+      isVisible: wallet.isVisible,
     },
     onClick(e: React.MouseEvent<Element, MouseEvent>) {
       clickRef.current?.(wallet.id, e);
@@ -34,7 +35,5 @@ export function useWalletRender(props: UseWalletRenderProps) {
 
   const render = wallet.render ?? defaultRender;
 
-  return () => {
-    return render?.(renderOptions);
-  };
+  return render?.(renderOptions);
 }

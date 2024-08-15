@@ -28,7 +28,7 @@ class CustomEventEmitter {
     }
   }
 
-  WalletError = 'WalletError';
+  SolanaWalletError = 'SolanaWalletError';
 }
 
 export const EventEmitter = new CustomEventEmitter();

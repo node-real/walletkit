@@ -1,5 +1,5 @@
 import { isMobile } from '@/core/base/utils/mobile';
-import { okxWalletConfig } from '@/core/configs/wallets/okxWallet';
+import { okxWalletConfig } from '@/core/configs/okxWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
@@ -9,6 +9,7 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...okxWalletConfig,
+    id: 'okxWallet',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
@@ -30,8 +31,8 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return injected({
         shimDisconnect: true,
         target: {
-          id: okxWalletConfig.id,
-          name: okxWalletConfig.name,
+          id: okxWallet().id,
+          name: okxWallet().name,
           async provider() {
             if (isMobile()) {
               return window.ethereum || window.okexchain;

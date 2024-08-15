@@ -1,7 +1,7 @@
 import { PhantomWalletAdapter, PhantomWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
 import { hasInjectedSolanaProvider } from '../utils';
 import { SolanaWallet } from '../types';
-import { phantomWalletConfig } from '@/core/configs/wallets/phantomWallet';
+import { phantomWalletConfig } from '@/core/configs/phantomWallet';
 
 interface PhantomOptions extends Partial<SolanaWallet> {
   adapterOptions?: Partial<PhantomWalletAdapterConfig>;
@@ -12,6 +12,7 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
 
   return {
     ...phantomWalletConfig,
+    id: 'solana:phantom',
     walletType: 'solana',
     adapterName: 'Phantom',
     showQRCode: false,

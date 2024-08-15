@@ -1,5 +1,5 @@
 import { sleep } from '@/core/utils/common';
-import { trustWalletConfig } from '@/core/configs/wallets/trustWallet';
+import { trustWalletConfig } from '@/core/configs/trustWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
@@ -9,6 +9,7 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...trustWalletConfig,
+    id: 'trust',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
@@ -33,8 +34,8 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return injected({
         shimDisconnect: true,
         target: {
-          id: trustWalletConfig.id,
-          name: trustWalletConfig.name,
+          id: trustWallet().id,
+          name: trustWallet().name,
           async setup() {
             if (typeof window === 'undefined') return;
             await sleep();

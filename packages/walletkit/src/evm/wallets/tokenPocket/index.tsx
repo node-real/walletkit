@@ -1,4 +1,4 @@
-import { tokenPocketConfig } from '@/core/configs/wallets/tokenPocket';
+import { tokenPocketConfig } from '@/core/configs/tokenPocket';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
 import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
@@ -8,6 +8,7 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...tokenPocketConfig,
+    id: 'tokenPocket',
     walletType: 'evm',
     showQRCode: false,
     isInstalled: () => {
@@ -32,8 +33,8 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return injected({
         shimDisconnect: true,
         target: {
-          id: tokenPocketConfig.id,
-          name: tokenPocketConfig.name,
+          id: tokenPocket().id,
+          name: tokenPocket().name,
           async provider() {
             const provider =
               getInjectedEvmProvider('isTokenPocket') ??

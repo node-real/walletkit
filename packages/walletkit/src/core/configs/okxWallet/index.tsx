@@ -2,7 +2,6 @@ import { WalletConfig } from '../types';
 import { OkxWalletIcon, OkxWalletTransparentIcon } from './icon';
 
 export const okxWalletConfig: WalletConfig = {
-  id: 'okxWallet',
   name: 'OKX Wallet',
   logos: {
     default: <OkxWalletIcon />,

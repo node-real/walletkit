@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
-import { BaseWallet } from '../configs/wallets/types';
+import { BaseWallet } from '../configs/types';
 import { useConfig } from '../providers/WalletKitProvider/context';
 
-type DownloadUrlsType = BaseWallet['downloadUrls'];
-
-export function useWalletDownloadUrl(urls: DownloadUrlsType) {
+export function useWalletDownloadUrl(urls: BaseWallet['downloadUrls']) {
   const { appearance } = useConfig();
 
   const url = useMemo(() => {

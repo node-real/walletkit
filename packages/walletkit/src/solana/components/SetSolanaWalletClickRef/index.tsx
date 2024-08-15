@@ -18,12 +18,12 @@ interface SetSolanaWalletClickRefProps {
 export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
   const { clickRef } = props;
 
-  const config = useConfig();
+  const { eventConfig } = useConfig();
   const log = useLogger();
   const { setSelectedWallet } = useSelectedWallet();
 
   const { disconnect } = useWallet();
-  const { wallets } = useWallets('solana');
+  const { wallets } = useWallets();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -33,7 +33,7 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = wallets.find((item) => item.id === walletId)! as SolanaWallet;
 
-    const pass = config.events.onClickWallet?.(wallet, e);
+    const pass = eventConfig.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[click wallet]', `wallet:`, wallet);

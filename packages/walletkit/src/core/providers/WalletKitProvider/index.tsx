@@ -4,34 +4,33 @@ import { EvmWalletProvider } from '@/evm/components/EvmWalletProvider';
 import { SolanaWalletProvider } from '@/solana/components/SolanaWalletProvider';
 import { Action, WalletKitConfig, WalletKitContext } from './context';
 import { getDefaultConfig } from '../../configs/getDefaultConfig';
-import { BaseWallet } from '@/core/configs/wallets/types';
 import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
 import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
+import { BaseWallet } from '@/core/configs/types';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
   children?: React.ReactNode;
-  debug?: boolean;
 }
 
 export function WalletKitProvider(props: WalletKitProviderProps) {
-  const { config, debug = false, children } = props;
+  const { config, children } = props;
 
   const [action, setAction] = useState<Action>();
   const [selectedWallet, setSelectedWallet] = useState<BaseWallet>({} as BaseWallet);
 
   const initialWallets = useMemo(() => {
-    const evmWallets = config.walletSetting?.evm?.wallets ?? [];
-    const solanaWallets = config.walletSetting?.solana?.wallets ?? [];
+    const evmWallets = config.walletConfig?.evmConfig?.wallets ?? [];
+    const solanaWallets = config.walletConfig?.solanaConfig?.wallets ?? [];
     return [...evmWallets, ...solanaWallets];
-  }, [config.walletSetting?.evm?.wallets, config.walletSetting?.solana?.wallets]);
+  }, [config.walletConfig?.evmConfig?.wallets, config.walletConfig?.solanaConfig?.wallets]);
 
   const [wallets, setWallets] = useState<BaseWallet[]>(initialWallets);
 
   const value = useMemo(() => {
     return {
       config: getDefaultConfig(config),
-      logger: debug ? console.log : () => undefined,
+      logger: config.debug ? console.log : () => undefined,
       action,
       setAction,
       selectedWallet,
@@ -39,7 +38,7 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
       wallets,
       setWallets,
     };
-  }, [action, config, debug, selectedWallet, wallets]);
+  }, [action, config, selectedWallet, wallets]);
 
   return (
     <WalletKitContext.Provider value={value}>

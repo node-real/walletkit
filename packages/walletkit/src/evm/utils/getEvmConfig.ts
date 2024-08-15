@@ -1,9 +1,9 @@
 import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
-import { EvmWallet, walletConnect } from '@/evm/wallets';
-import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
+import { EvmWallet, isWalletConnect, walletConnect } from '@/evm/wallets';
 
 export interface EvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
+  initialChainId?: number;
   chains: Chain[];
   wallets: EvmWallet[];
 }
@@ -48,7 +48,7 @@ function getCreateConnectorFns(wallets: EvmWallet[]) {
 // Try to keep only one walletConnect connector in a project
 // or multiple walletConnect connectors may lead some competition issues.
 function createSingletonWalletConnect(wallets: EvmWallet[], fns: CreateConnectorFn[]) {
-  if (wallets.find((w) => w.id === walletConnectConfig.id)) {
+  if (wallets.find((w) => isWalletConnect(w.id))) {
     return;
   }
 

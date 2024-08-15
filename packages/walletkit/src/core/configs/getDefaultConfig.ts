@@ -20,7 +20,8 @@ export function getDefaultConfig(config: WalletKitConfig) {
 
       ...config.appearance,
     },
-    events: {
+
+    eventConfig: {
       closeModalAfterSwitchingNetwork: false,
       closeModalAfterConnected: true,
       closeModalOnEsc: true,
@@ -34,25 +35,26 @@ export function getDefaultConfig(config: WalletKitConfig) {
           });
         }
       },
-      ...config.events,
+      ...config.eventConfig,
     },
-    walletSetting: {
+
+    walletConfig: {
       autoConnect: true,
       walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', // TODO
-      ...config.walletSetting,
+      ...config.walletConfig,
       metadata: {
         name: 'Connect Wallet',
-        ...config.walletSetting?.metadata,
+        ...config.walletConfig?.metadata,
       },
-      evm: config.walletSetting?.evm,
-      solana: config.walletSetting?.solana,
+      evmConfig: config.walletConfig?.evmConfig,
+      solanaConfig: config.walletConfig?.solanaConfig,
     },
   };
 
   setGlobalData({
-    metadata: finalConfig.walletSetting?.metadata,
-    walletConnectProjectId: finalConfig.walletSetting?.walletConnectProjectId,
-    solanaRpcUrl: finalConfig.walletSetting?.solana?.rpcUrl,
+    metadata: finalConfig.walletConfig?.metadata,
+    walletConnectProjectId: finalConfig.walletConfig?.walletConnectProjectId,
+    solanaRpcUrl: finalConfig.walletConfig?.solanaConfig?.rpcUrl,
   });
 
   return finalConfig;

@@ -2,20 +2,12 @@ import { ThemeProviderProps } from '../ThemeProvider';
 import React, { useContext } from 'react';
 import { EvmConfig } from '@/evm/utils/getEvmConfig';
 import { SolanaConfig } from '@/solana/utils/getSolanaConfig';
-import { BaseWallet, WalletType } from '@/core/configs/wallets/types';
+import { BaseWallet, WalletType } from '@/core/configs/types';
 
 export type Action = 'add-network' | undefined;
 
 export interface WalletKitConfig {
-  walletSetting: {
-    autoConnect?: boolean;
-    metadata?: { name: string; icon?: string; description?: string; url?: string };
-    walletConnectProjectId?: string;
-    evm?: {
-      initialChainId?: number;
-    } & EvmConfig;
-    solana?: SolanaConfig;
-  };
+  debug?: boolean;
 
   appearance?: {
     mode?: ThemeProviderProps['mode'];
@@ -33,7 +25,7 @@ export interface WalletKitConfig {
     walletDownloadUrl?: string;
   };
 
-  events: {
+  eventConfig?: {
     closeModalAfterSwitchingNetwork?: boolean;
     closeModalAfterConnected?: boolean;
     closeModalOnEsc?: boolean;
@@ -43,6 +35,14 @@ export interface WalletKitConfig {
     onClickWallet?: (wallet: BaseWallet, e?: React.MouseEvent) => undefined | boolean;
     onChainAlreadyAdded?: (wallet: BaseWallet, chainId: number) => void;
     onError?: (err: any, description: string) => void;
+  };
+
+  walletConfig: {
+    autoConnect?: boolean;
+    metadata?: { name: string; icon?: string; description?: string; url?: string };
+    walletConnectProjectId?: string;
+    evmConfig?: EvmConfig;
+    solanaConfig?: SolanaConfig;
   };
 }
 
@@ -107,6 +107,10 @@ export function useConfig() {
   return useContext(WalletKitContext).config as Required<WalletKitConfig>;
 }
 
-export function useWalletSetting() {
-  return useConfig().walletSetting as Required<WalletKitConfig>['walletSetting'];
+export function useAppearance() {
+  return useConfig().appearance as Required<WalletKitConfig>['appearance'];
+}
+
+export function useWalletConfig() {
+  return useConfig().walletConfig as Required<WalletKitConfig>['walletConfig'];
 }

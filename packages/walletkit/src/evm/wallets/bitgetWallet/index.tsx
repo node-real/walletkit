@@ -1,4 +1,4 @@
-import { bitgetWalletConfig } from '@/core/configs/wallets/bitgetWallet';
+import { bitgetWalletConfig } from '@/core/configs/bitgetWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
 import { isMobile } from '@/core/base/utils/mobile';
@@ -9,9 +9,10 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
   return {
     ...bitgetWalletConfig,
+    id: 'bitgetWallet',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
+    isInstalled() {
       if (typeof window === 'undefined') return false;
 
       if (isMobile()) {
@@ -20,18 +21,18 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
       return hasInjectedEvmProvider('isBitgetWallet') || window.bitkeep;
     },
-    getDeepLink: () => {
+    getDeepLink() {
       return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
     },
-    getQRCodeUri: (uri) => {
+    getQRCodeUri(uri) {
       return `bitkeep://bkconnect/wc?uri=${encodeURIComponent(uri)}`;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       return injected({
         shimDisconnect: true,
         target: {
-          id: bitgetWalletConfig.id,
-          name: bitgetWalletConfig.name,
+          id: bitgetWallet().id,
+          name: bitgetWallet().name,
           async provider() {
             if (isMobile()) {
               return window.ethereum || window.bitkeep?.ethereum;

@@ -2,7 +2,6 @@ import { WalletConfig } from '../types';
 import { MathWalletIcon, MathWalletTransparentIcon } from './icon';
 
 export const mathWalletConfig: WalletConfig = {
-  id: 'mathWallet',
   name: 'Math Wallet',
   logos: {
     default: <MathWalletIcon />,
