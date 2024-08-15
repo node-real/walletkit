@@ -1,6 +1,5 @@
 import { walletConnectConfig } from '@/core/configs/wallets/walletConnect';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
-import { useWallets } from '@/core/hooks/useWallets';
 import { isMobile } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
@@ -9,6 +8,7 @@ import {
   useConfig,
   useLogger,
   useSelectedWallet,
+  useWallets,
 } from '@/core/providers/WalletKitProvider/context';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet } from '@/evm/wallets';

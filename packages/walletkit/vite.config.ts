@@ -27,9 +27,9 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        index: 'src/core/index.ts',
-        'solana/wallets/index': 'src/solana/wallets/index.ts',
-        'evm/wallets/index': 'src/evm/wallets/index.ts',
+        'core/index': 'src/core/index.ts',
+        'solana/index': 'src/solana/index.ts',
+        'evm/index': 'src/evm/index.ts',
       },
     },
     rollupOptions: {

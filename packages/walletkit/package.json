@@ -19,35 +19,37 @@
     "dist"
   ],
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/core/index.js",
     "./styles.css": "./dist/style.css",
     "./evm": {
-      "types": "./dist/evm/wallets/index.d.ts",
-      "default": "./dist/evm/wallets/index.js"
+      "types": "./dist/evm/index.d.ts",
+      "default": "./dist/evm/index.js"
     },
     "./solana": {
-      "types": "./dist/solana/wallets/index.d.ts",
-      "default": "./dist/solana/wallets/index.js"
+      "types": "./dist/solana/index.d.ts",
+      "default": "./dist/solana/index.js"
     }
   },
   "scripts": {
     "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
     "build": "vite build"
   },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
+    "@tanstack/react-query": "^5",
+    "viem": "^2",
+    "wagmi": "^2"
+  },
   "dependencies": {
-    "@metamask/jazzicon": "^2.0.0",
+    "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
     "@solana/wallet-adapter-wallets": "^0",
     "@solana/web3.js": "^1",
-    "@tanstack/react-query": "^5",
-    "qrcode": "^1.5.3",
-    "react": ">=17",
-    "react-dom": ">=17",
-    "viem": "^2",
-    "wagmi": "^2"
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@solana/wallet-adapter-react": "^0.15.35",

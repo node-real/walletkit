@@ -9,9 +9,8 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "pnpm eslint .",
-    "build": "pnpm --F @node-real/* build && pnpm cp:css",
+    "build": "pnpm --F @node-real/* build",
     "build:docs": "pnpm build && pnpm --F website build",
-    "cp:css": "cat packages/wagmi/dist/style.css packages/solana/dist/style.css > packages/walletkit/dist/style.css",
     "ci:enter": "pnpm changeset pre enter alpha || true",
     "ci:exit": "pnpm changeset pre exit || true",
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
@@ -20,7 +19,7 @@
     "ci:stable-version": "pnpm ci:exit && pnpm ci:version"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
+    "@changesets/cli": "^2.27.7",
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.3",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -29,7 +28,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.3.5",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.7",
-    "prettier": "^3.3.2"
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3"
   }
 }

@@ -1,4 +1,3 @@
-import { useWallets } from '@/core/hooks/useWallets';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
@@ -6,6 +5,7 @@ import {
   useConfig,
   useLogger,
   useSelectedWallet,
+  useWallets,
 } from '@/core/providers/WalletKitProvider/context';
 import { SolanaWallet } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';

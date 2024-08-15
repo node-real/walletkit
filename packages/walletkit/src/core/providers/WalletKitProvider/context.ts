@@ -2,7 +2,7 @@ import { ThemeProviderProps } from '../ThemeProvider';
 import React, { useContext } from 'react';
 import { EvmConfig } from '@/evm/utils/getEvmConfig';
 import { SolanaConfig } from '@/solana/utils/getSolanaConfig';
-import { BaseWallet } from '@/core/configs/wallets/types';
+import { BaseWallet, WalletType } from '@/core/configs/wallets/types';
 
 export type Action = 'add-network' | undefined;
 
@@ -60,6 +60,9 @@ export interface WalletKitContextProps {
 
   selectedWallet: BaseWallet;
   setSelectedWallet: (wallet: BaseWallet) => void;
+
+  wallets: BaseWallet[];
+  setWallets: (wallets: BaseWallet[]) => void;
 }
 
 export const WalletKitContext = React.createContext({} as WalletKitContextProps);
@@ -81,6 +84,22 @@ export function useSelectedWallet() {
   return {
     selectedWallet,
     setSelectedWallet,
+  };
+}
+
+export function useWallets(walletType?: WalletType) {
+  const { wallets, setWallets } = useContext(WalletKitContext);
+
+  if (walletType) {
+    return {
+      wallets: wallets.filter((item) => item.walletType === walletType),
+      setWallets,
+    };
+  }
+
+  return {
+    wallets,
+    setWallets,
   };
 }
 

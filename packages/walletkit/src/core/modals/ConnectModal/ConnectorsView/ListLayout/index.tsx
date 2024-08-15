@@ -15,7 +15,9 @@ export function ListLayout(props: { wallets: BaseWallet[] }) {
   return (
     <>
       <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="list">
-        {wallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
+        {wallets?.map(
+          (w, index) => w.isVisible !== false && <WalletOption key={index} wallet={w} />,
+        )}
       </ModalBody>
 
       {!appearance.hideNoWalletCTA && (

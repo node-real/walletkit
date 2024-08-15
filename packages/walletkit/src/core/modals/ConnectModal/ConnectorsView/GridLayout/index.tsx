@@ -15,7 +15,9 @@ export function GridLayout(props: { wallets: BaseWallet[] }) {
   return (
     <>
       <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="grid">
-        {wallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
+        {wallets?.map(
+          (w, index) => w.isVisible !== false && <WalletOption key={index} wallet={w} />,
+        )}
       </ModalBody>
 
       {!appearance.hideNoWalletCTA && (

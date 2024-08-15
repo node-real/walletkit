@@ -5,8 +5,7 @@ import { cx } from '@/core/base/utils/css';
 import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
-import { useConfig } from '@/core/providers/WalletKitProvider/context';
-import { useWallets } from '@/core/hooks/useWallets';
+import { useConfig, useWallets } from '@/core/providers/WalletKitProvider/context';
 
 export function ConnectorsView() {
   const { appearance } = useConfig();

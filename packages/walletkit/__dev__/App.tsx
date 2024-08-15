@@ -1,11 +1,18 @@
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
+import {
+  BaseWallet,
+  ConnectModal,
+  useConnectModal,
+  useWallets,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
-import { metaMask, trustWallet, walletConnect } from '@/evm/wallets';
+import { metaMask, trustWallet, walletConnect } from '@/evm/index';
 import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
-} from '@/solana/wallets';
+} from '@/solana/index';
 import { mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -27,21 +34,77 @@ const config: WalletKitConfig = {
     },
   },
   appearance: {},
-  events: {},
+  events: {
+    closeModalOnEsc: false,
+    closeModalOnOverlayClick: false,
+    closeModalAfterConnected: true,
+  },
 };
 
 export default function App() {
   return (
     <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectButton></ConnectButton>
+        <ConnectButton />
         <ConnectModal />
       </QueryClientProvider>
     </WalletKitProvider>
   );
 }
 
+function selectWallets(wallets: BaseWallet[], include: string, exclude: string) {
+  const newWallets: BaseWallet[] = [];
+  wallets.forEach((item) => {
+    if (item.walletType === include) {
+      newWallets.push({ ...item });
+    } else if (item.walletType === exclude) {
+      newWallets.push({
+        ...item,
+        render: ({ wallet, onClick }) => {
+          return <button onClick={onClick}>{wallet.name}</button>;
+        },
+      });
+    }
+  });
+
+  newWallets.forEach((item) => {
+    if (
+      newWallets.find(
+        (e) => e.walletType === include && item.walletType === exclude && e.id === item.id,
+      )
+    ) {
+      item.isVisible = false;
+    }
+  });
+
+  newWallets.sort((a, b) => {
+    if (a.walletType === b.walletType) return 0;
+    if (a.walletType === include) return -1;
+    return 0;
+  });
+
+  return newWallets;
+}
+
 function ConnectButton() {
   const { onOpen } = useConnectModal();
-  return <button onClick={() => onOpen()}>connect</button>;
+  const { wallets, setWallets } = useWallets();
+
+  const onEvm = () => {
+    const newWallets = selectWallets(wallets, 'evm', 'solana');
+    setWallets(newWallets);
+  };
+
+  const onSolana = () => {
+    const newWallets = selectWallets(wallets, 'solana', 'evm');
+    setWallets(newWallets);
+  };
+
+  return (
+    <>
+      <button onClick={() => onOpen()}>connect</button>
+      <button onClick={() => onEvm()}>evm</button>
+      <button onClick={() => onSolana()}>solana</button>
+    </>
+  );
 }

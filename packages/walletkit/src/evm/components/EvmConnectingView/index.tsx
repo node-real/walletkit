@@ -15,7 +15,6 @@ export function EvmConnectingView() {
   const config = useConfig();
   const { action } = useAction();
   const { selectedWallet } = useSelectedWallet();
-
   const { evm } = useWalletSetting();
 
   const [status, setStatus] = useState(

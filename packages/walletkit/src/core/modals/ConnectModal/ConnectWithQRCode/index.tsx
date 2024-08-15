@@ -9,18 +9,22 @@ import { BaseWallet } from '@/core/configs/wallets/types';
 import { useWalletLogos } from '@/core/hooks/useWalletLogos';
 import { useConfig } from '@/core/providers/WalletKitProvider/context';
 import { clsContainer, clsOfficialButton } from './styles.css';
+import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 
 export interface ConnectWithQRCodeProps {
   wallet: BaseWallet;
   qrCodeUri: string;
   onClickOpenWcModal: () => void;
+  isConnected: boolean;
 }
 
 export function ConnectWithQRCode(props: ConnectWithQRCodeProps) {
-  const { wallet, qrCodeUri, onClickOpenWcModal } = props;
+  const { wallet, qrCodeUri, onClickOpenWcModal, isConnected } = props;
 
   const config = useConfig();
   const logos = useWalletLogos(wallet?.logos);
+
+  useAutoCloseConnectModal(isConnected);
 
   return (
     <>
