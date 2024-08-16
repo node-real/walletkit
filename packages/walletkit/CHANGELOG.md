@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.1
+
+### Patch Changes
+
+- decd1a4: feat: Add log
+
 ## 2.3.0-alpha.0
 
 ### Minor Changes
