@@ -7,6 +7,7 @@ import { getDefaultConfig } from '../../configs/getDefaultConfig';
 import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
 import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
+import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -47,7 +48,9 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
       <ThemeProvider mode={value.config.appearance!.mode} theme={value.config.appearance!.theme}>
         <EvmWalletProvider>
           <SolanaWalletProvider>
-            <ConnectModalProvider>{children}</ConnectModalProvider>
+            <ConnectModalProvider>
+              <ProfileModalProvider>{children}</ProfileModalProvider>
+            </ConnectModalProvider>
           </SolanaWalletProvider>
         </EvmWalletProvider>
       </ThemeProvider>

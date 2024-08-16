@@ -39,7 +39,7 @@ export default defineConfig({
         }),
       ],
       output: {
-        chunkFileNames: 'chunk.js',
+        chunkFileNames: 'chunks/chunk.js',
       },
     },
   },

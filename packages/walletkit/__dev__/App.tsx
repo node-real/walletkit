@@ -1,7 +1,22 @@
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
+import {
+  EmbeddedConnectModal,
+  useConnectModal,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
-import { metaMask, trustWallet, walletConnect } from '@/evm/index';
+import {
+  binanceWeb3Wallet,
+  bitgetWallet,
+  coinbaseWallet,
+  mathWallet,
+  metaMask,
+  okxWallet,
+  tokenPocket,
+  trustWallet,
+  walletConnect,
+} from '@/evm/index';
 import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
@@ -28,7 +43,17 @@ const config: WalletKitConfig = {
     evmConfig: {
       initialChainId: 1,
       chains: [mainnet],
-      wallets: [metaMask(), trustWallet(), walletConnect()],
+      wallets: [
+        metaMask(),
+        trustWallet(),
+        walletConnect(),
+        binanceWeb3Wallet(),
+        tokenPocket(),
+        bitgetWallet(),
+        okxWallet(),
+        coinbaseWallet(),
+        mathWallet(),
+      ],
     },
     solanaConfig: {
       rpcUrl: 'https://solana-rpc.debridge.finance',
@@ -42,7 +67,7 @@ export default function App() {
     <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConnectButton />
-        <ConnectModal />
+        <EmbeddedConnectModal />
       </QueryClientProvider>
     </WalletKitProvider>
   );

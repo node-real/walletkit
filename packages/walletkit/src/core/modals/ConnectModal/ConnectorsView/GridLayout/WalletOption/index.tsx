@@ -20,10 +20,11 @@ export function WalletOption(props: { wallet: BaseWallet }) {
   const clickRef = useRef<any>();
   const component = useWalletRender({
     wallet,
-    layout: 'list',
+    layout: 'grid',
     clickRef,
     defaultRender: ({ wallet, onClick }) => {
       const { isDisabled, name, logo } = wallet;
+
       return (
         <Box className={cx('wk-wallet-option-wrapper', clsWalletOptionWrapper)}>
           <Button
