@@ -21,7 +21,7 @@ import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
 } from '@/solana/index';
-import { mainnet } from 'viem/chains';
+import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 new VConsole();
@@ -37,12 +37,15 @@ const config: WalletKitConfig = {
     closeModalOnEsc: false,
     closeModalOnOverlayClick: false,
     closeModalAfterConnected: true,
+    onChainAlreadyAdded(wallet, chainId) {
+      console.log(wallet, chainId);
+    },
   },
   walletConfig: {
     autoConnect: true,
     evmConfig: {
       initialChainId: 1,
-      chains: [mainnet],
+      chains: [mainnet, bsc],
       wallets: [
         metaMask(),
         trustWallet(),
@@ -76,5 +79,16 @@ export default function App() {
 function ConnectButton() {
   const { onOpen } = useConnectModal();
 
-  return <button onClick={() => onOpen()}>connect</button>;
+  return (
+    <button
+      onClick={() =>
+        onOpen({
+          action: 'add-network',
+          initialChainId: 1,
+        })
+      }
+    >
+      connect
+    </button>
+  );
 }

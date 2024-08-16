@@ -62,7 +62,10 @@ export interface WalletKitContextProps {
   setSelectedWallet: (wallet: BaseWallet) => void;
 
   wallets: BaseWallet[];
-  setWallets: (wallets: BaseWallet[]) => void;
+  setWallets: React.Dispatch<React.SetStateAction<BaseWallet[]>>;
+
+  initialChainId?: number;
+  setInitialChainId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 export const WalletKitContext = React.createContext({} as WalletKitContextProps);
@@ -76,6 +79,14 @@ export function useAction() {
   return {
     action,
     setAction,
+  };
+}
+
+export function useInitialChainId() {
+  const { initialChainId, setInitialChainId } = useContext(WalletKitContext);
+  return {
+    initialChainId,
+    setInitialChainId,
   };
 }
 

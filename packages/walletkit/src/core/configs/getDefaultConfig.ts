@@ -14,7 +14,7 @@ export function getDefaultConfig(config: WalletKitConfig) {
       useGridLayoutOnMobile: true,
 
       hideNoWalletCTA: false,
-      hideOfficialWalletConnectCTA: false,
+      hideOfficialWalletConnectCTA: true,
 
       walletDownloadUrl: `https://trustwallet.com/`,
 

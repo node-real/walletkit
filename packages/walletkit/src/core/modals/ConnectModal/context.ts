@@ -5,6 +5,7 @@ import { Action } from '@/core/providers/WalletKitProvider/context';
 export interface ConnectModalOpenParams {
   action?: Action;
   viewRoute?: ViewRoutes;
+  initialChainId?: number;
 }
 
 export interface ConnectModalContextProps {
