@@ -43,7 +43,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     const pass = eventConfig.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
-    log('[click wallet]', `connector:`, connector);
+    log('[click wallet]', `wallet:`, wallet);
     log('[click wallet]', `ethereum:`, window.ethereum);
     log('[click wallet]', `installed:`, wallet.isInstalled());
 

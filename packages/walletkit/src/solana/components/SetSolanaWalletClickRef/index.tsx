@@ -37,6 +37,7 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
     if (pass === false) return;
 
     log('[click wallet]', `wallet:`, wallet);
+    log('[click wallet]', `ethereum:`, window.solana);
     log('[click wallet]', `installed:`, wallet.isInstalled());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
