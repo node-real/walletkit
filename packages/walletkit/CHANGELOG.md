@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.2
+
+### Patch Changes
+
+- d483881: feat: Add initialChainId to connectModal
+
 ## 2.3.0-alpha.1
 
 ### Patch Changes
