@@ -27,19 +27,28 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
   }, [config.walletConfig?.evmConfig?.wallets, config.walletConfig?.solanaConfig?.wallets]);
 
   const [wallets, setWallets] = useState<BaseWallet[]>(initialWallets);
+  const [initialChainId, setInitialChainId] = useState<number | undefined>(
+    config.walletConfig?.evmConfig?.initialChainId,
+  );
 
   const value = useMemo(() => {
     return {
       config: getDefaultConfig(config),
       logger: config.debug ? console.log : () => undefined,
+
       action,
       setAction,
+
       selectedWallet,
       setSelectedWallet,
+
+      initialChainId,
+      setInitialChainId,
+
       wallets,
       setWallets,
     };
-  }, [action, config, selectedWallet, wallets]);
+  }, [action, config, initialChainId, selectedWallet, wallets]);
 
   return (
     <WalletKitContext.Provider value={value}>

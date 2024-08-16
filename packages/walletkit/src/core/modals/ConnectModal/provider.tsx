@@ -1,4 +1,4 @@
-import { useAction } from '@/core/providers/WalletKitProvider/context';
+import { useAction, useInitialChainId } from '@/core/providers/WalletKitProvider/context';
 import { RouteProvider, ViewRoutes } from './RouteProvider';
 import { useMemo } from 'react';
 import { ConnectModalContext, ConnectModalOpenParams } from './context';
@@ -23,6 +23,8 @@ function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
   const { setAction } = useAction();
+  const { setInitialChainId } = useInitialChainId();
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
 
@@ -37,11 +39,14 @@ function WithRouter(props: ConnectModalProviderProps) {
       },
       onOpen(params: ConnectModalOpenParams = {}) {
         router.push(params.viewRoute ?? ViewRoutes.CONNECTORS);
-        setAction?.(params.action);
+
+        setAction(params.action);
+        setInitialChainId(params.initialChainId);
+
         onOpen();
       },
     };
-  }, [isOpen, onClose, onOpen, router, setAction]);
+  }, [isOpen, onClose, onOpen, router, setAction, setInitialChainId]);
 
   return <ConnectModalContext.Provider value={value}>{children}</ConnectModalContext.Provider>;
 }
