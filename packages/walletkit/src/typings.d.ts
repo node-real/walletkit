@@ -8,3 +8,11 @@ interface Window {
 }
 
 declare module '@metamask/jazzicon';
+
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
+type SVGIconProps = React.SVGProps<SVGSVGElement>;

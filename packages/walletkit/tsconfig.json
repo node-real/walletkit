@@ -22,7 +22,9 @@
 
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/core/*": ["src/core/*"],
+      "@/evm/*": ["src/evm/*"],
+      "@/solana/*": ["src/solana/*"]
     }
   },
   "include": ["src", "__dev__"],

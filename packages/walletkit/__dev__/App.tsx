@@ -1,89 +1,80 @@
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import VConsole from 'vconsole';
 import {
-  ConnectModal,
-  ProfileModal,
-  SwitchNetworkModal,
-  ThemeMode,
-  WalletKitButton,
-  WalletKitOptions,
-  WalletKitProvider,
-  defaultWagmiConfig,
+  EmbeddedConnectModal,
   useConnectModal,
-  useProfileModal,
-  useSwitchNetworkModal,
-} from '@/index';
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
+import './style.css';
+import VConsole from 'vconsole';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
+  mathWallet,
   metaMask,
   okxWallet,
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '@/wallets';
-import { chains } from './chains';
-
-const queryClient = new QueryClient();
+} from '@/evm/index';
+import {
+  trustWallet as solanaTrustWallet,
+  phantomWallet as solanaPhantomWallet,
+} from '@/solana/index';
+import { mainnet } from 'viem/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 new VConsole();
 
-const config = defaultWagmiConfig({
-  appName: 'WalletKit',
-  chains,
-  connectors: [
-    binanceWeb3Wallet(),
-    bitgetWallet(),
-    coinbaseWallet(),
-    metaMask(),
-    okxWallet(),
-    tokenPocket(),
-    trustWallet(),
-    walletConnect(),
-  ],
-});
+const queryClient = new QueryClient();
 
-const options: WalletKitOptions = {
-  initialChainId: 204,
+const config: WalletKitConfig = {
+  debug: true,
+  appearance: {
+    mode: 'light',
+  },
+  eventConfig: {
+    closeModalOnEsc: false,
+    closeModalOnOverlayClick: false,
+    closeModalAfterConnected: true,
+  },
+  walletConfig: {
+    autoConnect: true,
+    evmConfig: {
+      initialChainId: 1,
+      chains: [mainnet],
+      wallets: [
+        metaMask(),
+        trustWallet(),
+        walletConnect(),
+        binanceWeb3Wallet(),
+        tokenPocket(),
+        bitgetWallet(),
+        okxWallet(),
+        coinbaseWallet(),
+        mathWallet(),
+      ],
+    },
+    solanaConfig: {
+      rpcUrl: 'https://solana-rpc.debridge.finance',
+      wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+    },
+  },
 };
 
 export default function App() {
-  const [mode, setMode] = useState<ThemeMode>('light');
-  const nextMode = mode === 'light' ? 'dark' : 'light';
-
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
+    <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode={mode} debugMode={true}>
-          <div>mode: {mode} </div>
-          <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
-          <div style={{ height: 20 }} />
-
-          <WalletKitButton />
-          <Example />
-
-          <ConnectModal />
-          <SwitchNetworkModal />
-          <ProfileModal />
-        </WalletKitProvider>
+        <ConnectButton />
+        <EmbeddedConnectModal />
       </QueryClientProvider>
-    </WagmiProvider>
+    </WalletKitProvider>
   );
 }
 
-function Example() {
-  const connectModal = useConnectModal();
-  const profileModal = useProfileModal();
-  const switchNetworkModal = useSwitchNetworkModal();
+function ConnectButton() {
+  const { onOpen } = useConnectModal();
 
-  return (
-    <>
-      <button onClick={() => connectModal.onOpen()}>Open Connect Modal</button>
-      <button onClick={() => profileModal.onOpen()}>Open Profile Modal</button>
-      <button onClick={() => switchNetworkModal.onOpen()}>Open SwitchNetwork Modal</button>
-    </>
-  );
+  return <button onClick={() => onOpen()}>connect</button>;
 }

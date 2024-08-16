@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "2.0.3",
+  "version": "2.2.2",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -12,43 +12,58 @@
     "directory": "packages/walletkit"
   },
   "keywords": [
-    "walletkit",
-    "ethereum"
+    "walletkit"
   ],
   "type": "module",
   "files": [
-    "dist",
-    "wallets",
-    "styles.css"
+    "dist"
   ],
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/core/index.js",
     "./styles.css": "./dist/style.css",
-    "./wallets": "./dist/wallets/index.js"
+    "./evm": {
+      "types": "./dist/evm/index.d.ts",
+      "default": "./dist/evm/index.js"
+    },
+    "./solana": {
+      "types": "./dist/solana/index.d.ts",
+      "default": "./dist/solana/index.js"
+    }
   },
   "scripts": {
     "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
-    "build:watch": "vite build --watch --emptyOutDir=false",
     "build": "vite build"
   },
   "peerDependencies": {
-    "@tanstack/react-query": "^5",
     "react": ">=17",
     "react-dom": ">=17",
+    "@tanstack/react-query": "^5",
     "viem": "^2",
     "wagmi": "^2"
   },
+  "dependencies": {
+    "@metamask/jazzicon": "^2",
+    "@solana/wallet-adapter-react": "^0",
+    "@solana/wallet-adapter-wallets": "^0",
+    "@solana/web3.js": "^1",
+    "qrcode": "^1.5.3"
+  },
   "devDependencies": {
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1",
     "@tanstack/react-query": "^5.51.1",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vanilla-extract/css": "^1.15.3",
-    "@vanilla-extract/vite-plugin": "^3.9.5",
+    "@vanilla-extract/vite-plugin": "3.9.5",
     "@vitejs/plugin-react": "^4.3.1",
+    "@walletconnect/solana-adapter": "^0.0.5",
+    "qrcode": "^1.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -58,9 +73,5 @@
     "vite": "^4.5.3",
     "vite-plugin-dts": "^3.9.1",
     "wagmi": "^2.10.10"
-  },
-  "dependencies": {
-    "@metamask/jazzicon": "^2.0.0",
-    "qrcode": "^1.5.3"
   }
 }
