@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.3
+
+### Patch Changes
+
+- 48328fb: test release
+
 ## 2.3.0-alpha.2
 
 ### Patch Changes
