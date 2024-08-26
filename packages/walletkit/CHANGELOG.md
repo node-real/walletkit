@@ -1,5 +1,13 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.6
+
+### Patch Changes
+
+- f039f21: Fix style order issue
+- e349edc: Support connecting to a specified wallet
+- 05d1577: update version
+
 ## 2.3.0-alpha.1
 
 ### Patch Changes

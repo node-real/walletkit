@@ -1,0 +1,15 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "2.3.0-alpha.5",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "rotten-bats-appear",
+    "small-numbers-compare",
+    "wet-emus-nail"
+  ]
+}
