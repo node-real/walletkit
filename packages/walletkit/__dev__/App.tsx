@@ -11,7 +11,6 @@ import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
-  EthereumScript,
   evmConfig,
   mathWallet,
   metaMask,
@@ -50,9 +49,12 @@ const config: WalletKitConfig = {
     evmConfig({
       autoConnect: true,
       initialChainId: 1,
+      walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
       chains: [mainnet, bsc],
       wallets: [
-        metaMask(),
+        metaMask({
+          useWalletConnect: true,
+        }),
         trustWallet(),
         walletConnect(),
         binanceWeb3Wallet(),

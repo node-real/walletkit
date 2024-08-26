@@ -4,7 +4,7 @@ import {
 } from 'wagmi/connectors';
 import { coinbaseWalletConfig } from '@/core/configs/coinbaseWallet';
 import { EvmWallet } from '../types';
-import { hasInjectedEvmProvider } from '../utils';
+import { getEvmInjectedProvider } from '../utils';
 import { getEvmGlobalData } from '@/evm/globalData';
 
 interface CoinbaseWalletOptions extends Partial<EvmWallet> {
@@ -19,18 +19,17 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
     id: 'coinbaseWalletSDK',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
-      if (typeof window === 'undefined') return false;
-
-      return hasInjectedEvmProvider('isCoinbaseWallet') || !!window.coinbaseWalletExtension;
+    useWalletConnect: false,
+    isInstalled() {
+      return !!getProvider();
     },
-    getDeepLink: () => {
+    getDeepLink() {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
     },
-    getQRCodeUri: (uri) => {
+    getUri(uri) {
       return uri;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       const { metadata } = getEvmGlobalData();
 
       return wagmiCoinbaseWallet({
@@ -42,4 +41,9 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
     },
     ...restProps,
   };
+}
+
+function getProvider() {
+  if (typeof window === 'undefined') return;
+  return getEvmInjectedProvider('isCoinbaseWallet') || !!window.coinbaseWalletExtension;
 }

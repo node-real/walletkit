@@ -23,24 +23,25 @@ interface ConnectingViewProps {
   runConnect: () => void;
   wallet: BaseWallet;
   isConnected: boolean;
+  isReady?: boolean;
 }
 
 export function ConnectingView(props: ConnectingViewProps) {
-  const { status, runConnect, wallet, isConnected } = props;
+  const { status, runConnect, wallet, isConnected, isReady = true } = props;
 
   const log = useLogger();
   const logos = useWalletLogos(wallet.logos);
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
   useEffect(() => {
-    if (status === CONNECT_STATUS.UNAVAILABLE) return;
+    if (status === CONNECT_STATUS.UNAVAILABLE || !isReady) return;
 
     const connectTimeout = setTimeout(runConnect, 600);
     return () => {
       clearTimeout(connectTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isReady]);
 
   log('[connecting page]', `name: ${wallet?.name}, status: ${status}`);
 

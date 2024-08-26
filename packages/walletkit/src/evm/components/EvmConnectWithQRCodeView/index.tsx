@@ -10,7 +10,7 @@ export function EvmConnectWithQRCodeView() {
 
   const wcUri = useQRCodeUri();
   const wcModal = useWalletConnectModal();
-  const qrCodeUri = wcUri && ((selectedWallet as EvmWallet).getQRCodeUri?.(wcUri) ?? wcUri);
+  const qrCodeUri = wcUri && ((selectedWallet as EvmWallet).getUri?.(wcUri) ?? wcUri);
   const isConnected = useEvmIsConnected();
 
   return (

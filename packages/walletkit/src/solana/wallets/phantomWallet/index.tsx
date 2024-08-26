@@ -1,5 +1,5 @@
 import { PhantomWalletAdapter, PhantomWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
-import { hasInjectedSolanaProvider } from '../utils';
+import { hasSolanaInjectedProvider } from '../utils';
 import { SolanaWallet } from '../types';
 import { phantomWalletConfig } from '@/core/configs/phantomWallet';
 
@@ -16,10 +16,10 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
     walletType: 'solana',
     adapterName: 'Phantom',
     showQRCode: false,
-    isInstalled: () => {
-      return hasInjectedSolanaProvider('isPhantom');
+    isInstalled() {
+      return hasSolanaInjectedProvider('isPhantom');
     },
-    getAdapter: () => {
+    getAdapter() {
       return new PhantomWalletAdapter({
         ...adapterOptions,
       });

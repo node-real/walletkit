@@ -1,4 +1,3 @@
-import { WALLET_CONNECT_PROJECT_ID } from '@/core/configs/getDefaultConfig';
 import { WalletType } from '@/core/configs/types';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
 import { SolanaWallet } from '@/solana/wallets';
@@ -16,11 +15,11 @@ export interface SolanaConfig extends ReturnType<typeof solanaConfig> {
   walletType: WalletType;
 }
 
-export const solanaConfig = (params: CustomizedSolanaConfig) => {
+export function solanaConfig(params: CustomizedSolanaConfig) {
   const {
     autoConnect = false,
     metadata = { name: 'WalletKit' },
-    walletConnectProjectId = WALLET_CONNECT_PROJECT_ID,
+    walletConnectProjectId,
     rpcUrl,
     wallets,
   } = params;
@@ -43,4 +42,4 @@ export const solanaConfig = (params: CustomizedSolanaConfig) => {
     rpcUrl,
     wallets,
   };
-};
+}

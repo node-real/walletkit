@@ -1,6 +1,5 @@
 import { WalletConnectParameters, walletConnect as wagmiWalletConnect } from 'wagmi/connectors';
 import { EvmWallet } from '../types';
-import { isMobile } from '@/core/base/utils/mobile';
 import { walletConnectConfig } from '@/core/configs/walletConnect';
 import { getEvmGlobalData } from '@/evm/globalData';
 
@@ -15,10 +14,18 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
     ...walletConnectConfig,
     id: 'walletConnect',
     walletType: 'evm',
-    showQRCode: isMobile() ? false : !connectorOptions?.showQrModal,
-    isInstalled: () => false,
-    getDeepLink: () => undefined,
-    getCreateConnectorFn: () => {
+    showQRCode: !connectorOptions?.showQrModal,
+    useWalletConnect: false,
+    isInstalled() {
+      return false;
+    },
+    getDeepLink() {
+      return undefined;
+    },
+    getUri(uri) {
+      return uri;
+    },
+    getCreateConnectorFn() {
       const { walletConnectProjectId, metadata } = getEvmGlobalData();
 
       const hasAllAppData = metadata?.name && metadata.icon && metadata.description && metadata.url;

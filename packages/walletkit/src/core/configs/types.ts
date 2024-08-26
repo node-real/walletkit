@@ -21,6 +21,7 @@ export interface BaseWallet extends WalletConfig {
   isVisible?: boolean;
   render?: (props: WalletRenderProps) => React.ReactNode;
   showQRCode?: boolean;
+  useWalletConnect?: boolean;
   isInstalled: () => boolean | undefined;
 }
 

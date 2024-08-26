@@ -67,31 +67,43 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       jumpTo(ViewRoutes.EVM_CONNECTING);
     };
 
+    const jumpToWalletConnectView = () => {
+      jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
+    };
+
     disconnect();
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (isWalletConnect(connector.id)) {
-        if (wallet.showQRCode) {
-          jumpToQRCodeView();
-        } else {
+      if (mobile) {
+        // 1. mobile
+        if (isWalletConnect(walletId)) {
           wcModal.onOpen();
-        }
-      } else if (!wallet.isInstalled()) {
-        if (mobile) {
+        } else if (wallet.useWalletConnect) {
+          jumpToWalletConnectView();
+        } else if (wallet.isInstalled()) {
+          jumpToConnectingView();
+        } else {
           const deepLink = wallet.getDeepLink?.();
           if (deepLink) {
             window.open(deepLink, '_self', 'noopener noreferrer');
           } else {
             eventConfig.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
           }
+        }
+      } else {
+        // 2. pc
+        if (isWalletConnect(walletId)) {
+          if (wallet.showQRCode) {
+            jumpToQRCodeView();
+          } else {
+            wcModal.onOpen();
+          }
         } else if (wallet.showQRCode) {
           jumpToQRCodeView();
         } else {
           jumpToConnectingView();
         }
-      } else {
-        jumpToConnectingView();
       }
     }, 300);
   };

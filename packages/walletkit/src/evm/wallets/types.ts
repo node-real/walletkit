@@ -5,7 +5,7 @@ import { BaseWallet } from '@/core/configs/types';
 export interface EvmWallet extends BaseWallet {
   getCreateConnectorFn: () => CreateConnectorFn;
   getDeepLink: () => string | undefined;
-  getQRCodeUri?: (uri: string) => string;
+  getUri: (uri: string) => string;
 }
 
 export interface InjectedEvmWalletOptions extends Partial<EvmWallet> {

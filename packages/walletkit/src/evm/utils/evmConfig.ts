@@ -2,14 +2,13 @@ import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } fr
 import { Chain, mainnet } from 'wagmi/chains';
 import { EvmWallet, isWalletConnect, walletConnect } from '@/evm/wallets';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { WALLET_CONNECT_PROJECT_ID } from '@/core/configs/getDefaultConfig';
 import { WalletType } from '@/core/configs/types';
 import { setEvmGlobalData } from '../globalData';
 
 interface CustomizedEvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
   autoConnect?: boolean;
   metadata?: Metadata;
-  walletConnectProjectId?: string;
+  walletConnectProjectId: string;
   initialChainId?: number;
   wallets: EvmWallet[];
   chains?: Chain[];
@@ -23,7 +22,7 @@ export function evmConfig(params: CustomizedEvmConfig) {
   const {
     autoConnect = false,
     metadata = { name: 'WalletKit' },
-    walletConnectProjectId = WALLET_CONNECT_PROJECT_ID,
+    walletConnectProjectId,
     initialChainId,
     wallets,
     chains = [mainnet],

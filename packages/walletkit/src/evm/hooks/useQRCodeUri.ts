@@ -5,10 +5,15 @@ import { useEvmIsConnected } from './useEvmIsConnected';
 import { useEventConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 import { getEvmGlobalData } from '../globalData';
+import { ConnectErrorType } from 'wagmi/actions';
 
 let timer: any;
 
-export function useQRCodeUri() {
+interface UseQRCodeUriProps {
+  onError?: (error: ConnectErrorType) => void;
+}
+
+export function useQRCodeUri(props?: UseQRCodeUriProps) {
   const { connectAsync } = useConnect();
 
   const eventConfig = useEventConfig();
@@ -38,6 +43,8 @@ export function useQRCodeUri() {
         clearTimeout(timer);
 
         timer = setTimeout(() => {
+          props?.onError?.(error);
+
           if (error?.code === 4001) {
             evmCommonErrorHandler({
               log,

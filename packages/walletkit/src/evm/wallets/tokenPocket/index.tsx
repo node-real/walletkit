@@ -1,7 +1,7 @@
 import { tokenPocketConfig } from '@/core/configs/tokenPocket';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
-import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
+import { getEvmInjectedProvider } from '../utils';
 
 export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -11,37 +11,27 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'tokenPocket',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
-      if (typeof window === 'undefined') return false;
-
-      return (
-        hasInjectedEvmProvider('isTokenPocket') ||
-        window.tokenpocket?.ethereum ||
-        window.tokenpocket
-      );
+    useWalletConnect: false,
+    isInstalled() {
+      return !!getProvider();
     },
-    getDeepLink: () => {
+    getDeepLink() {
       const params = {
         url: window.location.href,
       };
       return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
     },
-    getQRCodeUri: (uri) => {
+    getUri(uri) {
       return `tpoutside://wc?uri=${encodeURIComponent(uri)}`;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       return injected({
         shimDisconnect: true,
         target: {
           id: tokenPocket().id,
           name: tokenPocket().name,
           async provider() {
-            const provider =
-              getInjectedEvmProvider('isTokenPocket') ??
-              window.tokenpocket?.ethereum ??
-              window.tokenpocket;
-
-            return provider;
+            return getProvider();
           },
         },
         ...connectorOptions,
@@ -49,4 +39,11 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
     },
     ...restProps,
   };
+}
+
+function getProvider() {
+  if (typeof window === 'undefined') return;
+  return (
+    getEvmInjectedProvider('isTokenPocket') ?? window.tokenpocket?.ethereum ?? window.tokenpocket
+  );
 }

@@ -6,11 +6,10 @@ import { EvmConfig } from '@/evm/utils/evmConfig';
 type DefaultConfig = Pick<WalletKitContextProps, 'appearance' | 'eventConfig' | 'walletConfig'>;
 
 export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
-  const evmConfig = config.walletConfigs.find((item) => item.walletType === 'evm') as EvmConfig;
+  const { appearance, eventConfig, walletConfigs } = config;
 
-  const solanaConfig = config.walletConfigs.find(
-    (item) => item.walletType === 'solana',
-  ) as SolanaConfig;
+  const evmConfig = walletConfigs.find((item) => item.walletType === 'evm') as EvmConfig;
+  const solanaConfig = walletConfigs.find((item) => item.walletType === 'solana') as SolanaConfig;
 
   return {
     appearance: {
@@ -27,7 +26,7 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
 
       walletDownloadUrl: `https://trustwallet.com/`,
 
-      ...config.appearance,
+      ...appearance,
     },
 
     eventConfig: {
@@ -43,7 +42,7 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
           });
         }
       },
-      ...config.eventConfig,
+      ...eventConfig,
     },
 
     walletConfig: {
@@ -52,5 +51,3 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
     },
   };
 }
-
-export const WALLET_CONNECT_PROJECT_ID = 'e68a1816d39726c2afabf05661a32767';
