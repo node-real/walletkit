@@ -11,6 +11,7 @@ import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
+  EthereumScript,
   evmConfig,
   mathWallet,
   metaMask,

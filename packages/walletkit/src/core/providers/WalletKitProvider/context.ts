@@ -5,7 +5,6 @@ import { SolanaConfig } from '@/solana/utils/solanaConfig';
 import { BaseWallet } from '@/core/configs/types';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useConnectors } from 'wagmi';
-import { toast } from '@/core/base/components/toast';
 
 export type Action = 'add-network' | undefined;
 
@@ -113,6 +112,7 @@ export function useSelectedWallet() {
 }
 
 export function useWalletKit() {
+  const log = useLogger();
   const { wallets, setWallets } = useContext(WalletKitContext);
 
   const { connect } = useEvmConnect();
@@ -127,9 +127,7 @@ export function useWalletKit() {
       const wallet = wallets.find((item) => item.id === walletId);
 
       if (!wallet) {
-        toast.info({
-          description: 'Wallet not found',
-        });
+        log(`wallet not found, walletId: ${walletId}`);
       } else {
         const connector = connectors.find((item) => item.id === walletId);
         if (connector && wallet.isInstalled())

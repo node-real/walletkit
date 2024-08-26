@@ -5,10 +5,10 @@ import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import {
   useEventConfig,
+  useEvmConfig,
   useLogger,
   useSelectedWallet,
 } from '@/core/providers/WalletKitProvider/context';
-import { useEvmWallets } from '@/evm/hooks/useEvmWallets';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
@@ -34,7 +34,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const timerRef = useRef<any>();
   const mobile = isMobile();
-  const { wallets } = useEvmWallets();
+  const { wallets } = useEvmConfig();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const connector = connectors.find((item) => item.id === walletId)!;
