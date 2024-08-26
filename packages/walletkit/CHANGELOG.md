@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.2
+
+### Patch Changes
+
+- bbc5ff2: Support connecting to a specified wallet
+
 ## 2.3.0-alpha.1
 
 ### Patch Changes
