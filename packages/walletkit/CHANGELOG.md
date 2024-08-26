@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.4
+
+### Patch Changes
+
+- eea7645: Support connecting to a specified wallet
+- eea7645: update version
+
 ## 2.3.0-alpha.1
 
 ### Patch Changes

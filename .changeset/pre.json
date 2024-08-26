@@ -1,0 +1,14 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "2.3.0-alpha.3",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "small-numbers-compare",
+    "wet-emus-nail"
+  ]
+}
