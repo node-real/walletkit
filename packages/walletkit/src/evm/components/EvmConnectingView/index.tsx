@@ -6,7 +6,7 @@ import {
   useEvmConfig,
   useSelectedWallet,
 } from '@/core/providers/WalletKitProvider/context';
-import { useIsConnected } from '@/evm/hooks/useIsConnected';
+import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
 import { useWalletConnector } from '@/evm/hooks/useWalletConnector';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useState, useCallback } from 'react';
@@ -16,7 +16,7 @@ export function EvmConnectingView() {
   const { action } = useAction();
   const { selectedWallet } = useSelectedWallet();
 
-  const isConnected = useIsConnected();
+  const isConnected = useEvmIsConnected();
   const selectedConnector = useWalletConnector(selectedWallet.id);
   const { initialChainId } = useEvmConfig();
 

@@ -2,7 +2,10 @@ import { ThemeProviderProps } from '../ThemeProvider';
 import React, { useContext } from 'react';
 import { EvmConfig } from '@/evm/utils/evmConfig';
 import { SolanaConfig } from '@/solana/utils/solanaConfig';
-import { BaseWallet, WalletType } from '@/core/configs/types';
+import { BaseWallet } from '@/core/configs/types';
+import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
+import { useConnectors } from 'wagmi';
+import { toast } from '@/core/base/components/toast';
 
 export type Action = 'add-network' | undefined;
 
@@ -109,18 +112,32 @@ export function useSelectedWallet() {
   };
 }
 
-export function useWallets(walletType?: WalletType) {
+export function useWalletKit() {
   const { wallets, setWallets } = useContext(WalletKitContext);
 
-  if (walletType) {
-    return {
-      wallets: wallets.filter((item) => item.walletType === walletType),
-      setWallets,
-    };
-  }
+  const { connect } = useEvmConnect();
+  const connectors = useConnectors();
 
   return {
     wallets,
     setWallets,
+
+    connect(options: { walletId: string; initialChainId?: number }) {
+      const { walletId, initialChainId } = options;
+      const wallet = wallets.find((item) => item.id === walletId);
+
+      if (!wallet) {
+        toast.info({
+          description: 'Wallet not found',
+        });
+      } else {
+        const connector = connectors.find((item) => item.id === walletId);
+        if (connector && wallet.isInstalled())
+          connect({
+            connector,
+            chainId: initialChainId,
+          });
+      }
+    },
   };
 }

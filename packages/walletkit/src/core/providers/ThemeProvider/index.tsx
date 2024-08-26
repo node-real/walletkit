@@ -6,7 +6,7 @@ import { ColorMode, ThemeContext } from './context';
 
 type ThemeWithMode = typeof base;
 
-type Theme = DeepPartial<ThemeWithMode['light']> & DeepPartial<ThemeWithMode>;
+export type Theme = DeepPartial<ThemeWithMode['light']> & DeepPartial<ThemeWithMode>;
 
 type ThemeVariant = 'base';
 

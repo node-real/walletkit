@@ -5,11 +5,11 @@ import { cx } from '@/core/base/utils/css';
 import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
-import { useAppearance, useWallets } from '@/core/providers/WalletKitProvider/context';
+import { useAppearance, useWalletKit } from '@/core/providers/WalletKitProvider/context';
 
 export function ConnectorsView() {
   const appearance = useAppearance();
-  const { wallets } = useWallets();
+  const { wallets } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
   const visibleWallets = wallets.filter((item) => item.isVisible !== false);

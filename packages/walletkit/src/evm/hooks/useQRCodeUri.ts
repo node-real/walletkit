@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
-import { useIsConnected } from './useIsConnected';
+import { useEvmIsConnected } from './useEvmIsConnected';
 import { useEventConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 import { getEvmGlobalData } from '../globalData';
@@ -16,7 +16,7 @@ export function useQRCodeUri() {
   const [wcUri, setWcUri] = useState<string>('');
 
   const connector = useWalletConnectConnector();
-  const isConnected = useIsConnected();
+  const isConnected = useEvmIsConnected();
 
   useEffect(() => {
     if (isConnected || !connector) return;

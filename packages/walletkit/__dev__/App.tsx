@@ -1,4 +1,10 @@
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
+import {
+  ConnectModal,
+  useConnectModal,
+  useWalletKit,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
 import {
@@ -80,6 +86,7 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+  const { connect } = useWalletKit();
 
   if (address) {
     return (
@@ -91,15 +98,27 @@ function ConnectButton() {
   }
 
   return (
-    <button
-      onClick={() =>
-        onOpen({
-          action: 'add-network',
-          initialChainId: 1,
-        })
-      }
-    >
-      connect
-    </button>
+    <>
+      <button
+        onClick={() =>
+          onOpen({
+            action: 'add-network',
+            initialChainId: 1,
+          })
+        }
+      >
+        connect
+      </button>
+      <button
+        onClick={() => {
+          connect({
+            walletId: 'metaMask',
+            initialChainId: 1,
+          });
+        }}
+      >
+        connect metaMask
+      </button>
+    </>
   );
 }

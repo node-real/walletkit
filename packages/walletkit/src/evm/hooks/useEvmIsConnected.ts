@@ -1,6 +1,6 @@
 import { useAccount } from 'wagmi';
 
-export function useIsConnected() {
+export function useEvmIsConnected() {
   const { address } = useAccount();
   return !!address;
 }
