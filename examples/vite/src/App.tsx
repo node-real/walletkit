@@ -1,47 +1,49 @@
-import '@node-real/walletkit/styles.css';
-import './global.css';
-import { bsc, mainnet, opBNB } from 'wagmi/chains';
-
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   ConnectModal,
-  defaultWagmiConfig,
-  ProfileModal,
-  SwitchNetworkModal,
-  WalletKitButton,
-  WalletKitOptions,
+  useConnectModal,
+  WalletKitConfig,
   WalletKitProvider,
 } from '@node-real/walletkit';
-import { WagmiProvider } from 'wagmi';
+import VConsole from 'vconsole';
+import { evmConfig, metaMask, trustWallet, walletConnect } from '@node-real/walletkit/evm';
+import { mainnet } from 'viem/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+new VConsole();
 
 const queryClient = new QueryClient();
 
-const config = defaultWagmiConfig({
-  appName: 'WalletKit',
-  chains: [mainnet, bsc, opBNB],
-  connectors: [trustWallet(), metaMask(), walletConnect()],
-
-  // WalletConnect 2.0 requires a projectId which you can create quickly
-  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-  walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-});
-
-const options: WalletKitOptions = {
-  initialChainId: 1,
+const config: WalletKitConfig = {
+  walletConfigs: [
+    evmConfig({
+      autoConnect: true,
+      initialChainId: 1,
+      wallets: [metaMask(), trustWallet(), walletConnect()],
+      chains: [mainnet] as any[],
+    }),
+  ],
+  appearance: {
+    mode: 'auto',
+  },
+  eventConfig: {
+    closeModalOnEsc: false,
+    closeModalOnOverlayClick: false,
+    closeModalAfterConnected: true,
+  },
 };
 
 export default function App() {
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode="light">
-          <WalletKitButton />
-          <ConnectModal />
-          <ProfileModal />
-          <SwitchNetworkModal />
-        </WalletKitProvider>
+        <ConnectButton />
+        <ConnectModal />
       </QueryClientProvider>
-    </WagmiProvider>
+    </WalletKitProvider>
   );
+}
+
+function ConnectButton() {
+  const { onOpen } = useConnectModal();
+  return <button onClick={() => onOpen()}>connect</button>;
 }

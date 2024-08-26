@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@node-real/walletkit": "workspace:*",
+    "@tanstack/react-query": "^5",
+    "encoding": "^0.1.13",
     "next": "^14",
+    "pino-pretty": "^11.2.2",
     "react": "^18",
     "react-dom": "^18",
     "viem": "^2",
-    "wagmi": "^2",
-    "@tanstack/react-query": "^5.51.1"
+    "wagmi": "^2"
   },
   "devDependencies": {
     "@types/node": "^20",
