@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { ViewRoutes } from '../modals/ConnectModal/RouteProvider';
-import { useConfig } from '../providers/WalletKitProvider/context';
+import { useEventConfig } from '../providers/WalletKitProvider/context';
 import { useConnectModal } from '../modals/ConnectModal/context';
 import { useRouter } from '../modals/ConnectModal/RouteProvider/context';
 
 export function useAutoCloseConnectModal(isConnected: boolean) {
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
 
   const router = useRouter();
   const { onClose } = useConnectModal();

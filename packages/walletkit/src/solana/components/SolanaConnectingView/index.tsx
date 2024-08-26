@@ -1,10 +1,10 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
 import {
-  useConfig,
+  useEventConfig,
+  useEvmConfig,
   useLogger,
   useSelectedWallet,
-  useWalletConfig,
 } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
@@ -17,8 +17,8 @@ type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 export function SolanaConnectingView() {
   const log = useLogger();
   const { selectedWallet } = useSelectedWallet();
-  const { eventConfig } = useConfig();
-  const { autoConnect } = useWalletConfig();
+  const eventConfig = useEventConfig();
+  const { autoConnect } = useEvmConfig();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,

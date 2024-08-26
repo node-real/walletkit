@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import { useConnect } from 'wagmi';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
 import { useIsConnected } from './useIsConnected';
-import { useConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
-import { getGlobalData } from '@/core/globalData';
+import { useEventConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
+import { getEvmGlobalData } from '../globalData';
 
 let timer: any;
 
 export function useQRCodeUri() {
   const { connectAsync } = useConnect();
 
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
   const log = useLogger();
   const [wcUri, setWcUri] = useState<string>('');
 
@@ -21,7 +21,7 @@ export function useQRCodeUri() {
   useEffect(() => {
     if (isConnected || !connector) return;
     const onUpdateWcUri = ({ type, data }: any) => {
-      if (type === 'display_uri' && !getGlobalData().walletConnectModalIsOpen) {
+      if (type === 'display_uri' && !getEvmGlobalData().walletConnectModalIsOpen) {
         setWcUri(data);
       }
     };

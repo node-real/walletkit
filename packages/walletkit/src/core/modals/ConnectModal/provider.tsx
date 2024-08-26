@@ -1,8 +1,4 @@
-import {
-  useAction,
-  useInitialChainId,
-  useWalletConfig,
-} from '@/core/providers/WalletKitProvider/context';
+import { useAction, useEvmConfig } from '@/core/providers/WalletKitProvider/context';
 import { RouteProvider, ViewRoutes } from './RouteProvider';
 import { useMemo } from 'react';
 import { ConnectModalContext, ConnectModalOpenParams } from './context';
@@ -26,9 +22,8 @@ export function ConnectModalProvider(props: ConnectModalProviderProps) {
 function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
-  const { evmConfig } = useWalletConfig();
+  const evmConfig = useEvmConfig();
   const { setAction } = useAction();
-  const { setInitialChainId } = useInitialChainId();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
@@ -46,12 +41,13 @@ function WithRouter(props: ConnectModalProviderProps) {
         router.push(params.viewRoute ?? ViewRoutes.CONNECTORS);
 
         setAction(params.action);
-        setInitialChainId(params.initialChainId ?? evmConfig?.initialChainId);
-
+        if (evmConfig && params.initialChainId) {
+          evmConfig.initialChainId = params.initialChainId;
+        }
         onOpen();
       },
     };
-  }, [evmConfig?.initialChainId, isOpen, onClose, onOpen, router, setAction, setInitialChainId]);
+  }, [evmConfig, isOpen, onClose, onOpen, router, setAction]);
 
   return <ConnectModalContext.Provider value={value}>{children}</ConnectModalContext.Provider>;
 }

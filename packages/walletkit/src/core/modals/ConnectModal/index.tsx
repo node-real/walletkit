@@ -1,11 +1,11 @@
 import { Modal } from '@/core/base/components/Modal';
-import { useConfig } from '@/core/providers/WalletKitProvider/context';
+import { useEventConfig } from '@/core/providers/WalletKitProvider/context';
 import { useRouter } from './RouteProvider/context';
 import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
 
 export function ConnectModal() {
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
   const { isOpen, onClose } = useConnectModal();
   const { view, history, back } = useRouter();
 

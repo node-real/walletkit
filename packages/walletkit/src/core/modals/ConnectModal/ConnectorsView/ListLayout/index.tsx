@@ -3,14 +3,14 @@ import { ModalBody } from '@/core/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/core/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/core/base/icons/WalletIcon';
 import { cx } from '@/core/base/utils/css';
-import { useConfig } from '@/core/providers/WalletKitProvider/context';
+import { useAppearance } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletLink } from './styles.css';
 import { WalletOption } from './WalletOption';
 import { BaseWallet } from '@/core/configs/types';
 
 export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
   const { visibleWallets } = props;
-  const { appearance } = useConfig();
+  const appearance = useAppearance();
 
   return (
     <>

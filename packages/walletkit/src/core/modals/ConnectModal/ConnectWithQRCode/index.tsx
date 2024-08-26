@@ -6,7 +6,7 @@ import { ForwardIcon } from '@/core/base/icons/ForwardIcon';
 import { cx } from '@/core/base/utils/css';
 import { CustomQRCode } from '@/core/components/CustomQRCode';
 import { useWalletLogos } from '@/core/hooks/useWalletLogos';
-import { useConfig } from '@/core/providers/WalletKitProvider/context';
+import { useAppearance } from '@/core/providers/WalletKitProvider/context';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 import { BaseWallet } from '@/core/configs/types';
@@ -22,7 +22,7 @@ export interface ConnectWithQRCodeProps {
 export function ConnectWithQRCode(props: ConnectWithQRCodeProps) {
   const { wallet, qrCodeUri, onClickOpenWcModal, isConnected, isWalletConnect } = props;
 
-  const { appearance } = useConfig();
+  const appearance = useAppearance();
   const logos = useWalletLogos(wallet?.logos);
 
   useAutoCloseConnectModal(isConnected);

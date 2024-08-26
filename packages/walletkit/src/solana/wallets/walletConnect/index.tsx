@@ -5,7 +5,7 @@ import {
 import { SolanaWallet } from '../types';
 import { isMobile } from '@/core/base/utils/mobile';
 import { walletConnectConfig } from '@/core/configs/walletConnect';
-import { getGlobalData } from '@/core/globalData';
+import { getSolanaGlobalData } from '@/solana/globalData';
 
 interface WalletConnectOptions extends Partial<SolanaWallet> {
   adapterOptions?: Partial<WalletConnectWalletAdapterConfig>;
@@ -22,7 +22,7 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
     showQRCode: isMobile() ? false : true,
     isInstalled: () => false,
     getAdapter: () => {
-      const { walletConnectProjectId, metadata, solanaRpcUrl } = getGlobalData();
+      const { walletConnectProjectId, metadata, rpcUrl } = getSolanaGlobalData();
 
       const hasAllAppData = metadata?.name && metadata.icon && metadata.description && metadata.url;
 
@@ -31,7 +31,7 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
       }
 
       return new WalletConnectWalletAdapter({
-        network: solanaRpcUrl as any,
+        network: rpcUrl as any,
         options: {
           // https://github.com/WalletConnect/walletconnect-monorepo/issues/2830
           relayUrl: 'wss://relay.walletconnect.org',

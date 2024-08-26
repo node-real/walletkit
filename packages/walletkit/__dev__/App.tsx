@@ -1,15 +1,11 @@
-import {
-  EmbeddedConnectModal,
-  useConnectModal,
-  WalletKitConfig,
-  WalletKitProvider,
-} from '@/core/index';
+import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
+  evmConfig,
   mathWallet,
   metaMask,
   okxWallet,
@@ -20,9 +16,11 @@ import {
 import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
+  solanaConfig,
 } from '@/solana/index';
 import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useAccount, useDisconnect } from 'wagmi';
 
 new VConsole();
 
@@ -41,9 +39,9 @@ const config: WalletKitConfig = {
       console.log(wallet, chainId);
     },
   },
-  walletConfig: {
-    autoConnect: true,
-    evmConfig: {
+  walletConfigs: [
+    evmConfig({
+      autoConnect: true,
       initialChainId: 1,
       chains: [mainnet, bsc],
       wallets: [
@@ -57,12 +55,13 @@ const config: WalletKitConfig = {
         coinbaseWallet(),
         mathWallet(),
       ],
-    },
-    solanaConfig: {
+    }),
+    solanaConfig({
+      autoConnect: true,
       rpcUrl: 'https://solana-rpc.debridge.finance',
       wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-    },
-  },
+    }),
+  ],
 };
 
 export default function App() {
@@ -70,7 +69,7 @@ export default function App() {
     <WalletKitProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConnectButton />
-        <EmbeddedConnectModal />
+        <ConnectModal />
       </QueryClientProvider>
     </WalletKitProvider>
   );
@@ -78,6 +77,18 @@ export default function App() {
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
+
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  if (address) {
+    return (
+      <>
+        <div>address:{address}</div>
+        <button onClick={() => disconnect()}>disconnect</button>
+      </>
+    );
+  }
 
   return (
     <button

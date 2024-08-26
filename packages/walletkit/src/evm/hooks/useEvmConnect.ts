@@ -1,6 +1,6 @@
 import {
-  useConfig,
-  useInitialChainId,
+  useEventConfig,
+  useEvmConfig,
   useLogger,
 } from '@/core/providers/WalletKitProvider/context';
 import { useConnect } from 'wagmi';
@@ -11,10 +11,10 @@ export type UseEvmConnectProps = Parameters<typeof useConnect>[0];
 export type UseEvmConnectReturnType = ReturnType<typeof useConnect>;
 
 export function useEvmConnect(props?: UseEvmConnectProps): UseEvmConnectReturnType {
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
   const log = useLogger();
 
-  const { initialChainId } = useInitialChainId();
+  const { initialChainId } = useEvmConfig();
 
   const connectProps = {
     chainId: initialChainId,

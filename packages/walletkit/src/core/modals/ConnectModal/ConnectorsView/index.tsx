@@ -5,10 +5,10 @@ import { cx } from '@/core/base/utils/css';
 import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
-import { useConfig, useWallets } from '@/core/providers/WalletKitProvider/context';
+import { useAppearance, useWallets } from '@/core/providers/WalletKitProvider/context';
 
 export function ConnectorsView() {
-  const { appearance } = useConfig();
+  const appearance = useAppearance();
   const { wallets } = useWallets();
   const { isMobileLayout } = useResponsive();
 

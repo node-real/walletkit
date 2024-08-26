@@ -5,12 +5,12 @@ import { WalletIcon } from '@/core/base/icons/WalletIcon';
 import { cx } from '@/core/base/utils/css';
 import { WalletOption } from './WalletOption';
 import { BaseWallet } from '@/core/configs/types';
-import { useConfig } from '@/core/providers/WalletKitProvider/context';
+import { useAppearance } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletButton } from './styles.css';
 
 export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
   const { visibleWallets } = props;
-  const { appearance } = useConfig();
+  const appearance = useAppearance();
 
   return (
     <>

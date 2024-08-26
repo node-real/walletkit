@@ -2,10 +2,10 @@ import {
   coinbaseWallet as wagmiCoinbaseWallet,
   type CoinbaseWalletParameters,
 } from 'wagmi/connectors';
-import { getGlobalData } from '@/core/globalData';
 import { coinbaseWalletConfig } from '@/core/configs/coinbaseWallet';
 import { EvmWallet } from '../types';
 import { hasInjectedEvmProvider } from '../utils';
+import { getEvmGlobalData } from '@/evm/globalData';
 
 interface CoinbaseWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: CoinbaseWalletParameters;
@@ -31,7 +31,7 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
       return uri;
     },
     getCreateConnectorFn: () => {
-      const { metadata } = getGlobalData();
+      const { metadata } = getEvmGlobalData();
 
       return wagmiCoinbaseWallet({
         appName: metadata!.name,

@@ -2,8 +2,8 @@ import { CONNECT_STATUS } from '@/core/constants';
 import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
 import {
   useAction,
-  useConfig,
-  useInitialChainId,
+  useEventConfig,
+  useEvmConfig,
   useSelectedWallet,
 } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
@@ -12,13 +12,13 @@ import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useState, useCallback } from 'react';
 
 export function EvmConnectingView() {
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
   const { action } = useAction();
   const { selectedWallet } = useSelectedWallet();
 
   const isConnected = useIsConnected();
   const selectedConnector = useWalletConnector(selectedWallet.id);
-  const { initialChainId } = useInitialChainId();
+  const { initialChainId } = useEvmConfig();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,

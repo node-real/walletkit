@@ -1,9 +1,18 @@
-import { WalletKitConfig } from '../providers/WalletKitProvider/context';
+import { WalletKitConfig, WalletKitContextProps } from '../providers/WalletKitProvider/context';
 import { toast } from '@/core/base/components/toast';
-import { setGlobalData } from '@/core/globalData';
+import { SolanaConfig } from '@/solana/utils/solanaConfig';
+import { EvmConfig } from '@/evm/utils/evmConfig';
 
-export function getDefaultConfig(config: WalletKitConfig) {
-  const finalConfig: WalletKitConfig = {
+type DefaultConfig = Pick<WalletKitContextProps, 'appearance' | 'eventConfig' | 'walletConfig'>;
+
+export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
+  const evmConfig = config.walletConfigs.find((item) => item.walletType === 'evm') as EvmConfig;
+
+  const solanaConfig = config.walletConfigs.find(
+    (item) => item.walletType === 'solana',
+  ) as SolanaConfig;
+
+  return {
     appearance: {
       mode: 'auto',
       theme: undefined,
@@ -27,7 +36,6 @@ export function getDefaultConfig(config: WalletKitConfig) {
       closeModalOnEsc: true,
       closeModalOnOverlayClick: true,
       openModalOnWrongNetwork: false,
-
       onError(_err: any, description: string) {
         if (description) {
           toast.error({
@@ -39,23 +47,10 @@ export function getDefaultConfig(config: WalletKitConfig) {
     },
 
     walletConfig: {
-      autoConnect: true,
-      walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767', // TODO
-      ...config.walletConfig,
-      metadata: {
-        name: 'Connect Wallet',
-        ...config.walletConfig?.metadata,
-      },
-      evmConfig: config.walletConfig?.evmConfig,
-      solanaConfig: config.walletConfig?.solanaConfig,
+      evmConfig,
+      solanaConfig,
     },
   };
-
-  setGlobalData({
-    metadata: finalConfig.walletConfig?.metadata,
-    walletConnectProjectId: finalConfig.walletConfig?.walletConnectProjectId,
-    solanaRpcUrl: finalConfig.walletConfig?.solanaConfig?.rpcUrl,
-  });
-
-  return finalConfig;
 }
+
+export const WALLET_CONNECT_PROJECT_ID = 'e68a1816d39726c2afabf05661a32767';

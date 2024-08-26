@@ -1,30 +1,66 @@
 import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import { EvmWallet, isWalletConnect, walletConnect } from '@/evm/wallets';
+import { Metadata } from '@/core/providers/WalletKitProvider/context';
+import { WALLET_CONNECT_PROJECT_ID } from '@/core/configs/getDefaultConfig';
+import { WalletType } from '@/core/configs/types';
+import { setEvmGlobalData } from '../globalData';
 
-export interface EvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
+interface CustomizedEvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
+  autoConnect?: boolean;
+  metadata?: Metadata;
+  walletConnectProjectId?: string;
   initialChainId?: number;
-  chains: Chain[];
   wallets: EvmWallet[];
+  chains?: Chain[];
 }
 
-export const getEvmConfig = (params: EvmConfig) => {
-  const { chains = [mainnet], wallets, client, ...restProps } = params;
+export interface EvmConfig extends ReturnType<typeof evmConfig> {
+  walletType: WalletType;
+}
+
+export function evmConfig(params: CustomizedEvmConfig) {
+  const {
+    autoConnect = false,
+    metadata = { name: 'WalletKit' },
+    walletConnectProjectId = WALLET_CONNECT_PROJECT_ID,
+    initialChainId,
+    wallets,
+    chains = [mainnet],
+
+    client,
+    ...restProps
+  } = params;
+
+  setEvmGlobalData({
+    metadata,
+    walletConnectProjectId,
+    walletConnectModalIsOpen: false,
+  });
 
   const transports: CreateConfigParameters['transports'] =
     params?.transports ?? Object.fromEntries(chains.map((chain) => [chain.id, http()]));
 
   const fns = getCreateConnectorFns(wallets);
 
-  const config = createConfig({
+  const wagmiConfig = createConfig({
     ...restProps,
     chains,
     connectors: fns,
     transports,
   } as CreateConfigParameters<any, any>);
 
-  return config;
-};
+  return {
+    walletType: 'evm' as WalletType,
+    autoConnect,
+    metadata,
+    walletConnectProjectId,
+    initialChainId,
+    wallets,
+    chains,
+    wagmiConfig,
+  };
+}
 
 function getCreateConnectorFns(wallets: EvmWallet[]) {
   const fns = wallets.map((w) => {

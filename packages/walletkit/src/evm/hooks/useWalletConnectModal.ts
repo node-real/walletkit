@@ -3,7 +3,7 @@ import { useWalletConnectConnector } from './useWalletConnectConnector';
 import { useEvmConnect } from './useEvmConnect';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { useLogger } from '@/core/providers/WalletKitProvider/context';
-import { setGlobalData } from '@/core/globalData';
+import { setEvmGlobalData } from '../globalData';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useEvmConnect();
@@ -23,7 +23,7 @@ export function useWalletConnectModal() {
       };
     }
 
-    setGlobalData({
+    setEvmGlobalData({
       walletConnectModalIsOpen: isOpen,
     });
   }, [connectModal, isOpen]);

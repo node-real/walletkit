@@ -17,23 +17,32 @@ export interface WalletKitProviderProps {
 export function WalletKitProvider(props: WalletKitProviderProps) {
   const { config, children } = props;
 
+  const finalConfig = useMemo(() => {
+    const finalConfig = getDefaultConfig(config);
+
+    const wallets: BaseWallet[] = [];
+    const evmWallets = finalConfig.walletConfig.evmConfig?.wallets;
+    const solanaWallets = finalConfig.walletConfig.solanaConfig?.wallets;
+
+    if (evmWallets) wallets.push(...evmWallets);
+    if (solanaWallets) wallets.push(...solanaWallets);
+
+    return {
+      appearance: finalConfig.appearance,
+      eventConfig: finalConfig.eventConfig,
+      walletConfig: finalConfig.walletConfig,
+      wallets,
+    };
+  }, [config]);
+
   const [action, setAction] = useState<Action>();
   const [selectedWallet, setSelectedWallet] = useState<BaseWallet>({} as BaseWallet);
 
-  const initialWallets = useMemo(() => {
-    const evmWallets = config.walletConfig?.evmConfig?.wallets ?? [];
-    const solanaWallets = config.walletConfig?.solanaConfig?.wallets ?? [];
-    return [...evmWallets, ...solanaWallets];
-  }, [config.walletConfig?.evmConfig?.wallets, config.walletConfig?.solanaConfig?.wallets]);
-
-  const [wallets, setWallets] = useState<BaseWallet[]>(initialWallets);
-  const [initialChainId, setInitialChainId] = useState<number | undefined>(
-    config.walletConfig?.evmConfig?.initialChainId,
-  );
+  const [wallets, setWallets] = useState<BaseWallet[]>(finalConfig.wallets);
 
   const value = useMemo(() => {
     return {
-      config: getDefaultConfig(config),
+      ...finalConfig,
       logger: config.debug ? console.log : () => undefined,
 
       action,
@@ -42,19 +51,16 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
       selectedWallet,
       setSelectedWallet,
 
-      initialChainId,
-      setInitialChainId,
-
       wallets,
       setWallets,
     };
-  }, [action, config, initialChainId, selectedWallet, wallets]);
+  }, [action, config.debug, finalConfig, selectedWallet, wallets]);
 
   return (
     <WalletKitContext.Provider value={value}>
       <ToastProvider />
 
-      <ThemeProvider mode={value.config.appearance!.mode} theme={value.config.appearance!.theme}>
+      <ThemeProvider mode={value.appearance!.mode} theme={value.appearance!.theme}>
         <EvmWalletProvider>
           <SolanaWalletProvider>
             <ConnectModalProvider>

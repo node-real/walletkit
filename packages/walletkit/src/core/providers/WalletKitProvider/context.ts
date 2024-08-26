@@ -1,10 +1,12 @@
 import { ThemeProviderProps } from '../ThemeProvider';
 import React, { useContext } from 'react';
-import { EvmConfig } from '@/evm/utils/getEvmConfig';
-import { SolanaConfig } from '@/solana/utils/getSolanaConfig';
+import { EvmConfig } from '@/evm/utils/evmConfig';
+import { SolanaConfig } from '@/solana/utils/solanaConfig';
 import { BaseWallet, WalletType } from '@/core/configs/types';
 
 export type Action = 'add-network' | undefined;
+
+export type Metadata = { name: string; icon?: string; description?: string; url?: string };
 
 export interface WalletKitConfig {
   debug?: boolean;
@@ -37,13 +39,7 @@ export interface WalletKitConfig {
     onError?: (err: any, description: string) => void;
   };
 
-  walletConfig: {
-    autoConnect?: boolean;
-    metadata?: { name: string; icon?: string; description?: string; url?: string };
-    walletConnectProjectId?: string;
-    evmConfig?: EvmConfig;
-    solanaConfig?: SolanaConfig;
-  };
+  walletConfigs: Array<EvmConfig | SolanaConfig>;
 }
 
 export type WalletErrorProps = {
@@ -53,7 +49,13 @@ export type WalletErrorProps = {
 
 export interface WalletKitContextProps {
   logger: (...param: any) => void;
-  config: WalletKitConfig;
+
+  appearance: NonNullable<WalletKitConfig['appearance']>;
+  eventConfig: NonNullable<WalletKitConfig['eventConfig']>;
+  walletConfig: {
+    evmConfig?: EvmConfig;
+    solanaConfig?: SolanaConfig;
+  };
 
   action: Action;
   setAction: (action: Action) => void;
@@ -63,12 +65,29 @@ export interface WalletKitContextProps {
 
   wallets: BaseWallet[];
   setWallets: React.Dispatch<React.SetStateAction<BaseWallet[]>>;
-
-  initialChainId?: number;
-  setInitialChainId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 export const WalletKitContext = React.createContext({} as WalletKitContextProps);
+
+export function useAppearance() {
+  const { appearance } = useContext(WalletKitContext);
+  return appearance;
+}
+
+export function useEventConfig() {
+  const { eventConfig } = useContext(WalletKitContext);
+  return eventConfig;
+}
+
+export function useEvmConfig() {
+  const { walletConfig } = useContext(WalletKitContext);
+  return walletConfig.evmConfig as EvmConfig;
+}
+
+export function useSolanaConfig() {
+  const { walletConfig } = useContext(WalletKitContext);
+  return walletConfig.solanaConfig as SolanaConfig;
+}
 
 export function useLogger() {
   return useContext(WalletKitContext).logger;
@@ -79,14 +98,6 @@ export function useAction() {
   return {
     action,
     setAction,
-  };
-}
-
-export function useInitialChainId() {
-  const { initialChainId, setInitialChainId } = useContext(WalletKitContext);
-  return {
-    initialChainId,
-    setInitialChainId,
   };
 }
 
@@ -112,16 +123,4 @@ export function useWallets(walletType?: WalletType) {
     wallets,
     setWallets,
   };
-}
-
-export function useConfig() {
-  return useContext(WalletKitContext).config as Required<WalletKitConfig>;
-}
-
-export function useAppearance() {
-  return useConfig().appearance as Required<WalletKitConfig>['appearance'];
-}
-
-export function useWalletConfig() {
-  return useConfig().walletConfig as Required<WalletKitConfig>['walletConfig'];
 }

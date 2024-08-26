@@ -2,11 +2,11 @@ import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import {
-  useConfig,
+  useEventConfig,
   useLogger,
   useSelectedWallet,
-  useWallets,
 } from '@/core/providers/WalletKitProvider/context';
+import { useSolanaWallets } from '@/solana/hooks/useSolanaWallets';
 import { SolanaWallet } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRef } from 'react';
@@ -18,12 +18,12 @@ interface SetSolanaWalletClickRefProps {
 export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
   const { clickRef } = props;
 
-  const { eventConfig } = useConfig();
+  const eventConfig = useEventConfig();
   const log = useLogger();
   const { setSelectedWallet } = useSelectedWallet();
 
   const { disconnect } = useWallet();
-  const { wallets } = useWallets();
+  const { wallets } = useSolanaWallets();
 
   const connectModal = useConnectModal();
   const router = useRouter();

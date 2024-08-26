@@ -1,7 +1,5 @@
-import { useMemo } from 'react';
 import { WagmiProvider } from 'wagmi';
-import { getEvmConfig } from '../../utils/getEvmConfig';
-import { useWalletConfig } from '@/core/providers/WalletKitProvider/context';
+import { useEvmConfig } from '@/core/providers/WalletKitProvider/context';
 
 export interface EvmWalletProviderProps {
   children: React.ReactNode;
@@ -10,19 +8,14 @@ export interface EvmWalletProviderProps {
 export function EvmWalletProvider(props: EvmWalletProviderProps) {
   const { children } = props;
 
-  const { autoConnect, evmConfig } = useWalletConfig();
+  const evmConfig = useEvmConfig();
 
-  const config = useMemo(() => {
-    if (!evmConfig) return;
-    return getEvmConfig(evmConfig);
-  }, [evmConfig]);
-
-  if (!config) {
+  if (!evmConfig) {
     return <>{children}</>;
   }
 
   return (
-    <WagmiProvider config={config} reconnectOnMount={autoConnect}>
+    <WagmiProvider config={evmConfig.wagmiConfig} reconnectOnMount={evmConfig.autoConnect}>
       {children}
     </WagmiProvider>
   );
