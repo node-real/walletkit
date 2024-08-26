@@ -2,7 +2,7 @@ import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
 import { mainnet } from 'wagmi/chains';
 
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/evm';
+import { trustWallet, metaMask, walletConnect, evmConfig } from '@node-real/walletkit/evm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   WalletKitProvider,
@@ -15,14 +15,14 @@ import { AppProps } from 'next/app';
 const queryClient = new QueryClient();
 
 const config: WalletKitConfig = {
-  walletConfig: {
-    autoConnect: true,
-    evmConfig: {
+  walletConfigs: [
+    evmConfig({
+      autoConnect: true,
       initialChainId: 1,
       wallets: [metaMask(), trustWallet(), walletConnect()],
       chains: [mainnet] as any[],
-    },
-  },
+    }),
+  ],
   appearance: {
     mode: 'light',
   },
