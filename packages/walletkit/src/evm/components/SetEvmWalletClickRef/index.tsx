@@ -1,5 +1,5 @@
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
-import { isMobile } from '@/core/index';
+import { isMobile, isTMA } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
@@ -33,7 +33,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const router = useRouter();
 
   const timerRef = useRef<any>();
-  const mobile = isMobile();
   const { wallets } = useEvmConfig();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
@@ -75,8 +74,15 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (mobile) {
-        // 1. mobile
+      if (isTMA()) {
+        // 1. TMA
+        if (isMobile()) {
+          jumpToWalletConnectView();
+        } else {
+          jumpToQRCodeView();
+        }
+      } else if (isMobile()) {
+        // 2. mobile
         if (isWalletConnect(walletId)) {
           wcModal.onOpen();
         } else if (wallet.useWalletConnect) {
@@ -92,7 +98,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
           }
         }
       } else {
-        // 2. pc
+        // 3. pc
         if (isWalletConnect(walletId)) {
           if (wallet.showQRCode) {
             jumpToQRCodeView();

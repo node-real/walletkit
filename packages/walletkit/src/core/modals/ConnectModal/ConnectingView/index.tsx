@@ -34,6 +34,8 @@ export function ConnectingView(props: ConnectingViewProps) {
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
   useEffect(() => {
+    log('[connecting page]', `name: ${wallet?.name}, status: ${status}`);
+
     if (status === CONNECT_STATUS.UNAVAILABLE || !isReady) return;
 
     const connectTimeout = setTimeout(runConnect, 600);
@@ -42,8 +44,6 @@ export function ConnectingView(props: ConnectingViewProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isReady]);
-
-  log('[connecting page]', `name: ${wallet?.name}, status: ${status}`);
 
   const isError = [
     CONNECT_STATUS.FAILED,

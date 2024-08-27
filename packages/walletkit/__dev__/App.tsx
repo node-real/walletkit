@@ -52,9 +52,7 @@ const config: WalletKitConfig = {
       walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
       chains: [mainnet, bsc],
       wallets: [
-        metaMask({
-          useWalletConnect: true,
-        }),
+        metaMask(),
         trustWallet(),
         walletConnect(),
         binanceWeb3Wallet(),

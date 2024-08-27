@@ -9,11 +9,11 @@ import { ConnectErrorType } from 'wagmi/actions';
 
 let timer: any;
 
-interface UseQRCodeUriProps {
+interface UseWalletConnectUriProps {
   onError?: (error: ConnectErrorType) => void;
 }
 
-export function useQRCodeUri(props?: UseQRCodeUriProps) {
+export function useWalletConnectUri(props?: UseWalletConnectUriProps) {
   const { connectAsync } = useConnect();
 
   const eventConfig = useEventConfig();

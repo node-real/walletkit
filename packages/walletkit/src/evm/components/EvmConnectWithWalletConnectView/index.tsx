@@ -1,17 +1,18 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
-import { useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
+import { useLogger, useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
 import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
-import { useQRCodeUri } from '@/evm/hooks/useQRCodeUri';
+import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { EvmWallet } from '@/evm/wallets';
 import { useCallback, useState } from 'react';
 
-export function EvmConnectWithWalletConnect() {
+export function EvmConnectWithWalletConnectView() {
   const { selectedWallet } = useSelectedWallet();
 
+  const log = useLogger();
   const [status, setStatus] = useState(CONNECT_STATUS.CONNECTING);
 
-  const wcUri = useQRCodeUri({
+  const wcUri = useWalletConnectUri({
     onError(error: any) {
       if (error.code) {
         // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
@@ -42,13 +43,15 @@ export function EvmConnectWithWalletConnect() {
     },
   });
 
-  const qrCodeUri = (selectedWallet as EvmWallet).getUri(wcUri);
+  const walletUri = (selectedWallet as EvmWallet).getUri(wcUri);
   const isConnected = useEvmIsConnected();
 
   const onClickConnect = useCallback(() => {
+    log(`[connectWithWalletConnect] walletUri`, walletUri);
     setStatus(CONNECT_STATUS.CONNECTING);
-    window.open(qrCodeUri, '_self', 'noopener noreferrer');
-  }, [qrCodeUri]);
+    window.open(walletUri, '_self', 'noopener noreferrer');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [walletUri]);
 
   return (
     <ConnectingView
