@@ -5,6 +5,8 @@ import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { EvmWallet } from '@/evm/wallets';
 import { useCallback, useState } from 'react';
+import { isTMA } from '@/core/index';
+import WebApp from '@twa-dev/sdk';
 
 export function EvmConnectWithWalletConnectView() {
   const { selectedWallet } = useSelectedWallet();
@@ -49,17 +51,28 @@ export function EvmConnectWithWalletConnectView() {
   const onClickConnect = useCallback(() => {
     log(`[connectWithWalletConnect] walletUri`, walletUri);
     setStatus(CONNECT_STATUS.CONNECTING);
-    window.open(walletUri, '_self', 'noopener noreferrer');
+
+    if (isTMA()) {
+      const link = `https://www.baidu.com/wc?uri=${encodeURIComponent(wcUri)}`;
+      console.log(link, '===');
+      WebApp.openLink(link);
+    } else {
+      window.open(walletUri, '_self', 'noopener noreferrer');
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletUri]);
 
   return (
-    <ConnectingView
-      isConnected={isConnected}
-      status={status}
-      runConnect={onClickConnect}
-      wallet={selectedWallet}
-      isReady={!!wcUri}
-    />
+    <>
+      <ConnectingView
+        isConnected={isConnected}
+        status={status}
+        runConnect={() => undefined}
+        wallet={selectedWallet}
+        isReady={!!wcUri}
+      />
+      <button onClick={onClickConnect}>connect</button>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { ThemeProvider } from '../ThemeProvider';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { EvmWalletProvider } from '@/evm/components/EvmWalletProvider';
 import { SolanaWalletProvider } from '@/solana/components/SolanaWalletProvider';
 import { Action, WalletKitConfig, WalletKitContext } from './context';
@@ -8,7 +8,6 @@ import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
 import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
-import { isTMA } from '@/core/base/utils/mobile';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -56,17 +55,6 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
       setWallets,
     };
   }, [action, config.debug, finalConfig, selectedWallet, wallets]);
-
-  // TMA hack
-  useEffect(() => {
-    if (isTMA()) {
-      window.open = (function (open) {
-        return function (url, _, features) {
-          return open.call(window, url, '_blank', features);
-        };
-      })(window.open);
-    }
-  }, []);
 
   return (
     <WalletKitContext.Provider value={value}>

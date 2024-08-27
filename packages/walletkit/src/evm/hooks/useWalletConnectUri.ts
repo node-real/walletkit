@@ -10,10 +10,13 @@ import { ConnectErrorType } from 'wagmi/actions';
 let timer: any;
 
 interface UseWalletConnectUriProps {
+  enabled?: boolean;
   onError?: (error: ConnectErrorType) => void;
 }
 
-export function useWalletConnectUri(props?: UseWalletConnectUriProps) {
+export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
+  const { enabled = true } = props;
+
   const { connectAsync } = useConnect();
 
   const eventConfig = useEventConfig();
@@ -24,7 +27,7 @@ export function useWalletConnectUri(props?: UseWalletConnectUriProps) {
   const isConnected = useEvmIsConnected();
 
   useEffect(() => {
-    if (isConnected || !connector) return;
+    if (isConnected || !connector || !enabled) return;
     const onUpdateWcUri = ({ type, data }: any) => {
       if (type === 'display_uri' && !getEvmGlobalData().walletConnectModalIsOpen) {
         setWcUri(data);
