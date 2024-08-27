@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.7
+
+### Patch Changes
+
+- fcb528a: Support telegram mini app
+
 ## 2.3.0-alpha.6
 
 ### Patch Changes
