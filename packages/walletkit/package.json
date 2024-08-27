@@ -14,13 +14,16 @@
   "keywords": [
     "walletkit"
   ],
-  "type": "module",
-  "files": [
-    "dist"
-  ],
   "sideEffects": false,
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "evm",
+    "solana",
+    "styles.css"
+  ],
   "exports": {
     ".": "./dist/core/index.js",
     "./styles.css": "./dist/style.css",
