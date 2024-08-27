@@ -1,4 +1,4 @@
-import { isIOS, isMobile } from '@/core/index';
+import { isIOS, isMobile } from '@/core/base/utils/mobile';
 import { binanceWeb3Wallet, trustWallet } from '../wallets';
 
 export function evmCommonErrorHandler(props: { log: any; handler: any; error: any }) {

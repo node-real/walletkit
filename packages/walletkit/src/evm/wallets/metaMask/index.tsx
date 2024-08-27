@@ -2,7 +2,7 @@ import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasEvmInjectedProvider } from '../utils';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
-import { isMobile, isTMA } from '@/core/index';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;

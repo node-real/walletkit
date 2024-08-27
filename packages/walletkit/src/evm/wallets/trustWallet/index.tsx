@@ -3,7 +3,7 @@ import { trustWalletConfig } from '@/core/configs/trustWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { getEvmInjectedProvider } from '../utils';
-import { isMobile, isTMA } from '@/core/index';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
