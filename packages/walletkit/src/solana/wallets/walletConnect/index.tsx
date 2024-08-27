@@ -3,7 +3,6 @@ import {
   WalletConnectWalletAdapterConfig,
 } from '@solana/wallet-adapter-wallets';
 import { SolanaWallet } from '../types';
-import { isMobile } from '@/core/base/utils/mobile';
 import { walletConnectConfig } from '@/core/configs/walletConnect';
 import { getSolanaGlobalData } from '@/solana/globalData';
 
@@ -19,9 +18,11 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
     id: 'solana:walletConnect',
     walletType: 'solana',
     adapterName: 'WalletConnect',
-    showQRCode: isMobile() ? false : true,
-    isInstalled: () => false,
-    getAdapter: () => {
+    showQRCode: true,
+    isInstalled() {
+      return false;
+    },
+    getAdapter() {
       const { walletConnectProjectId, metadata, rpcUrl } = getSolanaGlobalData();
 
       const hasAllAppData = metadata?.name && metadata.icon && metadata.description && metadata.url;

@@ -1,5 +1,5 @@
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
-import { isMobile } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
@@ -33,7 +33,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const router = useRouter();
 
   const timerRef = useRef<any>();
-  const mobile = isMobile();
   const { wallets } = useEvmConfig();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
@@ -67,31 +66,50 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       jumpTo(ViewRoutes.EVM_CONNECTING);
     };
 
+    const jumpToWalletConnectView = () => {
+      jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
+    };
+
     disconnect();
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (isWalletConnect(connector.id)) {
-        if (wallet.showQRCode) {
-          jumpToQRCodeView();
+      if (isTMA()) {
+        // 1. TMA
+        if (isMobile()) {
+          jumpToWalletConnectView();
         } else {
-          wcModal.onOpen();
+          jumpToQRCodeView();
         }
-      } else if (!wallet.isInstalled()) {
-        if (mobile) {
+      } else if (isMobile()) {
+        // 2. mobile
+        if (isWalletConnect(walletId)) {
+          wcModal.onOpen();
+        } else if (wallet.useWalletConnect) {
+          jumpToWalletConnectView();
+        } else if (wallet.isInstalled()) {
+          jumpToConnectingView();
+        } else {
           const deepLink = wallet.getDeepLink?.();
           if (deepLink) {
             window.open(deepLink, '_self', 'noopener noreferrer');
           } else {
             eventConfig.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
           }
+        }
+      } else {
+        // 3. pc
+        if (isWalletConnect(walletId)) {
+          if (wallet.showQRCode) {
+            jumpToQRCodeView();
+          } else {
+            wcModal.onOpen();
+          }
         } else if (wallet.showQRCode) {
           jumpToQRCodeView();
         } else {
           jumpToConnectingView();
         }
-      } else {
-        jumpToConnectingView();
       }
     }, 300);
   };

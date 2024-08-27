@@ -1,7 +1,8 @@
 import { metaMaskConfig } from '@/core/configs/metaMask';
-import { hasInjectedEvmProvider } from '../utils';
+import { hasEvmInjectedProvider } from '../utils';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -11,17 +12,24 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'metaMask',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
-      return hasInjectedEvmProvider('isMetaMask');
+    useWalletConnect: false,
+    isInstalled() {
+      return hasEvmInjectedProvider('isMetaMask');
     },
-    getDeepLink: () => {
+    getDeepLink() {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
       return `dapp://${dappPath}`;
     },
-    getQRCodeUri: (uri) => {
-      return `metamask://wc?uri=${encodeURIComponent(uri)}`;
+    getUri(uri) {
+      const wcUri = `wc?uri=${encodeURIComponent(uri)}`;
+
+      if (isTMA() && isMobile()) {
+        return `https://metamask.app.link/${wcUri}`;
+      }
+
+      return `metamask://${wcUri}`;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       return injected({
         shimDisconnect: true,
         target: 'metaMask',

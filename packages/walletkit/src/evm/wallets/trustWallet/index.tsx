@@ -2,7 +2,8 @@ import { sleep } from '@/core/utils/common';
 import { trustWalletConfig } from '@/core/configs/trustWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
-import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
+import { getEvmInjectedProvider } from '../utils';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -12,25 +13,26 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'trust',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
-      if (typeof window === 'undefined') return false;
-
-      return (
-        hasInjectedEvmProvider('isTrust') ||
-        window?.trustwallet?.isTrust ||
-        window?.trustWallet?.isTrust
-      );
+    useWalletConnect: false,
+    isInstalled() {
+      return !!getProvider();
     },
-    getDeepLink: () => {
+    getDeepLink() {
       const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
         window.location.href,
       )}`;
       return dappPath;
     },
-    getQRCodeUri: (uri) => {
-      return `trust://wc?uri=${encodeURIComponent(uri)}`;
+    getUri(uri) {
+      const wcUri = `wc?uri=${encodeURIComponent(uri)}`;
+
+      if (isTMA() && isMobile()) {
+        return `https://link.trustwallet.com/${wcUri}`;
+      }
+
+      return `trust://${wcUri}`;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       return injected({
         shimDisconnect: true,
         target: {
@@ -41,9 +43,7 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
             await sleep();
           },
           async provider() {
-            const provider =
-              getInjectedEvmProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
-            return provider;
+            return getProvider();
           },
         },
         ...connectorOptions,
@@ -51,4 +51,9 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     },
     ...restProps,
   };
+}
+
+function getProvider() {
+  if (typeof window === 'undefined') return;
+  return getEvmInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
 }

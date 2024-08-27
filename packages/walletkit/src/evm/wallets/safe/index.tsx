@@ -14,18 +14,22 @@ export function safe(props: SafeOptions = {}): EvmWallet {
     id: 'safe',
     walletType: 'evm',
     showQRCode: false,
-    isInstalled: () => {
+    useWalletConnect: false,
+    isInstalled() {
       return !(typeof window === 'undefined') && window?.parent !== window;
     },
     getDeepLink: () => {
       return undefined;
     },
-    getCreateConnectorFn: () => {
+    getCreateConnectorFn() {
       return wagmiSafe({
         allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
         debug: false,
         ...connectorOptions,
       });
+    },
+    getUri(uri) {
+      return uri;
     },
     ...restProps,
   };

@@ -1,4 +1,4 @@
-export function getInjectedEvmProvider(flag: string): any {
+export function getEvmInjectedProvider(flag: string): any {
   if (typeof window === 'undefined' || typeof window.ethereum === 'undefined') return;
   const providers = window.ethereum.providers;
 
@@ -9,6 +9,6 @@ export function getInjectedEvmProvider(flag: string): any {
       : undefined;
 }
 
-export function hasInjectedEvmProvider(flag: string): boolean {
-  return Boolean(getInjectedEvmProvider(flag));
+export function hasEvmInjectedProvider(flag: string): boolean {
+  return Boolean(getEvmInjectedProvider(flag));
 }

@@ -21,3 +21,17 @@ export function isIOS(): boolean {
 export function isMobile(): boolean {
   return isAndroid() || isIOS();
 }
+
+// telegram mini app
+export function isTMA(): boolean {
+  const check = (host: any) => {
+    return (
+      typeof host !== 'undefined' &&
+      'TelegramWebviewProxy' in host &&
+      'postEvent' in host.TelegramWebviewProxy &&
+      typeof host.TelegramWebviewProxy.postEvent === 'function'
+    );
+  };
+
+  return check(window);
+}

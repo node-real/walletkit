@@ -3,7 +3,7 @@ import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
 import { isMobile } from '@/core/base/utils/mobile';
 import { sleep } from '@/core/utils/common';
-import { hasInjectedEvmProvider } from '../utils';
+import { getEvmInjectedProvider } from '../utils';
 
 export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -13,8 +13,9 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
     id: 'binanceWeb3Wallet',
     walletType: 'evm',
     showQRCode: true,
+    useWalletConnect: false,
     isInstalled() {
-      return hasInjectedEvmProvider('isBinance');
+      return !!getProvider();
     },
     getDeepLink() {
       const url = window.location.href;
@@ -29,7 +30,7 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
 
       return deeplink;
     },
-    getQRCodeUri(uri) {
+    getUri(uri) {
       return uri;
     },
     getCreateConnectorFn() {
@@ -44,10 +45,8 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
               await sleep();
             }
           },
-          async provider(window) {
-            if (isMobile()) {
-              return window?.ethereum;
-            }
+          async provider() {
+            return getProvider();
           },
         },
         ...connectorOptions,
@@ -55,4 +54,9 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
     },
     ...restProps,
   };
+}
+
+function getProvider() {
+  if (typeof window === 'undefined') return;
+  return getEvmInjectedProvider('isBinance');
 }

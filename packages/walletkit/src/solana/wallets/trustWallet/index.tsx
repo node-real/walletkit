@@ -1,7 +1,7 @@
 import { TrustWalletAdapter, TrustWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
 import { SolanaWallet } from '../types';
 import { trustWalletConfig } from '@/core/configs/trustWallet';
-import { hasInjectedSolanaProvider } from '../utils';
+import { hasSolanaInjectedProvider } from '../utils';
 
 interface TrustWalletOptions extends Partial<SolanaWallet> {
   adapterOptions?: Partial<TrustWalletAdapterConfig>;
@@ -16,16 +16,16 @@ export function trustWallet(props: TrustWalletOptions = {}): SolanaWallet {
     walletType: 'solana',
     adapterName: 'Trust',
     showQRCode: false,
-    isInstalled: () => {
+    isInstalled() {
       if (typeof window === 'undefined') return false;
 
       return (
-        hasInjectedSolanaProvider('isTrust') ||
+        hasSolanaInjectedProvider('isTrust') ||
         window?.trustwallet?.solana?.isTrust ||
         window?.trustWallet?.solana?.isTrust
       );
     },
-    getAdapter: () => {
+    getAdapter() {
       return new TrustWalletAdapter({
         ...adapterOptions,
       });

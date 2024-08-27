@@ -1,7 +1,7 @@
 import { mathWalletConfig } from '@/core/configs/mathWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
-import { getInjectedEvmProvider, hasInjectedEvmProvider } from '../utils';
+import { getEvmInjectedProvider } from '../utils';
 
 export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -11,17 +11,16 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'mathWallet',
     walletType: 'evm',
     spinnerColor: undefined,
+    useWalletConnect: false,
     isInstalled() {
-      if (typeof window === 'undefined') return false;
-
-      return hasInjectedEvmProvider('isMathWallet');
+      return !!getProvider();
     },
     getDeepLink() {
       // return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
       // return `mathwallet://wc?uri=${encodeURIComponent(uri)}`;
       return undefined;
     },
-    getQRCodeUri(uri) {
+    getUri(uri) {
       return uri;
     },
     getCreateConnectorFn() {
@@ -31,10 +30,7 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
           id: mathWallet().id,
           name: mathWallet().name,
           async provider() {
-            if (typeof window === 'undefined') return;
-
-            const provider = getInjectedEvmProvider('isMathWallet');
-            return provider;
+            return getProvider();
           },
         },
         ...connectorOptions,
@@ -42,4 +38,9 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     },
     ...restProps,
   };
+}
+
+function getProvider() {
+  if (typeof window === 'undefined') return;
+  return getEvmInjectedProvider('isMathWallet');
 }
