@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.8
+
+### Patch Changes
+
+- eb83143: Fix module resolve issue
+
 ## 2.3.0-alpha.7
 
 ### Patch Changes

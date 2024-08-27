@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
+    "blue-parents-rhyme",
     "rotten-bats-appear",
     "rude-hornets-shop",
     "small-numbers-compare",
