@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.0-alpha.11
+
+### Patch Changes
+
+- 336afb6: update examples
+
 ## 2.3.0-alpha.10
 
 ### Patch Changes
