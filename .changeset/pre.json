@@ -1,0 +1,18 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "2.3.0-alpha.9",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "blue-parents-rhyme",
+    "quick-dragons-laugh",
+    "rotten-bats-appear",
+    "rude-hornets-shop",
+    "small-numbers-compare",
+    "wet-emus-nail"
+  ]
+}
