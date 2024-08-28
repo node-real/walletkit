@@ -4,9 +4,13 @@ import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import path from 'path';
+import mkcert from 'vite-plugin-mkcert';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    https: false,
+  },
   plugins: [
     react(),
     vanillaExtractPlugin({
@@ -15,6 +19,7 @@ export default defineConfig({
     dts({
       include: 'src',
     }),
+    mkcert(),
   ],
   resolve: {
     alias: {

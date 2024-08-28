@@ -1,4 +1,3 @@
-import { isMobile } from '@/core/base/utils/mobile';
 import { okxWalletConfig } from '@/core/configs/okxWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
@@ -41,10 +40,6 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
-
-  if (isMobile()) {
-    return window.ethereum || window.okexchain;
-  }
 
   return getEvmInjectedProvider('isOkxWallet') ?? window.okexchain;
 }

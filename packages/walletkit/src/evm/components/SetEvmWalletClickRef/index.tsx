@@ -9,7 +9,7 @@ import { getEvmGlobalData } from '@/evm/globalData';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
-import { useConnectors, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 interface SetEvmWalletClickRefProps {
   clickRef: UseWalletRenderProps['clickRef'];
@@ -56,7 +56,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       jumpTo(ViewRoutes.EVM_CONNECTING);
     };
 
-    const jumpToWalletConnectView = () => {
+    const jumpToUriConnectingView = () => {
       const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
       if (wcUri) {
         openUri(wallet.getUri(wcUri));
@@ -74,7 +74,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
           if (isWalletConnect(walletId)) {
             wcModal.onOpen();
           } else {
-            jumpToWalletConnectView();
+            jumpToUriConnectingView();
           }
         } else {
           jumpToQRCodeView();
@@ -84,11 +84,11 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         if (isWalletConnect(walletId)) {
           wcModal.onOpen();
         } else if (wallet.useWalletConnect) {
-          jumpToWalletConnectView();
+          jumpToUriConnectingView();
         } else if (wallet.isInstalled()) {
           jumpToConnectingView();
         } else {
-          const deepLink = wallet.getDeepLink?.();
+          const deepLink = wallet.getDeepLink();
           if (deepLink) {
             window.open(deepLink, '_self', 'noopener noreferrer');
           } else {

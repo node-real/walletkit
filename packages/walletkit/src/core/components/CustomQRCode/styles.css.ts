@@ -30,7 +30,7 @@ export const clsQrCodeLogo = style({
   overflow: 'hidden',
 });
 
-globalStyle(`${clsQrCodeLogo} > svg`, {
+globalStyle(`${clsQrCodeLogo} > *`, {
   width: '100%',
   height: '100%',
 });

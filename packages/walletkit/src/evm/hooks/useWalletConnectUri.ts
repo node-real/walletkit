@@ -8,12 +8,13 @@ import { useWalletConnectConnector } from './useWalletConnectConnector';
 
 interface UseWalletConnectUriProps {
   enabled?: boolean;
+  refreshUriOnError?: boolean;
 }
 
 let timer: any;
 
 export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
-  const { enabled = true } = props;
+  const { enabled = true, refreshUriOnError = false } = props;
 
   const { connectAsync } = useConnect();
   const { evmConfig, options, log } = useWalletKit();
@@ -52,7 +53,10 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
               error,
               handler: options.onError,
             });
-            connectWallet(); // refresh qr code
+
+            if (refreshUriOnError) {
+              connectWallet(); // refresh qr code
+            }
           }
         }, 100);
       }
@@ -65,7 +69,7 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
       connector?.emitter.off('message', onUpdateWcUri);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, enabled]);
+  }, [isConnected, enabled, refreshUriOnError]);
 
   return {
     wcUri,

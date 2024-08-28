@@ -45,5 +45,5 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isCoinbaseWallet') || !!window.coinbaseWalletExtension;
+  return getEvmInjectedProvider('isCoinbaseWallet') || window.coinbaseWalletExtension;
 }

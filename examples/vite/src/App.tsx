@@ -4,20 +4,16 @@ import {
   WalletKitConfig,
   WalletKitProvider,
 } from '@node-real/walletkit';
-import VConsole from 'vconsole';
 import { defaultEvmConfig, metaMask, trustWallet, walletConnect } from '@node-real/walletkit/evm';
 import { mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
-
-new VConsole();
 
 const queryClient = new QueryClient();
 
 const config: WalletKitConfig = {
   options: {
     closeModalOnEsc: false,
-    closeModalOnOverlayClick: false,
   },
   evmConfig: defaultEvmConfig({
     autoConnect: true,
@@ -54,16 +50,5 @@ function ConnectButton() {
     );
   }
 
-  return (
-    <button
-      onClick={() =>
-        onOpen({
-          action: 'add-network',
-          initialChainId: 1,
-        })
-      }
-    >
-      connect
-    </button>
-  );
+  return <button onClick={() => onOpen()}>connect</button>;
 }

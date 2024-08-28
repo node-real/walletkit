@@ -32,16 +32,12 @@ const evmConfig = defaultEvmConfig({
   walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
   chains: [mainnet, bsc] as any,
   wallets: [
-    metaMask({
-      useWalletConnect: true,
-    }),
+    metaMask(),
     trustWallet(),
     walletConnect(),
     binanceWeb3Wallet(),
     tokenPocket(),
-    bitgetWallet({
-      showQRCode: true,
-    }),
+    bitgetWallet(),
     okxWallet(),
     coinbaseWallet(),
     mathWallet(),
@@ -57,8 +53,6 @@ const solanaConfig = defaultSolanaConfig({
 const config: WalletKitConfig = {
   options: {
     closeModalOnEsc: false,
-    closeModalOnOverlayClick: false,
-    closeModalAfterConnected: true,
     onChainAlreadyAdded(wallet, chainId) {
       console.log(wallet, chainId);
     },
