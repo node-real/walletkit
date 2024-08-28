@@ -1,19 +1,21 @@
 import { CONNECT_STATUS } from '@/core/constants';
-import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
-import { useLogger, useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
+import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
+import { useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
 import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
-import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
+import { useCallback, useEffect, useState } from 'react';
+import { EventEmitter } from '@/core/utils/eventEmitter';
+import { useEvmWalletConnectUri } from '../EvmWalletConnectUriProvider';
 import { EvmWallet } from '@/evm/wallets';
-import { useCallback, useState } from 'react';
+import { openUri } from '@/core/utils/common';
 
 export function EvmConnectWithWalletConnectView() {
   const { selectedWallet } = useSelectedWallet();
 
-  const log = useLogger();
   const [status, setStatus] = useState(CONNECT_STATUS.CONNECTING);
+  const { wcUri } = useEvmWalletConnectUri();
 
-  const wcUri = useWalletConnectUri({
-    onError(error: any) {
+  useEffect(() => {
+    const onError = (error: any) => {
       if (error.code) {
         // https://github.com/MetaMask/eth-rpc-errors/blob/main/src/error-constants.ts
         switch (error.code) {
@@ -40,26 +42,30 @@ export function EvmConnectWithWalletConnectView() {
           }
         }
       }
-    },
-  });
+    };
 
-  const walletUri = (selectedWallet as EvmWallet).getUri(wcUri);
+    EventEmitter.on(EventEmitter.EVM_WC_URI_ERROR, onError);
+    return () => {
+      EventEmitter.off(EventEmitter.EVM_WC_URI_ERROR, onError);
+    };
+  }, []);
+
   const isConnected = useEvmIsConnected();
 
-  const onClickConnect = useCallback(() => {
-    log(`[connectWithWalletConnect] walletUri`, walletUri);
+  const onTryAgain = useCallback(() => {
     setStatus(CONNECT_STATUS.CONNECTING);
-    window.open(walletUri, '_self', 'noopener noreferrer');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletUri]);
+
+    const walletUri = (selectedWallet as EvmWallet).getUri(wcUri);
+    openUri(walletUri);
+  }, [selectedWallet, wcUri]);
 
   return (
-    <ConnectingView
+    <TemplateConnectingView
       isConnected={isConnected}
       status={status}
-      runConnect={onClickConnect}
+      runConnect={() => undefined}
+      onTryAgain={onTryAgain}
       wallet={selectedWallet}
-      isReady={!!wcUri}
     />
   );
 }

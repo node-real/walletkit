@@ -11,15 +11,15 @@ import { clsContainer, clsOfficialButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 import { BaseWallet } from '@/core/configs/types';
 
-export interface ConnectWithQRCodeProps {
+export interface TemplateConnectWithQRCodeViewProps {
   wallet: BaseWallet;
-  qrCodeUri: string;
+  qrCodeUri?: string;
   onClickOpenWcModal: () => void;
   isConnected: boolean;
   isWalletConnect: boolean;
 }
 
-export function ConnectWithQRCode(props: ConnectWithQRCodeProps) {
+export function TemplateConnectWithQRCodeView(props: TemplateConnectWithQRCodeViewProps) {
   const { wallet, qrCodeUri, onClickOpenWcModal, isConnected, isWalletConnect } = props;
 
   const appearance = useAppearance();

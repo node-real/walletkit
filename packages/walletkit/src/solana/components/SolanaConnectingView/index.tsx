@@ -1,5 +1,5 @@
 import { CONNECT_STATUS } from '@/core/constants';
-import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
+import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import {
   useEventConfig,
   useEvmConfig,
@@ -49,9 +49,9 @@ export function SolanaConnectingView() {
       });
     };
 
-    EventEmitter.on(EventEmitter.SolanaWalletError, onError);
+    EventEmitter.on(EventEmitter.SOLANA_WALLET_ERROR, onError);
     return () => {
-      EventEmitter.off(EventEmitter.SolanaWalletError, onError);
+      EventEmitter.off(EventEmitter.SOLANA_WALLET_ERROR, onError);
     };
   }, [eventConfig.onError, log]);
 
@@ -71,9 +71,10 @@ export function SolanaConnectingView() {
   }, [adapters, autoConnect, select, selectedWallet]);
 
   return (
-    <ConnectingView
+    <TemplateConnectingView
       status={status}
       runConnect={runConnect}
+      onTryAgain={runConnect}
       wallet={selectedWallet}
       isConnected={connected}
     />

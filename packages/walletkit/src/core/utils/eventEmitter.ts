@@ -28,7 +28,9 @@ class CustomEventEmitter {
     }
   }
 
-  SolanaWalletError = 'SolanaWalletError';
+  SOLANA_WALLET_ERROR = 'SOLANA_WALLET_ERROR';
+  EVM_WC_URI_ERROR = 'EVM_WC_URI_ERROR';
+  EVM_UPDATE_WC_URI = 'EVM_SET_WC_URI';
 }
 
 export const EventEmitter = new CustomEventEmitter();

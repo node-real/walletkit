@@ -8,12 +8,12 @@ import { SolanaConnectWithQRCodeView } from '@/solana/components/SolanaConnectWi
 import { ConnectorsView } from '../ConnectorsView';
 
 export enum ViewRoutes {
-  CONNECTORS = 'Connectors',
-  EVM_CONNECTING = 'EvmConnecting',
-  EVM_CONNECT_WITH_QRCODE = 'EvmConnectWithQRCode',
+  CONNECTORS = 'ConnectorsView',
+  EVM_CONNECTING = 'EvmConnectingView',
+  EVM_CONNECT_WITH_QRCODE = 'EvmConnectWithQRCodeView',
   EVM_CONNECT_WITH_WALLET_CONNECT = 'EvmConnectWithWalletConnectView',
-  SOLANA_CONNECTING = 'SolanaConnecting',
-  SOLANA_CONNECT_WITH_QRCODE = 'SolanaConnectWithQRCode',
+  SOLANA_CONNECTING = 'SolanaConnectingView',
+  SOLANA_CONNECT_WITH_QRCODE = 'SolanaConnectWithQRCodeView',
 }
 
 export interface RouteProviderProps {

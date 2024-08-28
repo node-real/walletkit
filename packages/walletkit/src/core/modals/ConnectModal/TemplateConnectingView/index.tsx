@@ -18,16 +18,16 @@ import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 import { BaseWallet } from '@/core/configs/types';
 
-interface ConnectingViewProps {
+interface TemplateConnectingViewProps {
   status: CONNECT_STATUS;
   runConnect: () => void;
+  onTryAgain: () => void;
   wallet: BaseWallet;
   isConnected: boolean;
-  isReady?: boolean;
 }
 
-export function ConnectingView(props: ConnectingViewProps) {
-  const { status, runConnect, wallet, isConnected, isReady = true } = props;
+export function TemplateConnectingView(props: TemplateConnectingViewProps) {
+  const { status, runConnect, onTryAgain, wallet, isConnected } = props;
 
   const log = useLogger();
   const logos = useWalletLogos(wallet.logos);
@@ -36,14 +36,14 @@ export function ConnectingView(props: ConnectingViewProps) {
   useEffect(() => {
     log('[connecting page]', `name: ${wallet?.name}, status: ${status}`);
 
-    if (status === CONNECT_STATUS.UNAVAILABLE || !isReady) return;
+    if (status === CONNECT_STATUS.UNAVAILABLE) return;
 
     const connectTimeout = setTimeout(runConnect, 600);
     return () => {
       clearTimeout(connectTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReady]);
+  }, []);
 
   const isError = [
     CONNECT_STATUS.FAILED,
@@ -117,7 +117,7 @@ export function ConnectingView(props: ConnectingViewProps) {
 
       {(status === CONNECT_STATUS.FAILED || status === CONNECT_STATUS.REJECTED) && (
         <ModalFooter className={clsFooter}>
-          <Button className={cx('wk-retry-button', clsButton)} onClick={runConnect}>
+          <Button className={cx('wk-retry-button', clsButton)} onClick={onTryAgain}>
             Try Again
           </Button>
         </ModalFooter>

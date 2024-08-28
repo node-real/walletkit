@@ -39,12 +39,13 @@ function WithRouter(props: ConnectModalProviderProps) {
       },
       onOpen(params: ConnectModalOpenParams = {}) {
         router.push(params.viewRoute ?? ViewRoutes.CONNECTORS);
-
         setAction(params.action);
+        onOpen();
+
+        // TODO
         if (evmConfig && params.initialChainId) {
           evmConfig.initialChainId = params.initialChainId;
         }
-        onOpen();
       },
     };
   }, [evmConfig, isOpen, onClose, onOpen, router, setAction]);

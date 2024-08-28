@@ -8,8 +8,8 @@ type DefaultConfig = Pick<WalletKitContextProps, 'appearance' | 'eventConfig' | 
 export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
   const { appearance, eventConfig, walletConfigs } = config;
 
-  const evmConfig = walletConfigs.find((item) => item.walletType === 'evm') as EvmConfig;
-  const solanaConfig = walletConfigs.find((item) => item.walletType === 'solana') as SolanaConfig;
+  const evmConfig = walletConfigs.find((item) => item.walletType === 'evm');
+  const solanaConfig = walletConfigs.find((item) => item.walletType === 'solana');
 
   return {
     appearance: {
@@ -46,8 +46,8 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
     },
 
     walletConfig: {
-      evmConfig,
-      solanaConfig,
+      evmConfig: evmConfig as EvmConfig | undefined,
+      solanaConfig: solanaConfig as SolanaConfig | undefined,
     },
   };
 }

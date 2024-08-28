@@ -111,6 +111,7 @@ export function useSelectedWallet() {
   };
 }
 
+// TODO
 export function useWalletKit() {
   const log = useLogger();
   const { wallets, setWallets } = useContext(WalletKitContext);

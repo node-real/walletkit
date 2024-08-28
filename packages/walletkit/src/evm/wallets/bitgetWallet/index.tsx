@@ -19,7 +19,7 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
     },
     getUri(uri) {
-      return `bitkeep://bkconnect/wc?uri=${encodeURIComponent(uri)}`;
+      return `https://bkcode.vip/wc?uri=${encodeURIComponent(uri)}`;
     },
     getCreateConnectorFn() {
       return injected({

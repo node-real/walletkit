@@ -1,5 +1,5 @@
 import { CONNECT_STATUS } from '@/core/constants';
-import { ConnectingView } from '@/core/modals/ConnectModal/ConnectingView';
+import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import {
   useAction,
   useEventConfig,
@@ -81,9 +81,10 @@ export function EvmConnectingView() {
   }, [connect, selectedConnector, selectedWallet]);
 
   return (
-    <ConnectingView
+    <TemplateConnectingView
       status={status}
       runConnect={runConnect}
+      onTryAgain={runConnect}
       wallet={selectedWallet}
       isConnected={isConnected}
     />

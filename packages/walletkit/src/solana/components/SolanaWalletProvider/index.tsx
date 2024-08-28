@@ -17,7 +17,7 @@ export function SolanaWalletProvider(props: SolanaWalletProviderProps) {
   const solanaConfig = useSolanaConfig();
 
   const onError = useCallback<Required<WalletProviderProps>['onError']>((error) => {
-    EventEmitter.emit(EventEmitter.SolanaWalletError, error);
+    EventEmitter.emit(EventEmitter.SOLANA_WALLET_ERROR, error);
   }, []);
 
   if (!solanaConfig) {

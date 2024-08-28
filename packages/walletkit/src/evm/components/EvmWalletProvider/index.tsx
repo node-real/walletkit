@@ -1,5 +1,6 @@
 import { WagmiProvider } from 'wagmi';
 import { useEvmConfig } from '@/core/providers/WalletKitProvider/context';
+import { EvmWalletConnectUriProvider } from '../EvmWalletConnectUriProvider';
 
 export interface EvmWalletProviderProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export function EvmWalletProvider(props: EvmWalletProviderProps) {
 
   return (
     <WagmiProvider config={evmConfig.wagmiConfig} reconnectOnMount={evmConfig.autoConnect}>
-      {children}
+      <EvmWalletConnectUriProvider>{children}</EvmWalletConnectUriProvider>
     </WagmiProvider>
   );
 }

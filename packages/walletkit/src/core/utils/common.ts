@@ -1,3 +1,6 @@
+import WebApp from '@twa-dev/sdk';
+import { isTMA } from '../base/utils/mobile';
+
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
 
@@ -24,4 +27,14 @@ export async function sleep(duration = 1000) {
       resolve(null);
     }, duration);
   });
+}
+
+export async function openUri(uri: string) {
+  if (!uri) return;
+
+  if (isTMA()) {
+    WebApp.openLink(uri);
+  } else {
+    window.open(uri, '_self', 'noopener noreferrer');
+  }
 }

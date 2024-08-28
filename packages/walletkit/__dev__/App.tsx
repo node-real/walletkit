@@ -50,14 +50,18 @@ const config: WalletKitConfig = {
       autoConnect: true,
       initialChainId: 1,
       walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-      chains: [mainnet, bsc],
+      chains: [mainnet, bsc] as any,
       wallets: [
-        metaMask(),
+        metaMask({
+          useWalletConnect: true,
+        }),
         trustWallet(),
         walletConnect(),
         binanceWeb3Wallet(),
         tokenPocket(),
-        bitgetWallet(),
+        bitgetWallet({
+          showQRCode: true,
+        }),
         okxWallet(),
         coinbaseWallet(),
         mathWallet(),

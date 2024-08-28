@@ -9,10 +9,12 @@ import {
   useLogger,
   useSelectedWallet,
 } from '@/core/providers/WalletKitProvider/context';
+import { openUri } from '@/core/utils/common';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
+import { useEvmWalletConnectUri } from '../EvmWalletConnectUriProvider';
 
 interface SetEvmWalletClickRefProps {
   clickRef: UseWalletRenderProps['clickRef'];
@@ -28,6 +30,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const connectors = useConnectors();
   const { disconnect } = useDisconnect();
   const wcModal = useWalletConnectModal();
+  const { wcUri } = useEvmWalletConnectUri();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -67,6 +70,9 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToWalletConnectView = () => {
+      if (!wcUri) return;
+
+      openUri(wallet.getUri(wcUri));
       jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
     };
 
@@ -77,7 +83,11 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       if (isTMA()) {
         // 1. TMA
         if (isMobile()) {
-          jumpToWalletConnectView();
+          if (isWalletConnect(walletId)) {
+            wcModal.onOpen();
+          } else {
+            jumpToWalletConnectView();
+          }
         } else {
           jumpToQRCodeView();
         }
