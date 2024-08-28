@@ -1,4 +1,3 @@
-import WebApp from '@twa-dev/sdk';
 import { isTMA } from '../base/utils/mobile';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
@@ -33,7 +32,9 @@ export async function openUri(uri: string) {
   if (!uri) return;
 
   if (isTMA()) {
-    WebApp.openLink(uri);
+    import('@twa-dev/sdk').then((module) => {
+      module.default.openLink(uri);
+    });
   } else {
     window.open(uri, '_self', 'noopener noreferrer');
   }

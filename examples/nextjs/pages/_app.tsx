@@ -11,6 +11,7 @@ import {
   WalletKitConfig,
 } from '@node-real/walletkit';
 import { AppProps } from 'next/app';
+import { useAccount, useDisconnect } from 'wagmi';
 
 const queryClient = new QueryClient();
 
@@ -64,5 +65,28 @@ export default function App({ Component, pageProps }: AppProps) {
 function ConnectButton() {
   const { onOpen } = useConnectModal();
 
-  return <button onClick={() => onOpen()}>connect</button>;
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  if (address) {
+    return (
+      <>
+        <div>address:{address}</div>
+        <button onClick={() => disconnect()}>disconnect</button>
+      </>
+    );
+  }
+
+  return (
+    <button
+      onClick={() =>
+        onOpen({
+          action: 'add-network',
+          initialChainId: 1,
+        })
+      }
+    >
+      connect
+    </button>
+  );
 }

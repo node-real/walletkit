@@ -91,7 +91,6 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
-  const { connect } = useWalletKit();
 
   if (address) {
     return (
@@ -103,27 +102,15 @@ function ConnectButton() {
   }
 
   return (
-    <>
-      <button
-        onClick={() =>
-          onOpen({
-            action: 'add-network',
-            initialChainId: 1,
-          })
-        }
-      >
-        connect
-      </button>
-      <button
-        onClick={() => {
-          connect({
-            walletId: 'metaMask',
-            initialChainId: 1,
-          });
-        }}
-      >
-        connect metaMask
-      </button>
-    </>
+    <button
+      onClick={() =>
+        onOpen({
+          action: 'add-network',
+          initialChainId: 1,
+        })
+      }
+    >
+      connect
+    </button>
   );
 }

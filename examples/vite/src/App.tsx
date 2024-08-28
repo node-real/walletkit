@@ -8,6 +8,7 @@ import VConsole from 'vconsole';
 import { evmConfig, metaMask, trustWallet, walletConnect } from '@node-real/walletkit/evm';
 import { mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useAccount, useDisconnect } from 'wagmi';
 
 new VConsole();
 
@@ -46,5 +47,29 @@ export default function App() {
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
-  return <button onClick={() => onOpen()}>connect</button>;
+
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  if (address) {
+    return (
+      <>
+        <div>address:{address}</div>
+        <button onClick={() => disconnect()}>disconnect</button>
+      </>
+    );
+  }
+
+  return (
+    <button
+      onClick={() =>
+        onOpen({
+          action: 'add-network',
+          initialChainId: 1,
+        })
+      }
+    >
+      connect
+    </button>
+  );
 }
