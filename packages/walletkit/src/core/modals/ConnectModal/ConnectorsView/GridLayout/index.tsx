@@ -5,12 +5,12 @@ import { WalletIcon } from '@/core/base/icons/WalletIcon';
 import { cx } from '@/core/base/utils/css';
 import { WalletOption } from './WalletOption';
 import { BaseWallet } from '@/core/configs/types';
-import { useAppearance } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletButton } from './styles.css';
 
 export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
   const { visibleWallets } = props;
-  const appearance = useAppearance();
+  const { options } = useWalletKit();
 
   return (
     <>
@@ -18,12 +18,12 @@ export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
         {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
-      {!appearance.hideNoWalletCTA && (
+      {!options.hideNoWalletCTA && (
         <ModalFooter>
           <Button
             as="a"
             className={cx('wk-nowallet-button', clsNoWalletButton)}
-            href={appearance.walletDownloadUrl}
+            href={options.walletDownloadUrl}
             target="_blank"
             rel="noopener"
           >

@@ -5,4 +5,4 @@ export * from './wallets';
 export * from './components/EthereumScript';
 
 // utils
-export * from './utils/evmConfig';
+export * from './utils/defaultEvmConfig';

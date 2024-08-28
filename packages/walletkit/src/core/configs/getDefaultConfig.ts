@@ -1,21 +1,13 @@
 import { WalletKitConfig, WalletKitContextProps } from '../providers/WalletKitProvider/context';
 import { toast } from '@/core/base/components/toast';
-import { SolanaConfig } from '@/solana/utils/solanaConfig';
-import { EvmConfig } from '@/evm/utils/evmConfig';
 
-type DefaultConfig = Pick<WalletKitContextProps, 'appearance' | 'eventConfig' | 'walletConfig'>;
+type DefaultConfig = Pick<WalletKitContextProps, 'options' | 'evmConfig' | 'solanaConfig'>;
 
 export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
-  const { appearance, eventConfig, walletConfigs } = config;
-
-  const evmConfig = walletConfigs.find((item) => item.walletType === 'evm');
-  const solanaConfig = walletConfigs.find((item) => item.walletType === 'solana');
+  const { options, evmConfig, solanaConfig } = config;
 
   return {
-    appearance: {
-      mode: 'auto',
-      theme: undefined,
-
+    options: {
       title: 'Connect Wallet',
       disclaimer: undefined,
       gridLayoutThreshold: 6,
@@ -26,15 +18,12 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
 
       walletDownloadUrl: `https://trustwallet.com/`,
 
-      ...appearance,
-    },
-
-    eventConfig: {
       closeModalAfterSwitchingNetwork: false,
       closeModalAfterConnected: true,
       closeModalOnEsc: true,
       closeModalOnOverlayClick: true,
       openModalOnWrongNetwork: false,
+
       onError(_err: any, description: string) {
         if (description) {
           toast.error({
@@ -42,12 +31,11 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
           });
         }
       },
-      ...eventConfig,
+
+      ...options,
     },
 
-    walletConfig: {
-      evmConfig: evmConfig as EvmConfig | undefined,
-      solanaConfig: solanaConfig as SolanaConfig | undefined,
-    },
+    evmConfig,
+    solanaConfig,
   };
 }

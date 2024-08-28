@@ -1,4 +1,4 @@
-import { useAction, useEvmConfig } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { RouteProvider, ViewRoutes } from './RouteProvider';
 import { useMemo } from 'react';
 import { ConnectModalContext, ConnectModalOpenParams } from './context';
@@ -22,9 +22,7 @@ export function ConnectModalProvider(props: ConnectModalProviderProps) {
 function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
-  const evmConfig = useEvmConfig();
-  const { setAction } = useAction();
-
+  const { setAction, evmConfig } = useWalletKit();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
 

@@ -2,7 +2,6 @@ import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } fr
 import { Chain, mainnet } from 'wagmi/chains';
 import { EvmWallet, isWalletConnect, walletConnect } from '@/evm/wallets';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { WalletType } from '@/core/configs/types';
 import { setEvmGlobalData } from '../globalData';
 
 interface CustomizedEvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
@@ -14,11 +13,9 @@ interface CustomizedEvmConfig extends Omit<CreateConfigParameters, 'chains' | 'c
   chains?: Chain[];
 }
 
-export interface EvmConfig extends ReturnType<typeof evmConfig> {
-  walletType: WalletType;
-}
+export type EvmConfig = ReturnType<typeof defaultEvmConfig>;
 
-export function evmConfig(params: CustomizedEvmConfig) {
+export function defaultEvmConfig(params: CustomizedEvmConfig) {
   const {
     autoConnect = false,
     metadata = { name: 'WalletKit' },
@@ -49,7 +46,6 @@ export function evmConfig(params: CustomizedEvmConfig) {
   } as CreateConfigParameters<any, any>);
 
   return {
-    walletType: 'evm' as WalletType,
     autoConnect,
     metadata,
     walletConnectProjectId,

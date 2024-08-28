@@ -1,4 +1,4 @@
-import { useEventConfig, useLogger } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useSwitchChain } from 'wagmi';
 import { SwitchChainErrorType } from 'wagmi/actions';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
@@ -6,8 +6,7 @@ import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 export type UseEvmSwitchChainProps = Parameters<typeof useSwitchChain>[0];
 
 export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
-  const eventConfig = useEventConfig();
-  const log = useLogger();
+  const { options, log } = useWalletKit();
 
   const result = useSwitchChain({
     ...props,
@@ -16,7 +15,7 @@ export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
       onError(error: SwitchChainErrorType, ...params) {
         evmCommonErrorHandler({
           log,
-          handler: eventConfig.onError,
+          handler: options.onError,
           error,
         });
         props?.mutation?.onError?.(error, ...params);

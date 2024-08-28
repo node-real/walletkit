@@ -1,4 +1,4 @@
-import { useSolanaConfig } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import {
   ConnectionProvider,
@@ -14,7 +14,7 @@ export interface SolanaWalletProviderProps {
 export function SolanaWalletProvider(props: SolanaWalletProviderProps) {
   const { children } = props;
 
-  const solanaConfig = useSolanaConfig();
+  const { solanaConfig } = useWalletKit();
 
   const onError = useCallback<Required<WalletProviderProps>['onError']>((error) => {
     EventEmitter.emit(EventEmitter.SOLANA_WALLET_ERROR, error);

@@ -3,12 +3,7 @@ import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
-import {
-  useEventConfig,
-  useEvmConfig,
-  useLogger,
-  useSelectedWallet,
-} from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openUri } from '@/core/utils/common';
 import { getEvmGlobalData } from '@/evm/globalData';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
@@ -23,25 +18,21 @@ interface SetEvmWalletClickRefProps {
 export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const { clickRef } = props;
 
-  const eventConfig = useEventConfig();
-  const log = useLogger();
-  const { setSelectedWallet } = useSelectedWallet();
-
-  const connectors = useConnectors();
+  const { log, options, evmConfig, setSelectedWallet } = useWalletKit();
   const { disconnect } = useDisconnect();
   const wcModal = useWalletConnectModal();
+  const connectors = useConnectors();
 
   const connectModal = useConnectModal();
   const router = useRouter();
 
   const timerRef = useRef<any>();
-  const { wallets } = useEvmConfig();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const connector = connectors.find((item) => item.id === walletId)!;
-    const wallet = wallets.find((item) => item.id === walletId)! as EvmWallet;
+    const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
 
-    const pass = eventConfig.onClickWallet?.(wallet, e);
+    const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[click wallet]', `connector:`, connector);
@@ -104,7 +95,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
           if (deepLink) {
             window.open(deepLink, '_self', 'noopener noreferrer');
           } else {
-            eventConfig.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
+            options.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
           }
         }
       } else {

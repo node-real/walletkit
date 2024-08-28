@@ -1,8 +1,4 @@
-import {
-  useEvmConfig,
-  useEventConfig,
-  useLogger,
-} from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useEffect, useState } from 'react';
 import { useConnect } from 'wagmi';
@@ -20,9 +16,7 @@ export function useEvmWalletConnectUri(props: UseEvmWalletConnectUriProps = {}) 
   const { enabled = true } = props;
 
   const { connectAsync } = useConnect();
-  const { initialChainId } = useEvmConfig();
-  const eventConfig = useEventConfig();
-  const log = useLogger();
+  const { evmConfig, options, log } = useWalletKit();
 
   const connector = useWalletConnectConnector();
   const isConnected = useEvmIsConnected();
@@ -45,7 +39,7 @@ export function useEvmWalletConnectUri(props: UseEvmWalletConnectUriProps = {}) 
 
         provider.rpc.showQrModal = false;
 
-        await connectAsync({ connector, chainId: initialChainId });
+        await connectAsync({ connector, chainId: evmConfig?.initialChainId });
       } catch (error: any) {
         clearTimeout(timer);
 
@@ -58,7 +52,7 @@ export function useEvmWalletConnectUri(props: UseEvmWalletConnectUriProps = {}) 
             evmCommonErrorHandler({
               log,
               error,
-              handler: eventConfig.onError,
+              handler: options.onError,
             });
             connectWallet(); // refresh qr code
           }

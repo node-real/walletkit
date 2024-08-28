@@ -6,7 +6,7 @@ import { ForwardIcon } from '@/core/base/icons/ForwardIcon';
 import { cx } from '@/core/base/utils/css';
 import { CustomQRCode } from '@/core/components/CustomQRCode';
 import { useWalletLogos } from '@/core/hooks/useWalletLogos';
-import { useAppearance } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { clsContainer, clsOfficialButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 import { BaseWallet } from '@/core/configs/types';
@@ -22,7 +22,7 @@ export interface TemplateConnectWithQRCodeViewProps {
 export function TemplateConnectWithQRCodeView(props: TemplateConnectWithQRCodeViewProps) {
   const { wallet, qrCodeUri, onClickOpenWcModal, isConnected, isWalletConnect } = props;
 
-  const appearance = useAppearance();
+  const { options } = useWalletKit();
   const logos = useWalletLogos(wallet?.logos);
 
   useAutoCloseConnectModal(isConnected);
@@ -35,7 +35,7 @@ export function TemplateConnectWithQRCodeView(props: TemplateConnectWithQRCodeVi
         <CustomQRCode value={qrCodeUri} logo={logos.default} />
       </ModalBody>
 
-      {isWalletConnect && !appearance?.hideOfficialWalletConnectCTA && (
+      {isWalletConnect && !options?.hideOfficialWalletConnectCTA && (
         <ModalFooter>
           <Link
             className={cx('wk-official-wc-button', clsOfficialButton)}

@@ -3,14 +3,14 @@ import { ModalBody } from '@/core/base/components/Modal/ModalBody';
 import { ModalFooter } from '@/core/base/components/Modal/ModalFooter';
 import { WalletIcon } from '@/core/base/icons/WalletIcon';
 import { cx } from '@/core/base/utils/css';
-import { useAppearance } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletLink } from './styles.css';
 import { WalletOption } from './WalletOption';
 import { BaseWallet } from '@/core/configs/types';
 
 export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
   const { visibleWallets } = props;
-  const appearance = useAppearance();
+  const { options } = useWalletKit();
 
   return (
     <>
@@ -18,11 +18,11 @@ export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
         {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
-      {!appearance.hideNoWalletCTA && (
+      {!options.hideNoWalletCTA && (
         <ModalFooter>
           <Link
             className={cx('wk-nowallet-link', clsNoWalletLink)}
-            href={appearance.walletDownloadUrl}
+            href={options.walletDownloadUrl}
           >
             <WalletIcon />I don’t have a wallet
           </Link>

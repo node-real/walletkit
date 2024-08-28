@@ -5,24 +5,23 @@ import { cx } from '@/core/base/utils/css';
 import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
-import { useAppearance, useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 
 export function ConnectorsView() {
-  const appearance = useAppearance();
-  const { wallets } = useWalletKit();
+  const { wallets, options } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
   const visibleWallets = wallets.filter((item) => item.isVisible !== false);
   const useGridLayout =
-    visibleWallets.length >= appearance.gridLayoutThreshold! ||
-    (isMobileLayout && appearance.useGridLayoutOnMobile);
+    visibleWallets.length >= options.gridLayoutThreshold! ||
+    (isMobileLayout && options.useGridLayoutOnMobile);
 
   return (
     <>
-      <ModalHeader>{appearance.title}</ModalHeader>
+      <ModalHeader>{options.title}</ModalHeader>
 
-      {appearance.disclaimer && (
-        <Box className={cx('wk-disclaimer', clsDisclaimer)}>{appearance.disclaimer}</Box>
+      {options.disclaimer && (
+        <Box className={cx('wk-disclaimer', clsDisclaimer)}>{options.disclaimer}</Box>
       )}
 
       {useGridLayout ? (

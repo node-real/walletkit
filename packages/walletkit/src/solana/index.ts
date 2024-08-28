@@ -1,5 +1,5 @@
 // utils
-export * from './utils/solanaConfig';
+export * from './utils/defaultSolanaConfig';
 
 // wallets
 export * from './wallets';

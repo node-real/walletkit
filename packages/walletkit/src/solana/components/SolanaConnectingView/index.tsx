@@ -1,11 +1,6 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
-import {
-  useEventConfig,
-  useEvmConfig,
-  useLogger,
-  useSelectedWallet,
-} from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
 import { SolanaWallet } from '@/solana/wallets';
@@ -15,10 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 
 export function SolanaConnectingView() {
-  const log = useLogger();
-  const { selectedWallet } = useSelectedWallet();
-  const eventConfig = useEventConfig();
-  const { autoConnect } = useEvmConfig();
+  const { log, selectedWallet, options, solanaConfig } = useWalletKit();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
@@ -42,7 +34,7 @@ export function SolanaConnectingView() {
 
       solanaCommonErrorHandler({
         log,
-        handler: eventConfig.onError,
+        handler: options.onError,
         error: {
           message,
         },
@@ -53,14 +45,14 @@ export function SolanaConnectingView() {
     return () => {
       EventEmitter.off(EventEmitter.SOLANA_WALLET_ERROR, onError);
     };
-  }, [eventConfig.onError, log]);
+  }, [options.onError, log]);
 
   const runConnect = useCallback(async () => {
     if (!selectedWallet.isInstalled()) return;
 
     select((selectedWallet as SolanaWallet).adapterName as any);
 
-    if (!autoConnect) {
+    if (!solanaConfig!.autoConnect) {
       const adapter = adapters.find(
         (item) => item.adapter.name === (selectedWallet as SolanaWallet).adapterName,
       )?.adapter;
@@ -68,7 +60,7 @@ export function SolanaConnectingView() {
         await adapter.connect();
       }
     }
-  }, [adapters, autoConnect, select, selectedWallet]);
+  }, [adapters, select, selectedWallet, solanaConfig]);
 
   return (
     <TemplateConnectingView

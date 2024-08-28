@@ -12,7 +12,7 @@ import { InfoTitle } from '@/core/components/Content/InfoTitle';
 import { CONNECT_STATUS } from '@/core/constants';
 import { useWalletDownloadUrl } from '@/core/hooks/useWalletDownloadUrl';
 import { useWalletLogos } from '@/core/hooks/useWalletLogos';
-import { useLogger } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useEffect } from 'react';
 import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
@@ -29,7 +29,7 @@ interface TemplateConnectingViewProps {
 export function TemplateConnectingView(props: TemplateConnectingViewProps) {
   const { status, runConnect, onTryAgain, wallet, isConnected } = props;
 
-  const log = useLogger();
+  const { log } = useWalletKit();
   const logos = useWalletLogos(wallet.logos);
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 

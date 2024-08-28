@@ -1,12 +1,7 @@
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
-import {
-  useEventConfig,
-  useLogger,
-  useSelectedWallet,
-  useSolanaConfig,
-} from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { SolanaWallet } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRef } from 'react';
@@ -18,12 +13,8 @@ interface SetSolanaWalletClickRefProps {
 export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
   const { clickRef } = props;
 
-  const eventConfig = useEventConfig();
-  const log = useLogger();
-  const { setSelectedWallet } = useSelectedWallet();
-
+  const { log, options, setSelectedWallet, solanaConfig } = useWalletKit();
   const { disconnect } = useWallet();
-  const { wallets } = useSolanaConfig();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -31,9 +22,9 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
   const timerRef = useRef<any>();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
-    const wallet = wallets.find((item) => item.id === walletId)! as SolanaWallet;
+    const wallet = solanaConfig!.wallets.find((item) => item.id === walletId)! as SolanaWallet;
 
-    const pass = eventConfig.onClickWallet?.(wallet, e);
+    const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[click wallet]', `wallet:`, wallet);

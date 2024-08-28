@@ -1,6 +1,6 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
-import { useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
 import { useCallback, useEffect, useState } from 'react';
 import { EventEmitter } from '@/core/utils/eventEmitter';
@@ -9,7 +9,7 @@ import { openUri } from '@/core/utils/common';
 import { getEvmGlobalData } from '@/evm/globalData';
 
 export function EvmConnectWithWalletConnectView() {
-  const { selectedWallet } = useSelectedWallet();
+  const { selectedWallet } = useWalletKit();
 
   const [status, setStatus] = useState(CONNECT_STATUS.CONNECTING);
 

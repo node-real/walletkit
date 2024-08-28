@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
 import { useEvmConnect } from './useEvmConnect';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
-import { useLogger } from '@/core/providers/WalletKitProvider/context';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 
 export function useWalletConnectModal() {
   const { connectAsync } = useEvmConnect();
   const connectModal = useConnectModal();
-  const log = useLogger();
+  const { log } = useWalletKit();
 
   const [isOpen, setIsOpen] = useState(false);
 
