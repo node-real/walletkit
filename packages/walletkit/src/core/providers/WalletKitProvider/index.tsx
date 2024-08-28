@@ -59,9 +59,9 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
 
   return (
     <WalletKitContext.Provider value={value}>
-      <ToastProvider />
-
       <ThemeProvider mode={mode} theme={theme}>
+        <ToastProvider />
+
         <EvmWalletProvider>
           <SolanaWalletProvider>
             <ConnectModalProvider>
