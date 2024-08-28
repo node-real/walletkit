@@ -32,7 +32,7 @@ export function evmCommonErrorHandler(props: { log: any; handler: any; error: an
       }
     }
 
-    log('[wallet error]', error);
+    log('[WalletError]', error);
     handler?.(error, description);
   }
 }

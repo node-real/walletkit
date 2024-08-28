@@ -23,8 +23,6 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
   const [wcUri, setWcUri] = useState<string>();
 
-  console.log(wcUri, '=====');
-
   useEffect(() => {
     if (isConnected || !connector || !enabled) return;
 
@@ -36,7 +34,7 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
     const connectWallet = async () => {
       try {
-        log('[qrcode uri]', 'connecting');
+        log('[WcUri]', 'connecting');
         const provider: any = await connector?.getProvider();
 
         provider.rpc.showQrModal = false;

@@ -27,8 +27,8 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
-    log('[click wallet]', `wallet:`, wallet);
-    log('[click wallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `wallet:`, wallet);
+    log('[ClickWallet]', `installed:`, wallet.isInstalled());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);

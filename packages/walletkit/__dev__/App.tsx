@@ -69,7 +69,7 @@ const config: WalletKitConfig = {
 
 export default function App() {
   return (
-    <WalletKitProvider config={config}>
+    <WalletKitProvider config={config} debugMode>
       <QueryClientProvider client={queryClient}>
         <ConnectButton />
         <ConnectModal />

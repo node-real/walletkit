@@ -34,7 +34,7 @@ export function TemplateConnectingView(props: TemplateConnectingViewProps) {
   const downloadUrl = useWalletDownloadUrl(wallet.downloadUrls);
 
   useEffect(() => {
-    log('[connecting page]', `name: ${wallet?.name}, status: ${status}`);
+    log('[ConnectingView]', `name: ${wallet?.name}, status: ${status}`);
 
     if (status === CONNECT_STATUS.UNAVAILABLE) return;
 

@@ -21,7 +21,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const { log, options, evmConfig, setSelectedWallet } = useWalletKit();
   const { disconnect } = useDisconnect();
   const wcModal = useWalletConnectModal();
-  const connectors = useConnectors();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -29,15 +28,13 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const timerRef = useRef<any>();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
-    const connector = connectors.find((item) => item.id === walletId)!;
     const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
-    log('[click wallet]', `connector:`, connector);
-    log('[click wallet]', `ethereum:`, window.ethereum);
-    log('[click wallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `ethereum:`, typeof window.ethereum);
+    log('[ClickWallet]', `installed:`, wallet.isInstalled());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);

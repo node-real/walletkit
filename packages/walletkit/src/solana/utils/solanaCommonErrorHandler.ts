@@ -4,7 +4,7 @@ export function solanaCommonErrorHandler(props: { log: any; handler: any; error:
   if (error) {
     const description = error.message || error.name;
 
-    log('[wallet error]', error);
+    log('[WalletError]', error);
     handler?.(error, description);
   }
 }
