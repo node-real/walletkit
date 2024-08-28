@@ -3,23 +3,23 @@ import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useEffect, useState } from 'react';
 import { useConnect } from 'wagmi';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
-import { useEvmIsConnected } from './useEvmIsConnected';
+import { useIsConnected } from './useIsConnected';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
 
-interface UseEvmWalletConnectUriProps {
+interface UseWalletConnectUriProps {
   enabled?: boolean;
 }
 
 let timer: any;
 
-export function useEvmWalletConnectUri(props: UseEvmWalletConnectUriProps = {}) {
+export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
   const { enabled = true } = props;
 
   const { connectAsync } = useConnect();
   const { evmConfig, options, log } = useWalletKit();
 
   const connector = useWalletConnectConnector();
-  const isConnected = useEvmIsConnected();
+  const isConnected = useIsConnected();
 
   const [wcUri, setWcUri] = useState<string>();
 

@@ -1,10 +1,4 @@
-import {
-  ConnectModal,
-  useConnectModal,
-  useWalletKit,
-  WalletKitConfig,
-  WalletKitProvider,
-} from '@/core/index';
+import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import './style.css';
 import VConsole from 'vconsole';
 import {

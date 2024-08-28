@@ -8,4 +8,4 @@ export * from './components/EthereumScript';
 export * from './utils/defaultEvmConfig';
 
 // hooks
-export * from './hooks/useConnectWallet';
+export * from './hooks/useConnectEvmWallet';

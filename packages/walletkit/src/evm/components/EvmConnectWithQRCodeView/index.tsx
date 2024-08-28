@@ -1,17 +1,17 @@
 import { TemplateConnectWithQRCodeView } from '@/core/modals/ConnectModal/TemplateConnectWithQRCodeView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
-import { useEvmWalletConnectUri } from '@/evm/hooks/useEvmWalletConnectUri';
+import { useIsConnected } from '@/evm/hooks/useIsConnected';
+import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 
 export function EvmConnectWithQRCodeView() {
   const { selectedWallet } = useWalletKit();
 
-  const { wcUri } = useEvmWalletConnectUri();
+  const { wcUri } = useWalletConnectUri();
   const wcModal = useWalletConnectModal();
   const qrCodeUri = wcUri && ((selectedWallet as EvmWallet).getUri?.(wcUri) ?? wcUri);
-  const isConnected = useEvmIsConnected();
+  const isConnected = useIsConnected();
 
   return (
     <TemplateConnectWithQRCodeView
