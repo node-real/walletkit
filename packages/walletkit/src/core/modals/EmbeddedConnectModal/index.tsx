@@ -3,7 +3,7 @@ import { ModalContent } from '@/core/base/components/Modal/ModalContent';
 import { cx } from '@/core/base/utils/css';
 import { ConnectModal } from '../ConnectModal';
 import { clsModal, clsContent } from './style.css';
-import { ConnectorsView } from '../ConnectModal/ConnectorsView';
+import { HomeView } from '../ConnectModal/HomeView';
 
 export function EmbeddedConnectModal(props: BoxProps) {
   const { className, ...restProps } = props;
@@ -12,7 +12,7 @@ export function EmbeddedConnectModal(props: BoxProps) {
     <>
       <Box className={cx('wk-embedded-connect-modal', clsModal, className)} {...restProps}>
         <ModalContent className={clsContent} {...restProps}>
-          <ConnectorsView />
+          <HomeView />
         </ModalContent>
       </Box>
 

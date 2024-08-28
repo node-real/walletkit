@@ -3,7 +3,6 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useRouter } from './RouteProvider/context';
 import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
-import { EvmConnectorUriProvider } from '@/evm/components/EvmConnectorUriProvider';
 
 export function ConnectModal() {
   const { options } = useWalletKit();
@@ -13,19 +12,15 @@ export function ConnectModal() {
   const showBack = history.length > 1;
 
   return (
-    <>
-      <Modal
-        className="wk-connect-modal"
-        isOpen={isOpen}
-        onClose={onClose}
-        closeOnEsc={options?.closeModalOnEsc}
-        closeOnOverlayClick={options?.closeModalOnOverlayClick}
-      >
-        <Navbar showBack={showBack} onBack={back} onClose={onClose} />
-        {view}
-      </Modal>
-
-      <EvmConnectorUriProvider />
-    </>
+    <Modal
+      className="wk-connect-modal"
+      isOpen={isOpen}
+      onClose={onClose}
+      closeOnEsc={options?.closeModalOnEsc}
+      closeOnOverlayClick={options?.closeModalOnOverlayClick}
+    >
+      <Navbar showBack={showBack} onBack={back} onClose={onClose} />
+      {view}
+    </Modal>
   );
 }

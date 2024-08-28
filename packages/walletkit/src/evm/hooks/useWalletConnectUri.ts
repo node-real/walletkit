@@ -23,6 +23,8 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
   const [wcUri, setWcUri] = useState<string>();
 
+  console.log(wcUri, '=====');
+
   useEffect(() => {
     if (isConnected || !connector || !enabled) return;
 
@@ -44,8 +46,6 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
         clearTimeout(timer);
 
         timer = setTimeout(() => {
-          // props?.onError?.(error);
-
           EventEmitter.emit(EventEmitter.EVM_WC_URI_ERROR, error);
 
           if (error?.code === 4001) {

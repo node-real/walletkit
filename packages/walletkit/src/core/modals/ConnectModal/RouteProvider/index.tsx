@@ -1,19 +1,19 @@
 import { useState, useRef, useMemo, useCallback } from 'react';
 import { RouteContext } from './context';
 import { EvmConnectingView } from '@/evm/components/EvmConnectingView';
-import { EvmConnectWithQRCodeView } from '@/evm/components/EvmConnectWithQRCodeView';
-import { EvmConnectWithWalletConnectView } from '@/evm/components/EvmConnectWithWalletConnectView';
+import { EvmQRCodeView } from '@/evm/components/EvmQRCodeView';
+import { EvmURIConnectingView } from '@/evm/components/EvmURIConnectingView';
 import { SolanaConnectingView } from '@/solana/components/SolanaConnectingView';
-import { SolanaConnectWithQRCodeView } from '@/solana/components/SolanaConnectWithQRCodeView';
-import { ConnectorsView } from '../ConnectorsView';
+import { SolanaQRCodeView } from '@/solana/components/SolanaQRCodeView';
+import { HomeView } from '../HomeView';
 
 export enum ViewRoutes {
-  CONNECTORS = 'ConnectorsView',
-  EVM_CONNECTING = 'EvmConnectingView',
-  EVM_CONNECT_WITH_QRCODE = 'EvmConnectWithQRCodeView',
-  EVM_CONNECT_WITH_WALLET_CONNECT = 'EvmConnectWithWalletConnectView',
-  SOLANA_CONNECTING = 'SolanaConnectingView',
-  SOLANA_CONNECT_WITH_QRCODE = 'SolanaConnectWithQRCodeView',
+  HOME = 'HOME',
+  EVM_CONNECTING = 'EVM_CONNECTING',
+  EVM_QRCODE = 'EVM_QRCODE',
+  EVM_URI_CONNECTING = 'EVM_URI_CONNECTING',
+  SOLANA_CONNECTING = 'SOLANA_CONNECTING',
+  SOLANA_QRCODE = 'SOLANA_QRCODE',
 }
 
 export interface RouteProviderProps {
@@ -28,18 +28,18 @@ export function RouteProvider(props: RouteProviderProps) {
 
   const view = useMemo(() => {
     switch (route) {
-      case ViewRoutes.CONNECTORS:
-        return <ConnectorsView />;
+      case ViewRoutes.HOME:
+        return <HomeView />;
       case ViewRoutes.EVM_CONNECTING:
         return <EvmConnectingView />;
-      case ViewRoutes.EVM_CONNECT_WITH_QRCODE:
-        return <EvmConnectWithQRCodeView />;
-      case ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT:
-        return <EvmConnectWithWalletConnectView />;
+      case ViewRoutes.EVM_QRCODE:
+        return <EvmQRCodeView />;
+      case ViewRoutes.EVM_URI_CONNECTING:
+        return <EvmURIConnectingView />;
       case ViewRoutes.SOLANA_CONNECTING:
         return <SolanaConnectingView />;
-      case ViewRoutes.SOLANA_CONNECT_WITH_QRCODE:
-        return <SolanaConnectWithQRCodeView />;
+      case ViewRoutes.SOLANA_QRCODE:
+        return <SolanaQRCodeView />;
     }
     return null;
   }, [route]);

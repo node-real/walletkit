@@ -3,16 +3,18 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { setEvmGlobalData } from '@/evm/globalData';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 
-export function EvmConnectorUriProvider() {
-  const { wallets } = useWalletKit();
+export function EvmHomeViewUriProvider() {
+  const { evmConfig } = useWalletKit();
 
-  const isWcUriEnabled = (!!wallets.find((item) => item.useWalletConnect) || isTMA()) && isMobile();
+  const isEnabled =
+    (!!evmConfig?.wallets.find((item) => item.useWalletConnect) || isTMA()) && isMobile();
+
   const { wcUri } = useWalletConnectUri({
-    enabled: isWcUriEnabled,
+    enabled: isEnabled,
   });
 
   setEvmGlobalData({
-    walletConnectUri: wcUri,
+    homeViewWalletConnectUri: wcUri,
   });
 
   return null;

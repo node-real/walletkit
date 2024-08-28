@@ -36,7 +36,7 @@ function WithRouter(props: ConnectModalProviderProps) {
         }, 300);
       },
       onOpen(params: ConnectModalOpenParams = {}) {
-        router.push(params.viewRoute ?? ViewRoutes.CONNECTORS);
+        router.push(params.viewRoute ?? ViewRoutes.HOME);
         setAction(params.action);
         onOpen();
 

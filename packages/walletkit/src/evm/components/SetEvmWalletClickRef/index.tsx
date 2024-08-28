@@ -52,7 +52,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToQRCodeView = () => {
-      jumpTo(ViewRoutes.EVM_CONNECT_WITH_QRCODE);
+      jumpTo(ViewRoutes.EVM_QRCODE);
     };
 
     const jumpToConnectingView = () => {
@@ -60,10 +60,10 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToWalletConnectView = () => {
-      const wcUri = getEvmGlobalData().walletConnectUri;
+      const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
       if (wcUri) {
         openUri(wallet.getUri(wcUri));
-        jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
+        jumpTo(ViewRoutes.EVM_URI_CONNECTING);
       }
     };
 

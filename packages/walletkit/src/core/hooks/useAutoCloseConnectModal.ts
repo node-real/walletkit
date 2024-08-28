@@ -11,7 +11,7 @@ export function useAutoCloseConnectModal(isConnected: boolean) {
   const { onClose } = useConnectModal();
 
   useEffect(() => {
-    if (router.route !== ViewRoutes.CONNECTORS && isConnected && options.closeModalAfterConnected) {
+    if (router.route !== ViewRoutes.HOME && isConnected && options.closeModalAfterConnected) {
       onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

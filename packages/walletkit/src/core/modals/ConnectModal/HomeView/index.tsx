@@ -6,9 +6,10 @@ import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { EvmHomeViewUriProvider } from '@/evm/components/EvmHomeViewUriProvider';
 
-export function ConnectorsView() {
-  const { wallets, options } = useWalletKit();
+export function HomeView() {
+  const { wallets, options, evmConfig } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
   const visibleWallets = wallets.filter((item) => item.isVisible !== false);
@@ -29,6 +30,8 @@ export function ConnectorsView() {
       ) : (
         <ListLayout visibleWallets={visibleWallets} />
       )}
+
+      {evmConfig && <EvmHomeViewUriProvider />}
     </>
   );
 }
