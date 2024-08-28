@@ -1,9 +1,9 @@
 import { Modal } from '@/core/base/components/Modal';
-import { useEventConfig, useEvmConfig } from '@/core/providers/WalletKitProvider/context';
+import { useEventConfig } from '@/core/providers/WalletKitProvider/context';
 import { useRouter } from './RouteProvider/context';
 import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
-import { EvmWalletConnectUriGenerator } from '@/evm/components/EvmWalletConnectUriProvider';
+import { EvmConnectorUriProvider } from '@/evm/components/EvmConnectorUriProvider';
 
 export function ConnectModal() {
   const eventConfig = useEventConfig();
@@ -11,8 +11,6 @@ export function ConnectModal() {
   const { view, history, back } = useRouter();
 
   const showBack = history.length > 1;
-
-  const evmConfig = useEvmConfig();
 
   return (
     <>
@@ -27,7 +25,7 @@ export function ConnectModal() {
         {view}
       </Modal>
 
-      {evmConfig && <EvmWalletConnectUriGenerator />}
+      <EvmConnectorUriProvider />
     </>
   );
 }

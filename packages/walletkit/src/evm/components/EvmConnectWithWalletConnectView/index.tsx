@@ -4,15 +4,14 @@ import { useSelectedWallet } from '@/core/providers/WalletKitProvider/context';
 import { useEvmIsConnected } from '@/evm/hooks/useEvmIsConnected';
 import { useCallback, useEffect, useState } from 'react';
 import { EventEmitter } from '@/core/utils/eventEmitter';
-import { useEvmWalletConnectUri } from '../EvmWalletConnectUriProvider';
 import { EvmWallet } from '@/evm/wallets';
 import { openUri } from '@/core/utils/common';
+import { getEvmGlobalData } from '@/evm/globalData';
 
 export function EvmConnectWithWalletConnectView() {
   const { selectedWallet } = useSelectedWallet();
 
   const [status, setStatus] = useState(CONNECT_STATUS.CONNECTING);
-  const { wcUri } = useEvmWalletConnectUri();
 
   useEffect(() => {
     const onError = (error: any) => {
@@ -55,9 +54,11 @@ export function EvmConnectWithWalletConnectView() {
   const onTryAgain = useCallback(() => {
     setStatus(CONNECT_STATUS.CONNECTING);
 
-    const walletUri = (selectedWallet as EvmWallet).getUri(wcUri);
+    const wcUri = getEvmGlobalData().walletConnectUri;
+
+    const walletUri = (selectedWallet as EvmWallet).getUri(wcUri!);
     openUri(walletUri);
-  }, [selectedWallet, wcUri]);
+  }, [selectedWallet]);
 
   return (
     <TemplateConnectingView

@@ -34,7 +34,6 @@ export function evmConfig(params: CustomizedEvmConfig) {
   setEvmGlobalData({
     metadata,
     walletConnectProjectId,
-    walletConnectModalIsOpen: false,
   });
 
   const transports: CreateConfigParameters['transports'] =

@@ -10,11 +10,11 @@ import {
   useSelectedWallet,
 } from '@/core/providers/WalletKitProvider/context';
 import { openUri } from '@/core/utils/common';
+import { getEvmGlobalData } from '@/evm/globalData';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
-import { useEvmWalletConnectUri } from '../EvmWalletConnectUriProvider';
 
 interface SetEvmWalletClickRefProps {
   clickRef: UseWalletRenderProps['clickRef'];
@@ -30,7 +30,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   const connectors = useConnectors();
   const { disconnect } = useDisconnect();
   const wcModal = useWalletConnectModal();
-  const { wcUri } = useEvmWalletConnectUri();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -70,10 +69,11 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToWalletConnectView = () => {
-      if (!wcUri) return;
-
-      openUri(wallet.getUri(wcUri));
-      jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
+      const wcUri = getEvmGlobalData().walletConnectUri;
+      if (wcUri) {
+        openUri(wallet.getUri(wcUri));
+        jumpTo(ViewRoutes.EVM_CONNECT_WITH_WALLET_CONNECT);
+      }
     };
 
     disconnect();
