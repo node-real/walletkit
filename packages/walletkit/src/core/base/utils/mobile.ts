@@ -24,6 +24,10 @@ export function isMobile(): boolean {
 
 // telegram mini app
 export function isTMA(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
   const check = (host: any) => {
     return (
       typeof host !== 'undefined' &&
