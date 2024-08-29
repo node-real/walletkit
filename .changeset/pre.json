@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
-    "smart-dryers-switch"
+    "smart-dryers-switch",
+    "tiny-kings-hunt"
   ]
 }
