@@ -2,4 +2,4 @@
 '@node-real/walletkit': patch
 ---
 
-update version
+Refactor walletkit

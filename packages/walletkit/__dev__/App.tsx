@@ -26,30 +26,6 @@ new VConsole();
 
 const queryClient = new QueryClient();
 
-const evmConfig = defaultEvmConfig({
-  autoConnect: true,
-  initialChainId: 1,
-  walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-  chains: [mainnet, bsc] as any,
-  wallets: [
-    metaMask(),
-    trustWallet(),
-    walletConnect(),
-    binanceWeb3Wallet(),
-    tokenPocket(),
-    bitgetWallet(),
-    okxWallet(),
-    coinbaseWallet(),
-    mathWallet(),
-  ],
-});
-
-const solanaConfig = defaultSolanaConfig({
-  autoConnect: true,
-  rpcUrl: 'https://solana-rpc.debridge.finance',
-  wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-});
-
 const config: WalletKitConfig = {
   options: {
     closeModalOnEsc: false,
@@ -57,8 +33,28 @@ const config: WalletKitConfig = {
       console.log(wallet, chainId);
     },
   },
-  evmConfig,
-  solanaConfig,
+  evmConfig: defaultEvmConfig({
+    autoConnect: true,
+    initialChainId: 1,
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+    chains: [mainnet, bsc],
+    wallets: [
+      metaMask(),
+      trustWallet(),
+      walletConnect(),
+      binanceWeb3Wallet(),
+      tokenPocket(),
+      bitgetWallet(),
+      okxWallet(),
+      coinbaseWallet(),
+      mathWallet(),
+    ],
+  }),
+  solanaConfig: defaultSolanaConfig({
+    autoConnect: true,
+    rpcUrl: 'https://solana-rpc.debridge.finance',
+    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  }),
 };
 
 export default function App() {
