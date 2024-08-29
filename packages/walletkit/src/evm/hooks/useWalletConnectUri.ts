@@ -14,7 +14,7 @@ interface UseWalletConnectUriProps {
 let timer: any;
 
 export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
-  const { enabled = true, refreshUriOnError = false } = props;
+  const { enabled = true, refreshUriOnError = true } = props;
 
   const { connectAsync } = useConnect();
   const { evmConfig, options, log } = useWalletKit();
