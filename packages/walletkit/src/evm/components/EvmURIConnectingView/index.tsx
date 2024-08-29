@@ -52,6 +52,7 @@ export function EvmURIConnectingView() {
   const isConnected = useIsConnected();
   const { wcUri } = useWalletConnectUri({
     enabled: status !== CONNECT_STATUS.CONNECTING,
+    refreshUriOnError: false,
   });
 
   const onTryAgain = () => {

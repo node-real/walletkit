@@ -11,6 +11,7 @@ export function EvmHomeViewUriProvider() {
 
   const { wcUri } = useWalletConnectUri({
     enabled: isEnabled,
+    refreshUriOnError: false,
   });
 
   setEvmGlobalData({
