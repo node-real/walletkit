@@ -6,7 +6,9 @@ import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { EvmHomeViewUriProvider } from '@/evm/components/EvmHomeViewUriProvider';
+import { EvmHomeViewWalletConnectUriProvider } from '@/evm/components/EvmHomeViewWalletConnectUriProvider';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { isMetaMask } from '@/evm/wallets';
 
 export function HomeView() {
   const { wallets, options, evmConfig } = useWalletKit();
@@ -16,6 +18,10 @@ export function HomeView() {
   const useGridLayout =
     visibleWallets.length >= options.gridLayoutThreshold! ||
     (isMobileLayout && options.useGridLayoutOnMobile);
+
+  const needPreCreateWcUri =
+    (!!evmConfig?.wallets.find((item) => item.connectWithUri && !isMetaMask(item.id)) || isTMA()) &&
+    isMobile();
 
   return (
     <>
@@ -31,7 +37,7 @@ export function HomeView() {
         <ListLayout visibleWallets={visibleWallets} />
       )}
 
-      {evmConfig && <EvmHomeViewUriProvider />}
+      {needPreCreateWcUri && <EvmHomeViewWalletConnectUriProvider />}
     </>
   );
 }

@@ -1,4 +1,4 @@
-type CallBack = (params: any) => void;
+type CallBack = (...params: any[]) => void;
 
 class CustomEventEmitter {
   listenersMap: Record<string, CallBack[]>;
@@ -11,10 +11,10 @@ class CustomEventEmitter {
     this.listenersMap[event].push(cb);
   }
 
-  emit(event: string, data: any) {
+  emit(event: string, ...params: any[]) {
     const listener = this.listenersMap[event];
     if (listener) {
-      listener.forEach((cb) => cb(data));
+      listener.forEach((cb) => cb(params));
     }
   }
 
@@ -29,8 +29,8 @@ class CustomEventEmitter {
   }
 
   SOLANA_WALLET_ERROR = 'SOLANA_WALLET_ERROR';
-  EVM_WC_URI_ERROR = 'EVM_WC_URI_ERROR';
-  EVM_UPDATE_WC_URI = 'EVM_SET_WC_URI';
+  EVM_CONNECT_ERROR = 'EVM_CONNECT_ERROR';
+  EVM_CONNECT_SETTLE = 'EVM_CONNECT_SETTLE';
 }
 
 export const EventEmitter = new CustomEventEmitter();

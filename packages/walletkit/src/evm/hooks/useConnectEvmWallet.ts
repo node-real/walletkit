@@ -1,12 +1,10 @@
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletKit } from '../../core/providers/WalletKitProvider/context';
-import { useConnectors } from 'wagmi';
 
 export function useConnectEvmWallet() {
   const { log, evmConfig } = useWalletKit();
 
-  const { connect } = useEvmConnect();
-  const connectors = useConnectors();
+  const { connect, connectors } = useEvmConnect();
 
   return {
     connect(options: { walletId: string; initialChainId?: number }) {

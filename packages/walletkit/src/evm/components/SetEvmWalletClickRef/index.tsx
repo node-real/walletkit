@@ -6,8 +6,9 @@ import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openUri } from '@/core/utils/common';
 import { getEvmGlobalData } from '@/evm/globalData';
+import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { EvmWallet, isWalletConnect } from '@/evm/wallets';
+import { EvmWallet, isMetaMask, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useDisconnect } from 'wagmi';
 
@@ -24,6 +25,8 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const connectModal = useConnectModal();
   const router = useRouter();
+
+  const { connect, connectors } = useEvmConnect();
 
   const timerRef = useRef<any>();
 
@@ -56,12 +59,22 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       jumpTo(ViewRoutes.EVM_CONNECTING);
     };
 
-    const jumpToUriConnectingView = () => {
+    const jumpToWcUriConnectingView = () => {
       const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
       if (wcUri) {
         openUri(wallet.getUri(wcUri));
-        jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+        jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
       }
+    };
+
+    const jumpToMetaMaskUriConnectingView = () => {
+      const connector = connectors.find((item) => item.id === walletId)!;
+
+      connect({
+        connector,
+      });
+
+      jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
     };
 
     disconnect();
@@ -73,8 +86,10 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         if (isMobile()) {
           if (isWalletConnect(walletId)) {
             wcModal.onOpen();
+          } else if (isMetaMask(walletId)) {
+            jumpToMetaMaskUriConnectingView();
           } else {
-            jumpToUriConnectingView();
+            jumpToWcUriConnectingView();
           }
         } else {
           jumpToQRCodeView();
@@ -83,8 +98,12 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         // 2. mobile
         if (isWalletConnect(walletId)) {
           wcModal.onOpen();
-        } else if (wallet.useWalletConnect) {
-          jumpToUriConnectingView();
+        } else if (wallet.connectWithUri) {
+          if (isMetaMask(walletId)) {
+            jumpToMetaMaskUriConnectingView();
+          } else {
+            jumpToWcUriConnectingView();
+          }
         } else if (wallet.isInstalled()) {
           jumpToConnectingView();
         } else {

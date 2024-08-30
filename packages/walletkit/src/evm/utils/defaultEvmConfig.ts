@@ -1,6 +1,6 @@
 import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
-import { EvmWallet, isWalletConnect, walletConnect } from '@/evm/wallets';
+import { coinbaseWallet, EvmWallet, isWalletConnect, metaMask, walletConnect } from '@/evm/wallets';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
 import { setEvmGlobalData } from '../globalData';
 
@@ -44,6 +44,18 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
     connectors: fns,
     transports,
   } as CreateConfigParameters<any, any>);
+
+  // Manually modify the connector id:
+  // 1. `metaMaskSDK` -> `metaMask`
+  // 2. `coinbaseWalletSDK` -> `coinbaseWallet`
+  wagmiConfig.connectors.forEach((connector) => {
+    if (connector.id === 'metaMaskSDK') {
+      (connector as any).id = metaMask().id;
+    }
+    if (connector.id === 'coinbaseWalletSDK') {
+      (connector as any).id = coinbaseWallet().id;
+    }
+  });
 
   return {
     autoConnect,

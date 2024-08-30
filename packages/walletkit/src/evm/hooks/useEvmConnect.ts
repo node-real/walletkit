@@ -1,7 +1,9 @@
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { useConnect } from 'wagmi';
+import { Config, useConnect } from 'wagmi';
 import { ConnectErrorType } from 'wagmi/actions';
 import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
+import { EventEmitter } from '@/core/utils/eventEmitter';
+import { ConnectData } from 'wagmi/query';
 
 export type UseEvmConnectProps = Parameters<typeof useConnect>[0];
 export type UseEvmConnectReturnType = ReturnType<typeof useConnect>;
@@ -17,7 +19,12 @@ export function useEvmConnect(props?: UseEvmConnectProps): UseEvmConnectReturnTy
     ...props,
     mutation: {
       ...props?.mutation,
+      onSettled(data: ConnectData<Config> | undefined, error: ConnectErrorType | null, ...params) {
+        EventEmitter.emit(EventEmitter.EVM_CONNECT_SETTLE, error);
+        props?.mutation?.onSettled?.(data, error, ...params);
+      },
       onError(error: ConnectErrorType, ...params) {
+        EventEmitter.emit(EventEmitter.EVM_CONNECT_ERROR, error);
         evmCommonErrorHandler({
           log,
           handler: options.onError,

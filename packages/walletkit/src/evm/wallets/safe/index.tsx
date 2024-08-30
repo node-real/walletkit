@@ -14,7 +14,7 @@ export function safe(props: SafeOptions = {}): EvmWallet {
     id: 'safe',
     walletType: 'evm',
     showQRCode: false,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return !(typeof window === 'undefined') && window?.parent !== window;
     },

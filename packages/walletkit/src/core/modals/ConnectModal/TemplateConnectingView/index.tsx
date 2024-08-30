@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { clsContent, clsGap, clsFooter, clsButton } from './styles.css';
 import { useAutoCloseConnectModal } from '@/core/hooks/useAutoCloseConnectModal';
 import { BaseWallet } from '@/core/configs/types';
+import { isMobile } from '@/core/base/utils/mobile';
 
 interface TemplateConnectingViewProps {
   status: CONNECT_STATUS;
@@ -87,7 +88,8 @@ export function TemplateConnectingView(props: TemplateConnectingViewProps) {
           <Content>
             <InfoTitle>Requesting Connection</InfoTitle>
             <Description>
-              Open the {wallet.name} browser extension to connect your wallet.
+              Open the {wallet.name} {isMobile() ? 'app' : 'browser extension'} to connect your
+              wallet.
             </Description>
           </Content>
         )}

@@ -15,7 +15,7 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
     id: 'walletConnect',
     walletType: 'evm',
     showQRCode: !connectorOptions?.showQrModal,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return false;
     },

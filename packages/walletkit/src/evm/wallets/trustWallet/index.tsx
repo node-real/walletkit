@@ -13,7 +13,7 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'trust',
     walletType: 'evm',
     showQRCode: false,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },

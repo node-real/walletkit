@@ -6,28 +6,26 @@ import { useWalletConnector } from '@/evm/hooks/useWalletConnector';
 import { useCallback } from 'react';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 
-export function EvmConnectingView() {
+export function EvmMetaMaskURIConnectingView() {
   const { selectedWallet } = useWalletKit();
   const isConnected = useIsConnected();
   const selectedConnector = useWalletConnector(selectedWallet.id);
 
   const { connect, status, setStatus } = useConnectingStatus();
 
-  const runConnect = useCallback(() => {
-    if (!selectedWallet.isInstalled()) return;
-
+  const onTryAgain = useCallback(() => {
     if (selectedConnector) {
       connect({ connector: selectedConnector });
     } else {
       setStatus(CONNECT_STATUS.UNAVAILABLE);
     }
-  }, [connect, selectedConnector, selectedWallet, setStatus]);
+  }, [connect, selectedConnector, setStatus]);
 
   return (
     <TemplateConnectingView
       status={status}
-      runConnect={runConnect}
-      onTryAgain={runConnect}
+      runConnect={() => undefined}
+      onTryAgain={onTryAgain}
       wallet={selectedWallet}
       isConnected={isConnected}
     />

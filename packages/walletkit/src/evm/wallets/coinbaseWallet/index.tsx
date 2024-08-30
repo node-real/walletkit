@@ -16,10 +16,10 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
 
   return {
     ...coinbaseWalletConfig,
-    id: 'coinbaseWalletSDK',
+    id: 'coinbaseWallet',
     walletType: 'evm',
     showQRCode: false,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },
@@ -27,7 +27,7 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
     },
     getUri(uri) {
-      return uri;
+      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
     },
     getCreateConnectorFn() {
       const { metadata } = getEvmGlobalData();

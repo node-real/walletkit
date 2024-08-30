@@ -13,7 +13,7 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
     id: 'binanceWeb3Wallet',
     walletType: 'evm',
     showQRCode: true,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },
@@ -25,8 +25,8 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
       const startPagePath = window.btoa('/pages/browser/index');
       const startPageQuery = window.btoa(`url=${url}`);
       const deeplink = `${base}?appId=${appId}&startPagePath=${startPagePath}&startPageQuery=${startPageQuery}`;
-      // const dp = window.btoa(deeplink);
-      // const http = `https://app.binance.com/en/download?_dp=${dp}`;
+      const dp = window.btoa(deeplink);
+      const http = `https://app.binance.com/en/download?_dp=${dp}`;
 
       return deeplink;
     },

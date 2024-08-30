@@ -1,10 +1,8 @@
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useEffect, useState } from 'react';
-import { useConnect } from 'wagmi';
-import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 import { useIsConnected } from './useIsConnected';
 import { useWalletConnectConnector } from './useWalletConnectConnector';
+import { useEvmConnect } from './useEvmConnect';
 
 interface UseWalletConnectUriProps {
   enabled?: boolean;
@@ -16,8 +14,8 @@ let timer: any;
 export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
   const { enabled = true, refreshUriOnError = true } = props;
 
-  const { connectAsync } = useConnect();
-  const { evmConfig, options, log } = useWalletKit();
+  const { connectAsync } = useEvmConnect();
+  const { log } = useWalletKit();
 
   const connector = useWalletConnectConnector();
   const isConnected = useIsConnected();
@@ -40,23 +38,13 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
         provider.rpc.showQrModal = false;
 
-        await connectAsync({ connector, chainId: evmConfig?.initialChainId });
+        await connectAsync({ connector });
       } catch (error: any) {
         clearTimeout(timer);
 
         timer = setTimeout(() => {
-          EventEmitter.emit(EventEmitter.EVM_WC_URI_ERROR, error);
-
-          if (error?.code === 4001) {
-            evmCommonErrorHandler({
-              log,
-              error,
-              handler: options.onError,
-            });
-
-            if (refreshUriOnError) {
-              connectWallet(); // refresh qr code
-            }
+          if (error?.code === 4001 && refreshUriOnError) {
+            connectWallet(); // refresh qr code
           }
         }, 100);
       }

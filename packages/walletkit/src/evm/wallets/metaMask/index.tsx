@@ -1,10 +1,14 @@
 import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasEvmInjectedProvider } from '../utils';
-import { injected } from '../injected';
-import { InjectedEvmWalletOptions, EvmWallet } from '../types';
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { metaMask as wagmiMetaMask, type MetaMaskParameters } from 'wagmi/connectors';
 
-export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
+import { EvmWallet } from '../types';
+
+interface MetaMaskOptions extends Partial<EvmWallet> {
+  connectorOptions?: MetaMaskParameters;
+}
+
+export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -12,30 +16,42 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'metaMask',
     walletType: 'evm',
     showQRCode: false,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return hasEvmInjectedProvider('isMetaMask');
     },
     getDeepLink() {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
-      return `dapp://${dappPath}`;
+      return `metamask://dapp/${dappPath}`;
     },
     getUri(uri) {
       const wcUri = `wc?uri=${encodeURIComponent(uri)}`;
-
-      if (isTMA() && isMobile()) {
-        return `https://metamask.app.link/${wcUri}`;
-      }
-
       return `metamask://${wcUri}`;
     },
     getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: 'metaMask',
+      return wagmiMetaMask({
+        // injectProvider: false,
+        // useDeeplink: true,
+        // modals: {
+        //   install() {
+        //     return {};
+        //   },
+        // },
+        // ui: {
+        //   installer() {
+        //     return {};
+        //   },
+        //   confirm() {
+        //     return {};
+        //   },
+        // },
         ...connectorOptions,
       });
     },
     ...restProps,
   };
+}
+
+export function isMetaMask(id?: string) {
+  return id === metaMask().id;
 }

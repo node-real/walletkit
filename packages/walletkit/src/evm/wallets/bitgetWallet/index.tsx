@@ -11,7 +11,7 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'bitgetWallet',
     walletType: 'evm',
     showQRCode: false,
-    useWalletConnect: false,
+    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },

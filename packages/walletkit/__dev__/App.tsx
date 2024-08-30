@@ -39,7 +39,9 @@ const config: WalletKitConfig = {
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
     chains: [mainnet, bsc],
     wallets: [
-      metaMask(),
+      metaMask({
+        connectWithUri: true,
+      }),
       trustWallet(),
       walletConnect(),
       binanceWeb3Wallet(),
@@ -73,6 +75,8 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+
+  console.log(address, '+++++++');
 
   if (address) {
     return (
