@@ -9,8 +9,6 @@ interface UseWalletConnectUriProps {
   refreshUriOnError?: boolean;
 }
 
-let timer: any;
-
 export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
   const { enabled = true, refreshUriOnError = true } = props;
 
@@ -40,13 +38,9 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
         await connectAsync({ connector });
       } catch (error: any) {
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-          if (error?.code === 4001 && refreshUriOnError) {
-            connectWallet(); // refresh qr code
-          }
-        }, 100);
+        if (error?.code === 4001 && refreshUriOnError) {
+          connectWallet(); // refresh qr code
+        }
       }
     };
 

@@ -15,6 +15,7 @@ export function EvmMetaMaskURIConnectingView() {
 
   const onTryAgain = useCallback(() => {
     if (selectedConnector) {
+      setStatus(CONNECT_STATUS.CONNECTING);
       connect({ connector: selectedConnector });
     } else {
       setStatus(CONNECT_STATUS.UNAVAILABLE);

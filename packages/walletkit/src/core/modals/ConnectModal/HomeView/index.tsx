@@ -8,7 +8,6 @@ import { clsDisclaimer } from './styles.css';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { EvmHomeViewWalletConnectUriProvider } from '@/evm/components/EvmHomeViewWalletConnectUriProvider';
 import { isMobile, isTMA } from '@/core/base/utils/mobile';
-import { isMetaMask } from '@/evm/wallets';
 
 export function HomeView() {
   const { wallets, options, evmConfig } = useWalletKit();
@@ -20,8 +19,7 @@ export function HomeView() {
     (isMobileLayout && options.useGridLayoutOnMobile);
 
   const needPreCreateWcUri =
-    (!!evmConfig?.wallets.find((item) => item.connectWithUri && !isMetaMask(item.id)) || isTMA()) &&
-    isMobile();
+    (!!evmConfig?.wallets.find((item) => item.connectWithUri) || isTMA()) && isMobile();
 
   return (
     <>

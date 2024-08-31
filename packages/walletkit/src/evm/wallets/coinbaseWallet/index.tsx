@@ -8,7 +8,7 @@ import { getEvmInjectedProvider } from '../utils';
 import { getEvmGlobalData } from '@/evm/globalData';
 
 interface CoinbaseWalletOptions extends Partial<EvmWallet> {
-  connectorOptions?: CoinbaseWalletParameters;
+  connectorOptions?: Partial<CoinbaseWalletParameters>;
 }
 
 export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
@@ -21,13 +21,20 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
     showQRCode: false,
     connectWithUri: false,
     isInstalled() {
+      if (
+        connectorOptions &&
+        'headlessMode' in connectorOptions &&
+        !connectorOptions.headlessMode
+      ) {
+        return true;
+      }
       return !!getProvider();
     },
     getDeepLink() {
       return `https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.href)}`;
     },
-    getUri(uri) {
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
+    getUri() {
+      return undefined;
     },
     getCreateConnectorFn() {
       const { metadata } = getEvmGlobalData();
@@ -35,6 +42,7 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
       return wagmiCoinbaseWallet({
         appName: metadata!.name,
         headlessMode: true,
+        overrideIsMetaMask: false,
         appLogoUrl: metadata?.icon,
         ...connectorOptions,
       });

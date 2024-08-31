@@ -1,14 +1,13 @@
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { isAndroid, isMobile, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { openUri } from '@/core/utils/common';
+import { openLink } from '@/core/utils/common';
 import { getEvmGlobalData } from '@/evm/globalData';
-import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { EvmWallet, isMetaMask, isWalletConnect } from '@/evm/wallets';
+import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useDisconnect } from 'wagmi';
 
@@ -25,8 +24,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const connectModal = useConnectModal();
   const router = useRouter();
-
-  const { connect, connectors } = useEvmConnect();
 
   const timerRef = useRef<any>();
 
@@ -52,29 +49,51 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToQRCodeView = () => {
-      jumpTo(ViewRoutes.EVM_QRCODE);
+      const qrCodeUri = wallet.getUri('xxx');
+      if (qrCodeUri) {
+        jumpTo(ViewRoutes.EVM_QRCODE);
+      } else {
+        options.onError?.(
+          new Error(`The wallet does not support QR code`),
+          `The wallet does not support QR code`,
+        );
+      }
     };
 
     const jumpToConnectingView = () => {
       jumpTo(ViewRoutes.EVM_CONNECTING);
     };
 
-    const jumpToWcUriConnectingView = () => {
-      const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
-      if (wcUri) {
-        openUri(wallet.getUri(wcUri));
-        jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
+    const jumpToDeepLink = () => {
+      const deepLink = wallet.getDeepLink();
+      if (deepLink) {
+        openLink(deepLink);
+      } else {
+        options.onError?.(
+          new Error(`The wallet does not support deeplink`),
+          `The wallet does not support deeplink`,
+        );
       }
     };
 
-    const jumpToMetaMaskUriConnectingView = () => {
-      const connector = connectors.find((item) => item.id === walletId)!;
-
-      connect({
-        connector,
-      });
-
-      jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
+    const tryJumpToUriConnectingView = () => {
+      if (isAndroid()) {
+        jumpToDeepLink();
+      } else {
+        const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
+        if (wcUri) {
+          const connectUri = wallet.getUri(wcUri);
+          if (connectUri) {
+            openLink(connectUri);
+            jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
+          } else {
+            options.onError?.(
+              new Error(`The wallet does not support URI connection`),
+              `The wallet does not support URI connection`,
+            );
+          }
+        }
+      }
     };
 
     disconnect();
@@ -84,14 +103,14 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       if (isTMA()) {
         // 1. TMA
         if (isMobile()) {
+          // 1.1 mobile
           if (isWalletConnect(walletId)) {
             wcModal.onOpen();
-          } else if (isMetaMask(walletId)) {
-            jumpToMetaMaskUriConnectingView();
           } else {
-            jumpToWcUriConnectingView();
+            tryJumpToUriConnectingView();
           }
         } else {
+          // 1.2 pc
           jumpToQRCodeView();
         }
       } else if (isMobile()) {
@@ -99,20 +118,11 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         if (isWalletConnect(walletId)) {
           wcModal.onOpen();
         } else if (wallet.connectWithUri) {
-          if (isMetaMask(walletId)) {
-            jumpToMetaMaskUriConnectingView();
-          } else {
-            jumpToWcUriConnectingView();
-          }
+          tryJumpToUriConnectingView();
         } else if (wallet.isInstalled()) {
           jumpToConnectingView();
         } else {
-          const deepLink = wallet.getDeepLink();
-          if (deepLink) {
-            window.open(deepLink, '_self', 'noopener noreferrer');
-          } else {
-            options.onError?.(new Error('Not supported wallet'), 'Not supported wallet');
-          }
+          jumpToDeepLink();
         }
       } else {
         // 3. pc

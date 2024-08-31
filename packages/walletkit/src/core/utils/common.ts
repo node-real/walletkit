@@ -28,14 +28,9 @@ export async function sleep(duration = 1000) {
   });
 }
 
-export async function openUri(uri: string) {
+export async function openLink(uri?: string, target = '_self') {
   if (!uri) return;
 
-  if (isTMA()) {
-    import('@twa-dev/sdk').then((module) => {
-      module.default.openLink(uri);
-    });
-  } else {
-    window.open(uri, '_self', 'noopener noreferrer');
-  }
+  const finalTarget = isTMA() ? '_blank' : target;
+  window.open(uri, finalTarget, 'noopener noreferrer');
 }

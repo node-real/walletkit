@@ -39,24 +39,24 @@ const config: WalletKitConfig = {
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
     chains: [mainnet, bsc],
     wallets: [
-      metaMask({
-        connectWithUri: true,
-      }),
+      metaMask(),
       trustWallet(),
-      walletConnect(),
-      binanceWeb3Wallet(),
-      tokenPocket(),
       bitgetWallet(),
-      okxWallet(),
       coinbaseWallet(),
+      binanceWeb3Wallet(),
+
+      tokenPocket(),
+      okxWallet(),
+
       mathWallet(),
+      walletConnect(),
     ],
   }),
-  solanaConfig: defaultSolanaConfig({
-    autoConnect: true,
-    rpcUrl: 'https://solana-rpc.debridge.finance',
-    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-  }),
+  // solanaConfig: defaultSolanaConfig({
+  //   autoConnect: true,
+  //   rpcUrl: 'https://solana-rpc.debridge.finance',
+  //   wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  // }),
 };
 
 export default function App() {
@@ -75,8 +75,6 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
-
-  console.log(address, '+++++++');
 
   if (address) {
     return (

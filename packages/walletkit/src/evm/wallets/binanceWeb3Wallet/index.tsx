@@ -28,7 +28,7 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
       const dp = window.btoa(deeplink);
       const http = `https://app.binance.com/en/download?_dp=${dp}`;
 
-      return deeplink;
+      return http;
     },
     getUri(uri) {
       return uri;
@@ -41,7 +41,6 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
           name: binanceWeb3Wallet().name,
           async setup() {
             if (isMobile() && binanceWeb3Wallet().isInstalled()) {
-              (window.ethereum as any)?.enable?.();
               await sleep();
             }
           },

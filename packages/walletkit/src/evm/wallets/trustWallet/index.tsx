@@ -3,7 +3,6 @@ import { trustWalletConfig } from '@/core/configs/trustWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { getEvmInjectedProvider } from '../utils';
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -18,19 +17,11 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return !!getProvider();
     },
     getDeepLink() {
-      const dappPath = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(
-        window.location.href,
-      )}`;
-      return dappPath;
+      const encodedUrl = encodeURIComponent(window.location.href);
+      return `https://link.trustwallet.com/open_url?coin_id=60&url=${encodedUrl}`;
     },
     getUri(uri) {
-      const wcUri = `wc?uri=${encodeURIComponent(uri)}`;
-
-      if (isTMA() && isMobile()) {
-        return `https://link.trustwallet.com/${wcUri}`;
-      }
-
-      return `trust://${wcUri}`;
+      return `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
     },
     getCreateConnectorFn() {
       return injected({

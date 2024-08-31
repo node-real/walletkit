@@ -21,15 +21,15 @@ export function safe(props: SafeOptions = {}): EvmWallet {
     getDeepLink: () => {
       return undefined;
     },
+    getUri() {
+      return undefined;
+    },
     getCreateConnectorFn() {
       return wagmiSafe({
         allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
         debug: false,
         ...connectorOptions,
       });
-    },
-    getUri(uri) {
-      return uri;
     },
     ...restProps,
   };

@@ -40,6 +40,5 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
-
   return getEvmInjectedProvider('isOkxWallet') ?? window.okexchain;
 }

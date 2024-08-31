@@ -132,7 +132,7 @@ export function trustWallet(props: TrustWalletProps = {}): WalletProps {
       )}`;
       return dappPath;
     },
-    getQRCodeUri(uri) {
+    getUri(uri) {
       return `trust://wc?uri=${encodeURIComponent(uri)}`;
     },
     ...restProps,

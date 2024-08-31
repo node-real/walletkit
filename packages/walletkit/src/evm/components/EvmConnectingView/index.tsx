@@ -17,6 +17,7 @@ export function EvmConnectingView() {
     if (!selectedWallet.isInstalled()) return;
 
     if (selectedConnector) {
+      setStatus(CONNECT_STATUS.CONNECTING);
       connect({ connector: selectedConnector });
     } else {
       setStatus(CONNECT_STATUS.UNAVAILABLE);

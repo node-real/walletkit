@@ -1,14 +1,9 @@
 import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasEvmInjectedProvider } from '../utils';
-import { metaMask as wagmiMetaMask, type MetaMaskParameters } from 'wagmi/connectors';
+import { injected } from '../injected';
+import { InjectedEvmWalletOptions, EvmWallet } from '../types';
 
-import { EvmWallet } from '../types';
-
-interface MetaMaskOptions extends Partial<EvmWallet> {
-  connectorOptions?: MetaMaskParameters;
-}
-
-export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
+export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -22,36 +17,18 @@ export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
     },
     getDeepLink() {
       const dappPath = window.location.href.replace(/^https?:\/\//, '');
-      return `metamask://dapp/${dappPath}`;
+      return `https://metamask.app.link/dapp/${dappPath}`;
     },
     getUri(uri) {
-      const wcUri = `wc?uri=${encodeURIComponent(uri)}`;
-      return `metamask://${wcUri}`;
+      return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
     },
     getCreateConnectorFn() {
-      return wagmiMetaMask({
-        // injectProvider: false,
-        // useDeeplink: true,
-        // modals: {
-        //   install() {
-        //     return {};
-        //   },
-        // },
-        // ui: {
-        //   installer() {
-        //     return {};
-        //   },
-        //   confirm() {
-        //     return {};
-        //   },
-        // },
+      return injected({
+        shimDisconnect: true,
+        target: 'metaMask',
         ...connectorOptions,
       });
     },
     ...restProps,
   };
-}
-
-export function isMetaMask(id?: string) {
-  return id === metaMask().id;
 }

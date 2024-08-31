@@ -14,7 +14,7 @@ class CustomEventEmitter {
   emit(event: string, ...params: any[]) {
     const listener = this.listenersMap[event];
     if (listener) {
-      listener.forEach((cb) => cb(params));
+      listener.forEach((cb) => cb(...params));
     }
   }
 
