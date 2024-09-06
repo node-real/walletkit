@@ -7,9 +7,5 @@
     "@node-real/walletkit": "2.3.5",
     "website": "0.0.1"
   },
-  "changesets": [
-    "brown-laws-drum",
-    "empty-pianos-impress",
-    "great-trainers-care"
-  ]
+  "changesets": ["brown-laws-drum", "empty-pianos-impress", "great-trainers-care"]
 }
