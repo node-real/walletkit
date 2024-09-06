@@ -2,18 +2,16 @@ import { useState, useRef, useMemo, useCallback } from 'react';
 import { RouteContext } from './context';
 import { EvmConnectingView } from '@/evm/components/EvmConnectingView';
 import { EvmQRCodeView } from '@/evm/components/EvmQRCodeView';
-import { EvmWalletConnectURIConnectingView } from '@/evm/components/EvmWalletConnectURIConnectingView';
+import { EvmUriConnectingView } from '@/evm/components/EvmUriConnectingView';
 import { SolanaConnectingView } from '@/solana/components/SolanaConnectingView';
 import { SolanaQRCodeView } from '@/solana/components/SolanaQRCodeView';
 import { HomeView } from '../HomeView';
-import { EvmMetaMaskURIConnectingView } from '@/evm/components/EvmMetaMaskURIConnectingView';
 
 export enum ViewRoutes {
   HOME = 'HOME',
   EVM_CONNECTING = 'EVM_CONNECTING',
   EVM_QRCODE = 'EVM_QRCODE',
-  EVM_WALLET_CONNECT_URI_CONNECTING = 'EVM_WALLET_CONNECT_URI_CONNECTING',
-  EVM_META_MASK_URI_CONNECTING = 'EVM_META_MASK_URI_CONNECTING',
+  EVM_URI_CONNECTING = 'EVM_URI_CONNECTING',
   SOLANA_CONNECTING = 'SOLANA_CONNECTING',
   SOLANA_QRCODE = 'SOLANA_QRCODE',
 }
@@ -36,10 +34,8 @@ export function RouteProvider(props: RouteProviderProps) {
         return <EvmConnectingView />;
       case ViewRoutes.EVM_QRCODE:
         return <EvmQRCodeView />;
-      case ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING:
-        return <EvmWalletConnectURIConnectingView />;
-      case ViewRoutes.EVM_META_MASK_URI_CONNECTING:
-        return <EvmMetaMaskURIConnectingView />;
+      case ViewRoutes.EVM_URI_CONNECTING:
+        return <EvmUriConnectingView />;
       case ViewRoutes.SOLANA_CONNECTING:
         return <SolanaConnectingView />;
       case ViewRoutes.SOLANA_QRCODE:

@@ -13,7 +13,6 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
     id: 'binanceWeb3Wallet',
     walletType: 'evm',
     showQRCode: true,
-    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },

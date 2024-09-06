@@ -7,7 +7,7 @@ import { openLink } from '@/core/utils/common';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 
-export function EvmWalletConnectURIConnectingView() {
+export function EvmUriConnectingView() {
   const { selectedWallet } = useWalletKit();
   const isConnected = useIsConnected();
 
@@ -23,7 +23,7 @@ export function EvmWalletConnectURIConnectingView() {
   const onTryAgain = () => {
     setStatus(CONNECT_STATUS.CONNECTING);
 
-    const walletUri = (selectedWallet as EvmWallet).getConnectUri(wcUri!);
+    const walletUri = (selectedWallet as EvmWallet).getUri(wcUri!);
     openLink(walletUri);
   };
 

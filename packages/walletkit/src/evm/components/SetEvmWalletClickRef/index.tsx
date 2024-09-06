@@ -1,4 +1,4 @@
-import { isAndroid, isMobile, isTMA } from '@/core/base/utils/mobile';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
@@ -76,22 +76,18 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
     };
 
-    const tryJumpToUriConnectingView = () => {
-      if (isAndroid()) {
-        jumpToDeepLink();
-      } else {
-        const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
-        if (wcUri) {
-          const connectUri = wallet.getUri(wcUri);
-          if (connectUri) {
-            openLink(connectUri);
-            jumpTo(ViewRoutes.EVM_WALLET_CONNECT_URI_CONNECTING);
-          } else {
-            options.onError?.(
-              new Error(`The wallet does not support URI connection`),
-              `The wallet does not support URI connection`,
-            );
-          }
+    const jumpToUriConnectingView = () => {
+      const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
+      if (wcUri) {
+        const connectUri = wallet.getUri(wcUri);
+        if (connectUri) {
+          openLink(connectUri);
+          jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+        } else {
+          options.onError?.(
+            new Error(`The wallet does not support URI connection`),
+            `The wallet does not support URI connection`,
+          );
         }
       }
     };
@@ -107,7 +103,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
           if (isWalletConnect(walletId)) {
             wcModal.onOpen();
           } else {
-            tryJumpToUriConnectingView();
+            jumpToUriConnectingView();
           }
         } else {
           // 1.2 pc
@@ -117,8 +113,6 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         // 2. mobile
         if (isWalletConnect(walletId)) {
           wcModal.onOpen();
-        } else if (wallet.connectWithUri) {
-          tryJumpToUriConnectingView();
         } else if (wallet.isInstalled()) {
           jumpToConnectingView();
         } else {

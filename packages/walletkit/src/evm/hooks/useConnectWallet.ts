@@ -1,7 +1,7 @@
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletKit } from '../../core/providers/WalletKitProvider/context';
 
-export function useConnectEvmWallet() {
+export function useConnectWallet() {
   const { log, evmConfig } = useWalletKit();
 
   const { connect, connectors } = useEvmConnect();

@@ -2,6 +2,7 @@ import { bitgetWalletConfig } from '@/core/configs/bitgetWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
 import { getEvmInjectedProvider } from '../utils';
+import { isAndroid, isTMA } from '@/core/base/utils/mobile';
 
 export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -11,7 +12,6 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'bitgetWallet',
     walletType: 'evm',
     showQRCode: false,
-    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },
@@ -19,7 +19,11 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
     },
     getUri(uri) {
-      return `https://bkcode.vip/wc?uri=${encodeURIComponent(uri)}`;
+      let encodedUri = encodeURIComponent(uri);
+      if (isTMA() && isAndroid()) {
+        encodedUri = encodeURIComponent(encodedUri);
+      }
+      return `https://bkcode.vip/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
       return injected({

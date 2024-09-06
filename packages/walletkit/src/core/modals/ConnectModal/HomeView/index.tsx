@@ -10,7 +10,7 @@ import { EvmHomeViewWalletConnectUriProvider } from '@/evm/components/EvmHomeVie
 import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function HomeView() {
-  const { wallets, options, evmConfig } = useWalletKit();
+  const { wallets, options } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
   const visibleWallets = wallets.filter((item) => item.isVisible !== false);
@@ -18,8 +18,7 @@ export function HomeView() {
     visibleWallets.length >= options.gridLayoutThreshold! ||
     (isMobileLayout && options.useGridLayoutOnMobile);
 
-  const needPreCreateWcUri =
-    (!!evmConfig?.wallets.find((item) => item.connectWithUri) || isTMA()) && isMobile();
+  const needPreCreateWcUri = isTMA() && isMobile();
 
   return (
     <>

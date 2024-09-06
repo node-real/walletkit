@@ -11,7 +11,6 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'mathWallet',
     walletType: 'evm',
     spinnerColor: undefined,
-    connectWithUri: false,
     isInstalled() {
       return !!getProvider();
     },

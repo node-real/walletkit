@@ -2,6 +2,7 @@ import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasEvmInjectedProvider } from '../utils';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
+import { isAndroid, isTMA } from '@/core/base/utils/mobile';
 
 export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -11,7 +12,6 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'metaMask',
     walletType: 'evm',
     showQRCode: false,
-    connectWithUri: false,
     isInstalled() {
       return hasEvmInjectedProvider('isMetaMask');
     },
@@ -20,7 +20,11 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://metamask.app.link/dapp/${dappPath}`;
     },
     getUri(uri) {
-      return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
+      let encodedUri = encodeURIComponent(uri);
+      if (isTMA() && isAndroid()) {
+        encodedUri = encodeURIComponent(encodedUri);
+      }
+      return `https://metamask.app.link/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
       return injected({
