@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.3.6-alpha.2
+
+### Patch Changes
+
+- 4f1788b: Connect is no longer invoked if wallet is connected
+
 ## 2.3.6-alpha.1
 
 ### Patch Changes
