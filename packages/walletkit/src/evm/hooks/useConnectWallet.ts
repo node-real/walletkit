@@ -1,6 +1,7 @@
 import { useEvmConnect, UseEvmConnectReturnType } from '@/evm/hooks/useEvmConnect';
 import { useWalletKit } from '../../core/providers/WalletKitProvider/context';
 import { useIsConnected } from './useIsConnected';
+import { useRef } from 'react';
 
 type ConnectOptions = Partial<Parameters<UseEvmConnectReturnType['connect']>[0]> & {
   walletId: string;
@@ -10,7 +11,10 @@ export function useConnectWallet() {
   const { log, evmConfig } = useWalletKit();
 
   const { connect, connectAsync, connectors } = useEvmConnect();
+
   const isConnected = useIsConnected();
+  const isConnectedRef = useRef<boolean>(isConnected);
+  isConnectedRef.current = isConnected;
 
   return {
     connect(options: ConnectOptions) {
@@ -21,7 +25,7 @@ export function useConnectWallet() {
         log(`wallet not found, walletId: ${walletId}`);
       } else {
         const connector = connectors.find((item) => item.id === walletId);
-        if (connector && wallet.isInstalled() && !isConnected)
+        if (connector && wallet.isInstalled() && !isConnectedRef.current)
           connect({
             connector,
             ...restOptions,
@@ -37,7 +41,7 @@ export function useConnectWallet() {
         log(`wallet not found, walletId: ${walletId}`);
       } else {
         const connector = connectors.find((item) => item.id === walletId);
-        if (connector && wallet.isInstalled() && !isConnected)
+        if (connector && wallet.isInstalled() && !isConnectedRef.current)
           await connectAsync({
             connector,
             ...restOptions,
