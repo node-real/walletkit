@@ -6,6 +6,3 @@ export * from './components/EthereumScript';
 
 // utils
 export * from './utils/defaultEvmConfig';
-
-// hooks
-export * from './hooks/useConnectWallet';
