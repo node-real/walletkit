@@ -8,6 +8,7 @@ import { ConnectModalProvider } from '@/core/modals/ConnectModal/provider';
 import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
+import { TronWalletProvider } from '@/tron/components/TronWalletProvider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -26,9 +27,11 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
     const wallets: BaseWallet[] = [];
     const evmWallets = finalConfig.evmConfig?.wallets;
     const solanaWallets = finalConfig.solanaConfig?.wallets;
+    const tronWallets = finalConfig.tronConfig?.wallets;
 
     if (evmWallets) wallets.push(...evmWallets);
     if (solanaWallets) wallets.push(...solanaWallets);
+    if (tronWallets) wallets.push(...tronWallets);
 
     return {
       ...finalConfig,
@@ -64,9 +67,11 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
 
         <EvmWalletProvider>
           <SolanaWalletProvider>
-            <ConnectModalProvider>
-              <ProfileModalProvider>{children}</ProfileModalProvider>
-            </ConnectModalProvider>
+            <TronWalletProvider>
+              <ConnectModalProvider>
+                <ProfileModalProvider>{children}</ProfileModalProvider>
+              </ConnectModalProvider>
+            </TronWalletProvider>
           </SolanaWalletProvider>
         </EvmWalletProvider>
       </ThemeProvider>

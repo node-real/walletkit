@@ -1,6 +1,6 @@
 import { ColorMode } from '@/core/providers/ThemeProvider/context';
 
-export type WalletType = 'evm' | 'solana';
+export type WalletType = 'evm' | 'solana' | 'tron';
 
 export interface WalletConfig {
   name: string;

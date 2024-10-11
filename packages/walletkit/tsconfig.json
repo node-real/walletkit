@@ -24,7 +24,8 @@
     "paths": {
       "@/core/*": ["src/core/*"],
       "@/evm/*": ["src/evm/*"],
-      "@/solana/*": ["src/solana/*"]
+      "@/solana/*": ["src/solana/*"],
+      "@/tron/*": ["src/tron/*"]
     }
   },
   "include": ["src", "__dev__"],

@@ -6,6 +6,7 @@ import { EvmUriConnectingView } from '@/evm/components/EvmUriConnectingView';
 import { SolanaConnectingView } from '@/solana/components/SolanaConnectingView';
 import { SolanaQRCodeView } from '@/solana/components/SolanaQRCodeView';
 import { HomeView } from '../HomeView';
+import { TronConnectingView } from '@/tron/components/TronConnectingView';
 
 export enum ViewRoutes {
   HOME = 'HOME',
@@ -14,6 +15,7 @@ export enum ViewRoutes {
   EVM_URI_CONNECTING = 'EVM_URI_CONNECTING',
   SOLANA_CONNECTING = 'SOLANA_CONNECTING',
   SOLANA_QRCODE = 'SOLANA_QRCODE',
+  TRON_CONNECTING = 'TRON_CONNECTING',
 }
 
 export interface RouteProviderProps {
@@ -40,6 +42,8 @@ export function RouteProvider(props: RouteProviderProps) {
         return <SolanaConnectingView />;
       case ViewRoutes.SOLANA_QRCODE:
         return <SolanaQRCodeView />;
+      case ViewRoutes.TRON_CONNECTING:
+        return <TronConnectingView />;
     }
     return null;
   }, [route]);

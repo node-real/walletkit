@@ -1,5 +1,5 @@
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import './style.css';
+import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import VConsole from 'vconsole';
 import {
   binanceWeb3Wallet,
@@ -17,10 +17,12 @@ import {
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
   defaultSolanaConfig,
+  useSolanaWallet,
 } from '@/solana/index';
 import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
+import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
 
 new VConsole();
 
@@ -52,11 +54,15 @@ const config: WalletKitConfig = {
       walletConnect(),
     ],
   }),
-  // solanaConfig: defaultSolanaConfig({
-  //   autoConnect: true,
-  //   rpcUrl: 'https://solana-rpc.debridge.finance',
-  //   wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-  // }),
+  solanaConfig: defaultSolanaConfig({
+    autoConnect: true,
+    rpcUrl: 'https://solana-rpc.debridge.finance',
+    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  }),
+  tronConfig: defaultTronConfig({
+    autoConnect: false,
+    wallets: [tronLink()],
+  }),
 };
 
 export default function App() {
@@ -75,6 +81,11 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+
+  const { publicKey } = useSolanaWallet();
+  const { address: b } = useTronWallet();
+
+  console.log(publicKey, b);
 
   if (address) {
     return (

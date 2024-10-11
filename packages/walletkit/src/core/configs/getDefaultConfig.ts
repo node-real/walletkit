@@ -1,10 +1,13 @@
 import { WalletKitConfig, WalletKitContextProps } from '../providers/WalletKitProvider/context';
 import { toast } from '@/core/base/components/toast';
 
-type DefaultConfig = Pick<WalletKitContextProps, 'options' | 'evmConfig' | 'solanaConfig'>;
+type DefaultConfig = Pick<
+  WalletKitContextProps,
+  'options' | 'evmConfig' | 'solanaConfig' | 'tronConfig'
+>;
 
 export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
-  const { options, evmConfig, solanaConfig } = config;
+  const { options, evmConfig, solanaConfig, tronConfig } = config;
 
   return {
     options: {
@@ -37,5 +40,6 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
 
     evmConfig,
     solanaConfig,
+    tronConfig,
   };
 }

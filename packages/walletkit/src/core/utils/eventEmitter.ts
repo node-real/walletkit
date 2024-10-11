@@ -28,9 +28,10 @@ class CustomEventEmitter {
     }
   }
 
-  SOLANA_WALLET_ERROR = 'SOLANA_WALLET_ERROR';
   EVM_CONNECT_ERROR = 'EVM_CONNECT_ERROR';
   EVM_CONNECT_SETTLE = 'EVM_CONNECT_SETTLE';
+  SOLANA_WALLET_ERROR = 'SOLANA_WALLET_ERROR';
+  TRON_WALLET_ERROR = 'TRON_WALLET_ERROR';
 }
 
 export const EventEmitter = new CustomEventEmitter();

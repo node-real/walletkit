@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { EvmConfig } from '@/evm/utils/defaultEvmConfig';
 import { SolanaConfig } from '@/solana/utils/defaultSolanaConfig';
 import { BaseWallet } from '@/core/configs/types';
+import { TronConfig } from '@/tron/index';
 
 export type Action = 'add-network' | undefined;
 
@@ -33,6 +34,7 @@ export interface WalletKitConfig {
 
   evmConfig?: EvmConfig;
   solanaConfig?: SolanaConfig;
+  tronConfig?: TronConfig;
 }
 
 export interface WalletKitContextProps {
@@ -41,6 +43,7 @@ export interface WalletKitContextProps {
   options: NonNullable<WalletKitConfig['options']>;
   evmConfig?: EvmConfig;
   solanaConfig?: SolanaConfig;
+  tronConfig?: TronConfig;
 
   action: Action;
   setAction: (action: Action) => void;

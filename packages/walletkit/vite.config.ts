@@ -35,6 +35,7 @@ export default defineConfig({
         'core/index': 'src/core/index.ts',
         'solana/index': 'src/solana/index.ts',
         'evm/index': 'src/evm/index.ts',
+        'tron/index': 'src/tron/index.ts',
       },
     },
     rollupOptions: {

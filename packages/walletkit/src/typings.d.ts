@@ -5,6 +5,8 @@ interface Window {
   tokenpocket: any;
   okexchain: any;
   bitkeep: any;
+  tron: any;
+  solana: any;
 }
 
 declare module '@metamask/jazzicon';
