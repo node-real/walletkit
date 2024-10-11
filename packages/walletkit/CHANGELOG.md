@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.3
+
+### Minor Changes
+
+- c4d8086: Support tron wallets
+
 ## 2.3.6-alpha.2
 
 ### Patch Changes
