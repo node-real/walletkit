@@ -1,7 +1,9 @@
+import { isMobile } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { useTronConnect } from '@/tron/hooks/useTronConnect';
 import { TronWallet } from '@/tron/wallets';
 import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
 import { useRef } from 'react';
@@ -15,6 +17,7 @@ export function SetTronWalletClickRef(props: SetTronWalletClickRefProps) {
 
   const { log, options, setSelectedWallet, tronConfig } = useWalletKit();
   const { disconnect } = useWallet();
+  const { connect } = useTronConnect();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -50,7 +53,17 @@ export function SetTronWalletClickRef(props: SetTronWalletClickRefProps) {
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      jumpToConnectingView();
+      if (isMobile()) {
+        if (wallet.isInstalled()) {
+          jumpToConnectingView();
+        } else {
+          connect({
+            adapterName: wallet.adapterName,
+          });
+        }
+      } else {
+        jumpToConnectingView();
+      }
     }, 300);
   };
 
