@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.4
+
+### Patch Changes
+
+- 261c919: Support tronLink on mobile
+
 ## 2.4.0-alpha.3
 
 ### Minor Changes
