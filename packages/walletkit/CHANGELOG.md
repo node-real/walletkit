@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.6
+
+### Patch Changes
+
+- 26fcd89: Scroll the wallet list if overflow
+
 ## 2.4.0-alpha.5
 
 ### Patch Changes
