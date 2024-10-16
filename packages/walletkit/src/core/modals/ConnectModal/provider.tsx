@@ -22,7 +22,7 @@ export function ConnectModalProvider(props: ConnectModalProviderProps) {
 function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
-  const { setAction, evmConfig } = useWalletKit();
+  const { setAction, evmConfig, options } = useWalletKit();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
 
@@ -43,11 +43,14 @@ function WithRouter(props: ConnectModalProviderProps) {
         if (evmConfig && params.initialChainId) {
           evmConfig.initialChainId = params.initialChainId;
         }
+        if (params.onConnected) {
+          options.onConnected = params.onConnected;
+        }
 
         onOpen();
       },
     };
-  }, [evmConfig, isOpen, onClose, onOpen, router, setAction]);
+  }, [evmConfig, isOpen, onClose, onOpen, options, router, setAction]);
 
   return <ConnectModalContext.Provider value={value}>{children}</ConnectModalContext.Provider>;
 }

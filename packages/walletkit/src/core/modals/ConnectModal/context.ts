@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { ViewRoutes } from './RouteProvider';
 import { Action } from '@/core/providers/WalletKitProvider/context';
+import { BaseWallet } from '@/core/configs/types';
 
 export interface ConnectModalOpenParams {
   action?: Action;
   viewRoute?: ViewRoutes;
   initialChainId?: number;
+  onConnected?: (params: { wallet: BaseWallet }) => void;
 }
 
 export interface ConnectModalContextProps {

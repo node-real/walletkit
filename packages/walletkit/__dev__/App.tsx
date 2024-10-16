@@ -32,7 +32,7 @@ const config: WalletKitConfig = {
   options: {
     closeModalOnEsc: false,
     // gridLayoutThreshold: 1000,
-    onChainAlreadyAdded(wallet, chainId) {
+    onChainAlreadyAdded({ wallet, chainId }) {
       console.log(wallet, chainId);
     },
   },

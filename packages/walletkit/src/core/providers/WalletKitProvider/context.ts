@@ -28,7 +28,8 @@ export interface WalletKitConfig {
     openModalOnWrongNetwork?: boolean;
 
     onClickWallet?: (wallet: BaseWallet, e?: React.MouseEvent) => undefined | boolean;
-    onChainAlreadyAdded?: (wallet: BaseWallet, chainId: number) => void;
+    onChainAlreadyAdded?: (params: { wallet: BaseWallet; chainId: number }) => void;
+    onConnected?: (params: { wallet: BaseWallet }) => void;
     onError?: (err: any, description: string) => void;
   };
 

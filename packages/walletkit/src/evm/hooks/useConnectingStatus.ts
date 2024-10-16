@@ -58,7 +58,10 @@ export function useConnectingStatus(props: UseConnectingStatusProps = {}) {
           data.chainId === evmConfig.initialChainId &&
           action === 'add-network'
         ) {
-          options.onChainAlreadyAdded?.(selectedWallet, evmConfig?.initialChainId);
+          options.onChainAlreadyAdded?.({
+            wallet: selectedWallet,
+            chainId: data.chainId,
+          });
         }
       }
     };
