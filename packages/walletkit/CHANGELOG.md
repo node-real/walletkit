@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.8
+
+### Patch Changes
+
+- 3c2e720: Add callback once wallet is connected
+
 ## 2.4.0-alpha.7
 
 ### Patch Changes
