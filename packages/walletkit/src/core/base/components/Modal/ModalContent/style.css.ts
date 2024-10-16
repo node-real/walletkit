@@ -7,8 +7,11 @@ export const clsModalContent = style({
   background: cssVar('modalBackground'),
   padding: '48px 24px',
   width: 'calc(100% - 32px)',
+  maxHeight: '100%',
   maxWidth: 484,
   borderRadius: cssVar('modal', 'radii'),
+  display: 'flex',
+  flexDirection: 'column',
   '@media': mobile({
     width: '100%',
     maxWidth: '100vw',

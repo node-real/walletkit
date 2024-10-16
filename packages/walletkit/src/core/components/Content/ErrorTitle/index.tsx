@@ -7,7 +7,7 @@ export function ErrorTitle(props: BoxProps) {
   const { className, children, ...restProps } = props;
 
   return (
-    <Box className={cx(clsErrorTitle, 'wk-error-title', className)} {...restProps}>
+    <Box className={cx('wk-error-title', clsErrorTitle, className)} {...restProps}>
       <AlertIcon />
       {children}
     </Box>

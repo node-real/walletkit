@@ -7,6 +7,7 @@ export const clsWalletOptionWrapper = style({
   alignItems: 'flex-start',
   justifyContent: 'center',
   height: 111,
+  flexShrink: 0,
   '@media': mobile({
     height: 99,
   }),

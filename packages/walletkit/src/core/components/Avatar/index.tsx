@@ -28,7 +28,7 @@ export function Avatar(props: AvatarProps) {
   }, [address]);
 
   return (
-    <Box ref={avatarRef} className={cx(clsAvatar, 'wk-avatar', className)} {...restProps}>
+    <Box ref={avatarRef} className={cx('wk-avatar', clsAvatar, className)} {...restProps}>
       <Box className={clsAvatarDefault} />
     </Box>
   );

@@ -22,7 +22,7 @@ export function ConnectSpinner(props: ConnectSpinnerProps) {
   } = props;
 
   return (
-    <Box className={cx(clsContainer, 'wk-connect-spinner', className)} {...restProps}>
+    <Box className={cx('wk-connect-spinner', clsContainer, className)} {...restProps}>
       {isLoading && (
         <CircleLoadingIcon className={clsLoading} thickness={thickness} endColor={loadingColor} />
       )}

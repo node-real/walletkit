@@ -11,7 +11,7 @@ export const IconButton = (props: IconButtonProps) => {
   const { className, icon, ...restProps } = props;
 
   return (
-    <Button className={cx(clsIconButton, 'wk-icon-button', className)} {...restProps}>
+    <Button className={cx('wk-icon-button', clsIconButton, className)} {...restProps}>
       {icon}
     </Button>
   );

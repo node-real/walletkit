@@ -10,7 +10,7 @@ export function EmbeddedConnectModal(props: BoxProps) {
 
   return (
     <>
-      <Box className={cx(clsModal, 'wk-embedded-connect-modal', className)} {...restProps}>
+      <Box className={cx('wk-embedded-connect-modal', clsModal, className)} {...restProps}>
         <ModalContent className={clsContent} {...restProps}>
           <HomeView />
         </ModalContent>

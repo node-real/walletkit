@@ -31,7 +31,7 @@ const queryClient = new QueryClient();
 const config: WalletKitConfig = {
   options: {
     closeModalOnEsc: false,
-    gridLayoutThreshold: 1000,
+    // gridLayoutThreshold: 1000,
     onChainAlreadyAdded(wallet, chainId) {
       console.log(wallet, chainId);
     },

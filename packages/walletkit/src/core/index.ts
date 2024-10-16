@@ -3,7 +3,7 @@ export * from '@/core/base/utils/mobile';
 export * from '@/core/base/utils/css';
 
 // providers
-export { type BaseWallet } from '@/core/configs/types';
+export type { BaseWallet, WalletType } from '@/core/configs/types';
 export * from '@/core/providers/WalletKitProvider';
 export { type WalletKitConfig, useWalletKit } from '@/core/providers/WalletKitProvider/context';
 

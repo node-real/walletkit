@@ -26,14 +26,14 @@ export function WalletOption(props: { wallet: BaseWallet }) {
       return (
         <Button
           className={cx(
+            'wk-wallet-option',
             clsWalletOption,
             isDisabled ? clsWalletOptionDisabled : undefined,
-            'wk-wallet-option',
           )}
           onClick={isDisabled ? undefined : onClick}
         >
-          <Text className={cx(clsWalletOptionName, 'wk-wallet-option-name')}>{name}</Text>
-          <Box className={cx(clsWalletOptionIcon, 'wk-wallet-option-logo')}>{logo}</Box>
+          <Text className={cx('wk-wallet-option-name', clsWalletOptionName)}>{name}</Text>
+          <Box className={cx('wk-wallet-option-logo', clsWalletOptionIcon)}>{logo}</Box>
         </Button>
       );
     },

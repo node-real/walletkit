@@ -44,9 +44,9 @@ export function Modal(props: ModalProps) {
   return (
     <Portal>
       <Transition in={isOpen} variant="fade">
-        <Box className={cx(clsModal, 'wk-modal', className)} {...restProps}>
+        <Box className={cx('wk-modal', clsModal, className)} {...restProps}>
           <Box
-            className={cx(clsModalOverlay, 'wk-modal-overlay')}
+            className={cx('wk-modal-overlay', clsModalOverlay)}
             onClick={() => closeOnOverlayClick && onClose()}
           />
           <Transition in={isOpen} variant={isMobileLayout ? 'modal-slide' : undefined}>

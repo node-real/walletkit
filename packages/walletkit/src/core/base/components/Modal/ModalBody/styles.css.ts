@@ -6,4 +6,5 @@ export const clsModalBody = style({
   alignItems: 'center',
   marginTop: 32,
   textAlign: 'center',
+  overflow: 'auto',
 });

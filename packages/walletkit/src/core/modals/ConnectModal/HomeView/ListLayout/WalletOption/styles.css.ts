@@ -10,6 +10,7 @@ export const clsWalletOption = style({
   color: cssVar('walletOptionText'),
   background: cssVar('walletOptionBackground'),
   width: '100%',
+  flexShrink: 0,
   '@media': hover({
     color: cssVar('walletOptionTextHover'),
     background: cssVar('walletOptionBackgroundHover'),
