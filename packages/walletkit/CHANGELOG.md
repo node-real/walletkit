@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.5
+
+### Patch Changes
+
+- 738e3a3: Adjust the priority of the user style & update wallet icon size
+
 ## 2.4.0-alpha.4
 
 ### Patch Changes
