@@ -140,19 +140,19 @@ importers:
         specifier: ^1
         version: 1.95.2(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)
       '@tronweb3/tronwallet-abstract-adapter':
-        specifier: ^1.1.7
+        specifier: ^1
         version: 1.1.7
       '@tronweb3/tronwallet-adapter-react-hooks':
-        specifier: ^1.1.8
+        specifier: ^1
         version: 1.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tronweb3/tronwallet-adapters':
-        specifier: ^1.2.4
+        specifier: ^1
         version: 1.2.4(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       '@walletconnect/solana-adapter':
         specifier: ^0.0.5
         version: 0.0.5(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@solana/wallet-adapter-base@0.9.23(@solana/web3.js@1.95.2(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10)))(@solana/web3.js@1.95.2(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)
       qrcode:
-        specifier: ^1.5.3
+        specifier: ^1
         version: 1.5.3
     devDependencies:
       '@tanstack/react-query':

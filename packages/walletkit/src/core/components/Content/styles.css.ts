@@ -7,4 +7,5 @@ export const clsContent = style({
   flexDirection: 'column',
   textAlign: 'center',
   gap: 8,
+  overflow: 'hidden',
 });

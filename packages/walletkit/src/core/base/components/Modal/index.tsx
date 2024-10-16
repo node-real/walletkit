@@ -1,3 +1,4 @@
+import { useTheme } from '@/core/providers/ThemeProvider/context';
 import { useKeyDown } from '../../hooks/useKeyDown';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useScrollLock } from '../../hooks/useScrollLock';
@@ -40,11 +41,18 @@ export function Modal(props: ModalProps) {
   useScrollLock(isOpen);
 
   const { isMobileLayout } = useResponsive();
+  const { colorMode } = useTheme();
 
   return (
     <Portal>
       <Transition in={isOpen} variant="fade">
-        <Box className={cx('wk-modal', clsModal, className)} {...restProps}>
+        <Box
+          className={cx('wk-modal', clsModal, className)}
+          style={{
+            colorScheme: colorMode,
+          }}
+          {...restProps}
+        >
           <Box
             className={cx('wk-modal-overlay', clsModalOverlay)}
             onClick={() => closeOnOverlayClick && onClose()}
