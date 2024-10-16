@@ -7,5 +7,5 @@ export type ModalBodyProps = BoxProps;
 export function ModalBody(props: ModalBodyProps) {
   const { className, ...restProps } = props;
 
-  return <Box className={cx('wk-modal-body', clsModalBody, className)} {...restProps} />;
+  return <Box className={cx(clsModalBody, 'wk-modal-body', className)} {...restProps} />;
 }

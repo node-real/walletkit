@@ -14,7 +14,7 @@ export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
 
   return (
     <>
-      <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="grid">
+      <ModalBody className={cx(clsWallets, 'wk-wallets')} data-layout="grid">
         {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
@@ -22,7 +22,7 @@ export function GridLayout(props: { visibleWallets: BaseWallet[] }) {
         <ModalFooter>
           <Button
             as="a"
-            className={cx('wk-nowallet-button', clsNoWalletButton)}
+            className={cx(clsNoWalletButton, 'wk-nowallet-button')}
             href={options.walletDownloadUrl}
             target="_blank"
             rel="noopener"

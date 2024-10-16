@@ -119,7 +119,7 @@ export function TemplateConnectingView(props: TemplateConnectingViewProps) {
 
       {(status === CONNECT_STATUS.FAILED || status === CONNECT_STATUS.REJECTED) && (
         <ModalFooter className={clsFooter}>
-          <Button className={cx('wk-retry-button', clsButton)} onClick={onTryAgain}>
+          <Button className={cx(clsButton, 'wk-retry-button')} onClick={onTryAgain}>
             Try Again
           </Button>
         </ModalFooter>
@@ -128,7 +128,7 @@ export function TemplateConnectingView(props: TemplateConnectingViewProps) {
       {status === CONNECT_STATUS.UNAVAILABLE && (
         <ModalFooter className={clsFooter}>
           <Button
-            className={cx('wk-download-button', clsButton)}
+            className={cx(clsButton, 'wk-download-button')}
             as="a"
             href={downloadUrl}
             target="_blank"

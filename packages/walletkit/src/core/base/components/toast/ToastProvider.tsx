@@ -25,7 +25,7 @@ export const ToastProvider = () => {
     <>
       {toastList.length > 0 && (
         <Portal>
-          <Box className={cx('wk-toast-container', clsToastRoot)}>
+          <Box className={cx(clsToastRoot, 'wk-toast-container')}>
             {toastList.map((item) => (
               <ToastComponent key={item.toastId} {...item} />
             ))}

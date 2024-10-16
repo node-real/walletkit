@@ -1,22 +1,11 @@
 import { WalletConfig } from '../types';
-import {
-  TrustWalletDarkIcon,
-  TrustWalletLightIcon,
-  TrustWalletTransparentDarkIcon,
-  TrustWalletTransparentLightIcon,
-} from './icon';
+import { TrustWalletIcon, TrustWalletTransparentIcon } from './icon';
 
 export const trustWalletConfig: WalletConfig = {
   name: 'Trust Wallet',
   logos: {
-    default: {
-      light: <TrustWalletLightIcon />,
-      dark: <TrustWalletDarkIcon />,
-    },
-    transparent: {
-      light: <TrustWalletTransparentLightIcon />,
-      dark: <TrustWalletTransparentDarkIcon />,
-    },
+    default: <TrustWalletIcon />,
+    transparent: <TrustWalletTransparentIcon />,
   },
   downloadUrls: {
     default: 'https://trustwallet.com/',

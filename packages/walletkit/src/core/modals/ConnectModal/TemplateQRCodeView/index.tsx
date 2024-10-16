@@ -31,14 +31,14 @@ export function TemplateQRCodeView(props: TemplateQRCodeViewProps) {
     <>
       <ModalHeader>Scan with your phone</ModalHeader>
 
-      <ModalBody className={cx('wk-scan-qrcode', clsContainer)}>
+      <ModalBody className={cx(clsContainer, 'wk-scan-qrcode')}>
         <CustomQRCode value={qrCodeUri} logo={logos.default} />
       </ModalBody>
 
       {isWalletConnect && !options?.hideOfficialWalletConnectCTA && (
         <ModalFooter>
           <Link
-            className={cx('wk-official-wc-button', clsOfficialButton)}
+            className={cx(clsOfficialButton, 'wk-official-wc-button')}
             onClick={onClickOpenWcModal}
           >
             Open the official WalletConnect modal

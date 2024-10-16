@@ -4,5 +4,5 @@ import { clsContent } from './styles.css';
 
 export function Content(props: BoxProps) {
   const { className, ...restProps } = props;
-  return <Box className={cx('wk-content', clsContent, className)} {...restProps} />;
+  return <Box className={cx(clsContent, 'wk-content', className)} {...restProps} />;
 }

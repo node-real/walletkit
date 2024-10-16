@@ -1,6 +1,6 @@
 export const TokenPocketTransparentIcon = (props: SVGIconProps) => {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" {...props}>
+    <svg width="40" height="40" viewBox="0 0 52 52" fill="none" {...props}>
       <mask id="mask0_1_2" maskUnits="userSpaceOnUse" x="8" y="14" width="36" height="24">
         <path d="M44 14H8V37.2274H44V14Z" fill="white" />
       </mask>
@@ -51,8 +51,8 @@ export const TokenPocketTransparentIcon = (props: SVGIconProps) => {
 export const TokenPocketIcon = (props: SVGIconProps) => {
   return (
     <svg
-      width="28px"
-      height="28px"
+      width="40"
+      height="40"
       viewBox="0 0 28 28"
       version="1.1"
       xmlnsXlink="http://www.w3.org/1999/xlink"

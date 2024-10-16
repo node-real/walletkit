@@ -26,17 +26,17 @@ export function WalletOption(props: { wallet: BaseWallet }) {
       const { isDisabled, name, logo } = wallet;
 
       return (
-        <Box className={cx('wk-wallet-option-wrapper', clsWalletOptionWrapper)}>
+        <Box className={cx(clsWalletOptionWrapper, 'wk-wallet-option-wrapper')}>
           <Button
             className={cx(
-              'wk-wallet-option',
               clsWalletOption,
               isDisabled ? clsWalletOptionDisabled : undefined,
+              'wk-wallet-option',
             )}
             onClick={isDisabled ? undefined : onClick}
           >
-            <Box className={cx('wk-wallet-option-logo', clsWalletOptionIcon)}>{logo}</Box>
-            <Text className={cx('wk-wallet-option-name', clsWalletOptionName)}>{name}</Text>
+            <Box className={cx(clsWalletOptionIcon, 'wk-wallet-option-logo')}>{logo}</Box>
+            <Text className={cx(clsWalletOptionName, 'wk-wallet-option-name')}>{name}</Text>
           </Button>
         </Box>
       );

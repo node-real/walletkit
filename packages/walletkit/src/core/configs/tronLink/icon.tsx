@@ -1,6 +1,6 @@
 export const TronLinkTransparentIcon = (props: SVGIconProps) => {
   return (
-    <svg width="65" height="65" viewBox="0 0 65 65" fill="none" {...props}>
+    <svg width="40" height="40" viewBox="0 0 65 65" fill="none" {...props}>
       <g clipPath="url(#clip0_18_3)">
         <path
           d="M7.30721 0C3.27132 0 0 3.59886 0 8.03839V56.9616C0 61.4011 3.27132 65 7.30721 65H57.6928C61.7283 65 65 61.4011 65 56.9616V8.03839C65 3.59886 61.7283 0 57.6928 0H7.30721Z"

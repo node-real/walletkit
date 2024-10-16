@@ -1,10 +1,10 @@
 export const PhantomWalletTransparentIcon = (props: SVGIconProps) => {
-  return <PhantomWalletIcon width={34} height={34} {...props} />;
+  return <PhantomWalletIcon width={40} height={40} {...props} />;
 };
 
 export const PhantomWalletIcon = (props: SVGIconProps) => {
   return (
-    <svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" {...props}>
+    <svg width="40" height="40" viewBox="0 0 1200 1200" fill="none" {...props}>
       <g clipPath="url(#clip0_2596_138588)">
         <rect width="1200" height="1200" rx="257.592" fill="#AB9FF2" />
         <path

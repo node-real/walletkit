@@ -1,6 +1,6 @@
 import { cssVar } from '@/core/base/utils/css';
 import { hover } from '@/core/base/vanilla/index.css';
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 export const clsWalletOption = style({
   height: 68,
@@ -27,8 +27,8 @@ export const clsWalletOptionIcon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 52,
-  height: 52,
+  width: 40,
+  height: 40,
   borderRadius: cssVar('walletOptionIcon', 'radii'),
   overflow: 'hidden',
 });
@@ -40,4 +40,9 @@ export const clsWalletOptionDisabled = style({
     color: cssVar('walletOptionText'),
     background: cssVar('walletOptionBackground'),
   }),
+});
+
+globalStyle(`${clsWalletOptionIcon} > *`, {
+  width: '100%',
+  height: '100%',
 });

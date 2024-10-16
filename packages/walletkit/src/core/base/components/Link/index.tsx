@@ -10,7 +10,7 @@ export const Link = (props: LinkProps) => {
   return (
     <Box
       as="a"
-      className={cx('wk-link', clsLink, className)}
+      className={cx(clsLink, 'wk-link', className)}
       target="_blank"
       rel="noopener"
       {...restProps}

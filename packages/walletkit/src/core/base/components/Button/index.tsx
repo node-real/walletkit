@@ -9,7 +9,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>((props: ButtonP
   const { className, ...restProps } = props;
 
   return (
-    <Box ref={ref} as="button" className={cx('wk-button', clsButton, className)} {...restProps} />
+    <Box ref={ref} as="button" className={cx(clsButton, 'wk-button', className)} {...restProps} />
   );
 });
 

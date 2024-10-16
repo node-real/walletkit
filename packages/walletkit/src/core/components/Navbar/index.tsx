@@ -15,7 +15,7 @@ export function Navbar(props: NavbarProps) {
   const { className, showBack, onBack, onClose, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-navbar', clsNavbar, className)} {...restProps}>
+    <Box className={cx(clsNavbar, 'wk-navbar', className)} {...restProps}>
       {showBack && (
         <IconButton className="wk-navbar-back-button" icon={<BackIcon />} onClick={onBack} />
       )}

@@ -1,10 +1,10 @@
 export const BinanceWeb3WalletTransparentIcon = (props: SVGIconProps) => {
-  return <BinanceWeb3WalletIcon width={34} height={34} {...props} />;
+  return <BinanceWeb3WalletIcon width={40} height={40} {...props} />;
 };
 
 export const BinanceWeb3WalletIcon = (props: SVGIconProps) => {
   return (
-    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" {...props}>
+    <svg width="40" height="40" viewBox="0 0 68 68" fill="none" {...props}>
       <path
         d="M0 18.1333C0 8.11857 8.11857 0 18.1333 0H49.8667C59.8814 0 68 8.11857 68 18.1333V49.8667C68 59.8814 59.8814 68 49.8667 68H18.1333C8.11857 68 0 59.8814 0 49.8667V18.1333Z"
         fill="#0B0E11"

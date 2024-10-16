@@ -4,7 +4,8 @@ import { coinbaseWallet, EvmWallet, isWalletConnect, metaMask, walletConnect } f
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
 import { setEvmGlobalData } from '../globalData';
 
-interface CustomizedEvmConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
+interface CustomizedEvmConfig
+  extends Omit<CreateConfigParameters, 'chains' | 'connectors' | 'multiInjectedProviderDiscovery'> {
   autoConnect?: boolean;
   metadata?: Metadata;
   walletConnectProjectId: string;
@@ -39,6 +40,7 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
   const fns = getCreateConnectorFns(wallets);
 
   const wagmiConfig = createConfig({
+    multiInjectedProviderDiscovery: false,
     ...restProps,
     chains,
     connectors: fns,

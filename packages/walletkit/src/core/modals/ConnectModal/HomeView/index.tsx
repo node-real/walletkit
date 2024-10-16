@@ -25,7 +25,7 @@ export function HomeView() {
       <ModalHeader>{options.title}</ModalHeader>
 
       {options.disclaimer && (
-        <Box className={cx('wk-disclaimer', clsDisclaimer)}>{options.disclaimer}</Box>
+        <Box className={cx(clsDisclaimer, 'wk-disclaimer')}>{options.disclaimer}</Box>
       )}
 
       {useGridLayout ? (

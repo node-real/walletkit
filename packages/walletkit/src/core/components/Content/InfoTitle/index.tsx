@@ -6,7 +6,7 @@ export function InfoTitle(props: BoxProps) {
   const { className, children, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-info-title', clsInfoTitle, className)} {...restProps}>
+    <Box className={cx(clsInfoTitle, 'wk-info-title', className)} {...restProps}>
       {children}
     </Box>
   );

@@ -14,14 +14,14 @@ export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
 
   return (
     <>
-      <ModalBody className={cx('wk-wallets', clsWallets)} data-layout="list">
+      <ModalBody className={cx(clsWallets, 'wk-wallets')} data-layout="list">
         {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
       {!options.hideNoWalletCTA && (
         <ModalFooter>
           <Link
-            className={cx('wk-nowallet-link', clsNoWalletLink)}
+            className={cx(clsNoWalletLink, 'wk-nowallet-link')}
             href={options.walletDownloadUrl}
           >
             <WalletIcon />I don’t have a wallet

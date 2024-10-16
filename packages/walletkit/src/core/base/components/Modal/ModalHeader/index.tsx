@@ -7,5 +7,5 @@ export type ModalHeaderProps = BoxProps;
 export function ModalHeader(props: ModalHeaderProps) {
   const { className, ...restProps } = props;
 
-  return <Box className={cx('wk-modal-header', clsModalHeader, className)} {...restProps} />;
+  return <Box className={cx(clsModalHeader, 'wk-modal-header', className)} {...restProps} />;
 }

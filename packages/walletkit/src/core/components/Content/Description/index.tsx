@@ -5,5 +5,5 @@ import { clsDescription } from './styles.css';
 export function Description(props: BoxProps) {
   const { className, ...restProps } = props;
 
-  return <Box className={cx('wk-description', clsDescription, className)} {...restProps} />;
+  return <Box className={cx(clsDescription, 'wk-description', className)} {...restProps} />;
 }

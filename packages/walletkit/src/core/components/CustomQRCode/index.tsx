@@ -15,7 +15,7 @@ export function CustomQRCode(props: CustomQRCodeProps) {
   const { className, logo, logoSize = 44, value, ...restProps } = props;
 
   return (
-    <Box className={cx('wk-qrcode', clsQrCodeContainer, className)} {...restProps}>
+    <Box className={cx(clsQrCodeContainer, 'wk-qrcode', className)} {...restProps}>
       <Box className={clsQrCodeWrapper}>
         {value ? (
           <Transition in={!!value}>
@@ -25,7 +25,7 @@ export function CustomQRCode(props: CustomQRCodeProps) {
           <QRCodePlaceHolder />
         )}
         <Box
-          className={cx('wk-qrcode-logo', clsQrCodeLogo)}
+          className={cx(clsQrCodeLogo, 'wk-qrcode-logo')}
           style={{
             width: logoSize,
             height: logoSize,
