@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.7
+
+### Patch Changes
+
+- 8c8c1f2: Fix scrollbar color issue
+
 ## 2.4.0-alpha.6
 
 ### Patch Changes
