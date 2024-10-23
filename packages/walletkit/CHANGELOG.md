@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.10
+
+### Patch Changes
+
+- 5ed12f9: No need to invoke switchChain on mobile
+
 ## 2.4.0-alpha.9
 
 ### Patch Changes
