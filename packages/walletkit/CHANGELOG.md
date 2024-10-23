@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.0-alpha.9
+
+### Patch Changes
+
+- d5b7be9: Support switch network for tron
+
 ## 2.4.0-alpha.8
 
 ### Patch Changes
