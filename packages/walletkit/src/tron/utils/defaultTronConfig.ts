@@ -4,6 +4,7 @@ import { setTronGlobalData } from '../globalData';
 
 interface CustomizedTronConfig {
   autoConnect?: boolean;
+  initialChainId?: string | number;
   // metadata?: Metadata;
   // walletConnectProjectId?: string;
   // rpcUrl: string;
@@ -15,6 +16,7 @@ export type TronConfig = ReturnType<typeof defaultTronConfig>;
 export function defaultTronConfig(params: CustomizedTronConfig) {
   const {
     autoConnect = false,
+    initialChainId,
     // metadata = { name: 'WalletKit' },
     // walletConnectProjectId,
     // rpcUrl,
@@ -32,6 +34,7 @@ export function defaultTronConfig(params: CustomizedTronConfig) {
 
   return {
     autoConnect,
+    initialChainId,
     // metadata,
     // walletConnectProjectId,
     adapters,

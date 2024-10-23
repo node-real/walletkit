@@ -61,7 +61,8 @@ const config: WalletKitConfig = {
     wallets: [solanaTrustWallet(), solanaPhantomWallet()],
   }),
   tronConfig: defaultTronConfig({
-    autoConnect: false,
+    autoConnect: true,
+    initialChainId: '0xcd8690dc',
     wallets: [tronLink()],
   }),
 };
@@ -102,7 +103,12 @@ function ConnectButton() {
       onClick={() =>
         onOpen({
           action: 'add-network',
-          initialChainId: 1,
+          evmConfig: {
+            initialChainId: 56,
+          },
+          tronConfig: {
+            initialChainId: '0xcd8690dc',
+          },
         })
       }
     >

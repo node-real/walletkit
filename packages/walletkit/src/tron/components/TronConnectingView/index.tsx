@@ -5,20 +5,19 @@ import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useTronConnect } from '@/tron/hooks/useTronConnect';
 import { tronCommonErrorHandler } from '@/tron/utils/tronCommonErrorHandler';
 import { TronWallet } from '@/tron/wallets';
-import { useWallet, WalletProviderProps } from '@tronweb3/tronwallet-adapter-react-hooks';
+import { WalletProviderProps } from '@tronweb3/tronwallet-adapter-react-hooks';
 import { useCallback, useEffect, useState } from 'react';
 
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 
 export function TronConnectingView() {
-  const { log, selectedWallet, options } = useWalletKit();
+  const { log, selectedWallet, options, tronConfig } = useWalletKit();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
 
-  const { connected } = useWallet();
-  const { connect } = useTronConnect();
+  const { connect, isConnected } = useTronConnect();
 
   useEffect(() => {
     const onError = (error: WalletError) => {
@@ -52,8 +51,9 @@ export function TronConnectingView() {
 
     connect({
       adapterName: (selectedWallet as TronWallet).adapterName,
+      chainId: tronConfig?.initialChainId,
     });
-  }, [connect, selectedWallet]);
+  }, [connect, selectedWallet, tronConfig?.initialChainId]);
 
   return (
     <TemplateConnectingView
@@ -61,7 +61,7 @@ export function TronConnectingView() {
       runConnect={runConnect}
       onTryAgain={runConnect}
       wallet={selectedWallet}
-      isConnected={connected}
+      isConnected={isConnected}
     />
   );
 }

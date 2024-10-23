@@ -6,7 +6,13 @@ import { BaseWallet } from '@/core/configs/types';
 export interface ConnectModalOpenParams {
   action?: Action;
   viewRoute?: ViewRoutes;
-  initialChainId?: number;
+  initialChainId?: number; // TODO
+  tronConfig?: {
+    initialChainId?: string | number;
+  };
+  evmConfig?: {
+    initialChainId?: number;
+  };
   onConnected?: (params: { wallet: BaseWallet }) => void;
 }
 
