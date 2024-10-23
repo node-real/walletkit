@@ -1,11 +1,10 @@
-import { useWalletKit } from '@/core/index';
+import { isMobile } from '@/core/index';
 import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
 import { useCallback, useState } from 'react';
 
 export function useTronConnect() {
-  const { select, wallets: adapters, connected, disconnect } = useWallet();
+  const { select, wallets: adapters, connected } = useWallet();
 
-  const { log } = useWalletKit();
   const [isConnected, setIsConnected] = useState(connected);
 
   const connect = useCallback(
@@ -16,20 +15,15 @@ export function useTronConnect() {
       const adapter = adapters.find((item) => item.adapter.name === adapterName)?.adapter;
 
       if (adapter) {
-        try {
-          await adapter.connect();
-          if (finalChainId) {
-            await adapter?.switchChain(finalChainId);
-          }
-          setIsConnected(true);
-        } catch (err) {
-          setIsConnected(false);
-          disconnect();
-          log(err);
+        await adapter.connect();
+        setIsConnected(true);
+
+        if (finalChainId && !isMobile()) {
+          await adapter?.switchChain(finalChainId);
         }
       }
     },
-    [adapters, disconnect, log, select],
+    [adapters, select],
   );
 
   return {
