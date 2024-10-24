@@ -1,5 +1,24 @@
 # @node-real/walletkit
 
+## 2.4.0
+
+### Minor Changes
+
+- 953e77c: Support tron wallets
+
+### Patch Changes
+
+- 953e77c: Support switch network for tron
+- 953e77c: Support telegram mini app
+- 953e77c: Support async connect a wallet
+- 953e77c: No need to invoke switchChain on mobile
+- 953e77c: Connect is no longer invoked if wallet is connected
+- 953e77c: Adjust the priority of the user style & update wallet icon size
+- 953e77c: Fix scrollbar color issue
+- 953e77c: Support tronLink on mobile
+- 953e77c: Scroll the wallet list if overflow
+- 953e77c: Add callback once wallet is connected
+
 ## 2.4.0-alpha.10
 
 ### Patch Changes
