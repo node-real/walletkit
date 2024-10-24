@@ -1,40 +1,67 @@
 # @node-real/walletkit
 
-## 2.0.3
+## 2.4.0-alpha.10
 
 ### Patch Changes
 
-- 5b7f3f6: test: Add log
-- 5b7f3f6: fix: ssr no need to wait for the provider to be ready
+- 5ed12f9: No need to invoke switchChain on mobile
 
-## 2.0.3-alpha.0
-
-### Patch Changes
-
-- d5437a7: test: Add log
-- 90846a4: fix: ssr no need to wait for the provider to be ready
-
-## 2.0.2
+## 2.4.0-alpha.9
 
 ### Patch Changes
 
-- 1fed209: feat: Upgrade wagmi & viem to 2.x
-- 1fed209: fix: ssr no need to wait for the provider to be ready
+- d5b7be9: Support switch network for tron
 
-## 2.0.2-alpha.0
-
-### Patch Changes
-
-- 90846a4: fix: ssr no need to wait for the provider to be ready
-
-## 2.0.1
+## 2.4.0-alpha.8
 
 ### Patch Changes
 
-- 83c5001: feat: Upgrade wagmi & viem to 2.x
+- 3c2e720: Add callback once wallet is connected
 
-## 2.0.1-alpha.0
+## 2.4.0-alpha.7
 
 ### Patch Changes
 
-- 919b9ba: feat: Upgrade wagmi & viem to 2.x
+- 8c8c1f2: Fix scrollbar color issue
+
+## 2.4.0-alpha.6
+
+### Patch Changes
+
+- 26fcd89: Scroll the wallet list if overflow
+
+## 2.4.0-alpha.5
+
+### Patch Changes
+
+- 738e3a3: Adjust the priority of the user style & update wallet icon size
+
+## 2.4.0-alpha.4
+
+### Patch Changes
+
+- 261c919: Support tronLink on mobile
+
+## 2.4.0-alpha.3
+
+### Minor Changes
+
+- c4d8086: Support tron wallets
+
+## 2.3.6-alpha.2
+
+### Patch Changes
+
+- 4f1788b: Connect is no longer invoked if wallet is connected
+
+## 2.3.6-alpha.1
+
+### Patch Changes
+
+- 69e6f4e: Support async connect a wallet
+
+## 2.3.6-alpha.0
+
+### Patch Changes
+
+- 3c711ae: Support telegram mini app

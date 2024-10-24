@@ -1,89 +1,118 @@
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
+import './style.css';
+import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import VConsole from 'vconsole';
-import {
-  ConnectModal,
-  ProfileModal,
-  SwitchNetworkModal,
-  ThemeMode,
-  WalletKitButton,
-  WalletKitOptions,
-  WalletKitProvider,
-  defaultWagmiConfig,
-  useConnectModal,
-  useProfileModal,
-  useSwitchNetworkModal,
-} from '@/index';
 import {
   binanceWeb3Wallet,
   bitgetWallet,
   coinbaseWallet,
+  defaultEvmConfig,
+  mathWallet,
   metaMask,
   okxWallet,
   tokenPocket,
   trustWallet,
   walletConnect,
-} from '@/wallets';
-import { chains } from './chains';
-
-const queryClient = new QueryClient();
+} from '@/evm/index';
+import {
+  trustWallet as solanaTrustWallet,
+  phantomWallet as solanaPhantomWallet,
+  defaultSolanaConfig,
+  useSolanaWallet,
+} from '@/solana/index';
+import { bsc, mainnet } from 'viem/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useAccount, useDisconnect } from 'wagmi';
+import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
 
 new VConsole();
 
-const config = defaultWagmiConfig({
-  appName: 'WalletKit',
-  chains,
-  connectors: [
-    binanceWeb3Wallet(),
-    bitgetWallet(),
-    coinbaseWallet(),
-    metaMask(),
-    okxWallet(),
-    tokenPocket(),
-    trustWallet(),
-    walletConnect(),
-  ],
-});
+const queryClient = new QueryClient();
 
-const options: WalletKitOptions = {
-  initialChainId: 204,
+const config: WalletKitConfig = {
+  options: {
+    closeModalOnEsc: false,
+    // gridLayoutThreshold: 1000,
+    onChainAlreadyAdded({ wallet, chainId }) {
+      console.log(wallet, chainId);
+    },
+  },
+  evmConfig: defaultEvmConfig({
+    autoConnect: true,
+    initialChainId: 1,
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+    chains: [mainnet, bsc],
+    wallets: [
+      metaMask(),
+      trustWallet(),
+      bitgetWallet(),
+      coinbaseWallet(),
+      binanceWeb3Wallet(),
+
+      tokenPocket(),
+      okxWallet(),
+
+      mathWallet(),
+      walletConnect(),
+    ],
+  }),
+  solanaConfig: defaultSolanaConfig({
+    autoConnect: true,
+    rpcUrl: 'https://solana-rpc.debridge.finance',
+    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  }),
+  tronConfig: defaultTronConfig({
+    autoConnect: true,
+    initialChainId: '0xcd8690dc',
+    wallets: [tronLink()],
+  }),
 };
 
 export default function App() {
-  const [mode, setMode] = useState<ThemeMode>('light');
-  const nextMode = mode === 'light' ? 'dark' : 'light';
-
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
+    <WalletKitProvider config={config} debugMode>
       <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode={mode} debugMode={true}>
-          <div>mode: {mode} </div>
-          <button onClick={() => setMode(nextMode)}>switch to {nextMode}</button>
-          <div style={{ height: 20 }} />
-
-          <WalletKitButton />
-          <Example />
-
-          <ConnectModal />
-          <SwitchNetworkModal />
-          <ProfileModal />
-        </WalletKitProvider>
+        <ConnectButton />
+        <ConnectModal />
       </QueryClientProvider>
-    </WagmiProvider>
+    </WalletKitProvider>
   );
 }
 
-function Example() {
-  const connectModal = useConnectModal();
-  const profileModal = useProfileModal();
-  const switchNetworkModal = useSwitchNetworkModal();
+function ConnectButton() {
+  const { onOpen } = useConnectModal();
+
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const { publicKey } = useSolanaWallet();
+  const { address: b } = useTronWallet();
+
+  console.log(publicKey, b);
+
+  if (address) {
+    return (
+      <>
+        <div>address:{address}</div>
+        <button onClick={() => disconnect()}>disconnect</button>
+      </>
+    );
+  }
 
   return (
-    <>
-      <button onClick={() => connectModal.onOpen()}>Open Connect Modal</button>
-      <button onClick={() => profileModal.onOpen()}>Open Profile Modal</button>
-      <button onClick={() => switchNetworkModal.onOpen()}>Open SwitchNetwork Modal</button>
-    </>
+    <button
+      onClick={() =>
+        onOpen({
+          action: 'add-network',
+          evmConfig: {
+            initialChainId: 56,
+          },
+          tronConfig: {
+            initialChainId: '0xcd8690dc',
+          },
+        })
+      }
+    >
+      connect
+    </button>
   );
 }

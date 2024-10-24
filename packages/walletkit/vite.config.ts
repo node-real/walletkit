@@ -1,12 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import dts from 'vite-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import path from 'path';
+import mkcert from 'vite-plugin-mkcert';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    https: false,
+  },
   plugins: [
     react(),
     vanillaExtractPlugin({
@@ -15,6 +19,7 @@ export default defineConfig({
     dts({
       include: 'src',
     }),
+    mkcert(),
   ],
   resolve: {
     alias: {
@@ -27,8 +32,10 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        index: 'src/index.ts',
-        'wallets/index': 'src/wallets/index.ts',
+        'core/index': 'src/core/index.ts',
+        'solana/index': 'src/solana/index.ts',
+        'evm/index': 'src/evm/index.ts',
+        'tron/index': 'src/tron/index.ts',
       },
     },
     rollupOptions: {
@@ -38,7 +45,7 @@ export default defineConfig({
         }),
       ],
       output: {
-        chunkFileNames: 'common.js',
+        chunkFileNames: 'chunks/chunk.js',
       },
     },
   },

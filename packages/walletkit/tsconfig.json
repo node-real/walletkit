@@ -22,7 +22,10 @@
 
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/core/*": ["src/core/*"],
+      "@/evm/*": ["src/evm/*"],
+      "@/solana/*": ["src/solana/*"],
+      "@/tron/*": ["src/tron/*"]
     }
   },
   "include": ["src", "__dev__"],
