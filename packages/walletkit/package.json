@@ -60,7 +60,6 @@
     "@tronweb3/tronwallet-abstract-adapter": "^1",
     "@tronweb3/tronwallet-adapter-react-hooks": "^1",
     "@tronweb3/tronwallet-adapters": "^1",
-    "@walletconnect/solana-adapter": "^0.0.5",
     "qrcode": "^1"
   },
   "devDependencies": {

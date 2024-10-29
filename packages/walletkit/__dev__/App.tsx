@@ -87,7 +87,7 @@ function ConnectButton() {
   const { publicKey } = useSolanaWallet();
   const { address: b } = useTronWallet();
 
-  console.log(publicKey, b);
+  console.log(publicKey?.toBase58(), b);
 
   if (address) {
     return (
