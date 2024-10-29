@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.0
+
+### Patch Changes
+
+- cf27048: Support solana on mobile
+
 ## 2.4.0
 
 ### Minor Changes
