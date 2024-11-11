@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.1
+
+### Patch Changes
+
+- 55abc5d: Add deeplink for tw solana on mobile
+
 ## 2.4.1-alpha.0
 
 ### Patch Changes

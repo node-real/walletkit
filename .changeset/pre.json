@@ -8,6 +8,7 @@
     "website": "0.0.1"
   },
   "changesets": [
-    "big-donuts-push"
+    "big-donuts-push",
+    "itchy-hats-applaud"
   ]
 }
