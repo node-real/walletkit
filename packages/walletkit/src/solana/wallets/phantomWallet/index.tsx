@@ -19,6 +19,9 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
     isInstalled() {
       return hasSolanaInjectedProvider('isPhantom');
     },
+    getDeepLink() {
+      return undefined;
+    },
     getAdapter() {
       return new PhantomWalletAdapter({
         ...adapterOptions,
