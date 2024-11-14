@@ -20,7 +20,9 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
       return hasSolanaInjectedProvider('isPhantom');
     },
     getDeepLink() {
-      return undefined;
+      const encodedUrl = encodeURIComponent(window.location.href);
+      const encodeDapp = encodeURIComponent(window.origin);
+      return `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodeDapp}`;
     },
     getAdapter() {
       return new PhantomWalletAdapter({
