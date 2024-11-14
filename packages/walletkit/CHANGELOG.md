@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.2
+
+### Patch Changes
+
+- f20032d: Add deelink for phantom
+
 ## 2.4.1-alpha.1
 
 ### Patch Changes
