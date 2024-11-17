@@ -1,17 +1,19 @@
 import { Chain } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { TRUST_WALLET_ID } from '.';
-import { getInjectedProvider } from '../utils';
 import { sleep } from '@/utils/common';
-import { WindowProvider } from 'wagmi/window';
 
 export type TrustWalletConnectorOptions = {
   shimDisconnect?: boolean;
+  delayTime?: number;
 };
 
 export class TrustWalletConnector extends MetaMaskConnector {
   readonly id: any = TRUST_WALLET_ID;
   protected shimDisconnectKey = `${this.id}.shimDisconnect`;
+
+  private delayTime: number;
+  private twProvider: any;
 
   constructor({
     chains,
@@ -23,7 +25,6 @@ export class TrustWalletConnector extends MetaMaskConnector {
     const options = {
       name: 'Trust Wallet',
       shimDisconnect: true,
-      getProvider,
       ..._options,
     };
 
@@ -31,24 +32,72 @@ export class TrustWalletConnector extends MetaMaskConnector {
       chains,
       options,
     });
+
+    this.delayTime = options.delayTime ?? 1500;
   }
 
   public async getProvider() {
-    if (typeof window !== 'undefined' && !window.trustwallet?.request) {
-      await sleep();
+    if (!this.twProvider) {
+      await sleep(this.delayTime);
+      this.twProvider = (await getTrustWalletFromEip6963()) || (await getTrustWalletFromWindow());
+      if (this.twProvider?.removeListener === undefined) {
+        this.twProvider.removeListener = this.twProvider.off;
+      }
     }
-    return this.options.getProvider() as WindowProvider;
+    return this.twProvider;
   }
 }
 
-function getProvider() {
-  if (typeof window === 'undefined') return;
+function getTrustWalletFromEip6963({ timeout } = { timeout: 100 }) {
+  return new Promise((resolve) => {
+    window.addEventListener('eip6963:announceProvider', (event: any) => {
+      const provider = event.detail.provider;
+      if (provider.isTrust) {
+        resolve(provider);
+      }
+    });
+    window.dispatchEvent(new Event('eip6963:requestProvider'));
 
-  const provider = getInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
+    setTimeout(() => {
+      resolve(null);
+    }, timeout);
+  });
+}
 
-  if (provider && provider.removeListener === undefined) {
-    provider.removeListener = provider.off;
+function getTrustWalletFromWindow() {
+  const isTrustWallet = (ethereum: any) => {
+    // Identify if Trust Wallet injected provider is present.
+    const trustWallet = !!ethereum.isTrust;
+
+    return trustWallet;
+  };
+
+  const injectedProviderExist =
+    typeof window !== 'undefined' && typeof window.ethereum !== 'undefined';
+
+  // No injected providers exist.
+  if (!injectedProviderExist) {
+    return null;
   }
 
-  return provider;
+  // Trust Wallet was injected into window.ethereum.
+  if (isTrustWallet(window.ethereum)) {
+    return window.ethereum;
+  }
+
+  // Trust Wallet provider might be replaced by another
+  // injected provider, check the providers array.
+  if (window.ethereum?.providers) {
+    // ethereum.providers array is a non-standard way to
+    // preserve multiple injected providers. Eventually, EIP-5749
+    // will become a living standard and we will have to update this.
+    return window.ethereum.providers.find(isTrustWallet) ?? null;
+  }
+
+  // Trust Wallet injected provider is available in the global scope.
+  // There are cases that some cases injected providers can replace window.ethereum
+  // without updating the ethereum.providers array. To prevent issues where
+  // the TW connector does not recognize the provider when TW extension is installed,
+  // we begin our checks by relying on TW's global object.
+  return window['trustwallet'] ?? null;
 }
