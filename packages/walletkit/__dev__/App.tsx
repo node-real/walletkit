@@ -24,11 +24,10 @@ import {
   walletConnect,
 } from '@/wallets';
 import { SwitchNetworkModal } from '@/components/SwitchNetworkModal';
-import { WalletKitEmbeddedModal } from '@/components/WalletKitEmbeddedModal';
 
 const client = createClient(
   getDefaultConfig({
-    autoConnect: false,
+    autoConnect: true,
     appName: 'WalletKit',
     chains,
     connectors: [
@@ -40,7 +39,11 @@ const client = createClient(
       tokenPocket({
         isDisabled: true,
       }),
-      trustWallet(),
+      trustWallet({
+        connectorOptions: {
+          delayTime: 2000,
+        },
+      }),
       walletConnect(),
       mathWallet(),
     ],
