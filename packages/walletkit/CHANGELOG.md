@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 0.3.4
+
+### Patch Changes
+
+- c34169e: Add delayTime to trust to wait for it becomes fully available
+
 ## 0.3.3
 
 ### Patch Changes
