@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.3
+
+### Patch Changes
+
+- 601d110: Update tron dependencies
+
 ## 2.4.1-alpha.2
 
 ### Patch Changes
