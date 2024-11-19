@@ -1,4 +1,4 @@
-import { TronLinkAdapter, TronLinkAdapterConfig } from '@tronweb3/tronwallet-adapters';
+import { TronLinkAdapter, TronLinkAdapterConfig } from '@tronweb3/tronwallet-adapter-tronlink';
 import { TronWallet } from '../types';
 import { tronLinkConfig } from '@/core/configs/tronLink';
 import { hasTronInjectedProvider } from '../utils';

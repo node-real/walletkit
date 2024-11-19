@@ -59,8 +59,9 @@
     "@solana/web3.js": "^1",
     "@tronweb3/tronwallet-abstract-adapter": "^1",
     "@tronweb3/tronwallet-adapter-react-hooks": "^1",
-    "@tronweb3/tronwallet-adapters": "^1",
-    "qrcode": "^1"
+    "@tronweb3/tronwallet-adapter-tronlink": "^1.1.11",
+    "qrcode": "^1",
+    "tronweb": "~6.0.0"
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.51.1",
