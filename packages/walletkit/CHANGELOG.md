@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.4
+
+### Patch Changes
+
+- 615241f: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+
 ## 2.4.1-alpha.3
 
 ### Patch Changes
