@@ -35,6 +35,8 @@ export type InjectedParameters = {
 // Regex of wallets/providers that can accurately simulate contract calls & display contract revert reasons.
 const supportsSimulationIdRegex = /(rabby|trustwallet)/;
 
+const notRevokePermissionWallets = ['trust'];
+
 const targetMap = {
   coinbaseWallet: {
     id: 'coinbaseWallet',
@@ -264,20 +266,23 @@ export function injected(parameters: InjectedParameters = {}) {
       try {
         // Adding timeout as not all wallets support this method and can hang
         // https://github.com/wevm/wagmi/issues/4064
-        await withTimeout(
-          () =>
-            // TODO: Remove explicit type for viem@3
-            provider.request<{
-              Method: 'wallet_revokePermissions';
-              Parameters: [permissions: { eth_accounts: Record<string, any> }];
-              ReturnType: null;
-            }>({
-              // `'wallet_revokePermissions'` added in `viem@2.10.3`
-              method: 'wallet_revokePermissions',
-              params: [{ eth_accounts: {} }],
-            }),
-          { timeout: 100 },
-        );
+
+        if (!notRevokePermissionWallets.includes(this.id)) {
+          await withTimeout(
+            () =>
+              // TODO: Remove explicit type for viem@3
+              provider.request<{
+                Method: 'wallet_revokePermissions';
+                Parameters: [permissions: { eth_accounts: Record<string, any> }];
+                ReturnType: null;
+              }>({
+                // `'wallet_revokePermissions'` added in `viem@2.10.3`
+                method: 'wallet_revokePermissions',
+                params: [{ eth_accounts: {} }],
+              }),
+            { timeout: 100 },
+          );
+        }
       } catch {}
 
       // Add shim signalling connector is disconnected
