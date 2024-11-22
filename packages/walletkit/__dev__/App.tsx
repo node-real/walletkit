@@ -23,6 +23,7 @@ import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
+import { useEffect } from 'react';
 
 new VConsole();
 
@@ -83,36 +84,42 @@ function ConnectButton() {
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+  const { publicKey, disconnect: solanaDisconnect } = useSolanaWallet();
+  const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
 
-  const { publicKey } = useSolanaWallet();
-  const { address: b } = useTronWallet();
-
-  console.log(publicKey?.toBase58(), b);
-
-  if (address) {
-    return (
-      <>
-        <div>address:{address}</div>
-        <button onClick={() => disconnect()}>disconnect</button>
-      </>
-    );
-  }
+  useEffect(() => {
+    console.log(window.ethereum);
+    console.log(window.solana);
+  }, []);
 
   return (
-    <button
-      onClick={() =>
-        onOpen({
-          action: 'add-network',
-          evmConfig: {
-            initialChainId: 56,
-          },
-          tronConfig: {
-            initialChainId: '0xcd8690dc',
-          },
-        })
-      }
-    >
-      connect
-    </button>
+    <>
+      <button
+        onClick={() =>
+          onOpen({
+            action: 'add-network',
+            evmConfig: {
+              initialChainId: 56,
+            },
+            tronConfig: {
+              initialChainId: '0xcd8690dc',
+            },
+          })
+        }
+      >
+        connect
+      </button>
+      <div>
+        evm address:{address} <button onClick={() => disconnect()}>disconnect</button>
+      </div>
+      <div>
+        solana address:{publicKey?.toBase58()}
+        <button onClick={() => solanaDisconnect()}>disconnect</button>
+      </div>
+      <div>
+        tron address:{tronAddress}
+        <button onClick={() => tronDisconnect()}>disconnect</button>
+      </div>
+    </>
   );
 }
