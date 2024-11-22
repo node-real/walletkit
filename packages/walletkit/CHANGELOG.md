@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.5
+
+### Patch Changes
+
+- 25add5c: Fix the trust wallet will automatically connect when the page loaded
+
 ## 2.4.1-alpha.4
 
 ### Patch Changes
