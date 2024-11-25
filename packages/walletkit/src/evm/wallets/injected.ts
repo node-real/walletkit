@@ -33,7 +33,11 @@ export type InjectedParameters = {
   unstable_shimAsyncInject?: boolean | number | undefined;
 };
 
-const notRevokePermissionWallets = ['trust'];
+function getRecentConnectorId() {
+  if (typeof window === 'undefined') return;
+  const recentConnectorId = window.localStorage.getItem('wagmi.recentConnectorId');
+  if (recentConnectorId) return JSON.parse(recentConnectorId);
+}
 
 injected.type = 'injected' as const;
 export function injected(parameters: InjectedParameters = {}) {
@@ -218,7 +222,7 @@ export function injected(parameters: InjectedParameters = {}) {
       try {
         // Adding timeout as not all wallets support this method and can hang
         // https://github.com/wevm/wagmi/issues/4064
-        if (!notRevokePermissionWallets.includes(this.id)) {
+        if (this.id !== 'trust') {
           await withTimeout(
             () =>
               // TODO: Remove explicit type for viem@3
@@ -279,18 +283,9 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async isAuthorized() {
       try {
-        let isRecentConnected = false;
-        if (typeof window !== 'undefined') {
-          const recentConnectorId = window.localStorage.getItem('wagmi.recentConnectorId');
-          if (recentConnectorId) {
-            isRecentConnected = JSON.parse(recentConnectorId) === this.id;
-          } else {
-            return false;
-          }
-        }
-
+        const isRecentConnector = getRecentConnectorId() === this.id;
         const disconnected = await config.storage?.getItem(`${this.id}.disconnected`);
-        const isDisconnected = !shimDisconnect || !isRecentConnected || disconnected === true;
+        const isDisconnected = !shimDisconnect || !isRecentConnector || disconnected === true;
 
         if (isDisconnected) return false;
 
@@ -446,6 +441,9 @@ export function injected(parameters: InjectedParameters = {}) {
       }
     },
     async onAccountsChanged(accounts) {
+      const isRecentConnector = getRecentConnectorId() === this.id;
+      if (this.id === 'trust' && !isRecentConnector) return;
+
       // Disconnect if there are no accounts
       if (accounts.length === 0) this.onDisconnect();
       // Connect if emitter is listening for connect event (e.g. is disconnected and connects through wallet interface)

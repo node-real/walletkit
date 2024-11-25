@@ -87,11 +87,6 @@ function ConnectButton() {
   const { publicKey, disconnect: solanaDisconnect } = useSolanaWallet();
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
 
-  useEffect(() => {
-    console.log(window.ethereum);
-    console.log(window.solana);
-  }, []);
-
   return (
     <>
       <button
