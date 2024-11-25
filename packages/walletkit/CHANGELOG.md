@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.7
+
+### Patch Changes
+
+- a0d1970: Use window.trustwallet as TW provider to avoid conflicts
+
 ## 2.4.1-alpha.6
 
 ### Patch Changes
