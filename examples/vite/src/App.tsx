@@ -20,7 +20,7 @@ const config: WalletKitConfig = {
     initialChainId: 1,
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
     wallets: [metaMask(), trustWallet(), walletConnect()],
-    chains: [mainnet],
+    chains: [mainnet] as any,
   }),
 };
 

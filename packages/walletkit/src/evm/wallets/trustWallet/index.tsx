@@ -28,16 +28,17 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://link.trustwallet.com/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
+      let isReady = false;
       return injected({
         shimDisconnect: true,
         target: {
           id: trustWallet().id,
           name: trustWallet().name,
-          async setup() {
-            if (typeof window === 'undefined') return;
-            await sleep();
-          },
           async provider() {
+            if (!isReady) {
+              await sleep();
+            }
+            isReady = true;
             return getProvider();
           },
         },

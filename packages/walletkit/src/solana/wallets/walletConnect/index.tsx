@@ -22,6 +22,9 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
     isInstalled() {
       return false;
     },
+    getDeepLink() {
+      return undefined;
+    },
     getAdapter() {
       const { walletConnectProjectId, metadata, rpcUrl } = getSolanaGlobalData();
 

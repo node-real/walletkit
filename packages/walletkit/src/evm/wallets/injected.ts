@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-empty */
-
 import {
   type AddEthereumChainParameter,
   type Address,
@@ -96,8 +95,6 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     type: injected.type,
     async setup() {
-      await getTarget()?.setup?.();
-
       const provider = await this.getProvider();
       // Only start listening for events if `target` is set, otherwise `injected()` will also receive events
       if (provider?.on && parameters.target) {
@@ -282,19 +279,18 @@ export function injected(parameters: InjectedParameters = {}) {
     },
     async isAuthorized() {
       try {
-        let hasSelfData = false;
-        try {
-          if (typeof window !== 'undefined') {
-            const storeData = JSON.parse(window.localStorage.getItem('wagmi.store') || '{}');
-            hasSelfData = storeData?.state?.connections?.value?.find(
-              (e: any) => e?.[1]?.connector?.id === this.id,
-            );
+        let isRecentConnected = false;
+        if (typeof window !== 'undefined') {
+          const recentConnectorId = window.localStorage.getItem('wagmi.recentConnectorId');
+          if (recentConnectorId) {
+            isRecentConnected = JSON.parse(recentConnectorId) === this.id;
+          } else {
+            return false;
           }
-        } catch {
-          hasSelfData = false;
         }
+
         const disconnected = await config.storage?.getItem(`${this.id}.disconnected`);
-        const isDisconnected = !shimDisconnect || !hasSelfData || disconnected === true;
+        const isDisconnected = !shimDisconnect || !isRecentConnected || disconnected === true;
 
         if (isDisconnected) return false;
 
@@ -589,7 +585,6 @@ type Target = {
   icon?: string | undefined;
   id: string;
   name: string;
-  setup?: () => Promise<unknown>;
   provider:
     | WalletProviderFlags
     | WalletProvider
