@@ -51,5 +51,5 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
+  return window.trustwallet ?? window.trustWallet ?? getEvmInjectedProvider('isTrust');
 }
