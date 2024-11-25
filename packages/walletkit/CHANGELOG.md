@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.8
+
+### Patch Changes
+
+- 11da348: Fix trust issue
+
 ## 2.4.1-alpha.7
 
 ### Patch Changes
