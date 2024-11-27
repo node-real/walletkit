@@ -51,5 +51,9 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
+
+  // binance web3 wallet will inject a trustwallet object with no request on mobile
+  if (!window?.trustwallet?.request) return;
+
   return window.trustwallet ?? window.trustWallet ?? getEvmInjectedProvider('isTrust');
 }
