@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.9
+
+### Patch Changes
+
+- f06cd1f: Fix binance web3 wallet successfully detected trustwallet on mobile
+
 ## 2.4.1-alpha.8
 
 ### Patch Changes
