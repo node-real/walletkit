@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.5.0-alpha.10
+
+### Minor Changes
+
+- 86426c0: Support tg
+
 ## 2.4.1-alpha.9
 
 ### Patch Changes
