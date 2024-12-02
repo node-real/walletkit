@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.6.1-alpha.0
+
+### Patch Changes
+
+- 55e3443: Using metaMask sdk
+
 ## 2.4.1-alpha.9
 
 ### Patch Changes
