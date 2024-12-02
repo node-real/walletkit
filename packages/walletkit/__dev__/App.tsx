@@ -61,16 +61,16 @@ const config: WalletKitConfig = {
       // mathWallet(),
     ],
   }),
-  solanaConfig: defaultSolanaConfig({
-    autoConnect: true,
-    rpcUrl: 'https://solana-rpc.debridge.finance',
-    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-  }),
-  tronConfig: defaultTronConfig({
-    autoConnect: true,
-    initialChainId: '0xcd8690dc',
-    wallets: [tronLink()],
-  }),
+  // solanaConfig: defaultSolanaConfig({
+  //   autoConnect: true,
+  //   rpcUrl: 'https://solana-rpc.debridge.finance',
+  //   wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  // }),
+  // tronConfig: defaultTronConfig({
+  //   autoConnect: true,
+  //   initialChainId: '0xcd8690dc',
+  //   wallets: [tronLink()],
+  // }),
 };
 
 export default function App() {

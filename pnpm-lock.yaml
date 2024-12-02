@@ -134,8 +134,8 @@ importers:
   packages/walletkit:
     dependencies:
       '@binance/w3w-wagmi-connector-v2':
-        specifier: 1.2.4-alpha.0
-        version: 1.2.4-alpha.0(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(wagmi@2.13.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.51.21)(@tanstack/react-query@5.51.21(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))
+        specifier: ^1.2.3
+        version: 1.2.3(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(wagmi@2.13.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.51.21)(@tanstack/react-query@5.51.21(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))
       '@metamask/jazzicon':
         specifier: ^2
         version: 2.0.0
@@ -1450,11 +1450,11 @@ packages:
     resolution: {integrity: sha512-Z/yiTPj+lDVnF7lWeKCIJzaIkI0vYO87dMpZ4bg4TDrFe4XXLFWL1TbXU27gBP3QccxV9mZICCrnjnYlJjXHOA==}
     engines: {node: '>=6.9.0'}
 
-  '@binance/w3w-core@1.1.8-alpha.0':
-    resolution: {integrity: sha512-fLTBqF4Yb7s4zFMhzHnmurQqszbiE9c8ZdmbELSkWgSwEHtEO7DAOAV61X9mCLLeCLpQkwz3sLULg/Agjr5iXA==}
+  '@binance/w3w-core@1.1.7':
+    resolution: {integrity: sha512-Aipavg2sc8JyBsgvmdbpna0RmS1EVmaIIgZO3lQr+OV0Q2EKabAIZ5nZNQOEmhxAzOxcrCZAUaNu/tW17JfcGg==}
 
-  '@binance/w3w-ethereum-provider@1.1.8-alpha.0':
-    resolution: {integrity: sha512-pmJWrv1npmqYYz1M3wtaXVY4rSJh2GYjNgRXoFb9SUJOklO8zHqKUjRoPWcHtWQTnEHmwzE4e/dIzE3tecRAjg==}
+  '@binance/w3w-ethereum-provider@1.1.7':
+    resolution: {integrity: sha512-fHHifGDidtYaXoboe1FzLZ5wKk0FzIvgq8SCuEtibXZK3d+iITF28gmCKZnp7BCuCjvuNvOCp3GNHcvY4ARPJg==}
 
   '@binance/w3w-http-client@1.1.4':
     resolution: {integrity: sha512-dovohLZThYNY2DNbM0XILjLsgo+ZMdMRRTkbdewrLcj1KkXwUn36K2tFsi/aDZXTBjWcNlziaGQYHmbuLEXTpw==}
@@ -1462,8 +1462,8 @@ packages:
   '@binance/w3w-qrcode-modal@1.1.5':
     resolution: {integrity: sha512-SFwA9PeCAlPBjfgLf9chLoia3D5pWpDjDZOZ6wD3G3Xspd4XKrtQl4UvFpAm6hkrgw6fShtI2zis9PQYAxQjiA==}
 
-  '@binance/w3w-sign-client@1.1.8-alpha.0':
-    resolution: {integrity: sha512-p/p/aN6bwCko6X6SGvHGIEW/8ePx/2FWecnAwZaqWmglOdc3u632MWYgTj814Vn6tM36kntY5GoYbGVPMPtQ2w==}
+  '@binance/w3w-sign-client@1.1.7':
+    resolution: {integrity: sha512-KmuQCJ6g0L2LS0LEUQWbugqWiB6Nx+GMCEVuyRhl1AxzAiDybolpx8bIYAIinUeWoO2NcDJdzn971tX+QkhjoQ==}
 
   '@binance/w3w-socket-transport@1.1.4':
     resolution: {integrity: sha512-SFHknzRM74CMam95bcpcyGeYVHfET3vrANU6XROAVYTa+kCP2O6/tIZVO+WC5HyEJf2uNcJJAV1PVn3gq/3kKQ==}
@@ -1474,8 +1474,8 @@ packages:
   '@binance/w3w-utils@1.1.4':
     resolution: {integrity: sha512-lWpxCj5IB8XNKmFotZ2MLsK4rP5ECyC5jHxbDuvjseMlZchEaWKRXViUcwIz3XdJPVM3DDArqqweLEyxCcsDtQ==}
 
-  '@binance/w3w-wagmi-connector-v2@1.2.4-alpha.0':
-    resolution: {integrity: sha512-L/ivthYZeFjJ4DAYaKg3o5gDqRtmdiIptC4JgFfvVN6gpdEcAKM28ZJfpd6Gtax2Or+nrTw5eXdaxUUtp4cXtw==}
+  '@binance/w3w-wagmi-connector-v2@1.2.3':
+    resolution: {integrity: sha512-tprDHbHuOctnqfCJ3Fygzw+zdNhkCtxs8JJZ+Yhk50Mi2hytjydoL2G0674GE+6dCiDP5SveDtT6X99MRMtQqQ==}
     peerDependencies:
       viem: 2.x
       wagmi: 2.x
@@ -13366,7 +13366,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@binance/w3w-core@1.1.8-alpha.0(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
+  '@binance/w3w-core@1.1.7(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
     dependencies:
       '@binance/w3w-qrcode-modal': 1.1.5(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))
       '@binance/w3w-socket-transport': 1.1.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -13381,10 +13381,10 @@ snapshots:
       - ts-node
       - utf-8-validate
 
-  '@binance/w3w-ethereum-provider@1.1.8-alpha.0(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
+  '@binance/w3w-ethereum-provider@1.1.7(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
     dependencies:
       '@binance/w3w-http-client': 1.1.4(encoding@0.1.13)
-      '@binance/w3w-sign-client': 1.1.8-alpha.0(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
+      '@binance/w3w-sign-client': 1.1.7(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
       '@binance/w3w-types': 1.1.4
       '@binance/w3w-utils': 1.1.4
       eip1193-provider: 1.0.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -13417,9 +13417,9 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  '@binance/w3w-sign-client@1.1.8-alpha.0(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
+  '@binance/w3w-sign-client@1.1.7(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)':
     dependencies:
-      '@binance/w3w-core': 1.1.8-alpha.0(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
+      '@binance/w3w-core': 1.1.7(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
       '@binance/w3w-types': 1.1.4
       '@binance/w3w-utils': 1.1.4
     transitivePeerDependencies:
@@ -13448,9 +13448,9 @@ snapshots:
       hash.js: 1.1.7
       js-base64: 3.7.7
 
-  '@binance/w3w-wagmi-connector-v2@1.2.4-alpha.0(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(wagmi@2.13.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.51.21)(@tanstack/react-query@5.51.21(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))':
+  '@binance/w3w-wagmi-connector-v2@1.2.3(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(wagmi@2.13.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.51.21)(@tanstack/react-query@5.51.21(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))':
     dependencies:
-      '@binance/w3w-ethereum-provider': 1.1.8-alpha.0(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
+      '@binance/w3w-ethereum-provider': 1.1.7(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.9.3)(typescript@5.5.3))(utf-8-validate@5.0.10)
       '@binance/w3w-utils': 1.1.4
       viem: 2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       wagmi: 2.13.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.74.3(@babel/core@7.25.2)(@babel/preset-env@7.24.8(@babel/core@7.25.2))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.51.21)(@tanstack/react-query@5.51.21(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.5.3)(utf-8-validate@5.0.10)(viem@2.21.53(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4)

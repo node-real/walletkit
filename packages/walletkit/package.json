@@ -53,7 +53,7 @@
     "wagmi": "^2"
   },
   "dependencies": {
-    "@binance/w3w-wagmi-connector-v2": "1.2.4-alpha.0",
+    "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
     "@solana/wallet-adapter-wallets": "^0",

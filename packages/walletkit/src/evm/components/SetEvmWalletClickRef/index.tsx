@@ -1,4 +1,4 @@
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { isMobile, isPC, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
@@ -84,7 +84,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     disconnect();
     clearTimeout(timerRef.current);
 
-    const useSDK = [binanceWeb3Wallet().id].includes(walletId);
+    const useSDK = [binanceWeb3Wallet().id].includes(walletId) && isPC();
     const delay = useSDK ? 0 : 300;
 
     const handleJumping = () => {
