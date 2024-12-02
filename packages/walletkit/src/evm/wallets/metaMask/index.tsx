@@ -1,10 +1,14 @@
 import { metaMaskConfig } from '@/core/configs/metaMask';
 import { hasEvmInjectedProvider } from '../utils';
-import { injected } from '../injected';
-import { InjectedEvmWalletOptions, EvmWallet } from '../types';
-import { isAndroid, isTMA } from '@/core/base/utils/mobile';
+import { EvmWallet } from '../types';
+import { MetaMaskParameters, metaMask as metaMaskSDk } from 'wagmi/connectors';
+import { openLink } from '@/core/utils/common';
 
-export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
+export interface MetaMaskOptions extends Partial<EvmWallet> {
+  connectorOptions?: MetaMaskParameters;
+}
+
+export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   return {
@@ -20,16 +24,16 @@ export function metaMask(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://metamask.app.link/dapp/${dappPath}`;
     },
     getUri(uri) {
-      let encodedUri = encodeURIComponent(uri);
-      if (isTMA() && isAndroid()) {
-        encodedUri = encodeURIComponent(encodedUri);
-      }
+      const encodedUri = encodeURIComponent(uri);
       return `https://metamask.app.link/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: 'metaMask',
+      return metaMaskSDk({
+        useDeeplink: false,
+        headless: true,
+        openDeeplink(arg) {
+          openLink(arg);
+        },
         ...connectorOptions,
       });
     },
