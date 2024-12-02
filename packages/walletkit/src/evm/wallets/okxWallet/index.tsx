@@ -11,6 +11,7 @@ export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'okxWallet',
     walletType: 'evm',
     showQRCode: false,
+    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return !!getProvider();
     },

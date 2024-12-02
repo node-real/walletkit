@@ -29,19 +29,15 @@ export function useWalletConnectModal() {
     isOpen,
     onOpen: async () => {
       document.body.style.setProperty('--wcm-z-index', '2147483647');
-
       const provider: any = await connector?.getProvider();
       provider.rpc.showQrModal = true;
-
       if (connector) {
         setIsOpen(true);
-
         try {
           await connectAsync({ connector });
         } catch (err) {
           log('[OpenWcModal]', err);
         }
-
         setIsOpen(false);
       }
     },

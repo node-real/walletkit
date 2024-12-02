@@ -4,10 +4,21 @@ import {
   WalletKitConfig,
   WalletKitProvider,
 } from '@node-real/walletkit';
-import { defaultEvmConfig, metaMask, trustWallet, walletConnect } from '@node-real/walletkit/evm';
+import {
+  defaultEvmConfig,
+  trustWallet,
+  metaMask,
+  walletConnect,
+  binanceWeb3Wallet,
+  uxuyWallet,
+  codexFieldWallet,
+} from '@node-real/walletkit/evm';
 import { mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
+import VConsole from 'vconsole';
+
+new VConsole();
 
 const queryClient = new QueryClient();
 
@@ -19,7 +30,14 @@ const config: WalletKitConfig = {
     autoConnect: true,
     initialChainId: 1,
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-    wallets: [metaMask(), trustWallet(), walletConnect()],
+    wallets: [
+      binanceWeb3Wallet(),
+      trustWallet(),
+      walletConnect(),
+      uxuyWallet(),
+      codexFieldWallet(),
+      metaMask(),
+    ],
     chains: [mainnet] as any,
   }),
 };

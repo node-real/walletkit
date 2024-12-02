@@ -22,8 +22,17 @@ export function isMobile(): boolean {
   return isAndroid() || isIOS();
 }
 
+export function isPC(): boolean {
+  return !isMobile();
+}
+
+export function isBrowser(): boolean {
+  return !isTMA();
+}
+
 // telegram mini app
 export function isTMA(): boolean {
+  return true;
   if (typeof window === 'undefined') {
     return false;
   }

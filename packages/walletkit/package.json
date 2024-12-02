@@ -53,6 +53,7 @@
     "wagmi": "^2"
   },
   "dependencies": {
+    "@binance/w3w-wagmi-connector-v2": "1.2.4-alpha.0",
     "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
     "@solana/wallet-adapter-wallets": "^0",
@@ -60,8 +61,12 @@
     "@tronweb3/tronwallet-abstract-adapter": "^1",
     "@tronweb3/tronwallet-adapter-react-hooks": "^1",
     "@tronweb3/tronwallet-adapter-tronlink": "^1.1.11",
+    "@uxuycom/web3-tg-sdk": "^0.1.5",
+    "buffer": "^6.0.3",
+    "codexfield-wallet-connector": "^0.1.44",
     "qrcode": "^1",
-    "tronweb": "~6.0.0"
+    "tronweb": "~6.0.0",
+    "vite-plugin-css-injected-by-js": "^3.5.2"
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.51.1",
@@ -76,10 +81,10 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.5.3",
     "vconsole": "^3.15.1",
+    "viem": "^2.21.53",
     "vite": "^4.5.3",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-mkcert": "^1.17.6",
-    "wagmi": "2.13.0",
-    "viem": "^2.21.49"
+    "wagmi": "2.13.3"
   }
 }

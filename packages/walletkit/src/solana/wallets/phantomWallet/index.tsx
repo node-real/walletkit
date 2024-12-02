@@ -16,6 +16,7 @@ export function phantomWallet(props: PhantomOptions = {}): SolanaWallet {
     walletType: 'solana',
     adapterName: 'Phantom',
     showQRCode: false,
+    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return hasSolanaInjectedProvider('isPhantom');
     },

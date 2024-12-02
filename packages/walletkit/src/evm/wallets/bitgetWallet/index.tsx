@@ -12,6 +12,7 @@ export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'bitgetWallet',
     walletType: 'evm',
     showQRCode: false,
+    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return !!getProvider();
     },

@@ -54,6 +54,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
       return `body {
         ${lightCssVarsContent};
         ${darkCssVarsContent};
+        #binanceW3W-wrapper .shadow-inner {
+          box-sizing: border-box;
+        }
+        #binanceW3W-wrapper .grid-cols-2 > div {
+          width: auto;
+        }
         @media (prefers-color-scheme: light) {
           ${lightPointerContent};
         }

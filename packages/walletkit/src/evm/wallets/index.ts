@@ -12,3 +12,5 @@ export * from './binanceWeb3Wallet';
 export * from './coinbaseWallet';
 export * from './bitgetWallet';
 export * from './safe';
+export * from './codexFieldWallet';
+export * from './uxuyWallet';
