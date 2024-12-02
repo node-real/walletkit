@@ -54,6 +54,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
       return `body {
         ${lightCssVarsContent};
         ${darkCssVarsContent};
+        #binanceW3W-wrapper {
+          z-index: 99999;
+        }
         #binanceW3W-wrapper .shadow-inner {
           box-sizing: border-box;
         }

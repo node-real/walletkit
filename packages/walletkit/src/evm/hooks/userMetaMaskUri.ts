@@ -8,7 +8,7 @@ interface UseMetaMaskUriProps {
   refreshUriOnError?: boolean;
 }
 
-export function useMetaMaskUri(props: UseMetaMaskUriProps) {
+export function useMetaMaskUri(props: UseMetaMaskUriProps = {}) {
   const { enabled, refreshUriOnError = true } = props;
 
   const [metaMaskUri, setMetaMaskUri] = useState('');

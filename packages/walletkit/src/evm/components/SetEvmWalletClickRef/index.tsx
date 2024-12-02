@@ -89,6 +89,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
     const handleJumping = () => {
       if (useSDK) {
+        setSelectedWallet(wallet);
         connect({
           connector,
         });

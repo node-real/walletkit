@@ -5,6 +5,7 @@ import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect, metaMask } from '@/evm/wallets';
 import { useMetaMaskUri } from '@/evm/hooks/userMetaMaskUri';
+import { useMemo } from 'react';
 
 export function EvmQRCodeView() {
   const { selectedWallet } = useWalletKit();
@@ -16,12 +17,13 @@ export function EvmQRCodeView() {
     enabled: selectedWallet.id === metaMask().id,
   });
 
-  const qrCodeUri =
-    selectedWallet.id === metaMask().id
-      ? metaMaskUri
-      : wcUri
-        ? (selectedWallet as EvmWallet).getUri?.(wcUri)
-        : wcUri;
+  const qrCodeUri = useMemo(() => {
+    if (selectedWallet.id === metaMask().id) {
+      return metaMaskUri;
+    }
+
+    return wcUri ? (selectedWallet as EvmWallet).getUri?.(wcUri) : wcUri;
+  }, [metaMaskUri, selectedWallet, wcUri]);
 
   const wcModal = useWalletConnectModal();
   const isConnected = useIsConnected();

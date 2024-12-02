@@ -32,7 +32,6 @@ export function isBrowser(): boolean {
 
 // telegram mini app
 export function isTMA(): boolean {
-  return true;
   if (typeof window === 'undefined') {
     return false;
   }
