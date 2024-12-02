@@ -1,0 +1,34 @@
+name: Deploy docs
+on:
+  push:
+    branches:
+      - main
+      - alpha
+      - dev
+
+jobs:
+  release:
+    name: deploy docs
+    if: |
+      github.repository == 'node-real/walletkit' &&
+      github.event.commits[0].author.username != 'github-actions[bot]'
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Build docs
+        run: pnpm build:docs
+
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./website/dist
+          branch: 'docs'
+          clean: true
+          force: true
