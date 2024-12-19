@@ -11,35 +11,8 @@
       rel="stylesheet"
     />
     <title>WalletKit</title>
-    <script>
-      (function () {
-        try {
-          const isMobile =
-            /android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-          if (!isMobile && window.ethereum && window.ethereum.isMetaMask && window.trustwallet) {
-            const originalEthereum = window.ethereum;
-
-            Object.defineProperty(window, 'ethereum', {
-              enumerable: true,
-              configurable: true,
-              set(v) {
-                if (v.isTrust || v.isTrustWallet) return;
-                this.value = v;
-              },
-              get() {
-                return this.value ?? originalEthereum;
-              },
-            });
-          }
-        } catch (err) {
-          console.error('[ethereum script]', err);
-        }
-      })();
-    </script>
-    <script type="module" crossorigin src="./assets/index-117bbbcf.js"></script>
-    <link rel="stylesheet" href="./assets/index-6e9d614f.css">
+    <script type="module" crossorigin src="./assets/index-4595d9c6.js"></script>
+    <link rel="stylesheet" href="./assets/index-25ee7d30.css">
   </head>
 
   <body>
