@@ -5,6 +5,7 @@ export type Adapter = WalletProviderProps['wallets'][0];
 
 export interface SolanaWallet extends BaseWallet {
   adapterName: string;
+  getDeepLink: () => string | undefined;
   getAdapter: () => Adapter;
 }
 

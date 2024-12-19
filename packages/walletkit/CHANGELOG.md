@@ -1,5 +1,59 @@
 # @node-real/walletkit
 
+## 2.4.1-alpha.8
+
+### Patch Changes
+
+- 11da348: Fix trust issue
+
+## 2.4.1-alpha.7
+
+### Patch Changes
+
+- a0d1970: Use window.trustwallet as TW provider to avoid conflicts
+
+## 2.4.1-alpha.6
+
+### Patch Changes
+
+- 81a347a: Fix the trust wallet will automatically connect when the page loaded
+
+## 2.4.1-alpha.5
+
+### Patch Changes
+
+- 25add5c: Fix the trust wallet will automatically connect when the page loaded
+
+## 2.4.1-alpha.4
+
+### Patch Changes
+
+- 615241f: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+
+## 2.4.1-alpha.3
+
+### Patch Changes
+
+- 601d110: Update tron dependencies
+
+## 2.4.1-alpha.2
+
+### Patch Changes
+
+- f20032d: Add deelink for phantom
+
+## 2.4.1-alpha.1
+
+### Patch Changes
+
+- 55abc5d: Add deeplink for tw solana on mobile
+
+## 2.4.1-alpha.0
+
+### Patch Changes
+
+- cf27048: Support solana on mobile
+
 ## 2.4.0
 
 ### Minor Changes

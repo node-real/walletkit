@@ -2,21 +2,22 @@ import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { EventEmitter } from '@/core/utils/eventEmitter';
+import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
 import { SolanaWallet } from '@/solana/wallets';
-import { useWallet, WalletProviderProps } from '@solana/wallet-adapter-react';
+import { WalletProviderProps } from '@solana/wallet-adapter-react';
 import { useCallback, useEffect, useState } from 'react';
 
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 
 export function SolanaConnectingView() {
-  const { log, selectedWallet, options, solanaConfig } = useWalletKit();
+  const { log, selectedWallet, options } = useWalletKit();
 
   const [status, setStatus] = useState(
     selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
 
-  const { select, wallets: adapters, connected } = useWallet();
+  const { isConnected, connect } = useSolanaConnect();
 
   useEffect(() => {
     const onError = (error: WalletError) => {
@@ -51,17 +52,10 @@ export function SolanaConnectingView() {
     if (!selectedWallet.isInstalled()) return;
     setStatus(CONNECT_STATUS.CONNECTING);
 
-    select((selectedWallet as SolanaWallet).adapterName as any);
-
-    if (!solanaConfig?.autoConnect) {
-      const adapter = adapters.find(
-        (item) => item.adapter.name === (selectedWallet as SolanaWallet).adapterName,
-      )?.adapter;
-      if (adapter) {
-        await adapter.connect();
-      }
-    }
-  }, [adapters, select, selectedWallet, solanaConfig]);
+    connect({
+      adapterName: (selectedWallet as SolanaWallet).adapterName,
+    });
+  }, [connect, selectedWallet]);
 
   return (
     <TemplateConnectingView
@@ -69,7 +63,7 @@ export function SolanaConnectingView() {
       runConnect={runConnect}
       onTryAgain={runConnect}
       wallet={selectedWallet}
-      isConnected={connected}
+      isConnected={isConnected}
     />
   );
 }

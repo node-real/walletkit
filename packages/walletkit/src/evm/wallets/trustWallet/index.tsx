@@ -28,16 +28,17 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return `https://link.trustwallet.com/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
+      let isReady = false;
       return injected({
         shimDisconnect: true,
         target: {
           id: trustWallet().id,
           name: trustWallet().name,
-          async setup() {
-            if (typeof window === 'undefined') return;
-            await sleep();
-          },
           async provider() {
+            if (!isReady) {
+              await sleep();
+            }
+            isReady = true;
             return getProvider();
           },
         },
@@ -50,5 +51,9 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
 
 function getProvider() {
   if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isTrust') ?? window.trustwallet ?? window.trustWallet;
+
+  // binance web3 wallet will inject a trustwallet object with no request on mobile
+  if (!window?.trustwallet?.request) return;
+
+  return window.trustwallet ?? window.trustWallet ?? getEvmInjectedProvider('isTrust');
 }

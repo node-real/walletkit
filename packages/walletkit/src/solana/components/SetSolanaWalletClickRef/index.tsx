@@ -1,7 +1,10 @@
+import { isMobile } from '@/core/base/utils/mobile';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
 import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { openLink } from '@/core/utils/common';
+import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
 import { SolanaWallet } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRef } from 'react';
@@ -15,6 +18,7 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
 
   const { log, options, setSelectedWallet, solanaConfig } = useWalletKit();
   const { disconnect } = useWallet();
+  const { connect } = useSolanaConnect();
 
   const connectModal = useConnectModal();
   const router = useRouter();
@@ -50,7 +54,21 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      jumpToConnectingView();
+      if (isMobile()) {
+        const deeplink = wallet.getDeepLink();
+
+        if (wallet.isInstalled()) {
+          jumpToConnectingView();
+        } else if (deeplink) {
+          openLink(deeplink);
+        } else {
+          connect({
+            adapterName: wallet.adapterName,
+          });
+        }
+      } else {
+        jumpToConnectingView();
+      }
     }, 300);
   };
 

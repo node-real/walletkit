@@ -33,17 +33,18 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
       return uri;
     },
     getCreateConnectorFn() {
+      let isReady = false;
+
       return injected({
         shimDisconnect: true,
         target: {
           id: binanceWeb3Wallet().id,
           name: binanceWeb3Wallet().name,
-          async setup() {
-            if (isMobile() && binanceWeb3Wallet().isInstalled()) {
+          async provider() {
+            if (isMobile() && binanceWeb3Wallet().isInstalled() && !isReady) {
               await sleep();
             }
-          },
-          async provider() {
+            isReady = true;
             return getProvider();
           },
         },
