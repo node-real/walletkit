@@ -1,5 +1,5 @@
 import { useConnectModal } from '../modals/ConnectModal/context';
-import { useSwitchNetworkModal } from '../modals/SwitchNetworkModal/SwitchNetworkProvider/context';
+import { useSwitchNetworkModal } from '../modals/SwitchNetworkModal/context';
 
 export function useCloseAllModals() {
   const connectModal = useConnectModal();

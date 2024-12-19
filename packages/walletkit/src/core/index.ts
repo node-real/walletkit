@@ -12,6 +12,7 @@ export { type Theme } from '@/core/providers/ThemeProvider';
 
 // modals
 export * from '@/core/modals/EmbeddedConnectModal';
-
 export * from '@/core/modals/ConnectModal';
 export { useConnectModal } from '@/core/modals/ConnectModal/context';
+export * from '@/core/modals/SwitchNetworkModal';
+export { useSwitchNetworkModal } from '@/core/modals/SwitchNetworkModal/context';

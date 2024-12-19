@@ -9,7 +9,7 @@ import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
 import { TronWalletProvider } from '@/tron/components/TronWalletProvider';
-import { SwitchNetworkProvider } from '@/core/modals/SwitchNetworkModal/SwitchNetworkProvider';
+import { SwitchNetworkProvider } from '@/core/modals/SwitchNetworkModal/provider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;

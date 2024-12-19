@@ -26,12 +26,12 @@ const config: WalletKitConfig = {
 
 export default function App() {
   return (
-    <WalletKitProvider config={config} debugMode={true} mode="auto">
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode={true} mode="auto">
         <ConnectButton />
         <ConnectModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 

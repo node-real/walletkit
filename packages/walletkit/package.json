@@ -64,7 +64,6 @@
     "tronweb": "~6.0.0"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.51.1",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -79,7 +78,8 @@
     "vite": "^4.5.3",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-mkcert": "^1.17.6",
-    "wagmi": "2.13.0",
-    "viem": "^2.21.49"
+    "wagmi": "catalog:",
+    "viem": "catalog:",
+    "@tanstack/react-query": "catalog:"
   }
 }

@@ -2,3 +2,8 @@ packages:
   - 'packages/*'
   - 'examples/*'
   - 'website'
+
+catalog:
+  viem: ^2.21.22
+  wagmi: ^2.12.17
+  '@tanstack/react-query': ^5.51.1

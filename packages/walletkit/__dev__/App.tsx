@@ -82,8 +82,8 @@ export default function App() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
-    <WalletKitProvider config={config} debugMode>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode>
         <ConnectButton />
         <ConnectModal />
         <button onClick={onOpen}>connect modal</button>
@@ -93,8 +93,8 @@ export default function App() {
           </ModalBody>
         </Modal>
         <SwitchNetworkModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 
