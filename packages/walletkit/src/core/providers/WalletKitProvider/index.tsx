@@ -9,6 +9,7 @@ import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
 import { TronWalletProvider } from '@/tron/components/TronWalletProvider';
+import { SwitchNetworkProvider } from '@/core/modals/SwitchNetworkModal/SwitchNetworkProvider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -69,7 +70,9 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
           <SolanaWalletProvider>
             <TronWalletProvider>
               <ConnectModalProvider>
-                <ProfileModalProvider>{children}</ProfileModalProvider>
+                <ProfileModalProvider>
+                  <SwitchNetworkProvider>{children}</SwitchNetworkProvider>
+                </ProfileModalProvider>
               </ConnectModalProvider>
             </TronWalletProvider>
           </SolanaWalletProvider>

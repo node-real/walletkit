@@ -1,5 +1,11 @@
 import './style.css';
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
+import {
+  ConnectModal,
+  EmbeddedConnectModal,
+  useConnectModal,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
 import VConsole from 'vconsole';
 import {
   binanceWeb3Wallet,
@@ -23,7 +29,10 @@ import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
-import { useEffect } from 'react';
+import { Modal } from '@/core/base/components/Modal';
+import { ModalBody } from '@/core/base/components/Modal/ModalBody';
+import { useDisclosure } from '@/core/base/hooks/useDisclosure';
+import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
 
 new VConsole();
 
@@ -31,6 +40,7 @@ const queryClient = new QueryClient();
 
 const config: WalletKitConfig = {
   options: {
+    openModalOnWrongNetwork: true,
     closeModalOnEsc: false,
     // gridLayoutThreshold: 1000,
     onChainAlreadyAdded({ wallet, chainId }) {
@@ -69,11 +79,20 @@ const config: WalletKitConfig = {
 };
 
 export default function App() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <WalletKitProvider config={config} debugMode>
       <QueryClientProvider client={queryClient}>
         <ConnectButton />
         <ConnectModal />
+        <button onClick={onOpen}>connect modal</button>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalBody>
+            <EmbeddedConnectModal />
+          </ModalBody>
+        </Modal>
+        <SwitchNetworkModal />
       </QueryClientProvider>
     </WalletKitProvider>
   );

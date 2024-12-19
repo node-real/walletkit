@@ -3,6 +3,8 @@ import { Chain, mainnet } from 'wagmi/chains';
 import { coinbaseWallet, EvmWallet, isWalletConnect, metaMask, walletConnect } from '@/evm/wallets';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
 import { setEvmGlobalData } from '../globalData';
+import { ChainDisplayConfig } from '@/evm/chains/types';
+import { getChainDisplayConfigs } from '../chains';
 
 interface CustomizedEvmConfig
   extends Omit<CreateConfigParameters, 'chains' | 'connectors' | 'multiInjectedProviderDiscovery'> {
@@ -12,6 +14,7 @@ interface CustomizedEvmConfig
   initialChainId?: number;
   wallets: EvmWallet[];
   chains?: Chain[];
+  chainDisplayConfigs?: ChainDisplayConfig[];
 }
 
 export type EvmConfig = ReturnType<typeof defaultEvmConfig>;
@@ -24,6 +27,7 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
     initialChainId,
     wallets,
     chains = [mainnet],
+    chainDisplayConfigs = getChainDisplayConfigs(),
 
     client,
     ...restProps
@@ -67,6 +71,7 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
     wallets,
     chains,
     wagmiConfig,
+    chainDisplayConfigs,
   };
 }
 
