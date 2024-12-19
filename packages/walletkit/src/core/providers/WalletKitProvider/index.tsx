@@ -10,6 +10,7 @@ import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
 import { TronWalletProvider } from '@/tron/components/TronWalletProvider';
 import { SwitchNetworkProvider } from '@/core/modals/SwitchNetworkModal/provider';
+import { RouteProvider } from '@/core/providers/RouteProvider';
 
 export interface WalletKitProviderProps {
   config: WalletKitConfig;
@@ -65,18 +66,19 @@ export function WalletKitProvider(props: WalletKitProviderProps) {
     <WalletKitContext.Provider value={value}>
       <ThemeProvider mode={mode} theme={theme}>
         <ToastProvider />
-
-        <EvmWalletProvider>
-          <SolanaWalletProvider>
-            <TronWalletProvider>
-              <ConnectModalProvider>
-                <ProfileModalProvider>
-                  <SwitchNetworkProvider>{children}</SwitchNetworkProvider>
-                </ProfileModalProvider>
-              </ConnectModalProvider>
-            </TronWalletProvider>
-          </SolanaWalletProvider>
-        </EvmWalletProvider>
+        <RouteProvider>
+          <EvmWalletProvider>
+            <SolanaWalletProvider>
+              <TronWalletProvider>
+                <ConnectModalProvider>
+                  <ProfileModalProvider>
+                    <SwitchNetworkProvider>{children}</SwitchNetworkProvider>
+                  </ProfileModalProvider>
+                </ConnectModalProvider>
+              </TronWalletProvider>
+            </SolanaWalletProvider>
+          </EvmWalletProvider>
+        </RouteProvider>
       </ThemeProvider>
     </WalletKitContext.Provider>
   );

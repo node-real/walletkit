@@ -1,7 +1,7 @@
 import { isMobile } from '@/core/index';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
-import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
-import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
+import { ViewRoutes } from '@/core/providers/RouteProvider';
+import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useTronConnect } from '@/tron/hooks/useTronConnect';
 import { TronWallet } from '@/tron/wallets';

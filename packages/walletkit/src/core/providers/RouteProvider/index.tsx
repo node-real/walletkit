@@ -1,11 +1,11 @@
-import { useState, useRef, useMemo, useCallback } from 'react';
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import { RouteContext } from './context';
 import { EvmConnectingView } from '@/evm/components/EvmConnectingView';
 import { EvmQRCodeView } from '@/evm/components/EvmQRCodeView';
 import { EvmUriConnectingView } from '@/evm/components/EvmUriConnectingView';
 import { SolanaConnectingView } from '@/solana/components/SolanaConnectingView';
 import { SolanaQRCodeView } from '@/solana/components/SolanaQRCodeView';
-import { HomeView } from '../HomeView';
+import { HomeView } from '../../modals/ConnectModal/HomeView';
 import { TronConnectingView } from '@/tron/components/TronConnectingView';
 
 export enum ViewRoutes {
@@ -58,6 +58,9 @@ export function RouteProvider(props: RouteProviderProps) {
 
   const push = useCallback(
     (nextRoute: string) => {
+      if (nextRoute === ViewRoutes.HOME) {
+        reset();
+      }
       if (history[history.length - 1] !== nextRoute) {
         history.push(nextRoute);
         setRoute(nextRoute);
