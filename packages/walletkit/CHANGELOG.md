@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.1
+
+### Patch Changes
+
+- 5916cd1: Reset the route once go to the home view
+
 ## 2.7.0
 
 ### Minor Changes
