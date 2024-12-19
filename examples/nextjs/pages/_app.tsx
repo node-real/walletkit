@@ -30,23 +30,23 @@ const config: WalletKitConfig = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WalletKitProvider config={config} debugMode={true} mode="auto">
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode={true} mode="auto">
         <Component {...pageProps} />
         <ConnectButton />
         <ConnectModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  if (address) {
+  if (isConnected) {
     return (
       <>
         <div>address:{address}</div>

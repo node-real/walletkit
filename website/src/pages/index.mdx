@@ -43,7 +43,6 @@ npm i @node-real/walletkit@^2 wagmi@^2 viem@^2 @tanstack/react-query@^5
 // 👇 Import walletkit styles here.
 import '@node-real/walletkit/styles.css';
 
-import { WagmiProvider } from 'wagmi';
 import { chains } from './chains';
 ```
 
@@ -80,46 +79,46 @@ export const chains = [
 ];
 ```
 
-### 3. Import `defaultWagmiConfig` and `wallets` to generate the configurations for wagmi
+### 3. Import `defaultEvmConfig` and `wallets` to generate the configurations for wagmi
 
 ```tsx
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
-import { defaultWagmiConfig } from '@node-real/walletkit';
+import { WalletKitConfig } from '@node-real/walletkit'
+import { trustWallet, metaMask, walletConnect,defaultEvmConfig } from '@node-real/walletkit/evm';
 import { chains } from './chains';
 
-const config = defaultWagmiConfig({
-  appName: 'WalletKit',
-  chains,
-  connectors: [trustWallet(), metaMask(), walletConnect()],
-
-  // WalletConnect 2.0 requires a projectId which you can create quickly
-  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-  walletConnectProjectId: 'xxx',
-});
+const config: WalletKitConfig = {
+  options: {
+    openModalOnWrongNetwork: true,
+    closeModalOnEsc: false,
+  },
+  evmConfig: defaultEvmConfig({
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
+    initialChainId: 1,
+    chains,
+    wallets: [trustWallet(), metaMask(), walletConnect()],
+  })
 ```
 
 ### 4. Add related components
 
 ```tsx live=false
-const options: WalletKitOptions = {
-  initialChainId: 1,
-};
+import { WalletKitProvider, ConnectModal, SwitchNetworkModal } from '@node-real/walletkit';
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
-      <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode="light">
-          <Component {...pageProps} />
-          <WalletKitButton />
-          <ConnectModal />
-          <ProfileModal />
-          <SwitchNetworkModal />
-        </WalletKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} mode="light" debugMode>
+        <Component {...pageProps} />
+
+        <ConnectButton />
+        <ConnectModal />
+        <SwitchNetworkModal />
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 ```
@@ -128,63 +127,54 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ```tsx live=false
 import '@node-real/walletkit/styles.css';
-
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { chains } from './chains';
+import { trustWallet, metaMask, walletConnect, defaultEvmConfig } from '@node-real/walletkit/evm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
-  defaultWagmiConfig,
-  SwitchNetworkModal,
-  WalletKitButton,
-  WalletKitOptions,
   WalletKitProvider,
-  ProfileModal,
   ConnectModal,
+  useConnectModal,
+  WalletKitConfig,
 } from '@node-real/walletkit';
-import { WagmiProvider } from 'wagmi';
 import { AppProps } from 'next/app';
-import { chains } from './chains';
 
 const queryClient = new QueryClient();
 
-const config = defaultWagmiConfig({
-  appName: '[Your app name]', // Your app name
-  chains,
-  connectors: [trustWallet(), metaMask(), walletConnect()],
-
-  // WalletConnect 2.0 requires a projectId which you can create quickly
-  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-  walletConnectProjectId: 'xxx',
-});
-
-const options: WalletKitOptions = {
-  initialChainId: 1,
+const config: WalletKitConfig = {
+  options: {
+    openModalOnWrongNetwork: true,
+    closeModalOnEsc: false,
+  },
+  evmConfig: defaultEvmConfig({
+    autoConnect: true,
+    initialChainId: 1,
+    walletConnectProjectId: 'xxx',
+    wallets: [metaMask(), trustWallet(), walletConnect()],
+    chains,
+  }),
 };
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
-      <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode="light">
-          <Component {...pageProps} />
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode={true} mode="auto">
+        <Component {...pageProps} />
 
-          <WalletKitButton />
-          <ConnectModal />
+        <ConnectButton />
+        <ConnectModal />
 
-          {/* 
-            Profile modal shows some basic information about the current account,
-            if you don't need this modal, you can remove it.
-          */}
-          <ProfileModal />
-
-          {/* 👇 Here's the SwitchNetworkModal
-            If the user switches to a network that is not supported by our dApp,
-            this modal will be displayed to remind the user to switch to our supported networks.
-          */}
-          <SwitchNetworkModal />
-        </WalletKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+        {/* 👇 Here's the SwitchNetworkModal
+          If the user switches to a network that is not supported by our dApp,
+          this modal will be displayed to remind the user to switch to our supported networks.
+        */}
+        <SwitchNetworkModal />
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
+}
+
+function ConnectButton() {
+  // ...
 }
 ```
 
@@ -193,27 +183,22 @@ export default function App({ Component, pageProps }: AppProps) {
 ```jsx live=false
 import { EmbeddedConnectModal } from '@node-real/walletkit';
 
-<WalletKitProvider mode={colorMode} options={options}>
+<WalletKitProvider config={config}>
   <EmbeddedConnectModal />
-  <SwitchNetworkModal />
 </WalletKitProvider>;
 ```
 
-## useConnectModal, useProfileModal, useSwitchNetworkModal
+## useConnectModal, useSwitchNetworkModal
 
-Use hooks `useConnectModal`, `useProfileModal`, `useSwitchNetworkModal` to show/dismiss the specific
-modal. Must be used within a `<WalletKitProvider>`.
+Use hooks `useConnectModal`, `useSwitchNetworkModal` to show/dismiss the specific modal. Must be
+used within a `<WalletKitProvider>`.
 
 ```tsx live=false
-import { useConnectModal, useProfileModal, useSwitchNetworkModal } from '@node-real/walletkit';
+import { useConnectModal, useSwitchNetworkModal } from '@node-real/walletkit';
 
 // useConnectModal
 const { isOpen, onOpen, onClose } = useConnectModal();
 <button onClick={() => onOpen()}>Open Connect Modal</button>;
-
-// useProfileModal
-const { isOpen, onOpen, onClose } = useProfileModal();
-<button onClick={() => onOpen()}>Open Profile Modal</button>;
 
 // useSwitchNetworkModal
 const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
@@ -223,13 +208,18 @@ const { isOpen, onOpen, onClose } = useSwitchNetworkModal();
 ## Customizing wallets
 
 ```tsx live=false
-import { metaMask, tokenPocket, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
+import {
+  metaMask,
+  tokenPocket,
+  trustWallet,
+  walletConnect,
+  defaultEvmConfig,
+} from '@node-real/walletkit/evm';
 
-const config = defaultWagmiConfig({
-  appName: 'Connect Wallet',
+const config = defaultEvmConfig({
   chains,
   walletConnectProjectId: 'xxx',
-  connectors: [
+  wallets: [
     metaMask({
       name: 'MetaMask',
       logos: {
@@ -286,24 +276,7 @@ metaMask({
 
 ## Customizing ConnectButton
 
-Note that `show()` will open the `ProfileModal` instead of the `ConnectModal` once the wallet is
-connected.
-
-```tsx live=false
-<WalletKitButton.Custom>
-  {({ show, hide, isConnecting, isConnected, address, truncatedAddress }) => {
-    if (isConnected) {
-      return <div>{address}</div>;
-    } else if (isConnecting) {
-      return <div>{connecting}</div>;
-    } else {
-      return <button onClick={show}>connect</button>;
-    }
-  }}
-</WalletKitButton.Custom>
-```
-
-Or using the hook `useConnectModal`
+Using the hook `useConnectModal`
 
 ```tsx live=false
 import { useConnectModal } from '@node-real/walletkit';
@@ -321,17 +294,17 @@ Other supported configurations are also available from
 [WalletConnect's official documentation](https://docs.walletconnect.com/advanced/walletconnectmodal/options).
 
 ```tsx live=false
-const config = createConfig(
-  getDefaultConfig({
+const config = {
+  options: {},
+  evmConfig: {
     autoConnect: true,
-    appName: 'WalletKit',
 
     // WalletConnect 2.0 requires a projectId which you can create quickly
     // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
     walletConnectProjectId: 'xxx',
 
     chains,
-    connectors: [
+    wallets: [
       trustWallet(),
       metaMask(),
       walletConnect({
@@ -347,8 +320,8 @@ const config = createConfig(
         },
       }),
     ],
-  }),
-);
+  },
+};
 ```
 
 ## Customizing chains
@@ -357,20 +330,22 @@ The chain's information will be displayed in the `SwitchNetworkModal`
 
 ```tsx live=false
 <WalletKitProvider
-  options={{
-    initialChainId: 56,
-    chainsConfig: [
-      {
-        id: 56,
-        name: 'BSC',
-        logo: <BscIcon width={24} height={24} />,
-      },
-      {
-        id: 97,
-        name: 'BSC Testnet',
-        logo: <BscIcon width={24} height={24} />,
-      },
-    ],
+  config={{
+    evmConfig: {
+      initialChainId: 56,
+      chainDisplayConfigs: [
+        {
+          id: 56,
+          name: 'BSC',
+          logo: <BscIcon width={24} height={24} />,
+        },
+        {
+          id: 97,
+          name: 'BSC Testnet',
+          logo: <BscIcon width={24} height={24} />,
+        },
+      ],
+    },
   }}
 ></WalletKitProvider>
 ```
@@ -379,16 +354,17 @@ The chain's information will be displayed in the `SwitchNetworkModal`
 
 ```tsx live=false
 <WalletKitProvider
-  options={{
-    initialChainId: 56,
-    onError(error, description) {
-      if (description) {
-        toast.error({
-          description,
-        });
-      } else {
-        // TODO
-      }
+  config={{
+    options: {
+      onError(error, description) {
+        if (description) {
+          toast.error({
+            description,
+          });
+        } else {
+          // TODO
+        }
+      },
     },
   }}
 >
@@ -402,7 +378,7 @@ The chain's information will be displayed in the `SwitchNetworkModal`
 type ThemeMode = 'auto' | 'dark' | 'light';
 type ThemeVariant = 'base';
 
-<WalletKitProvider options={options} theme="base" mode="light" customTheme={customTheme}>
+<WalletKitProvider config={config} mode="light" theme={customTheme}>
   <Example />
 </WalletKitProvider>;
 ```
@@ -504,80 +480,90 @@ const customTheme = {
 
 ```tsx live=false
 export interface WalletKitProviderProps {
-  options: WalletKitOptions;
-  children: React.ReactNode;
+  config: WalletKitConfig;
+  children?: React.ReactNode;
   debugMode?: boolean;
-  theme?: ThemeVariant;
-  mode?: ThemeMode;
-  customTheme?: CustomTheme;
+  theme?: ThemeProviderProps['theme'];
+  mode?: ThemeProviderProps['mode'];
 }
 ```
 
-### 2. WalletKitOptions
+### 2. WalletKitConfig
 
 ```tsx live=false
-interface WalletKitOptions {
-  // Once connected to the wallet, which network you want to use.
+export interface WalletKitConfig {
+  options?: {
+    // Modal title
+    title?: React.ReactNode;
+
+    // Provide a disclaimer for things like terms and conditions that will be displayed to users when they're not yet connected.
+    disclaimer?: ReactNode;
+
+    // When the amount of wallets exceeds or equals this value, switch to the grid layout.
+    gridLayoutThreshold?: number;
+
+    // Whether to use grid layout on mobile devices.
+    useGridLayoutOnMobile?: boolean;
+
+    hideNoWalletCTA?: boolean;
+    hideOfficialWalletConnectCTA?: boolean;
+
+    walletDownloadUrl?: string;
+
+    closeModalAfterSwitchingNetwork?: boolean;
+    closeModalAfterConnected?: boolean;
+    closeModalOnEsc?: boolean;
+    closeModalOnOverlayClick?: boolean;
+
+    // Automatically display SwitchNetworkModal if on the wrong network
+    openModalOnWrongNetwork?: boolean;
+
+    onClickWallet?: (wallet: BaseWallet, e?: React.MouseEvent) => undefined | boolean;
+
+    // !!! Notice
+    // This callback takes effect only if WalletKitButton's action='add-network'
+    // and will be called if network has already added to the wallet
+    onChainAlreadyAdded?: (params: { wallet: BaseWallet; chainId: number }) => void;
+
+    // Once wallet is connected, this method will be invoked.
+    onConnected?: (params: { wallet: BaseWallet }) => void;
+
+    // handle wallet errors by yourself
+    onError?: (err: any, description: string) => void;
+  };
+
+  evmConfig?: EvmConfig;
+  solanaConfig?: SolanaConfig;
+  tronConfig?: TronConfig;
+}
+
+interface CustomizedEvmConfig
+  extends Omit<CreateConfigParameters, 'chains' | 'connectors' | 'multiInjectedProviderDiscovery'> {
+  autoConnect?: boolean;
+  metadata?: Metadata;
+  walletConnectProjectId: string;
   initialChainId?: number;
-
-  // Provide a disclaimer for things like terms and conditions that will be displayed to users when they're not yet connected.
-  disclaimer?: ReactNode;
-
-  // Modal title
-  title?: ReactNode;
-
-  // When the amount of wallets exceeds or equals this value, switch to the grid layout.
-  gridLayoutThreshold?: number;
-
-  // Whether to use grid layout on mobile devices.
-  useGridLayoutOnMobile: boolean;
-
-  hideNoWalletCTA?: boolean;
-  hideOfficialWalletConnectCTA?: boolean;
-
-  closeModalAfterConnected?: boolean;
-  closeModalAfterSwitchingNetwork?: boolean;
-  closeModalOnEsc?: boolean;
-  closeModalOnOverlayClick?: boolean;
-
-  // Automatically display SwitchNetworkModal if on the wrong network
-  openModalOnWrongNetwork?: boolean;
-
-  walletDownloadUrl?: string;
-  chainsConfig?: ChainProps[];
-
-  onClickWallet?: (connector: Connector, e?: React.MouseEvent) => undefined | boolean;
-
-  // !!! Notice
-  // This callback takes effect only if WalletKitButton's action='add-network'
-  // and will be called if network has already added to the wallet
-  onChainAlreadyAdded?: (connector: Connector, chainId: number) => void;
-
-  // handle wallet errors by yourself
-  onError?: (error: any, description: string) => void;
-}
-```
-
-### 3. DefaultWagmiConfig
-
-You can find more supported parameters from [here](https://wagmi.sh/react/api/createConfig).
-
-```tsx live=false
-export interface DefaultWagmiConfig extends Omit<CreateConfigParameters, 'chains' | 'connectors'> {
-  appName: string;
-  appIcon?: string;
-  appDescription?: string;
-  appUrl?: string;
-
-  // WC 2.0 requires a project ID (get one here: https://cloud.walletconnect.com/sign-in)
-  walletConnectProjectId?: string;
-
+  wallets: EvmWallet[];
   chains?: Chain[];
-  connectors?: WalletProps[];
+  chainDisplayConfigs?: ChainDisplayConfig[];
+}
+
+interface CustomizedSolanaConfig {
+  autoConnect?: boolean;
+  metadata?: Metadata;
+  walletConnectProjectId?: string;
+  rpcUrl: string;
+  wallets: SolanaWallet[];
+}
+
+interface CustomizedTronConfig {
+  autoConnect?: boolean;
+  initialChainId?: string | number;
+  wallets: TronWallet[];
 }
 ```
 
-### 4. WalletProps
+### 3. WalletProps
 
 ```tsx live=false
 export interface WalletProps {

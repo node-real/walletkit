@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { ViewRoutes } from '../modals/ConnectModal/RouteProvider';
+import { ViewRoutes } from '../providers/RouteProvider';
 import { useWalletKit } from '../providers/WalletKitProvider/context';
 import { useConnectModal } from '../modals/ConnectModal/context';
-import { useRouter } from '../modals/ConnectModal/RouteProvider/context';
+import { useRouter } from '../providers/RouteProvider/context';
 
 export function useAutoCloseConnectModal(isConnected: boolean) {
   const { options, selectedWallet } = useWalletKit();

@@ -1,7 +1,7 @@
 import { isMobile } from '@/core/base/utils/mobile';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
-import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
-import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
+import { ViewRoutes } from '@/core/providers/RouteProvider';
+import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openLink } from '@/core/utils/common';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';

@@ -5,6 +5,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import path from 'path';
 import mkcert from 'vite-plugin-mkcert';
+// import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,6 +17,11 @@ export default defineConfig({
     vanillaExtractPlugin({
       identifiers: ({ hash }) => `wk_${hash}`,
     }),
+    // cssInjectedByJsPlugin({
+    //   injectCode: (cssCode: string) => {
+    //     return `try{if(typeof document != 'undefined'){var elementStyle = document.createElement('style');elementStyle.appendChild(document.createTextNode(${cssCode}));document.head.insertBefore(elementStyle,document.head.firstChild);}}catch(e){console.error('vite-plugin-css-injected-by-js', e);}`;
+    //   },
+    // }),
     dts({
       include: 'src',
     }),
@@ -32,10 +38,10 @@ export default defineConfig({
     lib: {
       formats: ['es'],
       entry: {
-        'core/index': 'src/core/index.ts',
-        'solana/index': 'src/solana/index.ts',
         'evm/index': 'src/evm/index.ts',
+        'solana/index': 'src/solana/index.ts',
         'tron/index': 'src/tron/index.ts',
+        'core/index': 'src/core/index.ts',
       },
     },
     rollupOptions: {

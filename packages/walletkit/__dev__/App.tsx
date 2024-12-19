@@ -1,8 +1,8 @@
 import './style.css';
 import {
   ConnectModal,
-  EmbeddedConnectModal,
   useConnectModal,
+  useSwitchNetworkModal,
   WalletKitConfig,
   WalletKitProvider,
 } from '@/core/index';
@@ -79,27 +79,20 @@ const config: WalletKitConfig = {
 };
 
 export default function App() {
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
   return (
-    <WalletKitProvider config={config} debugMode>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode>
         <ConnectButton />
         <ConnectModal />
-        <button onClick={onOpen}>connect modal</button>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalBody>
-            <EmbeddedConnectModal />
-          </ModalBody>
-        </Modal>
         <SwitchNetworkModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
+  const { onOpen: openSwitchNetwork } = useSwitchNetworkModal();
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
@@ -123,6 +116,7 @@ function ConnectButton() {
       >
         connect
       </button>
+      <button onClick={() => openSwitchNetwork()}>switch network</button>
       <div>
         evm address:{address} <button onClick={() => disconnect()}>disconnect</button>
       </div>

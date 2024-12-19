@@ -1,5 +1,5 @@
 import { useAccount, useChains } from 'wagmi';
-import { useSwitchNetworkModal } from './SwitchNetworkProvider/context';
+import { useSwitchNetworkModal } from './context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
 import { Modal } from '@/core/base/components/Modal';

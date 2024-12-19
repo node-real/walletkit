@@ -12,11 +12,11 @@
   "dependencies": {
     "@node-real/walletkit": "workspace:*",
     "@particle-network/connectkit": "^2.0.0",
-    "@tanstack/react-query": "^5",
     "react": "^18",
     "react-dom": "^18",
-    "wagmi": "2.13.0",
-    "viem": "^2.21.49"
+    "wagmi": "catalog:",
+    "viem": "catalog:",
+    "@tanstack/react-query": "catalog:"
   },
   "devDependencies": {
     "@types/react": "^18",
