@@ -1,5 +1,24 @@
 # @node-real/walletkit
 
+## 2.7.0
+
+### Minor Changes
+
+- 1baff44: Add SwitchNetworkModal & integrate the whole connection process to EmbeddedModal
+
+### Patch Changes
+
+- 1baff44: Support solana on mobile
+- 1baff44: Fix binance web3 wallet successfully detected trustwallet on mobile
+- 1baff44: Fix trust issue
+- 1baff44: Update tron dependencies
+- 1baff44: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+- 1baff44: Add deeplink for tw solana on mobile
+- 1baff44: Fix the trust wallet will automatically connect when the page loaded
+- 1baff44: Fix the trust wallet will automatically connect when the page loaded
+- 1baff44: Use window.trustwallet as TW provider to avoid conflicts
+- 1baff44: Add deelink for phantom
+
 ## 2.4.1-alpha.8
 
 ### Patch Changes
