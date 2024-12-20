@@ -29,7 +29,7 @@ export interface WalletKitConfig {
 
     onClickWallet?: (wallet: BaseWallet, e?: React.MouseEvent) => undefined | boolean;
     onChainAlreadyAdded?: (params: { wallet: BaseWallet; chainId: number }) => void;
-    onConnected?: (params: { wallet: BaseWallet }) => void;
+    onConnected?: (params: { wallet: BaseWallet; address: string }) => void;
     onError?: (err: any, description: string) => void;
   };
 

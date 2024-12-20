@@ -526,7 +526,7 @@ export interface WalletKitConfig {
     onChainAlreadyAdded?: (params: { wallet: BaseWallet; chainId: number }) => void;
 
     // Once wallet is connected, this method will be invoked.
-    onConnected?: (params: { wallet: BaseWallet }) => void;
+    onConnected?: (params: { wallet: BaseWallet; address: string }) => void;
 
     // handle wallet errors by yourself
     onError?: (err: any, description: string) => void;

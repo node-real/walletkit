@@ -30,6 +30,7 @@ export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
     getCreateConnectorFn() {
       return metaMaskSDk({
         useDeeplink: false,
+        headless: true,
         openDeeplink(arg) {
           openLink(arg);
         },

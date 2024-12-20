@@ -5,6 +5,7 @@ import { useIsConnected } from '@/evm/hooks/useIsConnected';
 import { useWalletConnector } from '@/evm/hooks/useWalletConnector';
 import { useCallback } from 'react';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
+import { useAccount } from 'wagmi';
 
 export function EvmConnectingView() {
   const { selectedWallet } = useWalletKit();
@@ -12,6 +13,7 @@ export function EvmConnectingView() {
   const selectedConnector = useWalletConnector(selectedWallet.id);
 
   const { connect, status, setStatus } = useConnectingStatus();
+  const { address } = useAccount();
 
   const runConnect = useCallback(() => {
     if (!selectedWallet.isInstalled()) return;
@@ -31,6 +33,7 @@ export function EvmConnectingView() {
       onTryAgain={runConnect}
       wallet={selectedWallet}
       isConnected={isConnected}
+      address={address}
     />
   );
 }
