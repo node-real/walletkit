@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.2
+
+### Patch Changes
+
+- 8b72b41: Remove close button in EmbeddedModal & Add address to onConnected callback
+
 ## 2.7.1
 
 ### Patch Changes
