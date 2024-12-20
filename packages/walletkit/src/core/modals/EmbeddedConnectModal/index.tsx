@@ -24,7 +24,7 @@ export function EmbeddedConnectModal(props: BoxProps) {
   return (
     <Box className={cx('wk-embedded-connect-modal', clsModal, className)} {...restProps}>
       <ModalContent className={clsContent} {...restProps}>
-        <Navbar showBack={history.length > 1} showClose={true} onBack={back} />
+        <Navbar showBack={history.length > 1} showClose={false} onBack={back} />
         {view}
       </ModalContent>
     </Box>

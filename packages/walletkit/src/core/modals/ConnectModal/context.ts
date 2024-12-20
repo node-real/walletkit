@@ -13,7 +13,7 @@ export interface ConnectModalOpenParams {
   evmConfig?: {
     initialChainId?: number;
   };
-  onConnected?: (params: { wallet: BaseWallet }) => void;
+  onConnected?: (params: { wallet: BaseWallet; address: string }) => void;
 }
 
 export interface ConnectModalContextProps {

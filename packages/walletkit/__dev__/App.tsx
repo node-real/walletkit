@@ -29,9 +29,6 @@ import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
-import { Modal } from '@/core/base/components/Modal';
-import { ModalBody } from '@/core/base/components/Modal/ModalBody';
-import { useDisclosure } from '@/core/base/hooks/useDisclosure';
 import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
 
 new VConsole();
@@ -110,6 +107,9 @@ function ConnectButton() {
             },
             tronConfig: {
               initialChainId: '0xcd8690dc',
+            },
+            onConnected(params) {
+              console.log(params, '====xx');
             },
           })
         }

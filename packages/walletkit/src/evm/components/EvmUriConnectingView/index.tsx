@@ -6,10 +6,12 @@ import { EvmWallet } from '@/evm/wallets';
 import { openLink } from '@/core/utils/common';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
+import { useAccount } from 'wagmi';
 
 export function EvmUriConnectingView() {
   const { selectedWallet } = useWalletKit();
   const isConnected = useIsConnected();
+  const { address } = useAccount();
 
   const { status, setStatus } = useConnectingStatus({
     initialStatus: CONNECT_STATUS.CONNECTING,
@@ -34,6 +36,7 @@ export function EvmUriConnectingView() {
       runConnect={() => undefined}
       onTryAgain={onTryAgain}
       wallet={selectedWallet}
+      address={address}
     />
   );
 }

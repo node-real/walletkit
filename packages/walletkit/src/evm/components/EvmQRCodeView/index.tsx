@@ -4,6 +4,7 @@ import { useIsConnected } from '@/evm/hooks/useIsConnected';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect } from '@/evm/wallets';
+import { useAccount } from 'wagmi';
 
 export function EvmQRCodeView() {
   const { selectedWallet } = useWalletKit();
@@ -12,6 +13,7 @@ export function EvmQRCodeView() {
   const wcModal = useWalletConnectModal();
   const qrCodeUri = wcUri && ((selectedWallet as EvmWallet).getUri?.(wcUri) ?? wcUri);
   const isConnected = useIsConnected();
+  const { address } = useAccount();
 
   return (
     <TemplateQRCodeView
@@ -20,6 +22,7 @@ export function EvmQRCodeView() {
       onClickOpenWcModal={wcModal.onOpen}
       isConnected={isConnected}
       isWalletConnect={isWalletConnect(selectedWallet.id)}
+      address={address}
     />
   );
 }

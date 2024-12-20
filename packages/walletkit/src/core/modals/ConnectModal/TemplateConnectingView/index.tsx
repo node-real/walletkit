@@ -25,10 +25,11 @@ interface TemplateConnectingViewProps {
   onTryAgain: () => void;
   wallet: BaseWallet;
   isConnected: boolean;
+  address: string | undefined | null;
 }
 
 export function TemplateConnectingView(props: TemplateConnectingViewProps) {
-  const { status, runConnect, onTryAgain, wallet, isConnected } = props;
+  const { status, runConnect, onTryAgain, wallet, isConnected, address } = props;
 
   const { log } = useWalletKit();
   const logos = useWalletLogos(wallet.logos);
@@ -54,7 +55,7 @@ export function TemplateConnectingView(props: TemplateConnectingViewProps) {
 
   const isLoading = status === CONNECT_STATUS.CONNECTING;
 
-  useAutoCloseConnectModal(isConnected);
+  useAutoCloseConnectModal(isConnected, address);
 
   return (
     <>

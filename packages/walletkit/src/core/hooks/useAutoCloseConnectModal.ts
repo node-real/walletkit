@@ -4,7 +4,7 @@ import { useWalletKit } from '../providers/WalletKitProvider/context';
 import { useConnectModal } from '../modals/ConnectModal/context';
 import { useRouter } from '../providers/RouteProvider/context';
 
-export function useAutoCloseConnectModal(isConnected: boolean) {
+export function useAutoCloseConnectModal(isConnected: boolean, address: string | undefined | null) {
   const { options, selectedWallet } = useWalletKit();
 
   const router = useRouter();
@@ -14,6 +14,7 @@ export function useAutoCloseConnectModal(isConnected: boolean) {
     if (router.route !== ViewRoutes.HOME && isConnected) {
       options.onConnected?.({
         wallet: selectedWallet,
+        address: address!,
       });
 
       if (options.closeModalAfterConnected) {
