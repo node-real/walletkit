@@ -96,6 +96,8 @@ function ConnectButton() {
   const { publicKey, disconnect: solanaDisconnect } = useSolanaWallet();
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
 
+  console.log(address, '====');
+
   return (
     <>
       <button
