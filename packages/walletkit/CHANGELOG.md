@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 2.7.3
+
+### Patch Changes
+
+- 82c5d18: Fix trust wallet will get an incorrect account when multiple accounts were associated
+  with the same dapp
+
 ## 2.7.2
 
 ### Patch Changes
