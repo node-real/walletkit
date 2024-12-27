@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ViewRoutes } from './RouteProvider';
+import { ViewRoutes } from '../../providers/RouteProvider';
 import { Action } from '@/core/providers/WalletKitProvider/context';
 import { BaseWallet } from '@/core/configs/types';
 
@@ -13,7 +13,7 @@ export interface ConnectModalOpenParams {
   evmConfig?: {
     initialChainId?: number;
   };
-  onConnected?: (params: { wallet: BaseWallet }) => void;
+  onConnected?: (params: { wallet: BaseWallet; address: string }) => void;
 }
 
 export interface ConnectModalContextProps {

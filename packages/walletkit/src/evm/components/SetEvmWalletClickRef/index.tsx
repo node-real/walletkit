@@ -1,8 +1,8 @@
 import { isMobile, isPC, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
-import { ViewRoutes } from '@/core/modals/ConnectModal/RouteProvider';
-import { useRouter } from '@/core/modals/ConnectModal/RouteProvider/context';
+import { ViewRoutes } from '@/core/providers/RouteProvider';
+import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openLink } from '@/core/utils/common';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';

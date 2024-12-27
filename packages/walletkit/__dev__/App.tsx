@@ -1,5 +1,11 @@
 import './style.css';
-import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
+import {
+  ConnectModal,
+  useConnectModal,
+  useSwitchNetworkModal,
+  WalletKitConfig,
+  WalletKitProvider,
+} from '@/core/index';
 import VConsole from 'vconsole';
 import {
   binanceWeb3Wallet,
@@ -26,6 +32,7 @@ import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
 import { uxuyWallet } from '@/evm/wallets/uxuyWallet';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
 import { codexFieldWallet } from '@/evm/wallets/codexFieldWallet';
+import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
 
 new VConsole();
 
@@ -33,6 +40,7 @@ const queryClient = new QueryClient();
 
 const config: WalletKitConfig = {
   options: {
+    openModalOnWrongNetwork: true,
     closeModalOnEsc: false,
     // gridLayoutThreshold: 1000,
     onChainAlreadyAdded({ wallet, chainId }) {
@@ -42,7 +50,7 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
     chains: [mainnet, bsc, dfk],
     wallets: [
       binanceWeb3Wallet(),
@@ -75,17 +83,19 @@ const config: WalletKitConfig = {
 
 export default function App() {
   return (
-    <WalletKitProvider config={config} debugMode>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode>
         <ConnectButton />
         <ConnectModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+        <SwitchNetworkModal />
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
+  const { onOpen: openSwitchNetwork } = useSwitchNetworkModal();
 
   const { address, chainId } = useAccount();
   const { disconnect } = useDisconnect();

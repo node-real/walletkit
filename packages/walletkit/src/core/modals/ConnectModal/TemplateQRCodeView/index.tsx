@@ -17,15 +17,16 @@ export interface TemplateQRCodeViewProps {
   onClickOpenWcModal?: () => void;
   isConnected: boolean;
   isWalletConnect: boolean;
+  address: string | undefined | null;
 }
 
 export function TemplateQRCodeView(props: TemplateQRCodeViewProps) {
-  const { wallet, qrCodeUri, onClickOpenWcModal, isConnected, isWalletConnect } = props;
+  const { wallet, qrCodeUri, onClickOpenWcModal, isConnected, isWalletConnect, address } = props;
 
   const { options } = useWalletKit();
   const logos = useWalletLogos(wallet?.logos);
 
-  useAutoCloseConnectModal(isConnected);
+  useAutoCloseConnectModal(isConnected, address);
 
   return (
     <>

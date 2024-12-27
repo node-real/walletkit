@@ -6,6 +6,7 @@ import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import { EvmWallet, isWalletConnect, metaMask } from '@/evm/wallets';
 import { useMetaMaskUri } from '@/evm/hooks/userMetaMaskUri';
 import { useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 export function EvmQRCodeView() {
   const { selectedWallet } = useWalletKit();
@@ -27,6 +28,7 @@ export function EvmQRCodeView() {
 
   const wcModal = useWalletConnectModal();
   const isConnected = useIsConnected();
+  const { address } = useAccount();
 
   return (
     <TemplateQRCodeView
@@ -35,6 +37,7 @@ export function EvmQRCodeView() {
       onClickOpenWcModal={wcModal.onOpen}
       isConnected={isConnected}
       isWalletConnect={isWalletConnect(selectedWallet.id)}
+      address={address}
     />
   );
 }

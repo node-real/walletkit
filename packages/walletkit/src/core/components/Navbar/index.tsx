@@ -7,12 +7,13 @@ import { clsNavbar } from './styles.css';
 
 export interface NavbarProps extends BoxProps {
   showBack?: boolean;
+  showClose?: boolean;
   onBack?: () => void;
   onClose?: () => void;
 }
 
 export function Navbar(props: NavbarProps) {
-  const { className, showBack, onBack, onClose, ...restProps } = props;
+  const { className, showBack, showClose = true, onBack, onClose, ...restProps } = props;
 
   return (
     <Box className={cx('wk-navbar', clsNavbar, className)} {...restProps}>
@@ -20,7 +21,9 @@ export function Navbar(props: NavbarProps) {
         <IconButton className="wk-navbar-back-button" icon={<BackIcon />} onClick={onBack} />
       )}
       <Box style={{ flex: 1 }} />
-      <IconButton className="wk-navbar-close-button" icon={<CloseIcon />} onClick={onClose} />
+      {showClose && (
+        <IconButton className="wk-navbar-close-button" icon={<CloseIcon />} onClick={onClose} />
+      )}
     </Box>
   );
 }

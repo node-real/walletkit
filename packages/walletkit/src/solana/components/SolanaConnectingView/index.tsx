@@ -5,7 +5,7 @@ import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
 import { SolanaWallet } from '@/solana/wallets';
-import { WalletProviderProps } from '@solana/wallet-adapter-react';
+import { useWallet, WalletProviderProps } from '@solana/wallet-adapter-react';
 import { useCallback, useEffect, useState } from 'react';
 
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
@@ -18,6 +18,7 @@ export function SolanaConnectingView() {
   );
 
   const { isConnected, connect } = useSolanaConnect();
+  const { publicKey } = useWallet();
 
   useEffect(() => {
     const onError = (error: WalletError) => {
@@ -64,6 +65,7 @@ export function SolanaConnectingView() {
       onTryAgain={runConnect}
       wallet={selectedWallet}
       isConnected={isConnected}
+      address={publicKey?.toBase58()}
     />
   );
 }

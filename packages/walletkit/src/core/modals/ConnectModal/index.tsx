@@ -1,6 +1,6 @@
 import { Modal } from '@/core/base/components/Modal';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { useRouter } from './RouteProvider/context';
+import { useRouter } from '../../providers/RouteProvider/context';
 import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
 

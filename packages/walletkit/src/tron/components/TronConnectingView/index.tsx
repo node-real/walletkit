@@ -5,7 +5,7 @@ import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useTronConnect } from '@/tron/hooks/useTronConnect';
 import { tronCommonErrorHandler } from '@/tron/utils/tronCommonErrorHandler';
 import { TronWallet } from '@/tron/wallets';
-import { WalletProviderProps } from '@tronweb3/tronwallet-adapter-react-hooks';
+import { useWallet, WalletProviderProps } from '@tronweb3/tronwallet-adapter-react-hooks';
 import { useCallback, useEffect, useState } from 'react';
 
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
@@ -18,6 +18,7 @@ export function TronConnectingView() {
   );
 
   const { connect, isConnected } = useTronConnect();
+  const { address } = useWallet();
 
   useEffect(() => {
     const onError = (error: WalletError) => {
@@ -62,6 +63,7 @@ export function TronConnectingView() {
       onTryAgain={runConnect}
       wallet={selectedWallet}
       isConnected={isConnected}
+      address={address}
     />
   );
 }

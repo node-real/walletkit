@@ -8,10 +8,12 @@ import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 import { useMetaMaskUri } from '@/evm/hooks/userMetaMaskUri';
 import { useEffect, useRef } from 'react';
+import { useAccount } from 'wagmi';
 
 export function EvmUriConnectingView() {
   const { selectedWallet } = useWalletKit();
   const isConnected = useIsConnected();
+  const { address } = useAccount();
 
   const { status, setStatus } = useConnectingStatus({
     initialStatus: CONNECT_STATUS.CONNECTING,
@@ -56,6 +58,7 @@ export function EvmUriConnectingView() {
       runConnect={() => undefined}
       onTryAgain={onConnect}
       wallet={selectedWallet}
+      address={address}
     />
   );
 }

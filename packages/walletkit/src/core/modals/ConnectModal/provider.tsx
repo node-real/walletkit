@@ -1,25 +1,15 @@
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { RouteProvider, ViewRoutes } from './RouteProvider';
+import { ViewRoutes } from '../../providers/RouteProvider';
 import { useMemo } from 'react';
 import { ConnectModalContext, ConnectModalOpenParams } from './context';
 import { useDisclosure } from '@/core/base/hooks/useDisclosure';
-import { useRouter } from './RouteProvider/context';
+import { useRouter } from '../../providers/RouteProvider/context';
 
 export interface ConnectModalProviderProps {
   children: React.ReactNode;
 }
 
 export function ConnectModalProvider(props: ConnectModalProviderProps) {
-  const { children } = props;
-
-  return (
-    <RouteProvider>
-      <WithRouter>{children}</WithRouter>
-    </RouteProvider>
-  );
-}
-
-function WithRouter(props: ConnectModalProviderProps) {
   const { children } = props;
 
   const { setAction, evmConfig, tronConfig, options } = useWalletKit();

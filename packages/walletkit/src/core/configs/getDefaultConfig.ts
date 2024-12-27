@@ -21,7 +21,7 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
 
       walletDownloadUrl: `https://trustwallet.com/`,
 
-      closeModalAfterSwitchingNetwork: false,
+      closeModalAfterSwitchingNetwork: true,
       closeModalAfterConnected: true,
       closeModalOnEsc: true,
       closeModalOnOverlayClick: true,

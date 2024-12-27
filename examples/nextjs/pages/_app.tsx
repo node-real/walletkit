@@ -22,31 +22,31 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
     wallets: [metaMask(), trustWallet(), walletConnect()],
-    chains: [mainnet] as any,
+    chains: [mainnet],
   }),
 };
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WalletKitProvider config={config} debugMode={true} mode="auto">
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode={true} mode="auto">
         <Component {...pageProps} />
         <ConnectButton />
         <ConnectModal />
-      </QueryClientProvider>
-    </WalletKitProvider>
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  if (address) {
+  if (isConnected) {
     return (
       <>
         <div>address:{address}</div>
