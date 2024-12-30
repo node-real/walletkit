@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.3-alpha.1
+
+### Patch Changes
+
+- 80ce41c: Only use binance sdk on pc
+
 ## 2.7.3-alpha.0
 
 ### Patch Changes
