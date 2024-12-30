@@ -17,7 +17,8 @@
     "ci:version": "pnpm changeset version && cp README.md packages/walletkit/README.md",
     "ci:publish": "pnpm changeset publish",
     "ci:alpha-version": "pnpm ci:enter && pnpm ci:version",
-    "ci:stable-version": "pnpm ci:exit && pnpm ci:version"
+    "ci:stable-version": "pnpm ci:exit && pnpm ci:version",
+    "gh-pages": "pnpm build && pnpm --F example-vite build && gh-pages -d examples/vite/dist"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
@@ -30,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.3.5",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "gh-pages": "~6.2.0"
   }
 }

@@ -1,8 +1,16 @@
 import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
-import { coinbaseWallet, EvmWallet, isWalletConnect, metaMask, walletConnect } from '@/evm/wallets';
+import {
+  binanceWeb3Wallet,
+  coinbaseWallet,
+  EvmWallet,
+  isWalletConnect,
+  metaMask,
+  walletConnect,
+} from '@/evm/wallets';
 import { Metadata } from '@/core/providers/WalletKitProvider/context';
 import { setEvmGlobalData } from '../globalData';
+import { codexFieldWallet } from '../wallets/codexFieldWallet';
 import { ChainDisplayConfig } from '@/evm/chains/types';
 import { getChainDisplayConfigs } from '../chains';
 
@@ -60,6 +68,12 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
     }
     if (connector.id === 'coinbaseWalletSDK') {
       (connector as any).id = coinbaseWallet().id;
+    }
+    if (connector.id === 'codex-field-wallet') {
+      (connector as any).id = codexFieldWallet().id;
+    }
+    if (connector.id === 'BinanceW3WSDK') {
+      (connector as any).id = binanceWeb3Wallet().id;
     }
   });
 

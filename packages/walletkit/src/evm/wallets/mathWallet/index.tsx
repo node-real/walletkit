@@ -11,6 +11,7 @@ export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'mathWallet',
     walletType: 'evm',
     spinnerColor: undefined,
+    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return !!getProvider();
     },
