@@ -9,7 +9,6 @@ import { ToastProvider } from '@/core/base/components/toast/ToastProvider';
 import { BaseWallet } from '@/core/configs/types';
 import { ProfileModalProvider } from '@/core/modals/ProfileModal/provider';
 import { TronWalletProvider } from '@/tron/components/TronWalletProvider';
-import { Buffer } from 'buffer';
 import { SwitchNetworkProvider } from '@/core/modals/SwitchNetworkModal/provider';
 import { RouteProvider } from '@/core/providers/RouteProvider';
 
@@ -23,12 +22,6 @@ export interface WalletKitProviderProps {
 
 export function WalletKitProvider(props: WalletKitProviderProps) {
   const { config, children, theme, mode, debugMode = false } = props;
-
-  useMemo(() => {
-    if (typeof window !== 'undefined') {
-      window.Buffer = window.Buffer || Buffer;
-    }
-  }, []);
 
   const finalConfig = useMemo(() => {
     const finalConfig = getDefaultConfig(config);

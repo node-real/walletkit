@@ -6,32 +6,19 @@ import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { isAndroid, isBrowser, isIOS, isPC, isTMA } from '@/core/base/utils/mobile';
-import { useMemo } from 'react';
+import { EvmHomeViewWalletConnectUriProvider } from '@/evm/components/EvmHomeViewWalletConnectUriProvider';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 
 export function HomeView() {
   const { wallets, options } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
-  const visibleWallets = useMemo(() => {
-    const visibleWallets = wallets.filter((wallet) => {
-      const isVisible =
-        wallet.isVisible !== false &&
-        ((isBrowser() && isAndroid() && wallet.platforms.includes('browser-android')) ||
-          (isBrowser() && isIOS() && wallet.platforms.includes('browser-ios')) ||
-          (isBrowser() && isPC() && wallet.platforms.includes('browser-pc')) ||
-          (isTMA() && isAndroid() && wallet.platforms.includes('tg-android')) ||
-          (isTMA() && isIOS() && wallet.platforms.includes('tg-ios')) ||
-          (isTMA() && isPC() && wallet.platforms.includes('tg-pc')));
-      return isVisible;
-    });
-
-    return visibleWallets;
-  }, [wallets]);
-
+  const visibleWallets = wallets.filter((item) => item.isVisible !== false);
   const useGridLayout =
     visibleWallets.length >= options.gridLayoutThreshold! ||
     (isMobileLayout && options.useGridLayoutOnMobile);
+
+  const needPreCreateWcUri = isTMA() && isMobile();
 
   return (
     <>
@@ -46,6 +33,8 @@ export function HomeView() {
       ) : (
         <ListLayout visibleWallets={visibleWallets} />
       )}
+
+      {needPreCreateWcUri && <EvmHomeViewWalletConnectUriProvider />}
     </>
   );
 }

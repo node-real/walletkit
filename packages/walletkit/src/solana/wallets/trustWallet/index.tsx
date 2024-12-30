@@ -16,7 +16,6 @@ export function trustWallet(props: TrustWalletOptions = {}): SolanaWallet {
     walletType: 'solana',
     adapterName: 'Trust',
     showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     getDeepLink() {
       const encodedUrl = encodeURIComponent(window.location.href);
       return `https://link.trustwallet.com/open_url?coin_id=60&url=${encodedUrl}`;

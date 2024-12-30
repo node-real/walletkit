@@ -28,9 +28,13 @@ export function TronWalletProvider(props: TronWalletProviderProps) {
     EventEmitter.emit(EventEmitter.TRON_WALLET_ERROR, error);
   }, []);
 
+  if (!tronConfig) {
+    return <>{children}</>;
+  }
+
   return (
     <WalletProvider
-      adapters={tronConfig?.adapters ?? []}
+      adapters={tronConfig.adapters}
       // autoConnect={tronConfig.autoConnect}
       // Once connected to a wallet, the adapter will alway automatically connect to it after refreshing page
       autoConnect={false}
