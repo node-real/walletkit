@@ -20,16 +20,12 @@ export function SolanaWalletProvider(props: SolanaWalletProviderProps) {
     EventEmitter.emit(EventEmitter.SOLANA_WALLET_ERROR, error);
   }, []);
 
-  if (!solanaConfig) {
-    return <>{children}</>;
-  }
-
   return (
-    <ConnectionProvider endpoint={solanaConfig.rpcUrl}>
+    <ConnectionProvider endpoint={solanaConfig?.rpcUrl ?? 'https://solana-rpc.debridge.finance'}>
       <WalletProvider
-        wallets={solanaConfig.adapters}
+        wallets={solanaConfig?.adapters ?? []}
         onError={onError}
-        autoConnect={solanaConfig.autoConnect}
+        autoConnect={solanaConfig?.autoConnect ?? false}
       >
         {children}
       </WalletProvider>

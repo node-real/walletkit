@@ -11,6 +11,7 @@ export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
     id: 'tokenPocket',
     walletType: 'evm',
     showQRCode: false,
+    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return !!getProvider();
     },

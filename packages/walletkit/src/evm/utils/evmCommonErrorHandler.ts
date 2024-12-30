@@ -22,6 +22,9 @@ export function evmCommonErrorHandler(props: { log: any; handler: any; error: an
     if (description?.includes('Connection request reset')) {
       description = undefined;
     }
+    if (description?.includes('[binance-w3w] User closed modal')) {
+      description = 'Use rejected the request';
+    }
 
     if (isMobile() && binanceWeb3Wallet().isInstalled()) {
       if (

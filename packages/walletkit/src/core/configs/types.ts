@@ -1,6 +1,13 @@
 import { ColorMode } from '@/core/providers/ThemeProvider/context';
 
 export type WalletType = 'evm' | 'solana' | 'tron';
+export type PlatformType =
+  | 'tg-android'
+  | 'tg-ios'
+  | 'tg-pc'
+  | 'browser-android'
+  | 'browser-ios'
+  | 'browser-pc';
 
 export interface WalletConfig {
   name: string;
@@ -22,6 +29,7 @@ export interface BaseWallet extends WalletConfig {
   render?: (props: WalletRenderProps) => React.ReactNode;
   showQRCode?: boolean;
   isInstalled: () => boolean | undefined;
+  platforms: PlatformType[];
 }
 
 export interface WalletRenderProps {

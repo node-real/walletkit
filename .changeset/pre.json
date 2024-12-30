@@ -1,0 +1,23 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "2.4.0",
+    "website": "0.0.1"
+  },
+  "changesets": [
+    "big-donuts-push",
+    "chilled-pots-chew",
+    "few-guests-melt",
+    "happy-countries-exercise",
+    "happy-jobs-hope",
+    "itchy-hats-applaud",
+    "little-panthers-tickle",
+    "nervous-horses-study",
+    "pink-carrots-jam",
+    "slimy-books-turn",
+    "wise-days-juggle"
+  ]
+}

@@ -382,7 +382,7 @@ export function injected(parameters: InjectedParameters = {}) {
 
         // Indicates chain is not added to provider
         if (
-          error.code === 4902 ||
+          Number(error.code) === 4902 ||
           // Unwrapping for MetaMask Mobile
           // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
           (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data?.originalError

@@ -14,6 +14,7 @@ export function safe(props: SafeOptions = {}): EvmWallet {
     id: 'safe',
     walletType: 'evm',
     showQRCode: false,
+    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return !(typeof window === 'undefined') && window?.parent !== window;
     },
