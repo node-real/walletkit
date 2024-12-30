@@ -1,5 +1,25 @@
 # @node-real/walletkit
 
+## 2.8.0
+
+### Minor Changes
+
+- 3649d6b: Support tg
+
+### Patch Changes
+
+- 3649d6b: Support solana on mobile
+- 3649d6b: Fix binance web3 wallet successfully detected trustwallet on mobile
+- 3649d6b: Fix trust issue
+- 3649d6b: Add new wallet
+- 3649d6b: Update tron dependencies
+- 3649d6b: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+- 3649d6b: Add deeplink for tw solana on mobile
+- 3649d6b: Fix the trust wallet will automatically connect when the page loaded
+- 3649d6b: Fix the trust wallet will automatically connect when the page loaded
+- 3649d6b: Use window.trustwallet as TW provider to avoid conflicts
+- 3649d6b: Add deelink for phantom
+
 ## 2.7.2
 
 ### Patch Changes
