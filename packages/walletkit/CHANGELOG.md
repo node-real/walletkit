@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.3-alpha.0
+
+### Patch Changes
+
+- ca1ae96: Add new wallet
+
 ## 2.7.2
 
 ### Patch Changes
