@@ -14,7 +14,7 @@ import { BaseWallet } from '@/core/configs/types';
 export interface TemplateQRCodeViewProps {
   wallet: BaseWallet;
   qrCodeUri?: string;
-  onClickOpenWcModal?: () => void;
+  onClickOpenWcModal: () => void;
   isConnected: boolean;
   isWalletConnect: boolean;
   address: string | undefined | null;

@@ -15,9 +15,8 @@ export function walletConnect(props: WalletConnectOptions = {}): EvmWallet {
     id: 'walletConnect',
     walletType: 'evm',
     showQRCode: !connectorOptions?.showQrModal,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
-      return true;
+      return false;
     },
     getDeepLink() {
       return undefined;

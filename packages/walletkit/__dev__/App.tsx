@@ -25,13 +25,10 @@ import {
   defaultSolanaConfig,
   useSolanaWallet,
 } from '@/solana/index';
-import { bsc, mainnet, dfk } from 'viem/chains';
+import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useConnectors, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
-import { uxuyWallet } from '@/evm/wallets/uxuyWallet';
-import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
-import { codexFieldWallet } from '@/evm/wallets/codexFieldWallet';
 import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
 
 new VConsole();
@@ -50,35 +47,32 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
-    chains: [mainnet, bsc, dfk],
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+    chains: [mainnet, bsc],
     wallets: [
-      binanceWeb3Wallet(),
-      trustWallet(),
-      walletConnect(),
-      uxuyWallet(),
-      codexFieldWallet(),
       metaMask(),
+      trustWallet(),
+      bitgetWallet(),
+      coinbaseWallet(),
+      binanceWeb3Wallet(),
 
-      // bitgetWallet(),
-      // coinbaseWallet(),
+      tokenPocket(),
+      okxWallet(),
 
-      // tokenPocket(),
-      // okxWallet(),
-
-      // mathWallet(),
+      mathWallet(),
+      walletConnect(),
     ],
   }),
-  // solanaConfig: defaultSolanaConfig({
-  //   autoConnect: true,
-  //   rpcUrl: 'https://solana-rpc.debridge.finance',
-  //   wallets: [solanaTrustWallet(), solanaPhantomWallet()],
-  // }),
-  // tronConfig: defaultTronConfig({
-  //   autoConnect: true,
-  //   initialChainId: '0xcd8690dc',
-  //   wallets: [tronLink()],
-  // }),
+  solanaConfig: defaultSolanaConfig({
+    autoConnect: true,
+    rpcUrl: 'https://solana-rpc.debridge.finance',
+    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+  }),
+  tronConfig: defaultTronConfig({
+    autoConnect: true,
+    initialChainId: '0xcd8690dc',
+    wallets: [tronLink()],
+  }),
 };
 
 export default function App() {
@@ -97,56 +91,32 @@ function ConnectButton() {
   const { onOpen } = useConnectModal();
   const { onOpen: openSwitchNetwork } = useSwitchNetworkModal();
 
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { publicKey, disconnect: solanaDisconnect } = useSolanaWallet();
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
-  const { switchChain } = useEvmSwitchChain();
-
-  const connectors = useConnectors();
-
-  connectors?.forEach((e) => {
-    console.log(e.id);
-  });
 
   return (
     <>
-      <div>
-        <button
-          onClick={() =>
-            onOpen({
-              action: 'add-network',
-              evmConfig: {
-                initialChainId: 56,
-              },
-              tronConfig: {
-                initialChainId: '0xcd8690dc',
-              },
-            })
-          }
-        >
-          connect
-        </button>
-        <button
-          onClick={() => {
-            switchChain({
-              chainId: 1,
-            });
-          }}
-        >
-          switch 1
-        </button>
-        <button
-          onClick={() => {
-            switchChain({
-              chainId: 56,
-            });
-          }}
-        >
-          switch 56
-        </button>
-      </div>
-      <div>chain id: {chainId}</div>
+      <button
+        onClick={() =>
+          onOpen({
+            action: 'add-network',
+            evmConfig: {
+              initialChainId: 56,
+            },
+            tronConfig: {
+              initialChainId: '0xcd8690dc',
+            },
+            onConnected(params) {
+              console.log(params, '====xx');
+            },
+          })
+        }
+      >
+        connect
+      </button>
+      <button onClick={() => openSwitchNetwork()}>switch network</button>
       <div>
         evm address:{address} <button onClick={() => disconnect()}>disconnect</button>
       </div>

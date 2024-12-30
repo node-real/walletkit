@@ -19,7 +19,6 @@ export function walletConnect(props: WalletConnectOptions = {}): SolanaWallet {
     walletType: 'solana',
     adapterName: 'WalletConnect',
     showQRCode: true,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return false;
     },

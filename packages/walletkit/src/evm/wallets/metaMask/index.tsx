@@ -16,7 +16,6 @@ export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
     id: 'metaMask',
     walletType: 'evm',
     showQRCode: false,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       return hasEvmInjectedProvider('isMetaMask');
     },

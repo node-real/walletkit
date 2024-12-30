@@ -19,7 +19,6 @@ export function coinbaseWallet(props: CoinbaseWalletOptions = {}): EvmWallet {
     id: 'coinbaseWallet',
     walletType: 'evm',
     showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       if (
         connectorOptions &&

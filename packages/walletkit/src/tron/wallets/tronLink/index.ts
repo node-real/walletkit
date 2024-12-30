@@ -16,7 +16,6 @@ export function tronLink(props: TronLinkOptions = {}): TronWallet {
     walletType: 'tron',
     adapterName: 'TronLink',
     showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
     isInstalled() {
       if (typeof window === 'undefined') return false;
 

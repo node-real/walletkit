@@ -1,21 +1,15 @@
-import { isMobile, isPC, isTMA } from '@/core/base/utils/mobile';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openLink } from '@/core/utils/common';
-import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
+import { getEvmGlobalData } from '@/evm/globalData';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import {
-  binanceWeb3Wallet,
-  codexFieldWallet,
-  EvmWallet,
-  isWalletConnect,
-  uxuyWallet,
-} from '@/evm/wallets';
+import { EvmWallet, isWalletConnect } from '@/evm/wallets';
 import { useRef } from 'react';
-import { useConnectors, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 interface SetEvmWalletClickRefProps {
   clickRef: UseWalletRenderProps['clickRef'];
@@ -30,14 +24,11 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const connectModal = useConnectModal();
   const router = useRouter();
-  const { connect } = useEvmConnect();
-  const connectors = useConnectors();
 
   const timerRef = useRef<any>();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
-    const connector = connectors.find((item) => item.id === walletId)!;
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
@@ -58,7 +49,15 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToQRCodeView = () => {
-      jumpTo(ViewRoutes.EVM_QRCODE);
+      const qrCodeUri = wallet.getUri('xxx');
+      if (qrCodeUri) {
+        jumpTo(ViewRoutes.EVM_QRCODE);
+      } else {
+        options.onError?.(
+          new Error(`The wallet does not support QR code`),
+          `The wallet does not support QR code`,
+        );
+      }
     };
 
     const jumpToConnectingView = () => {
@@ -78,33 +77,26 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     };
 
     const jumpToUriConnectingView = () => {
-      jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+      const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
+      if (wcUri) {
+        const connectUri = wallet.getUri(wcUri);
+        if (connectUri) {
+          openLink(connectUri);
+          jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+        } else {
+          options.onError?.(
+            new Error(`The wallet does not support URI connection`),
+            `The wallet does not support URI connection`,
+          );
+        }
+      }
     };
 
     disconnect();
+
     clearTimeout(timerRef.current);
-
-    const useSDK = [binanceWeb3Wallet().id].includes(walletId) && isPC();
-    const delay = useSDK ? 0 : 300;
-
-    const handleJumping = () => {
-      if (useSDK) {
-        setSelectedWallet(wallet);
-        connect({
-          connector,
-        });
-        setTimeout(() => {
-          connectModal.onClose();
-        }, 500);
-        return;
-      }
-
+    timerRef.current = setTimeout(() => {
       if (isTMA()) {
-        if ([uxuyWallet().id, codexFieldWallet().id].includes(walletId)) {
-          jumpToConnectingView();
-          return;
-        }
-
         // 1. TMA
         if (isMobile()) {
           // 1.1 mobile
@@ -119,34 +111,28 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         }
       } else if (isMobile()) {
         // 2. mobile
-        if (wallet.isInstalled()) {
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
-          } else {
-            jumpToConnectingView();
-          }
+        if (isWalletConnect(walletId)) {
+          wcModal.onOpen();
+        } else if (wallet.isInstalled()) {
+          jumpToConnectingView();
         } else {
           jumpToDeepLink();
         }
       } else {
         // 3. pc
-        if (wallet.showQRCode) {
+        if (isWalletConnect(walletId)) {
+          if (wallet.showQRCode) {
+            jumpToQRCodeView();
+          } else {
+            wcModal.onOpen();
+          }
+        } else if (wallet.showQRCode) {
           jumpToQRCodeView();
         } else {
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
-          } else {
-            jumpToConnectingView();
-          }
+          jumpToConnectingView();
         }
       }
-    };
-
-    if (isTMA() && isMobile()) {
-      handleJumping();
-    } else {
-      timerRef.current = setTimeout(handleJumping, delay);
-    }
+    }, 300);
   };
 
   return null;

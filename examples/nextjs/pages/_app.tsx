@@ -22,9 +22,9 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
+    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
     wallets: [metaMask(), trustWallet(), walletConnect()],
-    chains: [mainnet],
+    chains: [mainnet] as any,
   }),
 };
 
