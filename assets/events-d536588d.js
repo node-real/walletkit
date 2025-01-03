@@ -1,4 +1,4 @@
-import { g as getDefaultExportFromCjs } from "./index-76a1e20a.js";
+import { g as getDefaultExportFromCjs } from "./index-f6e2e707.js";
 var inherits_browser = { exports: {} };
 if (typeof Object.create === "function") {
   inherits_browser.exports = function inherits(ctor, superCtor) {
