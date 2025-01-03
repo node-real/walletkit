@@ -16166,7 +16166,7 @@ function version4(parameters) {
             options: ((_a3 = parameters.preference) == null ? void 0 : _a3.options) ?? "all"
           };
         })();
-        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-09be3e4d.js"), true ? ["./index-09be3e4d.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
+        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-79289e75.js"), true ? ["./index-79289e75.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
         const sdk = createCoinbaseWalletSDK({
           ...parameters,
           appChainIds: config2.chains.map((x2) => x2.id),
@@ -16338,7 +16338,7 @@ function version3(parameters) {
       var _a3;
       if (!walletProvider) {
         const CoinbaseWalletSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./index-84847619.js").then((n2) => n2.i), true ? ["./index-84847619.js","./events-89f68a77.js","./hooks.module-1f3364a3.js","./browser-e2f76538.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./index-c7451d23.js").then((n2) => n2.i), true ? ["./index-c7451d23.js","./events-b5445255.js","./hooks.module-1f3364a3.js","./browser-480bf3e4.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -16575,7 +16575,7 @@ function metaMask$1(parameters = {}) {
       async function initProvider() {
         var _a3, _b2, _c2, _d2, _e2;
         const MetaMaskSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-e57b3163.js"), true ? ["./metamask-sdk-e57b3163.js","./browser-e2f76538.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-4c6c6f00.js"), true ? ["./metamask-sdk-4c6c6f00.js","./browser-480bf3e4.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -16935,7 +16935,7 @@ function walletConnect$1(parameters) {
         const optionalChains = config2.chains.map((x2) => x2.id);
         if (!optionalChains.length)
           return;
-        const { EthereumProvider } = await __vitePreload(() => import("./index.es-967bf75d.js"), true ? ["./index.es-967bf75d.js","./events-89f68a77.js"] : void 0, import.meta.url);
+        const { EthereumProvider } = await __vitePreload(() => import("./index.es-309a337d.js"), true ? ["./index.es-309a337d.js","./events-b5445255.js"] : void 0, import.meta.url);
         return await EthereumProvider.init({
           ...parameters,
           disableProviderPing: true,
@@ -89230,13 +89230,16 @@ function ConnectButton() {
   const { disconnect: disconnect2 } = useDisconnect();
   const [signResult, setSignResult] = reactExports.useState("");
   const { signMessageAsync } = useSignMessage();
+  const [status, setStatus] = reactExports.useState("pending");
   reactExports.useEffect(() => {
     if (!address2)
       return;
     const sign2 = async () => {
+      setStatus("sign start");
       const msg = await signMessageAsync({
         message: "aaa"
       });
+      setStatus("sign end");
       setSignResult(msg);
     };
     sign2();
@@ -89275,16 +89278,20 @@ function ConnectButton() {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-      "sign result: ",
-      signResult
+      "status: ",
+      status
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => openSwitchNetwork(), children: "switch network" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
       "evm address:",
       address2,
       " ",
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => disconnect2(), children: "disconnect" })
-    ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+      "sign result: ",
+      signResult
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => openSwitchNetwork(), children: "switch network" })
   ] });
 }
 const global$1 = "";
