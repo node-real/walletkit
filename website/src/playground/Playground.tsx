@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WalletKitConfig, WalletKitProvider } from '@node-real/walletkit';
 import {
-  binanceWeb3Wallet,
+  binanceWallet,
   bitgetWallet,
   coinbaseWallet,
   defaultEvmConfig,
@@ -42,7 +42,7 @@ const config: WalletKitConfig = {
       trustWallet(),
       bitgetWallet(),
       coinbaseWallet(),
-      binanceWeb3Wallet(),
+      binanceWallet(),
       tokenPocket(),
       okxWallet(),
       walletConnect(),
