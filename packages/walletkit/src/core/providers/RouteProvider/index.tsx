@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
+import { useState, useRef, useMemo, useCallback } from 'react';
 import { RouteContext } from './context';
 import { EvmConnectingView } from '@/evm/components/EvmConnectingView';
 import { EvmQRCodeView } from '@/evm/components/EvmQRCodeView';

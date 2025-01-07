@@ -1,8 +1,8 @@
 import './style.css';
 import {
   ConnectModal,
+  isMobile,
   useConnectModal,
-  useSwitchNetworkModal,
   WalletKitConfig,
   WalletKitProvider,
 } from '@/core/index';
@@ -27,7 +27,7 @@ import {
 } from '@/solana/index';
 import { bsc, mainnet, dfk } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useConnectors, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
 import { uxuyWallet } from '@/evm/wallets/uxuyWallet';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
@@ -93,21 +93,49 @@ export default function App() {
   );
 }
 
+export const getIsAndroid = () => {
+  const ua = navigator.userAgent;
+  const android = Boolean(ua.match(/Android/i));
+  return android;
+};
+
+export const getHref = (isAndroid: boolean, wc?: string) => {
+  const appID = 'xoqXxUSMRccLCrZNRebmzj';
+  const startPagePath = 'L3BhZ2VzL2Rhc2hib2FyZC1uZXcvaW5kZXg=';
+
+  let qs = `appId=${appID}&startPagePath=${startPagePath}`;
+  if (wc) {
+    const startPageQuery = encodeURI(
+      `wc=${encodeURIComponent(wc)}&isDeepLink=true&id=${+new Date()}`,
+    );
+    qs = `${qs}&startPageQuery=${startPageQuery}`;
+  }
+  const host = '//app.binance.com';
+  if (isAndroid) {
+    return `bnc:${host}/mp/app?${qs}`;
+  }
+  return `https:${host}/?_dp=${encodeURI(`/mp/app?${qs}`)}`;
+};
+
+export const openBinanceDeepLink = (wc?: string) => {
+  const href = getHref(true, wc);
+  if (!isMobile()) return;
+
+  const a = document.createElement('a');
+  a.href = href;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
 function ConnectButton() {
   const { onOpen } = useConnectModal();
-  const { onOpen: openSwitchNetwork } = useSwitchNetworkModal();
 
   const { address, chainId } = useAccount();
   const { disconnect } = useDisconnect();
   const { publicKey, disconnect: solanaDisconnect } = useSolanaWallet();
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
   const { switchChain } = useEvmSwitchChain();
-
-  const connectors = useConnectors();
-
-  connectors?.forEach((e) => {
-    console.log(e.id);
-  });
 
   return (
     <>

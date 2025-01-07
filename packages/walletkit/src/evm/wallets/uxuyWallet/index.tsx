@@ -1,6 +1,7 @@
 import { uxuyWalletConfig } from '@/core/configs/uyuxWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
+import { isTMA } from '@/core/base/utils/mobile';
 
 export function uxuyWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
@@ -12,7 +13,7 @@ export function uxuyWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
     showQRCode: false,
     platforms: ['tg-android', 'tg-ios', 'tg-pc'],
     isInstalled() {
-      return true;
+      return isTMA();
     },
     getDeepLink() {
       return undefined;

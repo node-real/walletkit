@@ -1,4 +1,4 @@
-import { isMobile, isPC, isTMA } from '@/core/base/utils/mobile';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
@@ -8,7 +8,7 @@ import { openLink } from '@/core/utils/common';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
 import {
-  binanceWeb3Wallet,
+  binanceWallet,
   codexFieldWallet,
   EvmWallet,
   isWalletConnect,
@@ -84,7 +84,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     disconnect();
     clearTimeout(timerRef.current);
 
-    const useSDK = [binanceWeb3Wallet().id].includes(walletId) && isPC();
+    const useSDK = [binanceWallet().id].includes(walletId);
     const delay = useSDK ? 0 : 300;
 
     const handleJumping = () => {
@@ -99,13 +99,13 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         return;
       }
 
+      // 1. TMA
       if (isTMA()) {
         if ([uxuyWallet().id, codexFieldWallet().id].includes(walletId)) {
           jumpToConnectingView();
           return;
         }
 
-        // 1. TMA
         if (isMobile()) {
           // 1.1 mobile
           if (isWalletConnect(walletId)) {

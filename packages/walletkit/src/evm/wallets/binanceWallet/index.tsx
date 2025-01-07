@@ -1,19 +1,22 @@
 import { BinanceW3WParameters, getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
-import { isAndroid, isTMA } from '@/core/base/utils/mobile';
+import { isInBinance } from '@binance/w3w-utils';
+import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { binanceWalletConfig } from '@/core/configs/binanceWallet';
 import { EvmWallet } from '../types';
 import { getEvmInjectedProvider } from '../utils';
+import { sleep } from 'tronweb/utils';
+import { injected } from '../injected';
 
 export interface BinanceWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: BinanceW3WParameters;
 }
 
 export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
-  const { connectorOptions, ...restProps } = props;
+  const { connectorOptions = {}, ...restProps } = props;
 
   return {
     ...binanceWalletConfig,
-    id: 'binanceWallet',
+    id: 'binanceWeb3Wallet',
     walletType: 'evm',
     showQRCode: false,
     platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
@@ -34,27 +37,55 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
       return http;
     },
     getUri(uri) {
-      let encodedUri = encodeURIComponent(uri);
-      if (isTMA() && isAndroid()) {
-        encodedUri = encodeURIComponent(encodedUri);
-      }
+      const encodedUri = encodeURIComponent(uri);
       return `https://app.binance.com/cedefi/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
+      if (isInBinance()) {
+        let isReady = false;
+
+        return injected({
+          shimDisconnect: true,
+          target: {
+            id: this.id,
+            name: binanceWallet().name,
+            async provider() {
+              if (isMobile() && binanceWallet().isInstalled() && !isReady) {
+                await sleep(3000);
+              }
+              isReady = true;
+              return getProvider();
+            },
+          },
+          ...connectorOptions,
+        });
+      }
+
+      if (typeof window !== 'undefined') {
+        const originalAppendChild = document.body.appendChild;
+
+        document.body.appendChild = function (node, ...params) {
+          if (node instanceof HTMLAnchorElement && node.href?.startsWith('bnc://')) {
+            node.href = `https://app.binance.com/en/download?_dp=${window.btoa(node.href)}`;
+            node.target = '_blank';
+            // node.href = node.href.replace('bnc://', 'https://');
+
+            // const qs = node.href.replace('bnc://app.binance.com/mp/app?', '');
+            // node.href = `https://app.binance.com/?_dp=${encodeURI(`/mp/app?${qs}`)}`;
+            const div = document.createElement('div');
+            div.textContent = node.href;
+            document.body.appendChild(div);
+          }
+          return originalAppendChild.call(document.body, node, ...params) as any;
+        };
+      }
+
       const connector = getWagmiConnectorV2();
       return connector({
         ...connectorOptions,
       });
     },
     ...restProps,
-  };
-}
-
-// binance web3 wallet changes its name to `binance wallet`, retaining the previous wallet id
-export function binanceWeb3Wallet(props: BinanceWalletOptions = {}): EvmWallet {
-  return {
-    ...binanceWallet(props),
-    id: 'binanceWeb3Wallet',
   };
 }
 

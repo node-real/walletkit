@@ -5,6 +5,7 @@ import {
 } from 'codexfield-wallet-connector';
 import { getEvmGlobalData } from '@/evm/globalData';
 import { codexFieldWalletConfig } from '@/core/configs/codexFieldWallet';
+import { isTMA } from '@/core/base/utils/mobile';
 
 interface CodexFieldWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: Partial<WalletConnectParameters>;
@@ -20,7 +21,7 @@ export function codexFieldWallet(props: CodexFieldWalletOptions = {}): EvmWallet
     showQRCode: false,
     platforms: ['tg-android', 'tg-ios', 'tg-pc'],
     isInstalled() {
-      return true;
+      return isTMA();
     },
     getDeepLink() {
       return undefined;

@@ -1,7 +1,7 @@
 import { http, createConfig, CreateConnectorFn, type CreateConfigParameters } from 'wagmi';
 import { Chain, mainnet } from 'wagmi/chains';
 import {
-  binanceWeb3Wallet,
+  binanceWallet,
   coinbaseWallet,
   EvmWallet,
   isWalletConnect,
@@ -72,8 +72,8 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
     if (connector.id === 'codex-field-wallet') {
       (connector as any).id = codexFieldWallet().id;
     }
-    if (connector.id === 'BinanceW3WSDK') {
-      (connector as any).id = binanceWeb3Wallet().id;
+    if (connector.id === 'wallet.binance.com') {
+      (connector as any).id = binanceWallet().id;
     }
   });
 

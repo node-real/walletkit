@@ -53,6 +53,8 @@
     "wagmi": "^2"
   },
   "dependencies": {
+    "@binance/w3w-ethereum-provider": "1.1.8-alpha.0",
+    "@binance/w3w-utils": "^1.1.6",
     "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
