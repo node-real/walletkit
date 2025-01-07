@@ -1,5 +1,5 @@
-import { b as getAugmentedNamespace, r as require$$0$2, c as commonjsGlobal, g as getDefaultExportFromCjs, _ as __vitePreload } from "./index-e6596c24.js";
-import { i as inherits_browserExports, e as eventsExports, J as Jg } from "./events-7280c5e6.js";
+import { b as getAugmentedNamespace, r as require$$0$2, c as commonjsGlobal, g as getDefaultExportFromCjs, _ as __vitePreload } from "./index-a93a66ce.js";
+import { i as inherits_browserExports, e as eventsExports, J as Jg } from "./events-58030680.js";
 var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from2, pack) {
   if (pack || arguments.length === 2)
     for (var i3 = 0, l2 = from2.length, ar2; i3 < l2; i3++) {
@@ -28577,7 +28577,7 @@ class C2 {
     if (this.rpc = this.getRpcConfig(t), this.chainId = this.rpc.chains.length ? m2(this.rpc.chains) : m2(this.rpc.optionalChains), this.signer = await Ev.init({ projectId: this.rpc.projectId, metadata: this.rpc.metadata, disableProviderPing: t.disableProviderPing, relayUrl: t.relayUrl, storageOptions: t.storageOptions, customStoragePrefix: t.customStoragePrefix, telemetryEnabled: t.telemetryEnabled }), this.registerEventListeners(), await this.loadPersistedSession(), this.rpc.showQrModal) {
       let s2;
       try {
-        const { WalletConnectModal: i3 } = await __vitePreload(() => import("./index-0f7b454d.js").then((n4) => n4.i), true ? ["./index-0f7b454d.js","./index-e6596c24.js","./index-01b56244.css"] : void 0, import.meta.url);
+        const { WalletConnectModal: i3 } = await __vitePreload(() => import("./index-53f4df14.js").then((n4) => n4.i), true ? ["./index-53f4df14.js","./index-a93a66ce.js","./index-01b56244.css"] : void 0, import.meta.url);
         s2 = i3;
       } catch {
         throw new Error("To use QR modal, please install @walletconnect/modal package");

@@ -1,4 +1,4 @@
-import { _ as __vitePreload } from "./index-e6596c24.js";
+import { _ as __vitePreload } from "./index-a93a66ce.js";
 const t = Symbol();
 const s = Object.getPrototypeOf, c = /* @__PURE__ */ new WeakMap(), l = (e) => e && (c.has(e) ? c.get(e) : s(e) === Object.prototype || s(e) === Array.prototype), y = (e) => l(e) && e[t] || null, h = (e, t2 = true) => {
   c.set(e, t2);
@@ -791,7 +791,7 @@ class WalletConnectModal {
   }
   async initUi() {
     if (typeof window !== "undefined") {
-      await __vitePreload(() => import("./index-3f29ed7f.js"), true ? ["./index-3f29ed7f.js","./index-e6596c24.js","./index-01b56244.css"] : void 0, import.meta.url);
+      await __vitePreload(() => import("./index-b506c5d6.js"), true ? ["./index-b506c5d6.js","./index-a93a66ce.js","./index-01b56244.css"] : void 0, import.meta.url);
       const modal = document.createElement("wcm-modal");
       document.body.insertAdjacentElement("beforeend", modal);
       OptionsCtrl.setIsUiLoaded(true);
