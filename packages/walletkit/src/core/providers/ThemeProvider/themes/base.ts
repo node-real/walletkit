@@ -17,8 +17,8 @@ const radii = {
 };
 
 const zIndices = {
-  modal: 2300,
-  toast: 2500,
+  modal: 1300,
+  toast: 1500,
 };
 
 export const base = {

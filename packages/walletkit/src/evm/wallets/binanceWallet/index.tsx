@@ -38,7 +38,7 @@ export function binanceWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       return injected({
         shimDisconnect: true,
         target: {
-          id: binanceWallet().id,
+          id: this.id,
           name: binanceWallet().name,
           async provider() {
             if (isMobile() && binanceWallet().isInstalled() && !isReady) {
