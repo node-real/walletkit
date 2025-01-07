@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.4
+
+### Patch Changes
+
+- 05eb4de: Update modal zIndex & binance wallet id
+
 ## 2.7.3
 
 ### Patch Changes
