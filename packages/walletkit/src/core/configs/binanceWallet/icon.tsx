@@ -1,8 +1,8 @@
-export const BinanceWeb3WalletTransparentIcon = (props: SVGIconProps) => {
-  return <BinanceWeb3WalletIcon width={40} height={40} {...props} />;
+export const BinanceWalletTransparentIcon = (props: SVGIconProps) => {
+  return <BinanceWalletIcon width={40} height={40} {...props} />;
 };
 
-export const BinanceWeb3WalletIcon = (props: SVGIconProps) => {
+export const BinanceWalletIcon = (props: SVGIconProps) => {
   return (
     <svg width="40" height="40" viewBox="0 0 68 68" fill="none" {...props}>
       <path

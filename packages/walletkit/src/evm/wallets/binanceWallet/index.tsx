@@ -1,21 +1,19 @@
-import { binanceWeb3WalletConfig } from '@/core/configs/binanceWeb3Wallet';
-import { EvmWallet } from '../types';
 import { BinanceW3WParameters, getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
-import { isAndroid, isMobile, isPC, isTMA } from '@/core/base/utils/mobile';
-import { injected } from '../injected';
-import { sleep } from '@/core/utils/common';
+import { isAndroid, isTMA } from '@/core/base/utils/mobile';
+import { binanceWalletConfig } from '@/core/configs/binanceWallet';
+import { EvmWallet } from '../types';
 import { getEvmInjectedProvider } from '../utils';
 
-export interface BinanceWeb3WalletOptions extends Partial<EvmWallet> {
+export interface BinanceWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: BinanceW3WParameters;
 }
 
-export function binanceWeb3Wallet(props: BinanceWeb3WalletOptions = {}): EvmWallet {
+export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   return {
-    ...binanceWeb3WalletConfig,
-    id: 'binanceWeb3Wallet',
+    ...binanceWalletConfig,
+    id: 'binanceWallet',
     walletType: 'evm',
     showQRCode: false,
     platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
@@ -43,32 +41,20 @@ export function binanceWeb3Wallet(props: BinanceWeb3WalletOptions = {}): EvmWall
       return `https://app.binance.com/cedefi/wc?uri=${encodedUri}`;
     },
     getCreateConnectorFn() {
-      if (isPC()) {
-        const connector = getWagmiConnectorV2();
-        return connector({
-          ...connectorOptions,
-        }) as any;
-      } else {
-        let isReady = false;
-
-        return injected({
-          shimDisconnect: true,
-          target: {
-            id: binanceWeb3Wallet().id,
-            name: binanceWeb3Wallet().name,
-            async provider() {
-              if (isMobile() && binanceWeb3Wallet().isInstalled() && !isReady) {
-                await sleep();
-              }
-              isReady = true;
-              return getProvider();
-            },
-          },
-          ...connectorOptions,
-        });
-      }
+      const connector = getWagmiConnectorV2();
+      return connector({
+        ...connectorOptions,
+      });
     },
     ...restProps,
+  };
+}
+
+// binance web3 wallet changes its name to `binance wallet`, retaining the previous wallet id
+export function binanceWeb3Wallet(props: BinanceWalletOptions = {}): EvmWallet {
+  return {
+    ...binanceWallet(props),
+    id: 'binanceWeb3Wallet',
   };
 }
 

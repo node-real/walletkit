@@ -8,7 +8,7 @@ import {
 } from '@/core/index';
 import VConsole from 'vconsole';
 import {
-  binanceWeb3Wallet,
+  binanceWallet,
   bitgetWallet,
   coinbaseWallet,
   defaultEvmConfig,
@@ -53,7 +53,7 @@ const config: WalletKitConfig = {
     walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
     chains: [mainnet, bsc, dfk],
     wallets: [
-      binanceWeb3Wallet(),
+      binanceWallet(),
       trustWallet(),
       walletConnect(),
       uxuyWallet(),

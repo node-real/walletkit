@@ -1,5 +1,5 @@
 import { isIOS, isMobile } from '@/core/base/utils/mobile';
-import { binanceWeb3Wallet, trustWallet } from '../wallets';
+import { binanceWallet, trustWallet } from '../wallets';
 
 export function evmCommonErrorHandler(props: { log: any; handler: any; error: any }) {
   const { log, handler, error } = props;
@@ -26,7 +26,7 @@ export function evmCommonErrorHandler(props: { log: any; handler: any; error: an
       description = 'Use rejected the request';
     }
 
-    if (isMobile() && binanceWeb3Wallet().isInstalled()) {
+    if (isMobile() && binanceWallet().isInstalled()) {
       if (
         description?.includes('Request failed: The JSON sent is not a valid Request object.') ||
         description?.includes('Adaptor not found: eip155')

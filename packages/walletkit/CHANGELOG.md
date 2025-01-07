@@ -1,10 +1,16 @@
 # @node-real/walletkit
 
-## 2.7.3-alpha.0
+## 2.7.4
 
 ### Patch Changes
 
-- ca1ae96: Add new wallet
+- 05eb4de: Update modal zIndex & binance wallet id
+
+## 2.7.3
+
+### Patch Changes
+
+- 880c9b2: Binance web3 wallet rename to binance wallet
 
 ## 2.7.2
 
