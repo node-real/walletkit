@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.7.3
+
+### Patch Changes
+
+- 880c9b2: Binance web3 wallet rename to binance wallet
+
 ## 2.7.2
 
 ### Patch Changes
