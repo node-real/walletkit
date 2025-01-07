@@ -1,4 +1,4 @@
-import { S as __vitePreload } from "./index-f38a281b.js";
+import { S as __vitePreload } from "./index-0cf02593.js";
 const t = Symbol();
 const s = Object.getPrototypeOf, c = /* @__PURE__ */ new WeakMap(), l = (e) => e && (c.has(e) ? c.get(e) : s(e) === Object.prototype || s(e) === Array.prototype), y = (e) => l(e) && e[t] || null, h = (e, t2 = true) => {
   c.set(e, t2);
@@ -89,7 +89,7 @@ const buildProxyFunction = (objectIs = Object.is, newProxy = (target, handler) =
   };
   const propProxyStates = /* @__PURE__ */ new Map();
   const addPropListener = (prop, propProxyState) => {
-    if (({ "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && propProxyStates.has(prop)) {
+    if (({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && propProxyStates.has(prop)) {
       throw new Error("prop listener already exists");
     }
     if (listeners.size) {
@@ -111,7 +111,7 @@ const buildProxyFunction = (objectIs = Object.is, newProxy = (target, handler) =
     listeners.add(listener);
     if (listeners.size === 1) {
       propProxyStates.forEach(([propProxyState, prevRemove], prop) => {
-        if (({ "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && prevRemove) {
+        if (({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && prevRemove) {
           throw new Error("remove already exists");
         }
         const remove = propProxyState[3](createPropListener(prop));
@@ -221,7 +221,7 @@ function proxy(initialObject = {}) {
 }
 function subscribe(proxyObject, callback, notifyInSync) {
   const proxyState = proxyStateMap.get(proxyObject);
-  if (({ "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
+  if (({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
     console.warn("Please use proxy object");
   }
   let promise;
@@ -252,7 +252,7 @@ function subscribe(proxyObject, callback, notifyInSync) {
 }
 function snapshot(proxyObject, handlePromise) {
   const proxyState = proxyStateMap.get(proxyObject);
-  if (({ "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
+  if (({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true, "SSR": false } ? "production" : void 0) !== "production" && !proxyState) {
     console.warn("Please use proxy object");
   }
   const [target, ensureVersion, createSnapshot] = proxyState;
@@ -791,7 +791,7 @@ class WalletConnectModal {
   }
   async initUi() {
     if (typeof window !== "undefined") {
-      await __vitePreload(() => import("./index-c4fcfadf.js"), true ? ["assets/index-c4fcfadf.js","assets/index-f38a281b.js","assets/index-01b56244.css"] : void 0);
+      await __vitePreload(() => import("./index-2b95f652.js"), true ? ["./index-2b95f652.js","./index-0cf02593.js","./index-01b56244.css"] : void 0, import.meta.url);
       const modal = document.createElement("wcm-modal");
       document.body.insertAdjacentElement("beforeend", modal);
       OptionsCtrl.setIsUiLoaded(true);

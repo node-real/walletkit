@@ -1,6 +1,6 @@
-import { T as getAugmentedNamespace, a0 as require$$0$2, m as commonjsGlobal, a2 as minimalisticAssert, Z as inherits_browserExports, a3 as hash$3, k as getDefaultExportFromCjs, S as __vitePreload } from "./index-f38a281b.js";
-import { e as eventsExports, J as Jg } from "./events-ac009f6f.js";
-import { m as m$2 } from "./browser-ponyfill-b3d524b9.js";
+import { T as getAugmentedNamespace, a0 as require$$0$2, m as commonjsGlobal, a2 as minimalisticAssert, Z as inherits_browserExports, a3 as hash$3, k as getDefaultExportFromCjs, S as __vitePreload } from "./index-0cf02593.js";
+import { e as eventsExports, J as Jg } from "./events-f2494469.js";
+import { m as m$2 } from "./browser-ponyfill-c66ef3c0.js";
 var __spreadArray = globalThis && globalThis.__spreadArray || function(to2, from2, pack) {
   if (pack || arguments.length === 2)
     for (var i3 = 0, l2 = from2.length, ar2; i3 < l2; i3++) {
@@ -26557,7 +26557,7 @@ class C2 {
     if (this.rpc = this.getRpcConfig(t), this.chainId = this.rpc.chains.length ? m2(this.rpc.chains) : m2(this.rpc.optionalChains), this.signer = await Ev.init({ projectId: this.rpc.projectId, metadata: this.rpc.metadata, disableProviderPing: t.disableProviderPing, relayUrl: t.relayUrl, storageOptions: t.storageOptions, customStoragePrefix: t.customStoragePrefix, telemetryEnabled: t.telemetryEnabled }), this.registerEventListeners(), await this.loadPersistedSession(), this.rpc.showQrModal) {
       let s2;
       try {
-        const { WalletConnectModal: i3 } = await __vitePreload(() => import("./index-c58b4767.js").then((n4) => n4.i), true ? ["assets/index-c58b4767.js","assets/index-f38a281b.js","assets/index-01b56244.css"] : void 0);
+        const { WalletConnectModal: i3 } = await __vitePreload(() => import("./index-9ea7d901.js").then((n4) => n4.i), true ? ["./index-9ea7d901.js","./index-0cf02593.js","./index-01b56244.css"] : void 0, import.meta.url);
         s2 = i3;
       } catch {
         throw new Error("To use QR modal, please install @walletconnect/modal package");

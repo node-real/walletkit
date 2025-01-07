@@ -8444,8 +8444,8 @@ function parseAccount(account) {
   return account;
 }
 const scriptRel = "modulepreload";
-const assetsURL = function(dep) {
-  return "/" + dep;
+const assetsURL = function(dep, importerUrl) {
+  return new URL(dep, importerUrl).href;
 };
 const seen = {};
 const __vitePreload = function preload(baseModule, deps, importerUrl) {
@@ -8454,7 +8454,7 @@ const __vitePreload = function preload(baseModule, deps, importerUrl) {
   }
   const links = document.getElementsByTagName("link");
   return Promise.all(deps.map((dep) => {
-    dep = assetsURL(dep);
+    dep = assetsURL(dep, importerUrl);
     if (dep in seen)
       return;
     seen[dep] = true;
@@ -13671,7 +13671,7 @@ function version4(parameters) {
             options: ((_a3 = parameters.preference) == null ? void 0 : _a3.options) ?? "all"
           };
         })();
-        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-5a9d2881.js"), true ? ["assets/index-5a9d2881.js","assets/hooks.module-1f3364a3.js"] : void 0);
+        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-f15e49df.js"), true ? ["./index-f15e49df.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
         const sdk = createCoinbaseWalletSDK({
           ...parameters,
           appChainIds: config2.chains.map((x2) => x2.id),
@@ -13843,7 +13843,7 @@ function version3(parameters) {
       var _a3;
       if (!walletProvider) {
         const CoinbaseWalletSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./index-e7f7ebea.js").then((n2) => n2.i), true ? ["assets/index-e7f7ebea.js","assets/hooks.module-1f3364a3.js","assets/events-ac009f6f.js","assets/browser-8302b9c5.js"] : void 0);
+          const { default: SDK } = await __vitePreload(() => import("./index-10ee99e8.js").then((n2) => n2.i), true ? ["./index-10ee99e8.js","./hooks.module-1f3364a3.js","./events-f2494469.js","./browser-7af4e215.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14080,7 +14080,7 @@ function metaMask$1(parameters = {}) {
       async function initProvider() {
         var _a3, _b2, _c2, _d2, _e2;
         const MetaMaskSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-5d7f2cb3.js"), true ? ["assets/metamask-sdk-5d7f2cb3.js","assets/browser-8302b9c5.js"] : void 0);
+          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-51c3c581.js"), true ? ["./metamask-sdk-51c3c581.js","./browser-7af4e215.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14440,7 +14440,7 @@ function walletConnect$1(parameters) {
         const optionalChains = config2.chains.map((x2) => x2.id);
         if (!optionalChains.length)
           return;
-        const { EthereumProvider } = await __vitePreload(() => import("./index.es-4bf1e108.js"), true ? ["assets/index.es-4bf1e108.js","assets/events-ac009f6f.js","assets/browser-ponyfill-b3d524b9.js"] : void 0);
+        const { EthereumProvider } = await __vitePreload(() => import("./index.es-ccbab9f1.js"), true ? ["./index.es-ccbab9f1.js","./events-f2494469.js","./browser-ponyfill-c66ef3c0.js"] : void 0, import.meta.url);
         return await EthereumProvider.init({
           ...parameters,
           disableProviderPing: true,
@@ -19535,7 +19535,7 @@ function m() {
             case 0:
               if ((typeof window === "undefined" ? "undefined" : o(window)) > "u")
                 return [2];
-              return [4, __vitePreload(() => import("./index-9e74aad3.js"), true ? ["assets/index-9e74aad3.js","assets/browser-ponyfill-b3d524b9.js"] : void 0)];
+              return [4, __vitePreload(() => import("./index-eebc4a80.js"), true ? ["./index-eebc4a80.js","./browser-ponyfill-c66ef3c0.js"] : void 0, import.meta.url)];
             case 1:
               l2 = s2.sent().default, f2 = h2 || ((e18 = a2.chains[0]) === null || e18 === void 0 ? void 0 : e18.id), d2 = n2.infuraId ? {} : a2.chains.reduce(function(n3, e19) {
                 return c(r({}, n3), t({}, e19.id, e19.rpcUrls.default.http[0]));

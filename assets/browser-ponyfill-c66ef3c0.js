@@ -1,4 +1,4 @@
-import { m as commonjsGlobal, k as getDefaultExportFromCjs } from "./index-f38a281b.js";
+import { m as commonjsGlobal, k as getDefaultExportFromCjs } from "./index-0cf02593.js";
 var browserPonyfill = { exports: {} };
 (function(module, exports) {
   var global = typeof self !== "undefined" ? self : commonjsGlobal;
