@@ -13651,7 +13651,7 @@ function version4(parameters) {
             options: ((_a3 = parameters.preference) == null ? void 0 : _a3.options) ?? "all"
           };
         })();
-        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-65de89d8.js"), true ? ["./index-65de89d8.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
+        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-b8e2135a.js"), true ? ["./index-b8e2135a.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
         const sdk = createCoinbaseWalletSDK({
           ...parameters,
           appChainIds: config2.chains.map((x2) => x2.id),
@@ -13823,7 +13823,7 @@ function version3(parameters) {
       var _a3;
       if (!walletProvider) {
         const CoinbaseWalletSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./index-4f6266e0.js").then((n2) => n2.i), true ? ["./index-4f6266e0.js","./events-368bca82.js","./hooks.module-1f3364a3.js","./browser-bf50d492.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./index-c279a3c7.js").then((n2) => n2.i), true ? ["./index-c279a3c7.js","./events-661b2f98.js","./hooks.module-1f3364a3.js","./browser-b03b890b.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14060,7 +14060,7 @@ function metaMask$1(parameters = {}) {
       async function initProvider() {
         var _a3, _b2, _c2, _d2, _e2;
         const MetaMaskSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-2fbb81df.js"), true ? ["./metamask-sdk-2fbb81df.js","./browser-bf50d492.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-fb8e9088.js"), true ? ["./metamask-sdk-fb8e9088.js","./browser-b03b890b.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14420,7 +14420,7 @@ function walletConnect$1(parameters) {
         const optionalChains = config2.chains.map((x2) => x2.id);
         if (!optionalChains.length)
           return;
-        const { EthereumProvider } = await __vitePreload(() => import("./index.es-1fe41a4b.js"), true ? ["./index.es-1fe41a4b.js","./events-368bca82.js"] : void 0, import.meta.url);
+        const { EthereumProvider } = await __vitePreload(() => import("./index.es-fd566a14.js"), true ? ["./index.es-fd566a14.js","./events-661b2f98.js"] : void 0, import.meta.url);
         return await EthereumProvider.init({
           ...parameters,
           disableProviderPing: true,
@@ -85357,8 +85357,8 @@ const radii = {
   qrCode: "var(--wk-radii-common)"
 };
 const zIndices = {
-  modal: 2300,
-  toast: 2500
+  modal: 1300,
+  toast: 1500
 };
 const base = {
   light: {

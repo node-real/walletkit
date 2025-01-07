@@ -1,4 +1,4 @@
-import { g as getDefaultExportFromCjs } from "./index-8cc6a878.js";
+import { g as getDefaultExportFromCjs } from "./index-f1c91199.js";
 var browser = { exports: {} };
 var ms;
 var hasRequiredMs;
