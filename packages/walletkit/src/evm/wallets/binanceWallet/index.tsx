@@ -1,16 +1,16 @@
-import { binanceWeb3WalletConfig } from '@/core/configs/binanceWeb3Wallet';
+import { binanceWalletConfig } from '@/core/configs/binanceWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
 import { isMobile } from '@/core/base/utils/mobile';
 import { sleep } from '@/core/utils/common';
 import { getEvmInjectedProvider } from '../utils';
 
-export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
+export function binanceWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   return {
-    ...binanceWeb3WalletConfig,
-    id: 'binanceWeb3Wallet',
+    ...binanceWalletConfig,
+    id: 'binanceWallet',
     walletType: 'evm',
     showQRCode: true,
     isInstalled() {
@@ -38,11 +38,11 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
       return injected({
         shimDisconnect: true,
         target: {
-          id: binanceWeb3Wallet().id,
-          name: binanceWeb3Wallet().name,
+          id: binanceWallet().id,
+          name: binanceWallet().name,
           async provider() {
-            if (isMobile() && binanceWeb3Wallet().isInstalled() && !isReady) {
-              await sleep();
+            if (isMobile() && binanceWallet().isInstalled() && !isReady) {
+              await sleep(3000);
             }
             isReady = true;
             return getProvider();
@@ -52,6 +52,14 @@ export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWall
       });
     },
     ...restProps,
+  };
+}
+
+// binance web3 wallet changes its name to `binance wallet`, retaining the previous wallet id
+export function binanceWeb3Wallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
+  return {
+    ...binanceWallet(props),
+    id: 'binanceWeb3Wallet',
   };
 }
 

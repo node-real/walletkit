@@ -64,6 +64,7 @@
     "tronweb": "~6.0.0"
   },
   "devDependencies": {
+    "@tanstack/react-query": "catalog:",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -75,11 +76,10 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.5.3",
     "vconsole": "^3.15.1",
+    "viem": "catalog:",
     "vite": "^4.5.3",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-mkcert": "^1.17.6",
-    "wagmi": "catalog:",
-    "viem": "catalog:",
-    "@tanstack/react-query": "catalog:"
+    "wagmi": "catalog:"
   }
 }

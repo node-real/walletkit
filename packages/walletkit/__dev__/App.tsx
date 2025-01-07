@@ -8,7 +8,7 @@ import {
 } from '@/core/index';
 import VConsole from 'vconsole';
 import {
-  binanceWeb3Wallet,
+  binanceWallet,
   bitgetWallet,
   coinbaseWallet,
   defaultEvmConfig,
@@ -54,7 +54,7 @@ const config: WalletKitConfig = {
       trustWallet(),
       bitgetWallet(),
       coinbaseWallet(),
-      binanceWeb3Wallet(),
+      binanceWallet(),
 
       tokenPocket(),
       okxWallet(),
