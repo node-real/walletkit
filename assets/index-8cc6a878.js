@@ -13651,7 +13651,7 @@ function version4(parameters) {
             options: ((_a3 = parameters.preference) == null ? void 0 : _a3.options) ?? "all"
           };
         })();
-        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-99fa8fb7.js"), true ? ["./index-99fa8fb7.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
+        const { createCoinbaseWalletSDK } = await __vitePreload(() => import("./index-65de89d8.js"), true ? ["./index-65de89d8.js","./hooks.module-1f3364a3.js"] : void 0, import.meta.url);
         const sdk = createCoinbaseWalletSDK({
           ...parameters,
           appChainIds: config2.chains.map((x2) => x2.id),
@@ -13823,7 +13823,7 @@ function version3(parameters) {
       var _a3;
       if (!walletProvider) {
         const CoinbaseWalletSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./index-cea75f7a.js").then((n2) => n2.i), true ? ["./index-cea75f7a.js","./events-a8db14af.js","./hooks.module-1f3364a3.js","./browser-0238e858.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./index-4f6266e0.js").then((n2) => n2.i), true ? ["./index-4f6266e0.js","./events-368bca82.js","./hooks.module-1f3364a3.js","./browser-bf50d492.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14060,7 +14060,7 @@ function metaMask$1(parameters = {}) {
       async function initProvider() {
         var _a3, _b2, _c2, _d2, _e2;
         const MetaMaskSDK = await (async () => {
-          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-71118e26.js"), true ? ["./metamask-sdk-71118e26.js","./browser-0238e858.js"] : void 0, import.meta.url);
+          const { default: SDK } = await __vitePreload(() => import("./metamask-sdk-2fbb81df.js"), true ? ["./metamask-sdk-2fbb81df.js","./browser-bf50d492.js"] : void 0, import.meta.url);
           if (typeof SDK !== "function" && typeof SDK.default === "function")
             return SDK.default;
           return SDK;
@@ -14420,7 +14420,7 @@ function walletConnect$1(parameters) {
         const optionalChains = config2.chains.map((x2) => x2.id);
         if (!optionalChains.length)
           return;
-        const { EthereumProvider } = await __vitePreload(() => import("./index.es-7d0c43d5.js"), true ? ["./index.es-7d0c43d5.js","./events-a8db14af.js"] : void 0, import.meta.url);
+        const { EthereumProvider } = await __vitePreload(() => import("./index.es-1fe41a4b.js"), true ? ["./index.es-1fe41a4b.js","./events-368bca82.js"] : void 0, import.meta.url);
         return await EthereumProvider.init({
           ...parameters,
           disableProviderPing: true,
@@ -17586,7 +17586,7 @@ function binanceWallet(props = {}) {
           name: binanceWallet().name,
           async provider() {
             if (isMobile() && binanceWallet().isInstalled() && !isReady) {
-              await sleep$2();
+              await sleep$2(3e3);
             }
             isReady = true;
             return getProvider();
