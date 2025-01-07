@@ -1,32 +1,4 @@
-import { g as getDefaultExportFromCjs } from "./index-945462c7.js";
-var inherits_browser = { exports: {} };
-if (typeof Object.create === "function") {
-  inherits_browser.exports = function inherits(ctor, superCtor) {
-    if (superCtor) {
-      ctor.super_ = superCtor;
-      ctor.prototype = Object.create(superCtor.prototype, {
-        constructor: {
-          value: ctor,
-          enumerable: false,
-          writable: true,
-          configurable: true
-        }
-      });
-    }
-  };
-} else {
-  inherits_browser.exports = function inherits(ctor, superCtor) {
-    if (superCtor) {
-      ctor.super_ = superCtor;
-      var TempCtor = function() {
-      };
-      TempCtor.prototype = superCtor.prototype;
-      ctor.prototype = new TempCtor();
-      ctor.prototype.constructor = ctor;
-    }
-  };
-}
-var inherits_browserExports = inherits_browser.exports;
+import { k as getDefaultExportFromCjs } from "./index-f38a281b.js";
 var events = { exports: {} };
 var R = typeof Reflect === "object" ? Reflect : null;
 var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -396,6 +368,5 @@ var eventsExports = events.exports;
 const Jg = /* @__PURE__ */ getDefaultExportFromCjs(eventsExports);
 export {
   Jg as J,
-  eventsExports as e,
-  inherits_browserExports as i
+  eventsExports as e
 };
