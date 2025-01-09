@@ -5,7 +5,6 @@ import {
 } from 'codexfield-wallet-connector';
 import { getEvmGlobalData } from '@/evm/globalData';
 import { codexFieldWalletConfig } from '@/core/configs/codexFieldWallet';
-import { isTMA } from '@/core/base/utils/mobile';
 
 interface CodexFieldWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: Partial<WalletConnectParameters>;
@@ -18,29 +17,27 @@ export function codexFieldWallet(props: CodexFieldWalletOptions = {}): EvmWallet
     ...codexFieldWalletConfig,
     id: 'codexFieldWallet',
     walletType: 'evm',
-    showQRCode: false,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc'],
-    isInstalled() {
-      return isTMA();
-    },
-    getDeepLink() {
-      return undefined;
-    },
-    getUri(uri) {
-      return undefined;
-    },
-    getCreateConnectorFn() {
-      const { walletConnectProjectId } = getEvmGlobalData();
+    behaviors: [
+      {
+        platforms: ['tg-android', 'tg-ios', 'tg-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return true;
+        },
+        getCreateConnectorFn() {
+          const { walletConnectProjectId } = getEvmGlobalData();
 
-      if (!walletConnectProjectId) {
-        throw new Error('walletConnectProjectId is required.');
-      }
+          if (!walletConnectProjectId) {
+            throw new Error('walletConnectProjectId is required.');
+          }
 
-      return wagmiCodexFieldWallet({
-        projectId: walletConnectProjectId,
-        ...connectorOptions,
-      });
-    },
+          return wagmiCodexFieldWallet({
+            projectId: walletConnectProjectId,
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
 }

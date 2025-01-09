@@ -2,7 +2,20 @@ import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
 import { mainnet } from 'wagmi/chains';
 
-import { trustWallet, metaMask, walletConnect, defaultEvmConfig } from '@node-real/walletkit/evm';
+import {
+  trustWallet,
+  metaMask,
+  walletConnect,
+  defaultEvmConfig,
+  binanceWallet,
+  bitgetWallet,
+  codexFieldWallet,
+  coinbaseWallet,
+  mathWallet,
+  okxWallet,
+  tokenPocket,
+  uxuyWallet,
+} from '@node-real/walletkit/evm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   WalletKitProvider,
@@ -11,7 +24,8 @@ import {
   WalletKitConfig,
 } from '@node-real/walletkit';
 import { AppProps } from 'next/app';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +37,22 @@ const config: WalletKitConfig = {
     autoConnect: true,
     initialChainId: 1,
     walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
-    wallets: [metaMask(), trustWallet(), walletConnect()],
+    wallets: [
+      binanceWallet(),
+      trustWallet(),
+      walletConnect(),
+      uxuyWallet(),
+      codexFieldWallet(),
+      metaMask(),
+
+      bitgetWallet(),
+      coinbaseWallet(),
+
+      tokenPocket(),
+      okxWallet(),
+
+      mathWallet(),
+    ],
     chains: [mainnet],
   }),
 };
@@ -42,15 +71,31 @@ export default function App({ Component, pageProps }: AppProps) {
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
+  const [signResult, setSignResult] = useState('');
 
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { disconnect } = useDisconnect();
+  const { signMessageAsync } = useSignMessage();
 
-  if (isConnected) {
+  if (address) {
     return (
       <>
-        <div>address:{address}</div>
-        <button onClick={() => disconnect()}>disconnect</button>
+        <div>
+          <button onClick={() => disconnect()}>disconnect</button>
+          <div>address:{address}</div>
+        </div>
+        <div>
+          <button
+            onClick={async () => {
+              const res = await signMessageAsync({ message: 'hello world' });
+              setSignResult(res);
+            }}
+          >
+            sign
+          </button>
+
+          <div>signed message:{signResult}</div>
+        </div>
       </>
     );
   }

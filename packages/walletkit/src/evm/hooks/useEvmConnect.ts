@@ -11,7 +11,7 @@ export type UseEvmConnectReturnType = ReturnType<typeof useConnect>;
 let timer: any;
 
 export function useEvmConnect(props?: UseEvmConnectProps): UseEvmConnectReturnType {
-  const { log, options, evmConfig } = useWalletKit();
+  const { log, options, evmConfig, selectedWallet } = useWalletKit();
 
   const connectProps = {
     chainId: evmConfig?.initialChainId,
@@ -33,6 +33,7 @@ export function useEvmConnect(props?: UseEvmConnectProps): UseEvmConnectReturnTy
               log,
               handler: options.onError,
               error,
+              wallet: selectedWallet,
             });
           }
         }, 100);

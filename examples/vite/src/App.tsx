@@ -14,7 +14,8 @@ import {
 } from '@node-real/walletkit/evm';
 import { mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -44,15 +45,31 @@ export default function App() {
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();
+  const [signResult, setSignResult] = useState('');
 
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+  const { signMessageAsync } = useSignMessage();
 
   if (address) {
     return (
       <>
-        <div>address:{address}</div>
-        <button onClick={() => disconnect()}>disconnect</button>
+        <div>
+          <button onClick={() => disconnect()}>disconnect</button>
+          <div>address:{address}</div>
+        </div>
+        <div>
+          <button
+            onClick={async () => {
+              const res = await signMessageAsync({ message: 'hello world' });
+              setSignResult(res);
+            }}
+          >
+            sign
+          </button>
+
+          <div>signed message:{signResult}</div>
+        </div>
       </>
     );
   }

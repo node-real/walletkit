@@ -13,24 +13,29 @@ export function safe(props: SafeOptions = {}): EvmWallet {
     ...safeConfig,
     id: 'safe',
     walletType: 'evm',
-    showQRCode: false,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      return !(typeof window === 'undefined') && window?.parent !== window;
-    },
-    getDeepLink: () => {
-      return undefined;
-    },
-    getUri() {
-      return undefined;
-    },
-    getCreateConnectorFn() {
-      return wagmiSafe({
-        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-        debug: false,
-        ...connectorOptions,
-      });
-    },
+    behaviors: [
+      {
+        platforms: [
+          'tg-android',
+          'tg-ios',
+          'tg-pc',
+          'browser-android',
+          'browser-ios',
+          'browser-pc',
+        ],
+        connectType: 'default',
+        isInstalled() {
+          return !(typeof window === 'undefined') && window?.parent !== window;
+        },
+        getCreateConnectorFn() {
+          return wagmiSafe({
+            allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+            debug: false,
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
 }

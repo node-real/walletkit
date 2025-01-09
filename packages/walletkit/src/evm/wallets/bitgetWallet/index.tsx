@@ -7,43 +7,58 @@ import { isAndroid, isTMA } from '@/core/base/utils/mobile';
 export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
+  const getUri = (uri: string) => {
+    let encodedUri = encodeURIComponent(uri);
+    if (isTMA() && isAndroid()) {
+      encodedUri = encodeURIComponent(encodedUri);
+    }
+    return `https://bkcode.vip/wc?uri=${encodedUri}`;
+  };
+
+  const getProvider = () => {
+    if (typeof window === 'undefined') return;
+    return getEvmInjectedProvider('isBitEthereum') ?? window.bitkeep?.ethereum;
+  };
+
   return {
     ...bitgetWalletConfig,
     id: 'bitgetWallet',
     walletType: 'evm',
-    showQRCode: false,
-    platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      return !!getProvider();
-    },
-    getDeepLink() {
-      return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
-    },
-    getUri(uri) {
-      let encodedUri = encodeURIComponent(uri);
-      if (isTMA() && isAndroid()) {
-        encodedUri = encodeURIComponent(encodedUri);
-      }
-      return `https://bkcode.vip/wc?uri=${encodedUri}`;
-    },
-    getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: {
-          id: bitgetWallet().id,
-          name: bitgetWallet().name,
-          async provider() {
-            return getProvider();
-          },
+    behaviors: [
+      {
+        platforms: ['tg-android', 'tg-ios'],
+        connectType: 'uri',
+        getUri,
+      },
+      {
+        platforms: ['tg-pc'],
+        connectType: 'qrcode',
+        getUri,
+      },
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return !!getProvider();
         },
-        ...connectorOptions,
-      });
-    },
+        getAppLink() {
+          return `https://bkcode.vip?action=dapp&url=${window.location.href}`;
+        },
+        getCreateConnectorFn() {
+          return injected({
+            shimDisconnect: true,
+            target: {
+              id: bitgetWallet().id,
+              name: bitgetWallet().name,
+              async provider() {
+                return getProvider();
+              },
+            },
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
-}
-
-function getProvider() {
-  if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isBitEthereum') ?? window.bitkeep?.ethereum;
 }

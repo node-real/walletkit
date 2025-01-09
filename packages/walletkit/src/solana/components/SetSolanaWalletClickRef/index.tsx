@@ -5,6 +5,7 @@ import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openLink } from '@/core/utils/common';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
+import { getSolanaWalletPlatformBehavior } from '@/solana/utils/getSolanaWalletPlatformBehavior';
 import { SolanaWallet } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRef } from 'react';
@@ -27,12 +28,13 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = solanaConfig!.wallets.find((item) => item.id === walletId)! as SolanaWallet;
+    const behavior = getSolanaWalletPlatformBehavior(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[ClickWallet]', `wallet:`, wallet);
-    log('[ClickWallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `installed:`, behavior?.isInstalled?.());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);
@@ -46,28 +48,26 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
       }
     };
 
-    const jumpToConnectingView = () => {
-      jumpTo(ViewRoutes.SOLANA_CONNECTING);
-    };
-
     disconnect();
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (isMobile()) {
-        const deeplink = wallet.getDeepLink();
+      if (behavior?.connectType === 'default') {
+        if (isMobile()) {
+          const appLink = behavior.getAppLink?.();
 
-        if (wallet.isInstalled()) {
-          jumpToConnectingView();
-        } else if (deeplink) {
-          openLink(deeplink);
+          if (behavior.isInstalled?.()) {
+            jumpTo(ViewRoutes.SOLANA_CONNECTING);
+          } else if (appLink) {
+            openLink(appLink);
+          } else {
+            connect({
+              adapterName: wallet.adapterName,
+            });
+          }
         } else {
-          connect({
-            adapterName: wallet.adapterName,
-          });
+          jumpTo(ViewRoutes.SOLANA_CONNECTING);
         }
-      } else {
-        jumpToConnectingView();
       }
     }, 300);
   };

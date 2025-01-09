@@ -4,6 +4,7 @@ import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useTronConnect } from '@/tron/hooks/useTronConnect';
+import { getTronWalletPlatformBehavior } from '@/tron/utils/getTronWalletPlatformBehavior';
 import { TronWallet } from '@/tron/wallets';
 import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
 import { useRef } from 'react';
@@ -26,12 +27,13 @@ export function SetTronWalletClickRef(props: SetTronWalletClickRefProps) {
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = tronConfig!.wallets.find((item) => item.id === walletId)! as TronWallet;
+    const behavior = getTronWalletPlatformBehavior(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[ClickWallet]', `wallet:`, wallet);
-    log('[ClickWallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `installed:`, behavior?.isInstalled?.());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);
@@ -45,24 +47,22 @@ export function SetTronWalletClickRef(props: SetTronWalletClickRefProps) {
       }
     };
 
-    const jumpToConnectingView = () => {
-      jumpTo(ViewRoutes.TRON_CONNECTING);
-    };
-
     disconnect();
 
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      if (isMobile()) {
-        if (wallet.isInstalled()) {
-          jumpToConnectingView();
+      if (behavior?.connectType === 'default') {
+        if (isMobile()) {
+          if (behavior?.isInstalled?.()) {
+            jumpTo(ViewRoutes.TRON_CONNECTING);
+          } else {
+            connect({
+              adapterName: wallet.adapterName,
+            });
+          }
         } else {
-          connect({
-            adapterName: wallet.adapterName,
-          });
+          jumpTo(ViewRoutes.TRON_CONNECTING);
         }
-      } else {
-        jumpToConnectingView();
       }
     }, 300);
   };

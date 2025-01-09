@@ -1,11 +1,5 @@
 import './style.css';
-import {
-  ConnectModal,
-  isMobile,
-  useConnectModal,
-  WalletKitConfig,
-  WalletKitProvider,
-} from '@/core/index';
+import { ConnectModal, useConnectModal, WalletKitConfig, WalletKitProvider } from '@/core/index';
 import VConsole from 'vconsole';
 import {
   binanceWallet,
@@ -92,41 +86,6 @@ export default function App() {
     </QueryClientProvider>
   );
 }
-
-export const getIsAndroid = () => {
-  const ua = navigator.userAgent;
-  const android = Boolean(ua.match(/Android/i));
-  return android;
-};
-
-export const getHref = (isAndroid: boolean, wc?: string) => {
-  const appID = 'xoqXxUSMRccLCrZNRebmzj';
-  const startPagePath = 'L3BhZ2VzL2Rhc2hib2FyZC1uZXcvaW5kZXg=';
-
-  let qs = `appId=${appID}&startPagePath=${startPagePath}`;
-  if (wc) {
-    const startPageQuery = encodeURI(
-      `wc=${encodeURIComponent(wc)}&isDeepLink=true&id=${+new Date()}`,
-    );
-    qs = `${qs}&startPageQuery=${startPageQuery}`;
-  }
-  const host = '//app.binance.com';
-  if (isAndroid) {
-    return `bnc:${host}/mp/app?${qs}`;
-  }
-  return `https:${host}/?_dp=${encodeURI(`/mp/app?${qs}`)}`;
-};
-
-export const openBinanceDeepLink = (wc?: string) => {
-  const href = getHref(true, wc);
-  if (!isMobile()) return;
-
-  const a = document.createElement('a');
-  a.href = href;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-};
 
 function ConnectButton() {
   const { onOpen } = useConnectModal();

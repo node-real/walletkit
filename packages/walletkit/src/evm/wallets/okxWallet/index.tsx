@@ -6,39 +6,40 @@ import { getEvmInjectedProvider } from '../utils';
 export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
+  const getProvider = () => {
+    if (typeof window === 'undefined') return;
+    return getEvmInjectedProvider('isOkxWallet') ?? window.okexchain;
+  };
+
   return {
     ...okxWalletConfig,
     id: 'okxWallet',
     walletType: 'evm',
-    showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      return !!getProvider();
-    },
-    getDeepLink() {
-      return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
-    },
-    getUri(uri) {
-      return `okex://main/wc?uri=${encodeURIComponent(uri)}`;
-    },
-    getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: {
-          id: okxWallet().id,
-          name: okxWallet().name,
-          async provider() {
-            return getProvider();
-          },
+    behaviors: [
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return !!getProvider();
         },
-        ...connectorOptions,
-      });
-    },
+        getAppLink() {
+          return `okx://wallet/dapp/details?dappUrl=${window.location.href}`;
+        },
+        getCreateConnectorFn() {
+          return injected({
+            shimDisconnect: true,
+            target: {
+              id: okxWallet().id,
+              name: okxWallet().name,
+              async provider() {
+                return getProvider();
+              },
+            },
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
-}
-
-function getProvider() {
-  if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isOkxWallet') ?? window.okexchain;
 }

@@ -6,41 +6,38 @@ import { getEvmInjectedProvider } from '../utils';
 export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
+  const getProvider = () => {
+    if (typeof window === 'undefined') return;
+    return getEvmInjectedProvider('isMathWallet');
+  };
+
   return {
     ...mathWalletConfig,
     id: 'mathWallet',
     walletType: 'evm',
     spinnerColor: undefined,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      return !!getProvider();
-    },
-    getDeepLink() {
-      // return `mathwallet://mathwallet.org?action=link&value=${window.location.href}`;
-      // return `mathwallet://wc?uri=${encodeURIComponent(uri)}`;
-      return undefined;
-    },
-    getUri(uri) {
-      return uri;
-    },
-    getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: {
-          id: mathWallet().id,
-          name: mathWallet().name,
-          async provider() {
-            return getProvider();
-          },
+    behaviors: [
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return !!getProvider();
         },
-        ...connectorOptions,
-      });
-    },
+        getCreateConnectorFn() {
+          return injected({
+            shimDisconnect: true,
+            target: {
+              id: mathWallet().id,
+              name: mathWallet().name,
+              async provider() {
+                return getProvider();
+              },
+            },
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
-}
-
-function getProvider() {
-  if (typeof window === 'undefined') return;
-  return getEvmInjectedProvider('isMathWallet');
 }

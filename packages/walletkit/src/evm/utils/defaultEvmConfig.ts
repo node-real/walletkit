@@ -13,6 +13,7 @@ import { setEvmGlobalData } from '../globalData';
 import { codexFieldWallet } from '../wallets/codexFieldWallet';
 import { ChainDisplayConfig } from '@/evm/chains/types';
 import { getChainDisplayConfigs } from '../chains';
+import { getEvmWalletPlatformBehavior } from './getEvmWalletPlatformBehavior';
 
 interface CustomizedEvmConfig
   extends Omit<CreateConfigParameters, 'chains' | 'connectors' | 'multiInjectedProviderDiscovery'> {
@@ -90,17 +91,20 @@ export function defaultEvmConfig(params: CustomizedEvmConfig) {
 }
 
 function getCreateConnectorFns(wallets: EvmWallet[]) {
-  const fns = wallets.map((w) => {
-    const fn = w.getCreateConnectorFn();
+  const fns = wallets
+    .map((w) => {
+      // If we disable a wallet but still let it show up in the list,
+      // we should clear the cache to prevent `autoConnect` from automatically connecting to the wallet.
+      if (w.isDisabled && typeof window !== 'undefined') {
+        localStorage.removeItem(`wagmi.${w.id}.shimDisconnect`);
+      }
 
-    // If we disable a wallet but still let it show up in the list,
-    // we should clear the cache to prevent `autoConnect` from automatically connecting to the wallet.
-    if (w.isDisabled && typeof window !== 'undefined') {
-      localStorage.removeItem(`wagmi.${w.id}.shimDisconnect`);
-    }
-
-    return fn;
-  });
+      const behavior = getEvmWalletPlatformBehavior(w);
+      if (behavior?.getCreateConnectorFn) {
+        return behavior.getCreateConnectorFn();
+      }
+    })
+    .filter((e) => !!e);
 
   createSingletonWalletConnect(wallets, fns);
 
@@ -115,6 +119,8 @@ function createSingletonWalletConnect(wallets: EvmWallet[], fns: CreateConnector
     return;
   }
 
-  const fn = walletConnect().getCreateConnectorFn();
-  fns.push(fn);
+  const fn = walletConnect().behaviors?.[0]?.getCreateConnectorFn?.();
+  if (fn) {
+    fns.push(fn);
+  }
 }

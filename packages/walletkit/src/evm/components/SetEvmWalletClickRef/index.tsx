@@ -7,13 +7,8 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { openLink } from '@/core/utils/common';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import {
-  binanceWallet,
-  codexFieldWallet,
-  EvmWallet,
-  isWalletConnect,
-  uxuyWallet,
-} from '@/evm/wallets';
+import { getEvmWalletPlatformBehavior } from '@/evm/utils/getEvmWalletPlatformBehavior';
+import { EvmWallet } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
 
@@ -38,12 +33,13 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
     const connector = connectors.find((item) => item.id === walletId)!;
+    const behavior = getEvmWalletPlatformBehavior(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[ClickWallet]', `ethereum:`, typeof window.ethereum);
-    log('[ClickWallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `installed:`, behavior?.isInstalled?.());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);
@@ -57,38 +53,19 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
     };
 
-    const jumpToQRCodeView = () => {
-      jumpTo(ViewRoutes.EVM_QRCODE);
-    };
-
-    const jumpToConnectingView = () => {
-      jumpTo(ViewRoutes.EVM_CONNECTING);
-    };
-
-    const jumpToDeepLink = () => {
-      const deepLink = wallet.getDeepLink();
-      if (deepLink) {
-        openLink(deepLink);
-      } else {
-        options.onError?.(
-          new Error(`The wallet does not support deeplink`),
-          `The wallet does not support deeplink`,
-        );
-      }
-    };
-
-    const jumpToUriConnectingView = () => {
-      jumpTo(ViewRoutes.EVM_URI_CONNECTING);
-    };
-
     disconnect();
     clearTimeout(timerRef.current);
 
-    const useSDK = [binanceWallet().id].includes(walletId);
-    const delay = useSDK ? 0 : 300;
-
     const handleJumping = () => {
-      if (useSDK) {
+      if (behavior?.connectType === 'walletConnect') {
+        if (isMobile()) {
+          wcModal.onOpen();
+        } else {
+          jumpTo(ViewRoutes.EVM_QRCODE);
+        }
+      }
+
+      if (behavior?.connectType === 'sdk') {
         setSelectedWallet(wallet);
         connect({
           connector,
@@ -99,45 +76,26 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
         return;
       }
 
-      // 1. TMA
-      if (isTMA()) {
-        if ([uxuyWallet().id, codexFieldWallet().id].includes(walletId)) {
-          jumpToConnectingView();
-          return;
-        }
+      if (behavior?.connectType === 'qrcode') {
+        jumpTo(ViewRoutes.EVM_QRCODE);
+      }
 
+      if (behavior?.connectType === 'uri') {
+        jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+      }
+
+      if (behavior?.connectType === 'default') {
         if (isMobile()) {
-          // 1.1 mobile
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
+          if (behavior.isInstalled?.()) {
+            jumpTo(ViewRoutes.EVM_CONNECTING);
           } else {
-            jumpToUriConnectingView();
+            const appLink = behavior.getAppLink?.();
+            if (appLink) {
+              openLink(appLink);
+            }
           }
         } else {
-          // 1.2 pc
-          jumpToQRCodeView();
-        }
-      } else if (isMobile()) {
-        // 2. mobile
-        if (wallet.isInstalled()) {
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
-          } else {
-            jumpToConnectingView();
-          }
-        } else {
-          jumpToDeepLink();
-        }
-      } else {
-        // 3. pc
-        if (wallet.showQRCode) {
-          jumpToQRCodeView();
-        } else {
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
-          } else {
-            jumpToConnectingView();
-          }
+          jumpTo(ViewRoutes.EVM_CONNECTING);
         }
       }
     };
@@ -145,6 +103,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     if (isTMA() && isMobile()) {
       handleJumping();
     } else {
+      const delay = behavior?.connectType === 'sdk' ? 0 : 300;
       timerRef.current = setTimeout(handleJumping, delay);
     }
   };

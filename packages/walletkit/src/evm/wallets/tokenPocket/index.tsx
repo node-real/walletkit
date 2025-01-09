@@ -6,44 +6,45 @@ import { getEvmInjectedProvider } from '../utils';
 export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
+  const getProvider = () => {
+    if (typeof window === 'undefined') return;
+    return (
+      getEvmInjectedProvider('isTokenPocket') ?? window.tokenpocket?.ethereum ?? window.tokenpocket
+    );
+  };
+
   return {
     ...tokenPocketConfig,
     id: 'tokenPocket',
     walletType: 'evm',
-    showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      return !!getProvider();
-    },
-    getDeepLink() {
-      const params = {
-        url: window.location.href,
-      };
-      return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
-    },
-    getUri(uri) {
-      return `tpoutside://wc?uri=${encodeURIComponent(uri)}`;
-    },
-    getCreateConnectorFn() {
-      return injected({
-        shimDisconnect: true,
-        target: {
-          id: tokenPocket().id,
-          name: tokenPocket().name,
-          async provider() {
-            return getProvider();
-          },
+    behaviors: [
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return !!getProvider();
         },
-        ...connectorOptions,
-      });
-    },
+        getAppLink() {
+          const params = {
+            url: window.location.href,
+          };
+          return `tpdapp://open?params=${encodeURIComponent(JSON.stringify(params))}`;
+        },
+        getCreateConnectorFn() {
+          return injected({
+            shimDisconnect: true,
+            target: {
+              id: tokenPocket().id,
+              name: tokenPocket().name,
+              async provider() {
+                return getProvider();
+              },
+            },
+            ...connectorOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
-}
-
-function getProvider() {
-  if (typeof window === 'undefined') return;
-  return (
-    getEvmInjectedProvider('isTokenPocket') ?? window.tokenpocket?.ethereum ?? window.tokenpocket
-  );
 }

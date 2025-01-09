@@ -15,18 +15,20 @@ export function tronLink(props: TronLinkOptions = {}): TronWallet {
     id: 'tron:tronLink',
     walletType: 'tron',
     adapterName: 'TronLink',
-    showQRCode: false,
-    platforms: ['browser-android', 'browser-ios', 'browser-pc'],
-    isInstalled() {
-      if (typeof window === 'undefined') return false;
-
-      return hasTronInjectedProvider('isTronLink');
-    },
-    getAdapter() {
-      return new TronLinkAdapter({
-        ...adapterOptions,
-      });
-    },
+    behaviors: [
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return hasTronInjectedProvider('isTronLink');
+        },
+        getAdapter() {
+          return new TronLinkAdapter({
+            ...adapterOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
 }

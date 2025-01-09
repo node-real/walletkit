@@ -104,7 +104,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   return (
     <ThemeContext.Provider value={value}>
-      <style>{styleContent}</style>
+      <style suppressHydrationWarning>{styleContent}</style>
       {children}
     </ThemeContext.Provider>
   );
