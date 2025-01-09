@@ -1,5 +1,16 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.0
+
+### Minor Changes
+
+- b6cbb8d: Use behavior configuration to control different connection behaviors on different
+  platform
+
+### Patch Changes
+
+- 1a56e68: Only use binance sdk on pc
+
 ## 2.7.4
 
 ### Patch Changes
