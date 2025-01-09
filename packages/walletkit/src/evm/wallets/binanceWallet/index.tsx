@@ -38,10 +38,6 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
               if (node instanceof HTMLAnchorElement && node.href?.startsWith('bnc://')) {
                 node.href = `https://app.binance.com/en/download?_dp=${window.btoa(node.href)}`;
                 node.target = '_blank';
-
-                const div = document.createElement('div');
-                div.textContent = node.href;
-                document.body.appendChild(div);
               }
               return originalAppendChild.call(document.body, node, ...params) as any;
             };
