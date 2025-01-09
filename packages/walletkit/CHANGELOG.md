@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.1
+
+### Patch Changes
+
+- 46b4809: Remove debug code
+
 ## 2.8.0-alpha.0
 
 ### Minor Changes
