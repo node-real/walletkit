@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.3
+
+### Patch Changes
+
+- 70cf43d: Update demo
+
 ## 2.8.0-alpha.2
 
 ### Patch Changes
