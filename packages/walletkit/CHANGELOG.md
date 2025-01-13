@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.2
+
+### Patch Changes
+
+- 9a7e0b8: Remove unused packages
+
 ## 2.8.0-alpha.1
 
 ### Patch Changes
