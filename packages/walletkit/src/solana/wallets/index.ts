@@ -5,3 +5,6 @@ export * from './types';
 export * from './trustWallet';
 export * from './phantomWallet';
 // export * from './walletConnect';
+
+// utils
+export * from './utils';
