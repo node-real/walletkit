@@ -8,12 +8,7 @@ import {
   walletConnect,
   defaultEvmConfig,
   binanceWallet,
-  bitgetWallet,
   codexFieldWallet,
-  coinbaseWallet,
-  mathWallet,
-  okxWallet,
-  tokenPocket,
   uxuyWallet,
 } from '@node-real/walletkit/evm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -39,19 +34,11 @@ const config: WalletKitConfig = {
     walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
     wallets: [
       binanceWallet(),
+      metaMask(),
       trustWallet(),
-      walletConnect(),
       uxuyWallet(),
       codexFieldWallet(),
-      metaMask(),
-
-      bitgetWallet(),
-      coinbaseWallet(),
-
-      tokenPocket(),
-      okxWallet(),
-
-      mathWallet(),
+      walletConnect(),
     ],
     chains: [mainnet],
   }),

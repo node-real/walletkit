@@ -30,6 +30,9 @@ export function uxuyWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
       {
         platforms: ['tg-android', 'tg-ios', 'tg-pc'],
         connectType: 'default',
+        isInstalled() {
+          return true;
+        },
         getCreateConnectorFn() {
           return injected({
             shimDisconnect: true,
