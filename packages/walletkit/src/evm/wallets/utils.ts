@@ -1,4 +1,14 @@
-export function getEvmInjectedProvider(flag: string): any {
+export type EvmFlagType =
+  | 'isBinance'
+  | 'isBitEthereum'
+  | 'isCoinbaseWallet'
+  | 'isMathWallet'
+  | 'isMetaMask'
+  | 'isOkxWallet'
+  | 'isTokenPocket'
+  | 'isTrust';
+
+export function getEvmInjectedProvider(flag: EvmFlagType): any {
   if (typeof window === 'undefined' || typeof window.ethereum === 'undefined') return;
   const providers = window.ethereum.providers;
 
@@ -9,6 +19,6 @@ export function getEvmInjectedProvider(flag: string): any {
       : undefined;
 }
 
-export function hasEvmInjectedProvider(flag: string): boolean {
+export function hasEvmInjectedProvider(flag: EvmFlagType): boolean {
   return Boolean(getEvmInjectedProvider(flag));
 }

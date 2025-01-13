@@ -14,3 +14,6 @@ export * from './bitgetWallet';
 export * from './safe';
 export * from './codexFieldWallet';
 export * from './uxuyWallet';
+
+// utils
+export * from './utils';
