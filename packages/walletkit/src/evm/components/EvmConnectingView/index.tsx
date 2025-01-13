@@ -6,14 +6,15 @@ import { useWalletConnector } from '@/evm/hooks/useWalletConnector';
 import { useCallback } from 'react';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 import { useAccount } from 'wagmi';
-import { getEvmWalletPlatformBehavior } from '@/evm/utils/getEvmWalletPlatformBehavior';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
+import { EvmWalletBehavior } from '@/evm/wallets';
 
 export function EvmConnectingView() {
   const { selectedWallet } = useWalletKit();
   const isConnected = useIsConnected();
   const selectedConnector = useWalletConnector(selectedWallet.id);
 
-  const behavior = getEvmWalletPlatformBehavior(selectedWallet);
+  const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(selectedWallet);
   const { connect, status, setStatus } = useConnectingStatus();
   const { address } = useAccount();
 

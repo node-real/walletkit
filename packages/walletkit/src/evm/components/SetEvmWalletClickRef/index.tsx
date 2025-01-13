@@ -4,11 +4,10 @@ import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { openLink } from '@/core/utils/common';
+import { getWalletBehaviorOnPlatform, openLink } from '@/core/utils/common';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { getEvmWalletPlatformBehavior } from '@/evm/utils/getEvmWalletPlatformBehavior';
-import { EvmWallet } from '@/evm/wallets';
+import { EvmWallet, EvmWalletBehavior } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
 
@@ -33,7 +32,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
     const connector = connectors.find((item) => item.id === walletId)!;
-    const behavior = getEvmWalletPlatformBehavior(wallet);
+    const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;

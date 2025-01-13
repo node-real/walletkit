@@ -1,6 +1,6 @@
 import { isIOS, isMobile } from '@/core/base/utils/mobile';
-import { binanceWallet, EvmWallet, trustWallet } from '../wallets';
-import { getEvmWalletPlatformBehavior } from './getEvmWalletPlatformBehavior';
+import { binanceWallet, EvmWallet, EvmWalletBehavior, trustWallet } from '../wallets';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 export function evmCommonErrorHandler(props: {
   log: any;
@@ -10,8 +10,8 @@ export function evmCommonErrorHandler(props: {
 }) {
   const { log, handler, error } = props;
 
-  const trustBehavior = getEvmWalletPlatformBehavior(trustWallet());
-  const binanceBehavior = getEvmWalletPlatformBehavior(binanceWallet());
+  const trustBehavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(trustWallet());
+  const binanceBehavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(binanceWallet());
 
   let text = '';
 

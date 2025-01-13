@@ -1,11 +1,11 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
-import { getSolanaWalletPlatformBehavior } from '@/solana/utils/getSolanaWalletPlatformBehavior';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
-import { SolanaWallet } from '@/solana/wallets';
+import { SolanaWallet, SolanaWalletBehavior } from '@/solana/wallets';
 import { useWallet, WalletProviderProps } from '@solana/wallet-adapter-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -15,7 +15,7 @@ export function SolanaConnectingView() {
   const { log, selectedWallet, options } = useWalletKit();
 
   const behavior = useMemo(() => {
-    return getSolanaWalletPlatformBehavior(selectedWallet as SolanaWallet);
+    return getWalletBehaviorOnPlatform<SolanaWalletBehavior>(selectedWallet);
   }, [selectedWallet]);
 
   const [status, setStatus] = useState(

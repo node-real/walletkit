@@ -1,5 +1,5 @@
 import { isAndroid, isIOS, isPC, isTMA } from '../base/utils/mobile';
-import { PlatformType } from '../configs/types';
+import { BaseBehavior, BaseWallet, PlatformType } from '../configs/types';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
@@ -59,4 +59,12 @@ export function getPlatform(): PlatformType {
     }
   }
   return 'browser-pc';
+}
+
+export function getWalletBehaviorOnPlatform<T extends BaseBehavior = BaseBehavior>(
+  wallet: BaseWallet,
+) {
+  const platform = getPlatform();
+  const behavior = wallet.behaviors.find((e) => e.platforms.includes(platform));
+  return behavior as T | undefined;
 }

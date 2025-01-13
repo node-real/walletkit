@@ -3,10 +3,9 @@ import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { openLink } from '@/core/utils/common';
+import { getWalletBehaviorOnPlatform, openLink } from '@/core/utils/common';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
-import { getSolanaWalletPlatformBehavior } from '@/solana/utils/getSolanaWalletPlatformBehavior';
-import { SolanaWallet } from '@/solana/wallets';
+import { SolanaWallet, SolanaWalletBehavior } from '@/solana/wallets';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useRef } from 'react';
 
@@ -28,7 +27,7 @@ export function SetSolanaWalletClickRef(props: SetSolanaWalletClickRefProps) {
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = solanaConfig!.wallets.find((item) => item.id === walletId)! as SolanaWallet;
-    const behavior = getSolanaWalletPlatformBehavior(wallet);
+    const behavior = getWalletBehaviorOnPlatform<SolanaWalletBehavior>(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
