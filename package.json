@@ -10,6 +10,7 @@
     "prepare": "husky install",
     "lint": "pnpm eslint .",
     "dev": "pnpm --F @node-real/* dev",
+    "watch": "pnpm --F @node-real/* watch",
     "build": "pnpm --F @node-real/* build",
     "build:docs": "pnpm build && pnpm --F website build",
     "ci:enter": "pnpm changeset pre enter alpha || true",

@@ -1,5 +1,5 @@
 // import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { SolanaWallet } from '@/solana/wallets';
+import { Adapter, SolanaWallet } from '@/solana/wallets';
 import { setSolanaGlobalData } from '../globalData';
 import { getSolanaWalletPlatformBehavior } from './getSolanaWalletPlatformBehavior';
 
@@ -11,9 +11,12 @@ interface CustomizedSolanaConfig {
   wallets: SolanaWallet[];
 }
 
-export type SolanaConfig = ReturnType<typeof defaultSolanaConfig>;
+export interface SolanaConfig extends CustomizedSolanaConfig {
+  autoConnect: boolean;
+  adapters: Adapter[];
+}
 
-export function defaultSolanaConfig(params: CustomizedSolanaConfig) {
+export function defaultSolanaConfig(params: CustomizedSolanaConfig): SolanaConfig {
   const {
     autoConnect = false,
     // metadata = { name: 'WalletKit' },

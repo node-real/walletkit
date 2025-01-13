@@ -43,7 +43,8 @@
   },
   "scripts": {
     "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
-    "build": "vite build"
+    "build": "vite build",
+    "watch": "vite build --watch --emptyOutDir=false"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5",
@@ -53,8 +54,6 @@
     "wagmi": "^2"
   },
   "dependencies": {
-    "@binance/w3w-ethereum-provider": "1.1.8-alpha.0",
-    "@binance/w3w-utils": "^1.1.6",
     "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
@@ -67,8 +66,7 @@
     "buffer": "^6.0.3",
     "codexfield-wallet-connector": "^0.1.44",
     "qrcode": "^1",
-    "tronweb": "~6.0.0",
-    "vite-plugin-css-injected-by-js": "^3.5.2"
+    "tronweb": "~6.0.0"
   },
   "devDependencies": {
     "@tanstack/react-query": "catalog:",
