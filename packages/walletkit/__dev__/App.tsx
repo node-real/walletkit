@@ -28,6 +28,7 @@ import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
 import { codexFieldWallet } from '@/evm/wallets/codexFieldWallet';
 import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
 import { useCallback } from 'react';
+import { useConnectEvmWallet } from '@/evm/hooks/useConnectEvmWallet';
 
 new VConsole();
 
@@ -97,12 +98,21 @@ function ConnectButton() {
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
   const { switchChain } = useEvmSwitchChain();
 
-  const connectBinanceWallet = useBinanceWallet();
+  const { connectWalletAsync } = useConnectEvmWallet();
 
   return (
     <>
       <div>
-        <button onClick={() => connectBinanceWallet()}>connect binance wallet</button>
+        <button
+          onClick={async () => {
+            await connectWalletAsync({
+              walletId: 'binanceWeb3Wallet',
+              chainId: 56,
+            });
+          }}
+        >
+          connect binance wallet
+        </button>
         <button
           onClick={() =>
             onOpen({
