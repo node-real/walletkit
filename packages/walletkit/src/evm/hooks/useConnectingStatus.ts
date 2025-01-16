@@ -5,7 +5,8 @@ import { useEvmConnect } from './useEvmConnect';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { Config } from 'wagmi';
 import { ConnectData } from 'wagmi/query';
-import { getEvmWalletPlatformBehavior } from '../utils/getEvmWalletPlatformBehavior';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
+import { EvmWalletBehavior } from '../wallets';
 
 interface UseConnectingStatusProps {
   initialStatus?: CONNECT_STATUS;
@@ -16,7 +17,7 @@ export function useConnectingStatus(props: UseConnectingStatusProps = {}) {
 
   const { selectedWallet, evmConfig, options, action } = useWalletKit();
 
-  const behavior = getEvmWalletPlatformBehavior(selectedWallet);
+  const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(selectedWallet);
 
   const defaultStatus = behavior?.isInstalled?.()
     ? CONNECT_STATUS.CONNECTING

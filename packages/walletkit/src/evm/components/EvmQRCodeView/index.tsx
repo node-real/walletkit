@@ -3,11 +3,11 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { isWalletConnect, metaMask } from '@/evm/wallets';
+import { EvmWalletBehavior, isWalletConnect, metaMask } from '@/evm/wallets';
 import { useMetaMaskUri } from '@/evm/hooks/userMetaMaskUri';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
-import { getEvmWalletPlatformBehavior } from '@/evm/utils/getEvmWalletPlatformBehavior';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 export function EvmQRCodeView() {
   const { selectedWallet } = useWalletKit();
@@ -24,7 +24,7 @@ export function EvmQRCodeView() {
       return metaMaskUri;
     }
 
-    const behavior = getEvmWalletPlatformBehavior(selectedWallet);
+    const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(selectedWallet);
     return wcUri ? behavior?.getUri?.(wcUri) : wcUri;
   }, [metaMaskUri, selectedWallet, wcUri]);
 

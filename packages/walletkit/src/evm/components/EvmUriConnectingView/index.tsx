@@ -2,14 +2,13 @@ import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
-import { metaMask } from '@/evm/wallets';
-import { openLink } from '@/core/utils/common';
+import { EvmWalletBehavior, metaMask } from '@/evm/wallets';
+import { getWalletBehaviorOnPlatform, openLink } from '@/core/utils/common';
 import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 import { useMetaMaskUri } from '@/evm/hooks/userMetaMaskUri';
 import { useEffect, useMemo, useRef } from 'react';
 import { useAccount } from 'wagmi';
-import { getEvmWalletPlatformBehavior } from '@/evm/utils/getEvmWalletPlatformBehavior';
 
 export function EvmUriConnectingView() {
   const { selectedWallet } = useWalletKit();
@@ -30,7 +29,7 @@ export function EvmUriConnectingView() {
   });
 
   const qrCodeUri = useMemo(() => {
-    const behavior = getEvmWalletPlatformBehavior(selectedWallet);
+    const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(selectedWallet);
 
     return selectedWallet.id === metaMask().id
       ? metaMaskUri

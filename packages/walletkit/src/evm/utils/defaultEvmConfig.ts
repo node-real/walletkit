@@ -4,6 +4,7 @@ import {
   binanceWallet,
   coinbaseWallet,
   EvmWallet,
+  EvmWalletBehavior,
   isWalletConnect,
   metaMask,
   walletConnect,
@@ -13,7 +14,7 @@ import { setEvmGlobalData } from '../globalData';
 import { codexFieldWallet } from '../wallets/codexFieldWallet';
 import { ChainDisplayConfig } from '@/evm/chains/types';
 import { getChainDisplayConfigs } from '../chains';
-import { getEvmWalletPlatformBehavior } from './getEvmWalletPlatformBehavior';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 interface CustomizedEvmConfig
   extends Omit<CreateConfigParameters, 'chains' | 'connectors' | 'multiInjectedProviderDiscovery'> {
@@ -99,7 +100,7 @@ function getCreateConnectorFns(wallets: EvmWallet[]) {
         localStorage.removeItem(`wagmi.${w.id}.shimDisconnect`);
       }
 
-      const behavior = getEvmWalletPlatformBehavior(w);
+      const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(w);
       if (behavior?.getCreateConnectorFn) {
         return behavior.getCreateConnectorFn();
       }

@@ -1,7 +1,7 @@
 // import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { Adapter, SolanaWallet } from '@/solana/wallets';
+import { Adapter, SolanaWallet, SolanaWalletBehavior } from '@/solana/wallets';
 import { setSolanaGlobalData } from '../globalData';
-import { getSolanaWalletPlatformBehavior } from './getSolanaWalletPlatformBehavior';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 interface CustomizedSolanaConfig {
   autoConnect?: boolean;
@@ -34,7 +34,7 @@ export function defaultSolanaConfig(params: CustomizedSolanaConfig): SolanaConfi
 
   const adapters = wallets
     .map((w) => {
-      const behavior = getSolanaWalletPlatformBehavior(w);
+      const behavior = getWalletBehaviorOnPlatform<SolanaWalletBehavior>(w);
       return behavior?.getAdapter?.();
     })
     .filter((e) => !!e);
