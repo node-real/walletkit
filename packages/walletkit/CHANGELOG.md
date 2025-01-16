@@ -1,5 +1,17 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.5
+
+### Patch Changes
+
+- b5db8f6: Remove metaMask support on tg
+
+## 2.8.0-alpha.4
+
+### Patch Changes
+
+- 9ee1fa9: Export a method to check whether a provider exists
+
 ## 2.8.0-alpha.3
 
 ### Patch Changes

@@ -162,3 +162,28 @@ function ConnectButton() {
     </>
   );
 }
+
+export function useBinanceWallet() {
+  const connectors = useConnectors();
+  const { connect } = useConnect();
+  const { disconnectAsync, reset } = useDisconnect();
+
+  return useCallback(async () => {
+    const connector = connectors?.find((connector) => connector.id === binanceWallet().id);
+    if (connector) {
+      reset();
+      await disconnectAsync();
+
+      setTimeout(() => {
+        try {
+          connect({
+            connector,
+            chainId: 56,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }, 1000);
+    }
+  }, [connect, connectors, disconnectAsync, reset]);
+}
