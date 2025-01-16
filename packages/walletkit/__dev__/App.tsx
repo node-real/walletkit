@@ -21,12 +21,13 @@ import {
 } from '@/solana/index';
 import { bsc, mainnet, dfk } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useConnect, useConnectors, useDisconnect } from 'wagmi';
 import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
 import { uxuyWallet } from '@/evm/wallets/uxuyWallet';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
 import { codexFieldWallet } from '@/evm/wallets/codexFieldWallet';
 import { SwitchNetworkModal } from '@/core/modals/SwitchNetworkModal';
+import { useCallback } from 'react';
 
 new VConsole();
 
@@ -96,9 +97,12 @@ function ConnectButton() {
   const { address: tronAddress, disconnect: tronDisconnect } = useTronWallet();
   const { switchChain } = useEvmSwitchChain();
 
+  const connectBinanceWallet = useBinanceWallet();
+
   return (
     <>
       <div>
+        <button onClick={() => connectBinanceWallet()}>connect binance wallet</button>
         <button
           onClick={() =>
             onOpen({
@@ -147,4 +151,29 @@ function ConnectButton() {
       </div>
     </>
   );
+}
+
+export function useBinanceWallet() {
+  const connectors = useConnectors();
+  const { connect } = useConnect();
+  const { disconnectAsync, reset } = useDisconnect();
+
+  return useCallback(async () => {
+    const connector = connectors?.find((connector) => connector.id === binanceWallet().id);
+    if (connector) {
+      reset();
+      await disconnectAsync();
+
+      setTimeout(() => {
+        try {
+          connect({
+            connector,
+            chainId: 56,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }, 1000);
+    }
+  }, [connect, connectors, disconnectAsync, reset]);
 }

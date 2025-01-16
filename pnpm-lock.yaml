@@ -143,7 +143,7 @@ importers:
   packages/walletkit:
     dependencies:
       '@binance/w3w-wagmi-connector-v2':
-        specifier: ^1.2.3
+        specifier: ^1.2.5
         version: 1.2.5(bufferutil@4.0.8)(encoding@0.1.13)(ts-node@10.9.2(@types/node@22.7.5)(typescript@5.7.2))(utf-8-validate@5.0.10)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10))(wagmi@2.14.3(@react-native-async-storage/async-storage@1.24.0(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(utf-8-validate@5.0.10)))(@tanstack/query-core@5.62.8)(@tanstack/react-query@5.62.8(react@18.3.1))(@types/react@18.3.17)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.2)(utf-8-validate@5.0.10)(viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)))
       '@metamask/jazzicon':
         specifier: ^2

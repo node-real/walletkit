@@ -102,8 +102,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
     if (isTMA() && isMobile()) {
       handleJumping();
     } else {
-      const delay = behavior?.connectType === 'sdk' ? 0 : 300;
-      timerRef.current = setTimeout(handleJumping, delay);
+      timerRef.current = setTimeout(handleJumping, 600);
     }
   };
 

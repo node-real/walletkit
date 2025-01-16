@@ -27,16 +27,16 @@ export function metaMask(props: MetaMaskOptions = {}): EvmWallet {
     id: 'metaMask',
     walletType: 'evm',
     behaviors: [
-      {
-        platforms: ['tg-android', 'tg-ios'],
-        connectType: 'uri',
-        getCreateConnectorFn,
-      },
-      {
-        platforms: ['tg-pc'],
-        connectType: 'qrcode',
-        getCreateConnectorFn,
-      },
+      // {
+      //   platforms: ['tg-android', 'tg-ios'],
+      //   connectType: 'uri',
+      //   getCreateConnectorFn,
+      // },
+      // {
+      //   platforms: ['tg-pc'],
+      //   connectType: 'qrcode',
+      //   getCreateConnectorFn,
+      // },
       {
         platforms: ['browser-android', 'browser-ios', 'browser-pc'],
         connectType: 'default',
