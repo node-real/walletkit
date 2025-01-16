@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.7
+
+### Patch Changes
+
+- e59d946: Fix styles
+
 ## 2.8.0-alpha.6
 
 ### Patch Changes
