@@ -1,4 +1,4 @@
-import { useWalletKit } from '@/core/index';
+import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { sleep } from '@/core/utils/common';
 import { useEvmConnect, UseEvmConnectProps } from '@/evm/hooks/useEvmConnect';
 import { useCallback } from 'react';
