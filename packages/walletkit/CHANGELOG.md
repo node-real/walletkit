@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.6
+
+### Patch Changes
+
+- 1035289: Support connecting to a specified wallet based on its wallet id
+
 ## 2.8.0-alpha.5
 
 ### Patch Changes
