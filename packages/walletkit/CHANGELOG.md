@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.8
+
+### Patch Changes
+
+- d394ba4: Update trust deeplink on ios
+
 ## 2.8.0-alpha.7
 
 ### Patch Changes
