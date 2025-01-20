@@ -3,16 +3,23 @@ import { trustWalletConfig } from '@/core/configs/trustWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { getEvmInjectedProvider } from '../utils';
-import { isAndroid, isTMA } from '@/core/base/utils/mobile';
+import { isAndroid, isIOS, isTMA } from '@/core/base/utils/mobile';
 
 export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;
 
   const getUri = (uri: string) => {
     let encodedUri = encodeURIComponent(uri);
-    if (isTMA() && isAndroid()) {
-      encodedUri = encodeURIComponent(encodedUri);
+
+    if (isTMA()) {
+      if (isAndroid()) {
+        encodedUri = encodeURIComponent(encodedUri);
+      }
+      if (isIOS()) {
+        return `trust://wc?uri=${encodedUri}`;
+      }
     }
+
     return `https://link.trustwallet.com/wc?uri=${encodedUri}`;
   };
 
@@ -50,7 +57,6 @@ export function trustWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
           const encodedUrl = encodeURIComponent(window.location.href);
           return `https://link.trustwallet.com/open_url?coin_id=60&url=${encodedUrl}`;
         },
-
         getCreateConnectorFn() {
           let isReady = false;
           return injected({

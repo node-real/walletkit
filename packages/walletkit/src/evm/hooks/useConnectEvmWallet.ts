@@ -44,7 +44,7 @@ export function useConnectEvmWallet(props?: UseEvmConnectProps) {
   );
 
   const connectWallet = useCallback(
-    async (params: ConnectParams) => {
+    (params: ConnectParams) => {
       const {
         walletId,
         chainId = evmConfig?.initialChainId,
