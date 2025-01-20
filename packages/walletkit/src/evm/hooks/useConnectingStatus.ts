@@ -48,6 +48,7 @@ export function useConnectingStatus(props: UseConnectingStatusProps = {}) {
           if (error.message) {
             switch (error.message) {
               case 'User rejected request':
+              case 'User disapproved requested methods':
                 setStatus(CONNECT_STATUS.REJECTED);
                 break;
               default:

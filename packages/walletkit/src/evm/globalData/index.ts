@@ -3,6 +3,7 @@ import { Metadata } from '@/core/providers/WalletKitProvider/context';
 interface EvmGlobalData {
   metadata?: Metadata;
   walletConnectProjectId?: string;
+  globalWcUri?: string;
 }
 
 let evmGlobalData: EvmGlobalData = {};

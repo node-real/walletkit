@@ -1,12 +1,15 @@
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { toast } from '@/core/base/components/toast';
+import { isMobile } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { getWalletBehaviorOnPlatform, openLink } from '@/core/utils/common';
+import { getEvmGlobalData } from '@/evm/globalData';
 import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
+import { openEvmUri } from '@/evm/utils/openEvmUri';
 import { EvmWallet, EvmWalletBehavior } from '@/evm/wallets';
 import { useRef } from 'react';
 import { useConnectors, useDisconnect } from 'wagmi';
@@ -80,7 +83,14 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
 
       if (behavior?.connectType === 'uri') {
-        jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+        if (getEvmGlobalData().globalWcUri) {
+          openEvmUri(wallet);
+          jumpTo(ViewRoutes.EVM_URI_CONNECTING);
+        } else {
+          toast.info({
+            description: 'Please try again in a few seconds',
+          });
+        }
       }
 
       if (behavior?.connectType === 'default') {
@@ -99,7 +109,7 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
     };
 
-    if (isTMA() && isMobile()) {
+    if (isMobile()) {
       handleJumping();
     } else {
       timerRef.current = setTimeout(handleJumping, 600);
