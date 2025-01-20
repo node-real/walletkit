@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.9
+
+### Patch Changes
+
+- b0f1292: Trigger uri connection by user
+
 ## 2.8.0-alpha.8
 
 ### Patch Changes
