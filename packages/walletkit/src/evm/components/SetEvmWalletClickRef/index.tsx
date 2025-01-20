@@ -109,7 +109,8 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
     };
 
-    if (isMobile()) {
+    // The jumping behavior on ios must be triggered by user
+    if (behavior?.connectType === 'uri') {
       handleJumping();
     } else {
       timerRef.current = setTimeout(handleJumping, 600);
