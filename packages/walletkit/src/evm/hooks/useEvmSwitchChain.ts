@@ -6,7 +6,7 @@ import { evmCommonErrorHandler } from '../utils/evmCommonErrorHandler';
 export type UseEvmSwitchChainProps = Parameters<typeof useSwitchChain>[0];
 
 export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
-  const { options, log } = useWalletKit();
+  const { options, log, selectedWallet } = useWalletKit();
 
   const result = useSwitchChain({
     ...props,
@@ -17,6 +17,7 @@ export function useEvmSwitchChain(props?: UseEvmSwitchChainProps) {
           log,
           handler: options.onError,
           error,
+          wallet: selectedWallet,
         });
         props?.mutation?.onError?.(error, ...params);
       },

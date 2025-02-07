@@ -1,6 +1,6 @@
 {
   "name": "@node-real/walletkit",
-  "version": "2.7.4",
+  "version": "2.8.0-alpha.10",
   "author": "node-real",
   "private": false,
   "description": "WalletKit is a React component library for easily connecting a wallet to your dApp.",
@@ -43,7 +43,8 @@
   },
   "scripts": {
     "dev": "vite __dev__ --config vite.config.ts --port 3332 --host 0.0.0.0 --open",
-    "build": "vite build"
+    "build": "vite build",
+    "watch": "vite build --watch --emptyOutDir=false"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5",
@@ -53,6 +54,7 @@
     "wagmi": "^2"
   },
   "dependencies": {
+    "@binance/w3w-wagmi-connector-v2": "^1.2.5",
     "@metamask/jazzicon": "^2",
     "@solana/wallet-adapter-react": "^0",
     "@solana/wallet-adapter-wallets": "^0",
@@ -60,6 +62,9 @@
     "@tronweb3/tronwallet-abstract-adapter": "^1",
     "@tronweb3/tronwallet-adapter-react-hooks": "^1",
     "@tronweb3/tronwallet-adapter-tronlink": "^1.1.11",
+    "@uxuycom/web3-tg-sdk": "^0.1.5",
+    "buffer": "^6.0.3",
+    "codexfield-wallet-connector": "^0.1.44",
     "qrcode": "^1",
     "tronweb": "~6.0.0"
   },

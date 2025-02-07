@@ -1,5 +1,6 @@
 // utils
 export * from './utils/defaultSolanaConfig';
+export * from './utils/getSolanaInjectedProvider';
 
 // wallets
 export * from './wallets';

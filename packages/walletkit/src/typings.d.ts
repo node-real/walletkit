@@ -18,3 +18,5 @@ type DeepPartial<T> = T extends object
   : T;
 
 type SVGIconProps = React.SVGProps<SVGSVGElement>;
+
+type ValueOf<T> = T[keyof T];

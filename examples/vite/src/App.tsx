@@ -1,19 +1,21 @@
+import '@node-real/walletkit/styles.css';
 import {
   ConnectModal,
-  useConnectModal,
   WalletKitConfig,
   WalletKitProvider,
+  ConnectButton,
+  SwitchNetworkModal,
+  ProfileModal,
 } from '@node-real/walletkit';
 import {
   defaultEvmConfig,
-  metaMask,
   trustWallet,
-  binanceWallet,
+  metaMask,
   walletConnect,
+  binanceWallet,
 } from '@node-real/walletkit/evm';
-import { mainnet } from 'viem/chains';
+import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useDisconnect } from 'wagmi';
 
 const queryClient = new QueryClient();
 
@@ -24,9 +26,13 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
+
     wallets: [binanceWallet(), metaMask(), trustWallet(), walletConnect()],
-    chains: [mainnet] as any,
+    chains: [mainnet, bsc],
   }),
 };
 
@@ -36,25 +42,9 @@ export default function App() {
       <WalletKitProvider config={config} debugMode={true} mode="auto">
         <ConnectButton />
         <ConnectModal />
+        <SwitchNetworkModal />
+        <ProfileModal />
       </WalletKitProvider>
     </QueryClientProvider>
   );
-}
-
-function ConnectButton() {
-  const { onOpen } = useConnectModal();
-
-  const { address } = useAccount();
-  const { disconnect } = useDisconnect();
-
-  if (address) {
-    return (
-      <>
-        <div>address:{address}</div>
-        <button onClick={() => disconnect()}>disconnect</button>
-      </>
-    );
-  }
-
-  return <button onClick={() => onOpen()}>connect</button>;
 }

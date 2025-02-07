@@ -1,39 +1,48 @@
-import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { SolanaWallet } from '@/solana/wallets';
+// import { Metadata } from '@/core/providers/WalletKitProvider/context';
+import { Adapter, SolanaWallet, SolanaWalletBehavior } from '@/solana/wallets';
 import { setSolanaGlobalData } from '../globalData';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 interface CustomizedSolanaConfig {
   autoConnect?: boolean;
-  metadata?: Metadata;
-  walletConnectProjectId?: string;
+  // metadata?: Metadata;
+  // walletConnectProjectId?: string;
   rpcUrl: string;
   wallets: SolanaWallet[];
 }
 
-export type SolanaConfig = ReturnType<typeof defaultSolanaConfig>;
+export interface SolanaConfig extends CustomizedSolanaConfig {
+  autoConnect: boolean;
+  adapters: Adapter[];
+}
 
-export function defaultSolanaConfig(params: CustomizedSolanaConfig) {
+export function defaultSolanaConfig(params: CustomizedSolanaConfig): SolanaConfig {
   const {
     autoConnect = false,
-    metadata = { name: 'WalletKit' },
-    walletConnectProjectId,
+    // metadata = { name: 'WalletKit' },
+    // walletConnectProjectId,
     rpcUrl,
     wallets,
   } = params;
 
   setSolanaGlobalData({
-    metadata,
-    walletConnectProjectId,
-    walletConnectModalIsOpen: false,
+    // metadata,
+    // walletConnectProjectId,
+    // walletConnectModalIsOpen: false,
     rpcUrl,
   });
 
-  const adapters = wallets.map((w) => w.getAdapter()) as any;
+  const adapters = wallets
+    .map((w) => {
+      const behavior = getWalletBehaviorOnPlatform<SolanaWalletBehavior>(w);
+      return behavior?.getAdapter?.();
+    })
+    .filter((e) => !!e);
 
   return {
     autoConnect,
-    metadata,
-    walletConnectProjectId,
+    // metadata,
+    // walletConnectProjectId,
     adapters,
     rpcUrl,
     wallets,

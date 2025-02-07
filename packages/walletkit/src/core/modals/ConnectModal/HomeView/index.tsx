@@ -6,19 +6,28 @@ import { GridLayout } from './GridLayout';
 import { ListLayout } from './ListLayout';
 import { clsDisclaimer } from './styles.css';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { EvmHomeViewWalletConnectUriProvider } from '@/evm/components/EvmHomeViewWalletConnectUriProvider';
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { useMemo } from 'react';
+import { getPlatform } from '@/core/utils/common';
 
 export function HomeView() {
   const { wallets, options } = useWalletKit();
   const { isMobileLayout } = useResponsive();
 
-  const visibleWallets = wallets.filter((item) => item.isVisible !== false);
+  const visibleWallets = useMemo(() => {
+    const platform = getPlatform();
+    const visibleWallets = wallets.filter((wallet) => {
+      const isVisible =
+        wallet.isVisible !== false &&
+        !!wallet.behaviors.find((e) => e.platforms.includes(platform));
+      return isVisible;
+    });
+
+    return visibleWallets;
+  }, [wallets]);
+
   const useGridLayout =
     visibleWallets.length >= options.gridLayoutThreshold! ||
     (isMobileLayout && options.useGridLayoutOnMobile);
-
-  const needPreCreateWcUri = isTMA() && isMobile();
 
   return (
     <>
@@ -33,8 +42,6 @@ export function HomeView() {
       ) : (
         <ListLayout visibleWallets={visibleWallets} />
       )}
-
-      {needPreCreateWcUri && <EvmHomeViewWalletConnectUriProvider />}
     </>
   );
 }

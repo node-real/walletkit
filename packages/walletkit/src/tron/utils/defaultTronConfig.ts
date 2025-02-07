@@ -1,6 +1,7 @@
 // import { Metadata } from '@/core/providers/WalletKitProvider/context';
-import { TronWallet } from '@/tron/wallets';
+import { TronWallet, TronWalletBehavior } from '@/tron/wallets';
 import { setTronGlobalData } from '../globalData';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 
 interface CustomizedTronConfig {
   autoConnect?: boolean;
@@ -30,7 +31,12 @@ export function defaultTronConfig(params: CustomizedTronConfig) {
     // rpcUrl,
   });
 
-  const adapters = wallets.map((w) => w.getAdapter()) as any;
+  const adapters = wallets
+    .map((w) => {
+      const behavior = getWalletBehaviorOnPlatform<TronWalletBehavior>(w);
+      return behavior?.getAdapter?.();
+    })
+    .filter((e) => !!e);
 
   return {
     autoConnect,

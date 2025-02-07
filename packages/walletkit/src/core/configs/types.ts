@@ -2,6 +2,24 @@ import { ColorMode } from '@/core/providers/ThemeProvider/context';
 
 export type WalletType = 'evm' | 'solana' | 'tron';
 
+export type PlatformType =
+  | 'tg-android'
+  | 'tg-ios'
+  | 'tg-pc'
+  | 'browser-android'
+  | 'browser-ios'
+  | 'browser-pc';
+
+export type ConnectType = 'default' | 'sdk' | 'uri' | 'qrcode' | 'walletConnect';
+
+export interface BaseBehavior {
+  platforms: PlatformType[];
+  connectType: ConnectType;
+  isInstalled?: () => boolean | undefined;
+  getAppLink?: () => string | undefined;
+  getUri?: (uri: string) => string | undefined;
+}
+
 export interface WalletConfig {
   name: string;
   logos: {
@@ -14,14 +32,13 @@ export interface WalletConfig {
   spinnerColor?: string;
 }
 
-export interface BaseWallet extends WalletConfig {
+export interface BaseWallet<T extends BaseBehavior = BaseBehavior> extends WalletConfig {
   id: string;
   walletType: WalletType;
   isDisabled?: boolean;
   isVisible?: boolean;
   render?: (props: WalletRenderProps) => React.ReactNode;
-  showQRCode?: boolean;
-  isInstalled: () => boolean | undefined;
+  behaviors: T[];
 }
 
 export interface WalletRenderProps {

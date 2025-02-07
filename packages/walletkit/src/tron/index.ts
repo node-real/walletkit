@@ -1,5 +1,6 @@
 // utils
 export * from './utils/defaultTronConfig';
+export * from './utils/getTronInjectedProvider';
 
 // wallets
 export * from './wallets';

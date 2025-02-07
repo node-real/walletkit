@@ -1,4 +1,5 @@
-import { isTMA } from '../base/utils/mobile';
+import { isAndroid, isIOS, isPC, isTMA } from '../base/utils/mobile';
+import { BaseBehavior, BaseWallet, PlatformType } from '../configs/types';
 
 export function mergeList(list1: any[] = [], list2: any[] = []) {
   const result: any[] = [...list1];
@@ -33,4 +34,37 @@ export async function openLink(uri?: string, target = '_self') {
 
   const finalTarget = isTMA() ? '_blank' : target;
   window.open(uri, finalTarget, 'noopener noreferrer');
+}
+
+export function getPlatform(): PlatformType {
+  if (isTMA()) {
+    if (isPC()) {
+      return 'tg-pc';
+    }
+    if (isAndroid()) {
+      return 'tg-android';
+    }
+    if (isIOS()) {
+      return 'tg-ios';
+    }
+  } else {
+    if (isPC()) {
+      return 'browser-pc';
+    }
+    if (isAndroid()) {
+      return 'browser-android';
+    }
+    if (isIOS()) {
+      return 'browser-ios';
+    }
+  }
+  return 'browser-pc';
+}
+
+export function getWalletBehaviorOnPlatform<T extends BaseBehavior = BaseBehavior>(
+  wallet: BaseWallet,
+) {
+  const platform = getPlatform();
+  const behavior = wallet.behaviors.find((e) => e.platforms.includes(platform));
+  return behavior as T | undefined;
 }

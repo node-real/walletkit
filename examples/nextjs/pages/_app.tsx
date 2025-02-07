@@ -1,17 +1,24 @@
 import '@node-real/walletkit/styles.css';
 import '@/styles/globals.css';
-import { mainnet } from 'wagmi/chains';
+import { bsc, mainnet } from 'wagmi/chains';
 
-import { trustWallet, metaMask, walletConnect, defaultEvmConfig } from '@node-real/walletkit/evm';
+import {
+  trustWallet,
+  metaMask,
+  walletConnect,
+  defaultEvmConfig,
+  binanceWallet,
+} from '@node-real/walletkit/evm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   WalletKitProvider,
   ConnectModal,
-  useConnectModal,
   WalletKitConfig,
+  SwitchNetworkModal,
+  ProfileModal,
+  ConnectButton,
 } from '@node-real/walletkit';
 import { AppProps } from 'next/app';
-import { useAccount, useDisconnect } from 'wagmi';
 
 const queryClient = new QueryClient();
 
@@ -22,9 +29,13 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
-    walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
-    wallets: [metaMask(), trustWallet(), walletConnect()],
-    chains: [mainnet] as any,
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
+
+    wallets: [binanceWallet(), metaMask(), trustWallet(), walletConnect()],
+    chains: [mainnet, bsc],
   }),
 };
 
@@ -35,25 +46,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <ConnectButton />
         <ConnectModal />
+        <SwitchNetworkModal />
+        <ProfileModal />
       </WalletKitProvider>
     </QueryClientProvider>
   );
-}
-
-function ConnectButton() {
-  const { onOpen } = useConnectModal();
-
-  const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
-
-  if (isConnected) {
-    return (
-      <>
-        <div>address:{address}</div>
-        <button onClick={() => disconnect()}>disconnect</button>
-      </>
-    );
-  }
-
-  return <button onClick={() => onOpen()}>connect</button>;
 }

@@ -3,9 +3,9 @@ import { useDisconnect, useAccount } from 'wagmi';
 import {
   SwitchNetworkModal,
   EmbeddedConnectModal,
-  useConnectModal,
   ConnectModal,
   useSwitchNetworkModal,
+  ConnectButton,
 } from '@node-real/walletkit';
 import { useSolanaWallet } from '@node-real/walletkit/solana';
 import { useTronWallet } from '@node-real/walletkit/tron';
@@ -13,18 +13,11 @@ import { Playground } from './Playground';
 
 export function BaseExample() {
   const Content = () => {
-    const { onOpen } = useConnectModal();
     const { isConnected } = useAppAccount();
 
     return (
       <Box borderRadius={8} border="1px solid readable.border" p={16}>
-        {isConnected ? (
-          <ConnectedInfo />
-        ) : (
-          <Button size="sm" onClick={() => onOpen()}>
-            open connect modal
-          </Button>
-        )}
+        {isConnected ? <ConnectedInfo /> : <ConnectButton />}
         <ConnectModal />
       </Box>
     );

@@ -1,5 +1,80 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.10
+
+### Minor Changes
+
+- 47dd579: Refactor & add ConnectButton & ProfileModal
+
+### Patch Changes
+
+- cc36a2d: Update website
+
+## 2.8.0-alpha.9
+
+### Patch Changes
+
+- b0f1292: Trigger uri connection by user
+
+## 2.8.0-alpha.8
+
+### Patch Changes
+
+- d394ba4: Update trust deeplink on ios
+
+## 2.8.0-alpha.7
+
+### Patch Changes
+
+- e59d946: Fix styles
+
+## 2.8.0-alpha.6
+
+### Patch Changes
+
+- 1035289: Support connecting to a specified wallet based on its wallet id
+
+## 2.8.0-alpha.5
+
+### Patch Changes
+
+- b5db8f6: Remove metaMask support on tg
+
+## 2.8.0-alpha.4
+
+### Patch Changes
+
+- 9ee1fa9: Export a method to check whether a provider exists
+
+## 2.8.0-alpha.3
+
+### Patch Changes
+
+- 70cf43d: Update demo
+
+## 2.8.0-alpha.2
+
+### Patch Changes
+
+- 9a7e0b8: Remove unused packages
+
+## 2.8.0-alpha.1
+
+### Patch Changes
+
+- 46b4809: Remove debug code
+
+## 2.8.0-alpha.0
+
+### Minor Changes
+
+- b6cbb8d: Use behavior configuration to control different connection behaviors on different
+  platform
+
+### Patch Changes
+
+- 1a56e68: Only use binance sdk on pc
+
 ## 2.7.4
 
 ### Patch Changes

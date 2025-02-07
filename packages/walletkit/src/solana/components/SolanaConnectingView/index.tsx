@@ -1,20 +1,25 @@
 import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { useSolanaConnect } from '@/solana/hooks/useSolanaConnect';
 import { solanaCommonErrorHandler } from '@/solana/utils/solanaCommonErrorHandler';
-import { SolanaWallet } from '@/solana/wallets';
+import { SolanaWallet, SolanaWalletBehavior } from '@/solana/wallets';
 import { useWallet, WalletProviderProps } from '@solana/wallet-adapter-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type WalletError = Parameters<Required<WalletProviderProps>['onError']>[0];
 
 export function SolanaConnectingView() {
   const { log, selectedWallet, options } = useWalletKit();
 
+  const behavior = useMemo(() => {
+    return getWalletBehaviorOnPlatform<SolanaWalletBehavior>(selectedWallet);
+  }, [selectedWallet]);
+
   const [status, setStatus] = useState(
-    selectedWallet.isInstalled() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
+    behavior?.isInstalled?.() ? CONNECT_STATUS.CONNECTING : CONNECT_STATUS.UNAVAILABLE,
   );
 
   const { isConnected, connect } = useSolanaConnect();
@@ -50,13 +55,13 @@ export function SolanaConnectingView() {
   }, [options.onError, log]);
 
   const runConnect = useCallback(async () => {
-    if (!selectedWallet.isInstalled()) return;
+    if (!behavior?.isInstalled?.()) return;
     setStatus(CONNECT_STATUS.CONNECTING);
 
     connect({
       adapterName: (selectedWallet as SolanaWallet).adapterName,
     });
-  }, [connect, selectedWallet]);
+  }, [behavior, connect, selectedWallet]);
 
   return (
     <TemplateConnectingView

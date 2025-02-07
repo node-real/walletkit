@@ -1,12 +1,13 @@
 import { CreateConnectorFn } from 'wagmi';
 import { InjectedParameters } from './injected';
-import { BaseWallet } from '@/core/configs/types';
+import { BaseBehavior, BaseWallet } from '@/core/configs/types';
 
-export interface EvmWallet extends BaseWallet {
-  getCreateConnectorFn: () => CreateConnectorFn;
-  getDeepLink: () => string | undefined;
-  getUri: (uri: string) => string | undefined;
+export interface EvmWalletBehavior extends BaseBehavior {
+  getCreateConnectorFn?: () => CreateConnectorFn;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface EvmWallet extends BaseWallet<EvmWalletBehavior> {}
 
 export interface InjectedEvmWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: InjectedParameters;

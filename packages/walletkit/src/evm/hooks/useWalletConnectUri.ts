@@ -24,6 +24,7 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
     if (isConnected || !connector || !enabled) return;
 
     const onUpdateWcUri = ({ type, data }: any) => {
+      log('[useWalletConnectUri] display_uri', data);
       if (type === 'display_uri') {
         setWcUri(data);
       }
@@ -31,14 +32,19 @@ export function useWalletConnectUri(props: UseWalletConnectUriProps = {}) {
 
     const connectWallet = async () => {
       try {
-        log('[WcUri]', 'connecting');
         const provider: any = await connector?.getProvider();
 
         provider.rpc.showQrModal = false;
 
         await connectAsync({ connector });
       } catch (error: any) {
-        if (error?.code === 4001 && refreshUriOnError) {
+        log('[useWalletConnectUri] error', error?.code, error);
+        if (
+          (error?.code === 4001 ||
+            error?.message?.includes('User disapproved requested methods')) &&
+          refreshUriOnError
+        ) {
+          log('[useWalletConnectUri] refresh');
           connectWallet(); // refresh qr code
         }
       }

@@ -1,7 +1,7 @@
 import { TronLinkAdapter, TronLinkAdapterConfig } from '@tronweb3/tronwallet-adapter-tronlink';
 import { TronWallet } from '../types';
 import { tronLinkConfig } from '@/core/configs/tronLink';
-import { hasTronInjectedProvider } from '../utils';
+import { hasTronInjectedProvider } from '../../utils/getTronInjectedProvider';
 
 interface TronLinkOptions extends Partial<TronWallet> {
   adapterOptions?: Partial<TronLinkAdapterConfig>;
@@ -15,17 +15,20 @@ export function tronLink(props: TronLinkOptions = {}): TronWallet {
     id: 'tron:tronLink',
     walletType: 'tron',
     adapterName: 'TronLink',
-    showQRCode: false,
-    isInstalled() {
-      if (typeof window === 'undefined') return false;
-
-      return hasTronInjectedProvider('isTronLink');
-    },
-    getAdapter() {
-      return new TronLinkAdapter({
-        ...adapterOptions,
-      });
-    },
+    behaviors: [
+      {
+        platforms: ['browser-android', 'browser-ios', 'browser-pc'],
+        connectType: 'default',
+        isInstalled() {
+          return hasTronInjectedProvider('isTronLink');
+        },
+        getAdapter() {
+          return new TronLinkAdapter({
+            ...adapterOptions,
+          });
+        },
+      },
+    ],
     ...restProps,
   };
 }

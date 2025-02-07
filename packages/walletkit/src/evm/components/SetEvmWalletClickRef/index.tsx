@@ -1,15 +1,18 @@
-import { isMobile, isTMA } from '@/core/base/utils/mobile';
+import { toast } from '@/core/base/components/toast';
+import { isMobile } from '@/core/base/utils/mobile';
 import { UseWalletRenderProps } from '@/core/hooks/useWalletRender';
 import { useConnectModal } from '@/core/modals/ConnectModal/context';
 import { ViewRoutes } from '@/core/providers/RouteProvider';
 import { useRouter } from '@/core/providers/RouteProvider/context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
-import { openLink } from '@/core/utils/common';
+import { getWalletBehaviorOnPlatform, openLink } from '@/core/utils/common';
 import { getEvmGlobalData } from '@/evm/globalData';
+import { useEvmConnect } from '@/evm/hooks/useEvmConnect';
 import { useWalletConnectModal } from '@/evm/hooks/useWalletConnectModal';
-import { EvmWallet, isWalletConnect } from '@/evm/wallets';
+import { openEvmUri } from '@/evm/utils/openEvmUri';
+import { EvmWallet, EvmWalletBehavior } from '@/evm/wallets';
 import { useRef } from 'react';
-import { useDisconnect } from 'wagmi';
+import { useConnectors, useDisconnect } from 'wagmi';
 
 interface SetEvmWalletClickRefProps {
   clickRef: UseWalletRenderProps['clickRef'];
@@ -24,17 +27,21 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
 
   const connectModal = useConnectModal();
   const router = useRouter();
+  const { connect } = useEvmConnect();
+  const connectors = useConnectors();
 
   const timerRef = useRef<any>();
 
   clickRef.current = (walletId: string, e: React.MouseEvent<Element, MouseEvent>) => {
     const wallet = evmConfig!.wallets.find((item) => item.id === walletId)! as EvmWallet;
+    const connector = connectors.find((item) => item.id === walletId)!;
+    const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(wallet);
 
     const pass = options.onClickWallet?.(wallet, e);
     if (pass === false) return;
 
     log('[ClickWallet]', `ethereum:`, typeof window.ethereum);
-    log('[ClickWallet]', `installed:`, wallet.isInstalled());
+    log('[ClickWallet]', `installed:`, behavior?.isInstalled?.());
 
     const jumpTo = (viewRoute: ViewRoutes) => {
       setSelectedWallet(wallet);
@@ -48,91 +55,66 @@ export function SetEvmWalletClickRef(props: SetEvmWalletClickRefProps) {
       }
     };
 
-    const jumpToQRCodeView = () => {
-      const qrCodeUri = wallet.getUri('xxx');
-      if (qrCodeUri) {
+    disconnect();
+    clearTimeout(timerRef.current);
+
+    const handleJumping = () => {
+      if (behavior?.connectType === 'walletConnect') {
+        if (isMobile()) {
+          wcModal.onOpen();
+        } else {
+          jumpTo(ViewRoutes.EVM_QRCODE);
+        }
+      }
+
+      if (behavior?.connectType === 'sdk') {
+        setSelectedWallet(wallet);
+        connect({
+          connector,
+        });
+        setTimeout(() => {
+          connectModal.onClose();
+        }, 500);
+        return;
+      }
+
+      if (behavior?.connectType === 'qrcode') {
         jumpTo(ViewRoutes.EVM_QRCODE);
-      } else {
-        options.onError?.(
-          new Error(`The wallet does not support QR code`),
-          `The wallet does not support QR code`,
-        );
       }
-    };
 
-    const jumpToConnectingView = () => {
-      jumpTo(ViewRoutes.EVM_CONNECTING);
-    };
-
-    const jumpToDeepLink = () => {
-      const deepLink = wallet.getDeepLink();
-      if (deepLink) {
-        openLink(deepLink);
-      } else {
-        options.onError?.(
-          new Error(`The wallet does not support deeplink`),
-          `The wallet does not support deeplink`,
-        );
-      }
-    };
-
-    const jumpToUriConnectingView = () => {
-      const wcUri = getEvmGlobalData().homeViewWalletConnectUri;
-      if (wcUri) {
-        const connectUri = wallet.getUri(wcUri);
-        if (connectUri) {
-          openLink(connectUri);
+      if (behavior?.connectType === 'uri') {
+        if (getEvmGlobalData().globalWcUri) {
+          openEvmUri(wallet);
           jumpTo(ViewRoutes.EVM_URI_CONNECTING);
         } else {
-          options.onError?.(
-            new Error(`The wallet does not support URI connection`),
-            `The wallet does not support URI connection`,
-          );
+          toast.info({
+            description: 'Please try again in a few seconds',
+          });
+        }
+      }
+
+      if (behavior?.connectType === 'default') {
+        if (isMobile()) {
+          if (behavior.isInstalled?.()) {
+            jumpTo(ViewRoutes.EVM_CONNECTING);
+          } else {
+            const appLink = behavior.getAppLink?.();
+            if (appLink) {
+              openLink(appLink);
+            }
+          }
+        } else {
+          jumpTo(ViewRoutes.EVM_CONNECTING);
         }
       }
     };
 
-    disconnect();
-
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      if (isTMA()) {
-        // 1. TMA
-        if (isMobile()) {
-          // 1.1 mobile
-          if (isWalletConnect(walletId)) {
-            wcModal.onOpen();
-          } else {
-            jumpToUriConnectingView();
-          }
-        } else {
-          // 1.2 pc
-          jumpToQRCodeView();
-        }
-      } else if (isMobile()) {
-        // 2. mobile
-        if (isWalletConnect(walletId)) {
-          wcModal.onOpen();
-        } else if (wallet.isInstalled()) {
-          jumpToConnectingView();
-        } else {
-          jumpToDeepLink();
-        }
-      } else {
-        // 3. pc
-        if (isWalletConnect(walletId)) {
-          if (wallet.showQRCode) {
-            jumpToQRCodeView();
-          } else {
-            wcModal.onOpen();
-          }
-        } else if (wallet.showQRCode) {
-          jumpToQRCodeView();
-        } else {
-          jumpToConnectingView();
-        }
-      }
-    }, 300);
+    // The jumping behavior on ios must be triggered by user
+    if (behavior?.connectType === 'uri') {
+      handleJumping();
+    } else {
+      timerRef.current = setTimeout(handleJumping, 600);
+    }
   };
 
   return null;

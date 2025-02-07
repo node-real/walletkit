@@ -1,4 +1,3 @@
-import { useAccount, useChains } from 'wagmi';
 import { useSwitchNetworkModal } from './context';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
@@ -21,14 +20,13 @@ import { ModalFooter } from '@/core/base/components/Modal/ModalFooter';
 import { DisconnectButton } from '@/core/components/DisconnectButton';
 import { ChainDisplayConfig } from '@/evm/chains/types';
 import { UnknownChainIcon } from '@/evm/chains/icons/UnknownChainIcon';
+import { useEvmChain } from '@/evm/hooks/useEvmChain';
 
 export function SwitchNetworkModal() {
   const { isClosable, isOpen, onClose } = useSwitchNetworkModal();
   const { log, options, evmConfig } = useWalletKit();
 
-  const { chain } = useAccount();
-  const chains = useChains();
-  const isSupported = chains?.find((e) => e.id === chain?.id);
+  const { isSupported, chain, chains } = useEvmChain();
 
   const { isPending, switchChain, variables } = useEvmSwitchChain({
     mutation: {
@@ -39,8 +37,6 @@ export function SwitchNetworkModal() {
       },
     },
   });
-
-  console.log(variables);
 
   const onSwitchNetwork = (chainId: number) => {
     log('[switch network page]', 'switchNetwork:', switchChain, ', isLoading:', isPending);

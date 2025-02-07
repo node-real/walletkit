@@ -5,6 +5,8 @@ import { useEvmConnect } from './useEvmConnect';
 import { EventEmitter } from '@/core/utils/eventEmitter';
 import { Config } from 'wagmi';
 import { ConnectData } from 'wagmi/query';
+import { getWalletBehaviorOnPlatform } from '@/core/utils/common';
+import { EvmWalletBehavior } from '../wallets';
 
 interface UseConnectingStatusProps {
   initialStatus?: CONNECT_STATUS;
@@ -15,7 +17,9 @@ export function useConnectingStatus(props: UseConnectingStatusProps = {}) {
 
   const { selectedWallet, evmConfig, options, action } = useWalletKit();
 
-  const defaultStatus = selectedWallet.isInstalled()
+  const behavior = getWalletBehaviorOnPlatform<EvmWalletBehavior>(selectedWallet);
+
+  const defaultStatus = behavior?.isInstalled?.()
     ? CONNECT_STATUS.CONNECTING
     : CONNECT_STATUS.UNAVAILABLE;
 
@@ -44,6 +48,7 @@ export function useConnectingStatus(props: UseConnectingStatusProps = {}) {
           if (error.message) {
             switch (error.message) {
               case 'User rejected request':
+              case 'User disapproved requested methods':
                 setStatus(CONNECT_STATUS.REJECTED);
                 break;
               default:

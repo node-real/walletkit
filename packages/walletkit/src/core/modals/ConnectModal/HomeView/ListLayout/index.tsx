@@ -7,6 +7,8 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { clsWallets, clsNoWalletLink } from './styles.css';
 import { WalletOption } from './WalletOption';
 import { BaseWallet } from '@/core/configs/types';
+import { isTMA } from '@/core/base/utils/mobile';
+import { Reload } from '../Reload';
 
 export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
   const { visibleWallets } = props;
@@ -18,15 +20,21 @@ export function ListLayout(props: { visibleWallets: BaseWallet[] }) {
         {visibleWallets?.map((w, index) => <WalletOption key={index} wallet={w} />)}
       </ModalBody>
 
-      {!options.hideNoWalletCTA && (
+      {isTMA() ? (
         <ModalFooter>
-          <Link
-            className={cx('wk-nowallet-link', clsNoWalletLink)}
-            href={options.walletDownloadUrl}
-          >
-            <WalletIcon />I don’t have a wallet
-          </Link>
+          <Reload />
         </ModalFooter>
+      ) : (
+        !options.hideNoWalletCTA && (
+          <ModalFooter>
+            <Link
+              className={cx('wk-nowallet-link', clsNoWalletLink)}
+              href={options.walletDownloadUrl}
+            >
+              <WalletIcon />I don’t have a wallet
+            </Link>
+          </ModalFooter>
+        )
       )}
     </>
   );

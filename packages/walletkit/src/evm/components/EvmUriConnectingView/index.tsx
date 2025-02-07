@@ -2,11 +2,9 @@ import { CONNECT_STATUS } from '@/core/constants';
 import { TemplateConnectingView } from '@/core/modals/ConnectModal/TemplateConnectingView';
 import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useIsConnected } from '@/evm/hooks/useIsConnected';
-import { EvmWallet } from '@/evm/wallets';
-import { openLink } from '@/core/utils/common';
-import { useWalletConnectUri } from '@/evm/hooks/useWalletConnectUri';
 import { useConnectingStatus } from '@/evm/hooks/useConnectingStatus';
 import { useAccount } from 'wagmi';
+import { openEvmUri } from '@/evm/utils/openEvmUri';
 
 export function EvmUriConnectingView() {
   const { selectedWallet } = useWalletKit();
@@ -17,16 +15,9 @@ export function EvmUriConnectingView() {
     initialStatus: CONNECT_STATUS.CONNECTING,
   });
 
-  const { wcUri } = useWalletConnectUri({
-    enabled: status !== CONNECT_STATUS.CONNECTING,
-    refreshUriOnError: false,
-  });
-
-  const onTryAgain = () => {
+  const onConnect = () => {
     setStatus(CONNECT_STATUS.CONNECTING);
-
-    const walletUri = (selectedWallet as EvmWallet).getUri(wcUri!);
-    openLink(walletUri);
+    openEvmUri(selectedWallet);
   };
 
   return (
@@ -34,7 +25,7 @@ export function EvmUriConnectingView() {
       isConnected={isConnected}
       status={status}
       runConnect={() => undefined}
-      onTryAgain={onTryAgain}
+      onTryAgain={onConnect}
       wallet={selectedWallet}
       address={address}
     />
