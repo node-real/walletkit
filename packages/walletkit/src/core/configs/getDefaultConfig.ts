@@ -25,7 +25,7 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
       closeModalAfterConnected: true,
       closeModalOnEsc: true,
       closeModalOnOverlayClick: true,
-      openModalOnWrongNetwork: false,
+      openModalOnWrongNetwork: true,
 
       onError(_err: any, description: string) {
         if (description) {

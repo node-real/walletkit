@@ -104,7 +104,12 @@ const config: WalletKitConfig = {
 ### 4. Add related components
 
 ```tsx live=false
-import { WalletKitProvider, ConnectModal, SwitchNetworkModal } from '@node-real/walletkit';
+import {
+  WalletKitProvider,
+  ConnectModal,
+  SwitchNetworkModal,
+  ConnectButton,
+} from '@node-real/walletkit';
 
 const queryClient = new QueryClient();
 
@@ -135,6 +140,7 @@ import {
   ConnectModal,
   useConnectModal,
   WalletKitConfig,
+  ConnectButton,
 } from '@node-real/walletkit';
 import { AppProps } from 'next/app';
 
@@ -171,10 +177,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </WalletKitProvider>
     </QueryClientProvider>
   );
-}
-
-function ConnectButton() {
-  // ...
 }
 ```
 
@@ -563,27 +565,36 @@ interface CustomizedTronConfig {
 }
 ```
 
-### 3. WalletProps
+### 3. Wallet
 
 ```tsx live=false
-export interface WalletProps {
-  id: string;
+export interface BaseBehavior {
+  platforms: PlatformType[];
+  connectType: ConnectType;
+  isInstalled?: () => boolean | undefined;
+  getAppLink?: () => string | undefined;
+  getUri?: (uri: string) => string | undefined;
+}
+
+export interface WalletConfig {
   name: string;
   logos: {
-    default: ReactElement | { [x in ColorMode]: ReactElement };
-    transparent?: ReactElement | { [x in ColorMode]: ReactElement };
+    default: React.ReactElement | { [x in ColorMode]: React.ReactElement };
+    transparent?: React.ReactElement | { [x in ColorMode]: React.ReactElement };
   };
   downloadUrls: {
     default: string | undefined;
   };
   spinnerColor?: string;
-  showQRCode?: boolean;
-  isInstalled: () => boolean | undefined;
+}
+
+export interface BaseWallet<T extends BaseBehavior = BaseBehavior> extends WalletConfig {
+  id: string;
+  walletType: WalletType;
   isDisabled?: boolean;
-  getCreateConnectorFn: () => CreateConnectorFn;
-  getDeepLink: () => string | undefined;
-  getQRCodeUri?: (uri: string) => string;
-  render?: (props: WalletRenderProps) => ReactNode;
+  isVisible?: boolean;
+  render?: (props: WalletRenderProps) => React.ReactNode;
+  behaviors: T[];
 }
 
 export interface WalletRenderProps {
@@ -592,9 +603,33 @@ export interface WalletRenderProps {
   wallet: {
     id: string;
     name: string;
-    logo: ReactElement;
+    logo: React.ReactElement;
     isDisabled?: boolean;
+    isVisible?: boolean;
+    walletType: WalletType;
   };
   onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
+}
+
+// evm wallet
+export interface EvmWalletBehavior extends BaseBehavior {
+  getCreateConnectorFn?: () => CreateConnectorFn;
+}
+export interface EvmWallet extends BaseWallet<EvmWalletBehavior> {}
+
+// solana wallet
+export interface SolanaWalletBehavior extends BaseBehavior {
+  getAdapter?: () => Adapter;
+}
+export interface SolanaWallet extends BaseWallet<SolanaWalletBehavior> {
+  adapterName: string;
+}
+
+// tron wallet
+export interface TronWalletBehavior extends BaseBehavior {
+  getAdapter?: () => Adapter;
+}
+export interface TronWallet extends BaseWallet<TronWalletBehavior> {
+  adapterName: string;
 }
 ```

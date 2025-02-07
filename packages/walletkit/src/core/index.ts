@@ -1,6 +1,7 @@
 // utils
 export * from '@/core/base/utils/mobile';
 export * from '@/core/base/utils/css';
+export * from '@/core/base/utils/common';
 
 // providers
 export type { BaseWallet, WalletType } from '@/core/configs/types';
