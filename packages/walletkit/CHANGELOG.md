@@ -1,5 +1,15 @@
 # @node-real/walletkit
 
+## 2.8.0-alpha.10
+
+### Minor Changes
+
+- 47dd579: Refactor & add ConnectButton & ProfileModal
+
+### Patch Changes
+
+- cc36a2d: Update website
+
 ## 2.8.0-alpha.9
 
 ### Patch Changes
