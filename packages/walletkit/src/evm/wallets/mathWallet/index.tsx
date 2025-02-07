@@ -1,7 +1,7 @@
 import { mathWalletConfig } from '@/core/configs/mathWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 
 export function mathWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;

@@ -1,5 +1,5 @@
 import { metaMaskConfig } from '@/core/configs/metaMask';
-import { hasEvmInjectedProvider } from '../utils';
+import { hasEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 import { EvmWallet } from '../types';
 import { MetaMaskParameters, metaMask as metaMaskSDk } from 'wagmi/connectors';
 import { openLink } from '@/core/utils/common';

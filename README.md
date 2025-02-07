@@ -30,61 +30,62 @@ npm i @node-real/walletkit@^2 wagmi@^2 viem@^2 @tanstack/react-query@^5
 ```tsx
 import '@node-real/walletkit/styles.css';
 
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import { binanceWallet, trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
-  defaultWagmiConfig,
-  SwitchNetworkModal,
-  WalletKitButton,
-  WalletKitOptions,
-  WalletKitProvider,
-  ProfileModal,
   ConnectModal,
+  WalletKitConfig,
+  WalletKitProvider,
+  ConnectButton,
+  SwitchNetworkModal,
+  ProfileModal,
 } from '@node-real/walletkit';
 import { WagmiProvider } from 'wagmi';
 import { AppProps } from 'next/app';
-import { chains } from './chains';
+import { bsc, mainnet } from 'wagmi/chains';
 
 const queryClient = new QueryClient();
 
-const config = defaultWagmiConfig({
-  appName: '[Your app name]', // Your app name
-  chains,
-  connectors: [trustWallet(), metaMask(), walletConnect()],
+const config: WalletKitConfig = {
+  options: {
+    closeModalOnEsc: false,
+  },
+  evmConfig: defaultEvmConfig({
+    autoConnect: true,
+    initialChainId: 1,
 
-  // WalletConnect 2.0 requires a projectId which you can create quickly
-  // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
-  walletConnectProjectId: 'xxx',
-});
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
+    walletConnectProjectId: 'xxx',
 
-const options: WalletKitOptions = {
-  initialChainId: 1,
+    wallets: [binanceWallet(), metaMask(), trustWallet(), walletConnect()],
+    chains: [mainnet, bsc],
+  }),
 };
+
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config} reconnectOnMount={true}>
-      <QueryClientProvider client={queryClient}>
-        <WalletKitProvider options={options} mode="light">
-          <Component {...pageProps} />
+    <QueryClientProvider client={queryClient}>
+      <WalletKitProvider config={config} debugMode={true} mode="auto">
+        <Component {...pageProps} />
 
-          <WalletKitButton />
-          <ConnectModal />
+        <ConnectButton />
+        <ConnectModal />
 
-          {/* 
-            Profile modal shows some basic information about the current account,
-            if you don't need this modal, you can remove it.
-          */}
-          <ProfileModal />
+        {/* 
+          Profile modal shows some basic information about the current account,
+          if you don't need this modal, you can remove it.
+        */}
+        <ProfileModal />
 
-          {/* 👇 Here's the SwitchNetworkModal
-            If the user switches to a network that is not supported by our dApp,
-            this modal will be displayed to remind the user to switch to our supported networks.
-          */}
-          <SwitchNetworkModal />
-        </WalletKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+        {/* 👇 Here's the SwitchNetworkModal
+          If the user switches to a network that is not supported by our dApp,
+          this modal will be displayed to remind the user to switch to our supported networks.
+        */}
+        <SwitchNetworkModal />
+      </WalletKitProvider>
+    </QueryClientProvider>
   );
 }
 ```
@@ -92,6 +93,7 @@ export default function App({ Component, pageProps }: AppProps) {
 ## Contributing
 
 Please follow our [WalletKit Contribution Guide](./CONTRIBUTING.md).
+
 
 ## License
 

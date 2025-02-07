@@ -1,5 +1,5 @@
 import { PhantomWalletAdapter, PhantomWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
-import { hasSolanaInjectedProvider } from '../utils';
+import { hasSolanaInjectedProvider } from '../../utils/getSolanaInjectedProvider';
 import { SolanaWallet } from '../types';
 import { phantomWalletConfig } from '@/core/configs/phantomWallet';
 

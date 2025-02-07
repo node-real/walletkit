@@ -1,7 +1,7 @@
 import { TronLinkAdapter, TronLinkAdapterConfig } from '@tronweb3/tronwallet-adapter-tronlink';
 import { TronWallet } from '../types';
 import { tronLinkConfig } from '@/core/configs/tronLink';
-import { hasTronInjectedProvider } from '../utils';
+import { hasTronInjectedProvider } from '../../utils/getTronInjectedProvider';
 
 interface TronLinkOptions extends Partial<TronWallet> {
   adapterOptions?: Partial<TronLinkAdapterConfig>;

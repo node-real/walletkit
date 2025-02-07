@@ -1,7 +1,7 @@
 import { TrustWalletAdapter, TrustWalletAdapterConfig } from '@solana/wallet-adapter-wallets';
 import { SolanaWallet } from '../types';
 import { trustWalletConfig } from '@/core/configs/trustWallet';
-import { hasSolanaInjectedProvider } from '../utils';
+import { hasSolanaInjectedProvider } from '../../utils/getSolanaInjectedProvider';
 
 interface TrustWalletOptions extends Partial<SolanaWallet> {
   adapterOptions?: Partial<TrustWalletAdapterConfig>;

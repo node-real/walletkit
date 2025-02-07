@@ -1,7 +1,7 @@
 import { okxWalletConfig } from '@/core/configs/okxWallet';
 import { injected } from '../injected';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 
 export function okxWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;

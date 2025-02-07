@@ -1,9 +1,11 @@
 import '@node-real/walletkit/styles.css';
 import {
   ConnectModal,
-  useConnectModal,
   WalletKitConfig,
   WalletKitProvider,
+  ConnectButton,
+  SwitchNetworkModal,
+  ProfileModal,
 } from '@node-real/walletkit';
 import {
   defaultEvmConfig,
@@ -11,13 +13,9 @@ import {
   metaMask,
   walletConnect,
   binanceWallet,
-  uxuyWallet,
-  codexFieldWallet,
 } from '@node-real/walletkit/evm';
-import { mainnet } from 'viem/chains';
+import { bsc, mainnet } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
-import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -28,16 +26,13 @@ const config: WalletKitConfig = {
   evmConfig: defaultEvmConfig({
     autoConnect: true,
     initialChainId: 1,
+
+    // WalletConnect 2.0 requires a projectId which you can create quickly
+    // and easily for free over at WalletConnect Cloud https://cloud.walletconnect.com/sign-in
     walletConnectProjectId: '518ee55b46bc23b5b496b03b1322aa13',
-    wallets: [
-      binanceWallet(),
-      metaMask(),
-      trustWallet(),
-      uxuyWallet(),
-      codexFieldWallet(),
-      walletConnect(),
-    ],
-    chains: [mainnet],
+
+    wallets: [binanceWallet(), metaMask(), trustWallet(), walletConnect()],
+    chains: [mainnet, bsc],
   }),
 };
 
@@ -47,41 +42,9 @@ export default function App() {
       <WalletKitProvider config={config} debugMode={true} mode="auto">
         <ConnectButton />
         <ConnectModal />
+        <SwitchNetworkModal />
+        <ProfileModal />
       </WalletKitProvider>
     </QueryClientProvider>
   );
-}
-
-function ConnectButton() {
-  const { onOpen } = useConnectModal();
-  const [signResult, setSignResult] = useState('');
-
-  const { address } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { signMessageAsync } = useSignMessage();
-
-  if (address) {
-    return (
-      <>
-        <div>
-          <button onClick={() => disconnect()}>disconnect</button>
-          <div>address:{address}</div>
-        </div>
-        <div>
-          <button
-            onClick={async () => {
-              const res = await signMessageAsync({ message: 'hello world' });
-              setSignResult(res);
-            }}
-          >
-            sign
-          </button>
-
-          <div>signed message:{signResult}</div>
-        </div>
-      </>
-    );
-  }
-
-  return <button onClick={() => onOpen()}>connect</button>;
 }

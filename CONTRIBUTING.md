@@ -27,7 +27,7 @@ pnpm install
 pnpm dev
 ```
 
-In default, this will run a [test example](./packages/walletkit/test) under walletkit package, you can use this example for development and debugging. Any changes in `packages/walletkit` will trigger a refresh.
+In default, this will run a [test example](./packages/walletkit/__dev__) under walletkit package, you can use this example for development and debugging. Any changes in `packages/walletkit` will trigger a refresh.
 
 ## Coding standards
 
@@ -241,4 +241,7 @@ A complete development workflow like following:
    branch
 5. Then [github action](https://github.com/node-real/walletkit/actions) will automatically execute
    and create a new [release PR](https://github.com/node-real/walletkit/pulls), merge this PR, a new
-   version will be released
+   `alpha version` will be released
+6. After testing on the `alpha version`, we can merge the `alpha` branch into the `main` branch, and the [github action](https://github.com/node-real/walletkit/actions) will automatically execute
+   and create a new [release PR](https://github.com/node-real/walletkit/pulls), merge this PR, a new
+   `stable version` will be released

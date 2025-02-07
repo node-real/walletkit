@@ -1,7 +1,7 @@
 import { bitgetWalletConfig } from '@/core/configs/bitgetWallet';
 import { EvmWallet, InjectedEvmWalletOptions } from '../types';
 import { injected } from '../injected';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 import { isAndroid, isTMA } from '@/core/base/utils/mobile';
 
 export function bitgetWallet(props: InjectedEvmWalletOptions = {}): EvmWallet {

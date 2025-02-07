@@ -1,7 +1,7 @@
 import { tokenPocketConfig } from '@/core/configs/tokenPocket';
 import { injected } from '../injected';
 import { InjectedEvmWalletOptions, EvmWallet } from '../types';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 
 export function tokenPocket(props: InjectedEvmWalletOptions = {}): EvmWallet {
   const { connectorOptions, ...restProps } = props;

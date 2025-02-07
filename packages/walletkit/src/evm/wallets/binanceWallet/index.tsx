@@ -2,7 +2,7 @@ import { BinanceW3WParameters, getWagmiConnectorV2 } from '@binance/w3w-wagmi-co
 import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { binanceWalletConfig } from '@/core/configs/binanceWallet';
 import { EvmWallet } from '../types';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 import { sleep } from 'tronweb/utils';
 import { injected } from '../injected';
 

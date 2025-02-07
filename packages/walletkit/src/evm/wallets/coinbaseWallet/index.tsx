@@ -4,7 +4,7 @@ import {
 } from 'wagmi/connectors';
 import { coinbaseWalletConfig } from '@/core/configs/coinbaseWallet';
 import { EvmWallet } from '../types';
-import { getEvmInjectedProvider } from '../utils';
+import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 import { getEvmGlobalData } from '@/evm/globalData';
 
 interface CoinbaseWalletOptions extends Partial<EvmWallet> {
