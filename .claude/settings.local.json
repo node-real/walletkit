@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(export:*)",
+      "Bash(source:*)",
+      "Bash(find:*)"
+    ]
+  }
+}

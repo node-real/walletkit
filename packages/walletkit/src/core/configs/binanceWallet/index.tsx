@@ -10,5 +10,5 @@ export const binanceWalletConfig: WalletConfig = {
   downloadUrls: {
     default: 'https://www.binance.com/en/web3wallet',
   },
-  spinnerColor: undefined,
+  spinnerColor: '#F0B90B',
 };
