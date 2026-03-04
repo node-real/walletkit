@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.0
+
+### Minor Changes
+
+- 31a42b1: feat(binanceWallet): add browser extension support and improve desktop connection UX
+
 ## 2.8.0
 
 ### Minor Changes
