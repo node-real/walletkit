@@ -83,9 +83,7 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
       //   No extension -> SDK (QR/deeplink modal)
       {
         platforms: ['browser-pc'],
-        get connectType() {
-          return isBinanceInstalled() ? ('default' as const) : ('sdk' as const);
-        },
+        connectType: 'default' as const,
         isInstalled: isBinanceInstalled,
         getCreateConnectorFn() {
           if (isBinanceInstalled()) {
