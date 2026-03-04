@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.1
+
+### Minor Changes
+
+- d9b42e2: Update binance web3 wallet connect type
+
 ## 2.9.0-alpha.0
 
 ### Minor Changes
