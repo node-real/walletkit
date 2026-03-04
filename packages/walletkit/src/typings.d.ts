@@ -7,6 +7,9 @@ interface Window {
   bitkeep: any;
   tron: any;
   solana: any;
+  isBinance?: boolean;
+  binancew3w?: { ethereum?: any };
+  BinanceChain?: any;
 }
 
 declare module '@metamask/jazzicon';

@@ -1,5 +1,39 @@
 # @node-real/walletkit
 
+## 2.8.0
+
+### Minor Changes
+
+- 5758de4: Use behavior configuration to control different connection behaviors on different
+  platform
+- 5758de4: Refactor & add ConnectButton & ProfileModal
+- 5758de4: Support tg
+
+### Patch Changes
+
+- 5758de4: Update website
+- 5758de4: Support solana on mobile
+- 5758de4: Update trust deeplink on ios
+- 5758de4: Fix binance web3 wallet successfully detected trustwallet on mobile
+- 5758de4: Support connecting to a specified wallet based on its wallet id
+- 5758de4: Remove debug code
+- 5758de4: Fix styles
+- 5758de4: Only use binance sdk on pc
+- 5758de4: Fix trust issue
+- 5758de4: Export a method to check whether a provider exists
+- 5758de4: Add new wallet
+- 5758de4: Update tron dependencies
+- 5758de4: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+- 5758de4: Add deeplink for tw solana on mobile
+- 5758de4: Remove metaMask support on tg
+- 5758de4: Remove unused packages
+- 5758de4: Fix the trust wallet will automatically connect when the page loaded
+- 5758de4: Trigger uri connection by user
+- 5758de4: Fix the trust wallet will automatically connect when the page loaded
+- 5758de4: Update demo
+- 5758de4: Use window.trustwallet as TW provider to avoid conflicts
+- 5758de4: Add deelink for phantom
+
 ## 2.8.0-alpha.10
 
 ### Minor Changes
