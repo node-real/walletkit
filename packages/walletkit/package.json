@@ -61,6 +61,7 @@
     "@solana/web3.js": "^1",
     "@tronweb3/tronwallet-abstract-adapter": "^1",
     "@tronweb3/tronwallet-adapter-react-hooks": "^1",
+    "@tronweb3/tronwallet-adapter-binance": "^1.0.2",
     "@tronweb3/tronwallet-adapter-tronlink": "^1.1.11",
     "@uxuycom/web3-tg-sdk": "^0.1.5",
     "buffer": "^6.0.3",

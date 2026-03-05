@@ -1,6 +1,7 @@
 import { BinanceW3WParameters, getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
 import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { binanceWalletConfig } from '@/core/configs/binanceWallet';
+import { isBinanceInstalled, getBinanceAppLink } from '@/core/utils/binance';
 import { EvmWallet } from '../types';
 import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
 import { sleep } from '@/core/utils/common';
@@ -11,41 +12,21 @@ export interface BinanceWalletOptions extends Partial<EvmWallet> {
 }
 
 /**
- * Detect if running inside the Binance App in-app browser.
- * The Binance App sets window.isBinance = true.
- */
-function isInBinanceApp(): boolean {
-  if (typeof window === 'undefined') return false;
-  return Boolean(window.isBinance);
-}
-
-/**
- * Detect if the Binance Web3 Wallet browser extension is installed.
- * The extension injects window.binancew3w.
- */
-function isBinanceExtensionInstalled(): boolean {
-  if (typeof window === 'undefined') return false;
-  return Boolean(window.binancew3w);
-}
-
-/**
  * Get the Binance EVM provider.
  * Priority: window.ethereum.isBinance > window.binancew3w.ethereum
  */
 function getBinanceProvider(): any {
   if (typeof window === 'undefined') return undefined;
-  // Standard EIP-1193: injected by Binance App or extension via window.ethereum
   const injectedProvider = getEvmInjectedProvider('isBinance');
   if (injectedProvider) return injectedProvider;
-  // Fallback: standalone provider from extension
   return window.binancew3w?.ethereum;
 }
 
 /**
- * Returns true if any Binance wallet source is available.
+ * Returns true if any Binance EVM wallet source is available.
  */
-function isBinanceInstalled(): boolean {
-  return isInBinanceApp() || isBinanceExtensionInstalled() || Boolean(getBinanceProvider());
+function isBinanceEvmInstalled(): boolean {
+  return isBinanceInstalled() || Boolean(getBinanceProvider());
 }
 
 export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
@@ -84,9 +65,9 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
       {
         platforms: ['browser-pc'],
         connectType: 'default' as const,
-        isInstalled: isBinanceInstalled,
+        isInstalled: isBinanceEvmInstalled,
         getCreateConnectorFn() {
-          if (isBinanceInstalled()) {
+          if (isBinanceEvmInstalled()) {
             return injected({
               shimDisconnect: true,
               target: {
@@ -109,16 +90,9 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
       {
         platforms: ['browser-android', 'browser-ios'],
         connectType: 'default' as const,
-        isInstalled: isBinanceInstalled,
+        isInstalled: isBinanceEvmInstalled,
         getAppLink() {
-          const url = window.location.href;
-          const base = 'bnc://app.binance.com/mp/app';
-          const appId = 'yFK5FCqYprrXDiVFbhyRx7';
-          const startPagePath = window.btoa('/pages/browser/index');
-          const startPageQuery = window.btoa(`url=${url}`);
-          const deeplink = `${base}?appId=${appId}&startPagePath=${startPagePath}&startPageQuery=${startPageQuery}`;
-          const dp = window.btoa(deeplink);
-          return `https://app.binance.com/en/download?_dp=${dp}`;
+          return getBinanceAppLink();
         },
         getCreateConnectorFn() {
           let isReady = false;
