@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.2
+
+### Minor Changes
+
+- e216b50: feat(binanceWallet): add Solana and Tron chain support
+
 ## 2.9.0-alpha.1
 
 ### Minor Changes
