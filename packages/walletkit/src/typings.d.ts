@@ -8,7 +8,7 @@ interface Window {
   tron: any;
   solana: any;
   isBinance?: boolean;
-  binancew3w?: { ethereum?: any };
+  binancew3w?: { ethereum?: any; solana?: any; tron?: any };
   BinanceChain?: any;
 }
 
