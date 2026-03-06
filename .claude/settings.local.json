@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/tmp/comparison.txt:*)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:developers.binance.com)",
+      "Bash(npm run:*)",
+      "Bash(git stash:*)",
+      "Bash(grep \"\"version\"\":*)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}
