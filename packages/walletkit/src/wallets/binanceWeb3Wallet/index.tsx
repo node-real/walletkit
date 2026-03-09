@@ -2,8 +2,7 @@ import { Chain } from 'wagmi';
 import { PartialCustomProps, WalletProps } from '..';
 import { BinanceWeb3WalletIcon, BinanceWeb3WalletTransparentIcon } from './icon';
 import { hasInjectedProvider } from '../utils';
-import { CustomConnector } from '../custom/connector';
-import { isMobile } from '@/base/utils/mobile';
+import { BinanceWeb3WalletConnector } from './connector';
 
 export const BINANCE_WEB3_WALLET_ID = 'binanceWeb3Wallet';
 export const BINANCE_WEB3_WALLET_NAME = 'Binance Web3 Wallet';
@@ -25,21 +24,9 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
     showQRCode: false,
     isInstalled: isBinanceWeb3Wallet,
     createConnector: (chains: Chain[]) => {
-      return new CustomConnector({
-        id: BINANCE_WEB3_WALLET_ID,
+      return new BinanceWeb3WalletConnector({
         chains,
         options: {
-          name: BINANCE_WEB3_WALLET_NAME,
-          shimDisconnect: true,
-          getProvider() {
-            if (typeof window === 'undefined') return;
-
-            if (isMobile()) {
-              return window.ethereum;
-            }
-
-            return window.binancew3w?.ethereum;
-          },
           ...connectorOptions,
         },
       });
