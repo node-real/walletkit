@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 1.2.0
+
+### Minor Changes
+
+- 908d2cb: fix: restore BinanceWeb3WalletConnector for mobile in-app browser compatibility
+- d8de4b4: feat: add desktop extension support for Binance Web3 Wallet
+
 ## 1.1.4
 
 ### Patch Changes
@@ -215,7 +222,6 @@
 ### Patch Changes
 
 - 12ebee8:
-
   - Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
 
   - Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
