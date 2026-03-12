@@ -10,7 +10,12 @@ import {
   WalletKitProvider,
   getDefaultConfig,
 } from '@node-real/walletkit';
-import { trustWallet, metaMask, walletConnect } from '@node-real/walletkit/wallets';
+import {
+  binanceWeb3Wallet,
+  trustWallet,
+  metaMask,
+  walletConnect,
+} from '@node-real/walletkit/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -22,7 +27,7 @@ const config = createConfig(
     walletConnectProjectId: 'e68a1816d39726c2afabf05661a32767',
 
     chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
+    connectors: [binanceWeb3Wallet(), trustWallet(), metaMask(), walletConnect()],
   }),
 );
 

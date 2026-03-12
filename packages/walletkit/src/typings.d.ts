@@ -12,6 +12,7 @@ declare global {
     tokenpocket: any;
     okexchain: any;
     bitkeep: any;
+    binancew3w: any;
   }
 }
 

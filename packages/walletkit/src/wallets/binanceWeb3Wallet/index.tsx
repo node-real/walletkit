@@ -21,13 +21,12 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
       default: 'https://www.binance.com/en/web3wallet',
     },
     spinnerColor: undefined,
-    showQRCode: true,
+    showQRCode: false,
     isInstalled: isBinanceWeb3Wallet,
     createConnector: (chains: Chain[]) => {
       return new BinanceWeb3WalletConnector({
         chains,
         options: {
-          shimDisconnect: true,
           ...connectorOptions,
         },
       });
@@ -44,7 +43,8 @@ export function binanceWeb3Wallet(props: PartialCustomProps = {}): WalletProps {
 }
 
 export function isBinanceWeb3Wallet() {
-  return hasInjectedProvider('isBinance' as any);
+  if (typeof window === 'undefined') return false;
+  return !!window.binancew3w?.ethereum || hasInjectedProvider('isBinance' as any);
 }
 
 const getDeepLink = (url: string) => {

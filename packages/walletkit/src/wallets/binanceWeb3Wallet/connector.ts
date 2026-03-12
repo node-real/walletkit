@@ -49,4 +49,7 @@ function getProvider() {
   if (isMobile()) {
     return window.ethereum;
   }
+
+  // Desktop: use Binance Web3 Wallet browser extension
+  return window.binancew3w?.ethereum;
 }

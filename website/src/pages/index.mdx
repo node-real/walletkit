@@ -18,7 +18,7 @@ npm i @node-real/walletkit@^1 wagmi@^1 viem@^1
 
 | wallet              | mainnet | testnet |
 | ------------------- | ------- | ------- |
-| binanceWeb3Wallet() | ✅      | ❌      |
+| binanceWeb3Wallet() | ✅      | ✅      |
 | bitgetWallet()      | ✅      | ❌      |
 | coinbaseWallet()    | ✅      | ✅      |
 | metaMask()          | ✅      | ✅      |
@@ -96,7 +96,12 @@ import {
   WalletKitOptions,
   SwitchNetworkModal,
 } from '@node-real/walletkit';
-import { metaMask, trustWallet, walletConnect } from '@node-real/walletkit/wallets';
+import {
+  binanceWeb3Wallet,
+  metaMask,
+  trustWallet,
+  walletConnect,
+} from '@node-real/walletkit/wallets';
 
 const config = createConfig(
   getDefaultConfig({
@@ -108,7 +113,7 @@ const config = createConfig(
     walletConnectProjectId: 'xxx',
 
     chains,
-    connectors: [trustWallet(), metaMask(), walletConnect()],
+    connectors: [binanceWeb3Wallet(), trustWallet(), metaMask(), walletConnect()],
   }),
 );
 
