@@ -1,5 +1,11 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.3
+
+### Patch Changes
+
+- f8b2ee0: add copy link button to QR code view
+
 ## 2.9.0-alpha.2
 
 ### Minor Changes
