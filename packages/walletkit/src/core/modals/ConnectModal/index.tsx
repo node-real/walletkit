@@ -3,11 +3,13 @@ import { useWalletKit } from '@/core/providers/WalletKitProvider/context';
 import { useRouter } from '../../providers/RouteProvider/context';
 import { useConnectModal } from './context';
 import { Navbar } from '@/core/components/Navbar';
+import { ViewRoutes } from '../../providers/RouteProvider';
+import { IOSSecurityNotice } from './IOSSecurityNotice';
 
 export function ConnectModal() {
   const { options } = useWalletKit();
-  const { isOpen, onClose } = useConnectModal();
-  const { view, history, back } = useRouter();
+  const { isOpen, onClose, iosRisk, acknowledgeIOSRisk } = useConnectModal();
+  const { view, history, back, route } = useRouter();
 
   const showBack = history.length > 1;
 
@@ -20,7 +22,11 @@ export function ConnectModal() {
       closeOnOverlayClick={options?.closeModalOnOverlayClick}
     >
       <Navbar showBack={showBack} onBack={back} onClose={onClose} />
-      {view}
+      {route === ViewRoutes.HOME && iosRisk ? (
+        <IOSSecurityNotice risk={iosRisk} onContinue={acknowledgeIOSRisk} onCancel={onClose} />
+      ) : (
+        view
+      )}
     </Modal>
   );
 }
