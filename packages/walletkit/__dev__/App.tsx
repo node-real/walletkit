@@ -14,6 +14,7 @@ import {
   walletConnect,
 } from '@/evm/index';
 import {
+  binanceWallet as solanaBinanceWallet,
   trustWallet as solanaTrustWallet,
   phantomWallet as solanaPhantomWallet,
   defaultSolanaConfig,
@@ -22,7 +23,12 @@ import {
 import { bsc, mainnet, dfk } from 'viem/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAccount, useDisconnect } from 'wagmi';
-import { defaultTronConfig, tronLink, useTronWallet } from '@/tron/index';
+import {
+  binanceWallet as tronBinanceWallet,
+  defaultTronConfig,
+  tronLink,
+  useTronWallet,
+} from '@/tron/index';
 import { uxuyWallet } from '@/evm/wallets/uxuyWallet';
 import { useEvmSwitchChain } from '@/evm/hooks/useEvmSwitchChain';
 import { codexFieldWallet } from '@/evm/wallets/codexFieldWallet';
@@ -67,12 +73,12 @@ const config: WalletKitConfig = {
   solanaConfig: defaultSolanaConfig({
     autoConnect: true,
     rpcUrl: 'https://solana-rpc.debridge.finance',
-    wallets: [solanaTrustWallet(), solanaPhantomWallet()],
+    wallets: [solanaBinanceWallet(), solanaTrustWallet(), solanaPhantomWallet()],
   }),
   tronConfig: defaultTronConfig({
     autoConnect: true,
     initialChainId: '0xcd8690dc',
-    wallets: [tronLink()],
+    wallets: [tronBinanceWallet(), tronLink()],
   }),
 };
 

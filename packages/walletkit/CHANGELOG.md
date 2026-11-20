@@ -1,5 +1,36 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.4
+
+### Minor Changes
+
+- 04a391d: Show an iOS security warning before wallet selection when the browser reports an affected
+  version. The warning is enabled by default and can be disabled with `options.iosSecurityWarning`.
+
+## 2.9.0-alpha.3
+
+### Patch Changes
+
+- f8b2ee0: add copy link button to QR code view
+
+## 2.9.0-alpha.2
+
+### Minor Changes
+
+- e216b50: feat(binanceWallet): add Solana and Tron chain support
+
+## 2.9.0-alpha.1
+
+### Minor Changes
+
+- d9b42e2: Update binance web3 wallet connect type
+
+## 2.9.0-alpha.0
+
+### Minor Changes
+
+- 31a42b1: feat(binanceWallet): add browser extension support and improve desktop connection UX
+
 ## 2.8.0
 
 ### Minor Changes

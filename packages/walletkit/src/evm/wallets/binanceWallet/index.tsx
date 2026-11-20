@@ -1,39 +1,50 @@
 import { BinanceW3WParameters, getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
 import { isMobile, isTMA } from '@/core/base/utils/mobile';
 import { binanceWalletConfig } from '@/core/configs/binanceWallet';
+import { isBinanceInstalled, getBinanceAppLink } from '@/core/utils/binance';
 import { EvmWallet } from '../types';
 import { getEvmInjectedProvider } from '../../utils/getEvmInjectedProvider';
-import { sleep } from 'tronweb/utils';
+import { sleep } from '@/core/utils/common';
 import { injected } from '../injected';
 
 export interface BinanceWalletOptions extends Partial<EvmWallet> {
   connectorOptions?: BinanceW3WParameters;
 }
 
+/**
+ * Get the Binance EVM provider.
+ * Priority: window.ethereum.isBinance > window.binancew3w.ethereum
+ */
+function getBinanceProvider(): any {
+  if (typeof window === 'undefined') return undefined;
+  const injectedProvider = getEvmInjectedProvider('isBinance');
+  if (injectedProvider) return injectedProvider;
+  return window.binancew3w?.ethereum;
+}
+
+/**
+ * Returns true if any Binance EVM wallet source is available.
+ */
+function isBinanceEvmInstalled(): boolean {
+  return isBinanceInstalled() || Boolean(getBinanceProvider());
+}
+
 export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
   const { connectorOptions = {}, ...restProps } = props;
-
-  const getProvider = () => {
-    if (typeof window === 'undefined') return;
-    return getEvmInjectedProvider('isBinance');
-  };
-
-  const isInstalled = () => {
-    return !!getProvider();
-  };
 
   return {
     ...binanceWalletConfig,
     id: 'binanceWeb3Wallet',
     walletType: 'evm',
     behaviors: [
+      // Behavior 1: Telegram Mini App - always use SDK connector
       {
-        platforms: ['tg-android', 'tg-ios', 'tg-pc', 'browser-pc'],
-        connectType: 'sdk',
+        platforms: ['tg-android', 'tg-ios', 'tg-pc'],
+        connectType: 'sdk' as const,
         getCreateConnectorFn() {
+          // In TMA, intercept bnc:// deep links and convert to HTTPS download links
           if (typeof window !== 'undefined' && isMobile() && isTMA()) {
             const originalAppendChild = document.body.appendChild;
-
             document.body.appendChild = function (node, ...params) {
               if (node instanceof HTMLAnchorElement && node.href?.startsWith('bnc://')) {
                 node.href = `https://app.binance.com/en/download?_dp=${window.btoa(node.href)}`;
@@ -44,42 +55,58 @@ export function binanceWallet(props: BinanceWalletOptions = {}): EvmWallet {
           }
 
           const connector = getWagmiConnectorV2();
-          return connector({
-            ...connectorOptions,
-          });
+          return (connector as any)({ ...connectorOptions });
         },
       },
+
+      // Behavior 2: Desktop browser - smart connector selection
+      //   Binance App or extension installed -> injected (instant, like MetaMask)
+      //   No extension -> SDK (QR/deeplink modal)
+      {
+        platforms: ['browser-pc'],
+        connectType: 'default' as const,
+        isInstalled: isBinanceEvmInstalled,
+        getCreateConnectorFn() {
+          if (isBinanceEvmInstalled()) {
+            return injected({
+              shimDisconnect: true,
+              target: {
+                id: 'binanceWeb3Wallet',
+                name: 'Binance Wallet',
+                async provider() {
+                  return getBinanceProvider();
+                },
+              },
+              ...connectorOptions,
+            });
+          }
+          // No extension: SDK connector opens QR/deeplink modal
+          const connector = getWagmiConnectorV2();
+          return (connector as any)({ ...connectorOptions });
+        },
+      },
+
+      // Behavior 3: Mobile browser - injected + deep link fallback
       {
         platforms: ['browser-android', 'browser-ios'],
-        connectType: 'default',
-        isInstalled,
+        connectType: 'default' as const,
+        isInstalled: isBinanceEvmInstalled,
         getAppLink() {
-          const url = window.location.href;
-          const base = 'bnc://app.binance.com/mp/app';
-          const appId = 'yFK5FCqYprrXDiVFbhyRx7';
-
-          const startPagePath = window.btoa('/pages/browser/index');
-          const startPageQuery = window.btoa(`url=${url}`);
-          const deeplink = `${base}?appId=${appId}&startPagePath=${startPagePath}&startPageQuery=${startPageQuery}`;
-          const dp = window.btoa(deeplink);
-          const http = `https://app.binance.com/en/download?_dp=${dp}`;
-
-          return http;
+          return getBinanceAppLink();
         },
         getCreateConnectorFn() {
           let isReady = false;
-
           return injected({
             shimDisconnect: true,
             target: {
-              id: binanceWallet().id,
-              name: binanceWallet().name,
+              id: 'binanceWeb3Wallet',
+              name: 'Binance Wallet',
               async provider() {
-                if (isMobile() && isInstalled() && !isReady) {
+                if (isMobile() && isBinanceInstalled() && !isReady) {
                   await sleep(3000);
                 }
                 isReady = true;
-                return getProvider();
+                return getBinanceProvider();
               },
             },
             ...connectorOptions,

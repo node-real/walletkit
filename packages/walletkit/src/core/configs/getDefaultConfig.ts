@@ -15,6 +15,7 @@ export function getDefaultConfig(config: WalletKitConfig): DefaultConfig {
       disclaimer: undefined,
       gridLayoutThreshold: 6,
       useGridLayoutOnMobile: true,
+      iosSecurityWarning: true,
 
       hideNoWalletCTA: false,
       hideOfficialWalletConnectCTA: true,
