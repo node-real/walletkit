@@ -37,32 +37,25 @@ function compareVersions(a: Version, b: Version) {
 
 export function detectIOSRisk(userAgent: string): IOSRisk | null {
   const device = userAgent.match(
-    /^Mozilla\/5\.0 \((iPhone; CPU iPhone OS|iPad; CPU OS) (\d{1,2})_(\d{1,2})(?:_(\d{1,2}))? like Mac OS X\) AppleWebKit\/[\d.]+ \(KHTML, like Gecko\) Version\/(\d{1,2})(?:\.\d+)+ Mobile\/\w+ Safari\/[\d.]+$/,
+    /^Mozilla\/5\.0 \((iPhone; CPU iPhone OS|iPad; CPU OS) (\d{1,2})_(\d{1,2})_(\d{1,2}) like Mac OS X\) AppleWebKit\/[\d.]+ \(KHTML, like Gecko\) Version\/(\d{1,2})(?:\.\d+)+ Mobile\/\w+ Safari\/[\d.]+$/,
   );
   if (!device) return null;
 
   const [, platformToken, majorText, minorText, patchText, safariMajor] = device;
-  const major = Number(majorText);
-  const minor = Number(minorText);
+  const version: Version = [Number(majorText), Number(minorText), Number(patchText)];
 
   // Safari 26 can report a frozen 18.x OS token. The browser's own Version/
   // token still distinguishes it from Safari on iOS 18.
   // https://webkit.org/blog/17333/webkit-features-in-safari-26-0/#update-to-ua-string
-  if (Number(safariMajor) !== major) return null;
+  if (Number(safariMajor) !== version[0]) return null;
 
-  const lowest: Version = [major, minor, Number(patchText ?? 0)];
-  // Require all possible patches to be in range when the UA omits the patch.
-  const highest: Version = [major, minor, patchText ? Number(patchText) : Infinity];
-  if (
-    !riskRanges.some(
-      ([from, until]) => compareVersions(lowest, from) >= 0 && compareVersions(highest, until) < 0,
-    )
-  ) {
-    return null;
-  }
+  const isAffected = riskRanges.some(
+    ([from, until]) => compareVersions(version, from) >= 0 && compareVersions(version, until) < 0,
+  );
+  if (!isAffected) return null;
 
   return {
-    version: patchText ? lowest.join('.') : `${major}.${minor}`,
+    version: version.join('.'),
     platform: platformToken.startsWith('iPad') ? 'iPadOS' : 'iOS',
   };
 }
