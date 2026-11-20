@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 2.9.0-alpha.4
+
+### Minor Changes
+
+- 04a391d: Show an iOS security warning before wallet selection when the browser reports an affected
+  version. The warning is enabled by default and can be disabled with `options.iosSecurityWarning`.
+
 ## 2.9.0-alpha.3
 
 ### Patch Changes
