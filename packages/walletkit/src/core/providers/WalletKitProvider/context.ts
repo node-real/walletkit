@@ -15,6 +15,8 @@ export interface WalletKitConfig {
     disclaimer?: React.ReactNode;
     gridLayoutThreshold?: number;
     useGridLayoutOnMobile?: boolean;
+    /** Ask affected iOS users to acknowledge the risk before choosing a wallet. Defaults to true. */
+    iosSecurityWarning?: boolean;
 
     hideNoWalletCTA?: boolean;
     hideOfficialWalletConnectCTA?: boolean;

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ViewRoutes } from '../../providers/RouteProvider';
 import { Action } from '@/core/providers/WalletKitProvider/context';
 import { BaseWallet } from '@/core/configs/types';
+import type { IOSRisk } from './iosRisk';
 
 export interface ConnectModalOpenParams {
   action?: Action;
@@ -18,6 +19,8 @@ export interface ConnectModalOpenParams {
 
 export interface ConnectModalContextProps {
   isOpen: boolean;
+  iosRisk: IOSRisk | null;
+  acknowledgeIOSRisk: () => void;
   onClose: () => void;
   onOpen: (params?: ConnectModalOpenParams) => void;
 }

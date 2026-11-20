@@ -25,8 +25,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const { variant = 'base', mode = 'auto', theme, children } = props;
 
   const styleContent = useMemo(() => {
-    const lightTheme = deepMerge(themeMap[variant].light ?? theme, theme?.light ?? theme);
-    const darkTheme = deepMerge(themeMap[variant].dark ?? theme, theme?.dark ?? theme);
+    const lightTheme = deepMerge({}, themeMap[variant].light ?? theme);
+    const darkTheme = deepMerge({}, themeMap[variant].dark ?? theme);
+    deepMerge(lightTheme, theme?.light ?? theme);
+    deepMerge(darkTheme, theme?.dark ?? theme);
 
     const lightCssVars = createCssVars(lightTheme, '--wk-light');
     const darkCssVars = createCssVars(darkTheme, '--wk-dark');
