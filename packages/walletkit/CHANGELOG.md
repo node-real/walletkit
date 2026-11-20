@@ -1,5 +1,45 @@
 # @node-real/walletkit
 
+## 2.9.0
+
+### Minor Changes
+
+- b6cbb8d: Use behavior configuration to control different connection behaviors on different
+  platform
+- e216b50: feat(binanceWallet): add Solana and Tron chain support
+- 04a391d: Show an iOS security warning before wallet selection when the browser reports an affected
+  version. The warning is enabled by default and can be disabled with `options.iosSecurityWarning`.
+- 47dd579: Refactor & add ConnectButton & ProfileModal
+- d9b42e2: Update binance web3 wallet connect type
+- 31a42b1: feat(binanceWallet): add browser extension support and improve desktop connection UX
+- 86426c0: Support tg
+
+### Patch Changes
+
+- cc36a2d: Update website
+- cf27048: Support solana on mobile
+- d394ba4: Update trust deeplink on ios
+- f06cd1f: Fix binance web3 wallet successfully detected trustwallet on mobile
+- 1035289: Support connecting to a specified wallet based on its wallet id
+- 46b4809: Remove debug code
+- e59d946: Fix styles
+- f8b2ee0: add copy link button to QR code view
+- 1a56e68: Only use binance sdk on pc
+- 11da348: Fix trust issue
+- 9ee1fa9: Export a method to check whether a provider exists
+- 12c7eef: Add new wallet
+- 601d110: Update tron dependencies
+- 615241f: Fix an issue where solana is disconnected when trust evm wallet is disconnected
+- 55abc5d: Add deeplink for tw solana on mobile
+- b5db8f6: Remove metaMask support on tg
+- 9a7e0b8: Remove unused packages
+- 81a347a: Fix the trust wallet will automatically connect when the page loaded
+- b0f1292: Trigger uri connection by user
+- 25add5c: Fix the trust wallet will automatically connect when the page loaded
+- 70cf43d: Update demo
+- a0d1970: Use window.trustwallet as TW provider to avoid conflicts
+- f20032d: Add deelink for phantom
+
 ## 2.9.0-alpha.4
 
 ### Minor Changes
