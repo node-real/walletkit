@@ -52,7 +52,11 @@ export function TemplateQRCodeView(props: TemplateQRCodeViewProps) {
       {showFooter && (
         <ModalFooter className={clsFooter}>
           {!!qrCodeUri && (
-            <button className={cx('wk-copy-link-button', clsCopyButton)} onClick={onCopy}>
+            <button
+              type="button"
+              className={cx('wk-copy-link-button', clsCopyButton)}
+              onClick={onCopy}
+            >
               {hasCopied ? (
                 <>
                   <SuccessIcon width={16} height={16} />
