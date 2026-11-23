@@ -1,5 +1,6 @@
 import { Action } from '@/components/WalletKitProvider/context';
 import React, { useContext } from 'react';
+import type { IOSRisk } from '../iosRisk';
 
 export interface WalletKitModalOpenOptions {
   action?: Action;
@@ -8,6 +9,9 @@ export interface WalletKitModalOpenOptions {
 
 export interface WalletKitModalContextProps {
   isOpen: boolean;
+  iosRisk: IOSRisk | null | undefined;
+  checkIOSRisk: () => void;
+  acknowledgeIOSRisk: () => void;
   onClose: () => void;
   onOpen: (options?: WalletKitModalOpenOptions) => void;
 }

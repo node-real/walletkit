@@ -77,6 +77,17 @@ export default function App() {
 }
 ```
 
+### iOS security warning
+
+WalletKit shows a warning before wallet selection in both the dialog and embedded
+wallet selector when Safari reports an affected iOS or iPadOS version. If Safari
+omits the patch number, the warning appears only when the whole reported version
+series is affected. An acknowledgement applies to that reported version and
+risk policy for the rest of the browser tab's session.
+
+The warning is enabled by default. To disable it, set `iosSecurityWarning: false`
+in the `options` passed to `WalletKitProvider`.
+
 ## Contributing
 
 Please follow our [WalletKit Contribution Guide](./CONTRIBUTING.md).

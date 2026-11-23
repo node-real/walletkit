@@ -19,6 +19,7 @@ export interface WalletKitOptions {
 
   gridLayoutThreshold?: number;
   useGridLayoutOnMobile?: boolean;
+  iosSecurityWarning?: boolean;
 
   closeModalAfterConnected?: boolean;
   closeModalAfterSwitchingNetwork?: boolean;

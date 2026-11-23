@@ -1,15 +1,10 @@
 # @node-real/walletkit
 
-## 1.2.0-alpha.1
+## 1.2.0
 
 ### Minor Changes
 
 - 908d2cb: fix: restore BinanceWeb3WalletConnector for mobile in-app browser compatibility
-
-## 1.2.0-alpha.0
-
-### Minor Changes
-
 - d8de4b4: feat: add desktop extension support for Binance Web3 Wallet
 
 ## 1.1.4
