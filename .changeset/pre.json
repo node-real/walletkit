@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "alpha-v1",
+  "initialVersions": {
+    "example-nextjs": "0.0.1",
+    "example-vite": "0.0.1",
+    "@node-real/walletkit": "1.2.0",
+    "website": "0.0.1"
+  },
+  "changesets": []
+}

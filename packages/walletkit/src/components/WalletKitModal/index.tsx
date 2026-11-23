@@ -3,12 +3,14 @@ import { useRouter } from '../RouteProvider/context';
 import { useWalletKitModal } from './WalletKitModalProvider/context';
 import { useWalletKitContext } from '../WalletKitProvider/context';
 import { Navbar } from '../Navbar';
+import { routes } from '../RouteProvider';
+import { IOSSecurityNotice } from './IOSSecurityNotice';
 
 export function WalletKitModal() {
   const { options } = useWalletKitContext();
-  const { isOpen, onClose } = useWalletKitModal();
+  const { isOpen, onClose, iosRisk, acknowledgeIOSRisk } = useWalletKitModal();
 
-  const { page } = useRouter();
+  const { route, page } = useRouter();
 
   return (
     <Modal
@@ -19,7 +21,11 @@ export function WalletKitModal() {
       closeOnOverlayClick={options.closeModalOnOverlayClick}
     >
       <Navbar onClose={onClose} />
-      {page}
+      {route === routes.CONNECTORS && iosRisk !== null
+        ? iosRisk && (
+            <IOSSecurityNotice risk={iosRisk} onContinue={acknowledgeIOSRisk} onCancel={onClose} />
+          )
+        : page}
     </Modal>
   );
 }

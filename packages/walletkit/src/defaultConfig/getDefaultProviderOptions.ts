@@ -11,6 +11,7 @@ export function getDefaultProviderOptions(options: WalletKitOptions) {
     disclaimer: undefined,
     gridLayoutThreshold: 6,
     useGridLayoutOnMobile: true,
+    iosSecurityWarning: true,
 
     hideNoWalletCTA: false,
     hideOfficialWalletConnectCTA: false,
