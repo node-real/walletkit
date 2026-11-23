@@ -1,5 +1,12 @@
 # @node-real/walletkit
 
+## 1.3.0
+
+### Minor Changes
+
+- Show an iOS security warning before wallet selection on affected iOS and iPadOS versions. The
+  warning is enabled by default and can be disabled with `options.iosSecurityWarning`.
+
 ## 1.2.0
 
 ### Minor Changes
@@ -222,6 +229,7 @@
 ### Patch Changes
 
 - 12ebee8:
+
   - Add Binance Web3 Wallet & Coinbase Wallet & OKX Wallet & MathWallet support.
 
   - Add showQRCode & getQRCodeUri configuration items to support display a QR code when a wallet is
